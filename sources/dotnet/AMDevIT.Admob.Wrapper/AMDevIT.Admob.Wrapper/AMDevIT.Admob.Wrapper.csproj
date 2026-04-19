@@ -4,16 +4,35 @@
 	  <TargetFrameworks>net10.0-android;net10.0-ios</TargetFrameworks>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-	  <Version>0.0.1.0</Version>
+	  <Version>0.0.1.0-alpha</Version>
 	  <Authors>Alessandro Morvillo</Authors>
-	  <Description>AdMob wrapper with async support for .NET MAUI, Android and iOS</Description>
+	  <Description>AdMob wrapper with async support for .NET MAUI, Android and iOS. It uses the native binding libraries to wrap the AdMob functionalities for all the mobile OSes.</Description>
 	  <PackageLicenseExpression>MIT</PackageLicenseExpression>
+	  <Title>AMDev.IT AdMob wrapping library </Title>
+	  <Company>AMDev.IT di Alessandro Morvillo</Company>
+	  <Copyright>Alessandro Morvillo, 2026</Copyright>
+	  <PackageProjectUrl>https://github.com/AMDevIT/AMDevITAdMobWrapper</PackageProjectUrl>
+	  <PackageIcon>admob_maui_icon_v4_wallet_block.png</PackageIcon>
+	  <PackageReadmeFile>README.md</PackageReadmeFile>
+	  <PackageTags>AdMob;Wrapper;MAUI;Google;Advertising;Monetization;Android;iOS</PackageTags>
+	  <PackageReleaseNotes>First version that includes Android bindings.</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup Condition="'$(TargetFramework)' == 'net10.0-android'">
 	  <ProjectReference Include="..\AMDevIT.Admob.Wrapper.Droid\AMDevIT.Admob.Wrapper.Droid.csproj">
 		  <PrivateAssets>none</PrivateAssets>
 	  </ProjectReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\..\..\..\assets\icons\png\admob_maui_icon_v4_wallet_block.png">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+    <None Include="..\..\..\..\README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
   </ItemGroup>
 
 </Project>
