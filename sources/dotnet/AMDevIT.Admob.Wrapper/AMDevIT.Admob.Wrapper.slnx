@@ -1,0 +1,15 @@
+<Solution>
+  <Folder Name="/Apps/">
+    <Project Path="AMDevIT.Admob.Wrapper.DroidTestApp/AMDevIT.Admob.Wrapper.DroidTestApp.csproj">
+      <Deploy />
+    </Project>
+  </Folder>
+  <Folder Name="/Elementi di soluzione/">
+    <File Path="../../../LICENSE" />
+    <File Path="../../../README.md" />
+  </Folder>
+  <Folder Name="/Libraries/">
+    <Project Path="AMDevIT.Admob.Wrapper.Droid/AMDevIT.Admob.Wrapper.Droid.csproj" />
+    <Project Path="AMDevIT.Admob.Wrapper/AMDevIT.Admob.Wrapper.csproj" />
+  </Folder>
+</Solution>

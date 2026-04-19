@@ -1,0 +1,59 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net10.0-android</TargetFramework>
+    <SupportedOSPlatformVersion>33.0</SupportedOSPlatformVersion>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+	  <Version>0.0.1.0</Version>
+	  <Authors>Alessandro Morvillo</Authors>
+	  <Description>AdMob binding library for Android. It allows to use the AdMob library directly from an Android application project. Or can be used to implement a custom handler in MAUI. </Description>
+	  <PackageLicenseExpression>MIT</PackageLicenseExpression> 	  
+    <!--
+      Enable trim analyzers for Android class libraries.
+      To learn more, see: https://learn.microsoft.com/dotnet/core/deploying/trimming/prepare-libraries-for-trimming
+    -->
+    <IsTrimmable>true</IsTrimmable>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <Title>AMDev.IT AdMob binding library for Android</Title>
+    <Company>AMDev.IT di Alessandro Morvillo</Company>
+    <Copyright>Alessandro Morvillo, 2026</Copyright>
+    <PackageProjectUrl>https://github.com/AMDevIT/AMDevITAdMobWrapper</PackageProjectUrl>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <RepositoryUrl>https://github.com/AMDevIT/AMDevITAdMobWrapper</RepositoryUrl>
+    <PackageTags>AdMob;Binding;MAUI;Google;Advertising;Monetization</PackageTags>
+    <PackageReleaseNotes>First working version</PackageReleaseNotes>
+    <PackageIcon>admob_maui_icon_v4_wallet_block.png</PackageIcon> 
+  </PropertyGroup>
+
+	<ItemGroup>
+		<AndroidNamespaceReplacement Include="it.amdev.admob.wrapper" Replacement="AMDevIT.Admob.Wrapper" />
+	</ItemGroup>
+	
+  <!--<ItemGroup>
+    <Folder Include="Jars\" />
+  </ItemGroup>-->	
+	
+	<ItemGroup Condition="'$(Configuration)' == 'Debug'">
+		<AndroidLibrary Update="Jars\admob-wrapper-release.aar" Bind="false" />
+	</ItemGroup>
+
+	<ItemGroup Condition="'$(Configuration)' == 'Release'">
+		<AndroidLibrary Update="Jars\admob-wrapper-debug.aar" Bind="false" />
+	</ItemGroup>
+	
+  <ItemGroup>
+    <None Include="..\..\..\..\assets\icons\png\admob_maui_icon_v4_wallet_block.png">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+    <None Include="..\..\..\..\README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+	  <PackageReference Include="Xamarin.GooglePlayServices.Ads" Version="125.0.0.1">
+		  <PrivateAssets>none</PrivateAssets>
+	  </PackageReference>
+  </ItemGroup>
+</Project>

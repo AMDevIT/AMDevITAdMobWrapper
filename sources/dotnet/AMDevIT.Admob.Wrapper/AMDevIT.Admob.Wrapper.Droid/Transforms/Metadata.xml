@@ -1,0 +1,4 @@
+﻿<metadata>
+	<remove-node path="/api/package[@name='it.amdev.admob.wrapper']/class[@name='AdMobManager.Companion']" />
+	<remove-node path="/api/package[@name='it.amdev.admob.wrapper']/class[@name='AdMobManager']/field[@name='Companion']" />
+</metadata>

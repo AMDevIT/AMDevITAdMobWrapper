@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+	<TextView
+        android:id="@+id/statusText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Initializing..."
+        android:padding="8dp"
+        android:textSize="14sp"/>
+
+	<ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+		<LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="8dp">
+
+			<TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Banner"
+                android:textStyle="bold"
+                android:paddingBottom="4dp"/>
+
+			<FrameLayout
+                android:id="@+id/bannerContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"/>
+
+			<Button
+                android:id="@+id/btnInterstitial"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Load &amp; Show Interstitial"
+                android:layout_marginBottom="8dp"/>
+
+			<Button
+                android:id="@+id/btnRewarded"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Load &amp; Show Rewarded"
+                android:layout_marginBottom="8dp"/>
+
+			<Button
+                android:id="@+id/btnAppOpen"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Load &amp; Show App Open"
+                android:layout_marginBottom="8dp"/>
+
+		</LinearLayout>
+	</ScrollView>
+</LinearLayout>
