@@ -24,5 +24,4 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "AdMob Wapper App"
-include(":app")
 include(":admob-wrapper")

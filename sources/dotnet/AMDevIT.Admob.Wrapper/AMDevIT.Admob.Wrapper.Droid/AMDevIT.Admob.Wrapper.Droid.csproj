@@ -29,18 +29,14 @@
 		<AndroidNamespaceReplacement Include="it.amdev.admob.wrapper" Replacement="AMDevIT.Admob.Wrapper" />
 	</ItemGroup>
 	
-  <!--<ItemGroup>
+  <ItemGroup>
     <Folder Include="Jars\" />
-  </ItemGroup>-->	
-	
-	<ItemGroup Condition="'$(Configuration)' == 'Debug'">
-		<AndroidLibrary Update="Jars\admob-wrapper-release.aar" Bind="false" />
-	</ItemGroup>
+  </ItemGroup>
 
-	<ItemGroup Condition="'$(Configuration)' == 'Release'">
-		<AndroidLibrary Update="Jars\admob-wrapper-debug.aar" Bind="false" />
-	</ItemGroup>
-	
+	<!--<ItemGroup>
+		<AndroidGradleProject Include="..\..\..\droid\AdMobWapperApp\admob-wrapper" ModuleName="admob-wrapper" />
+	</ItemGroup>-->
+
   <ItemGroup>
     <None Include="..\..\..\..\assets\icons\png\admob_maui_icon_v4_wallet_block.png">
       <Pack>True</Pack>
@@ -55,5 +51,8 @@
 	  <PackageReference Include="Xamarin.GooglePlayServices.Ads" Version="125.0.0.1">
 		  <PrivateAssets>none</PrivateAssets>
 	  </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Jars\" />
   </ItemGroup>
 </Project>

@@ -24,6 +24,12 @@
 	  </ProjectReference>
   </ItemGroup>
 
+	<ItemGroup Condition="'$(TargetFramework)' == 'net10.0-ios'">
+		<ProjectReference Include="..\AMDevIT.Admob.Wrapper.iOSNative\AMDevIT.Admob.Wrapper.iOSNative.csproj">
+			<PrivateAssets>none</PrivateAssets>
+		</ProjectReference>
+	</ItemGroup>
+
   <ItemGroup>
     <None Include="..\..\..\..\assets\icons\png\admob_maui_icon_v4_wallet_block.png">
       <Pack>True</Pack>
@@ -34,5 +40,4 @@
       <PackagePath>\</PackagePath>
     </None>
   </ItemGroup>
-
 </Project>

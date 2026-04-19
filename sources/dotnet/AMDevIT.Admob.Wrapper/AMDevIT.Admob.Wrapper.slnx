@@ -10,6 +10,7 @@
   </Folder>
   <Folder Name="/Libraries/">
     <Project Path="AMDevIT.Admob.Wrapper.Droid/AMDevIT.Admob.Wrapper.Droid.csproj" />
+    <Project Path="AMDevIT.Admob.Wrapper.iOSNative/AMDevIT.Admob.Wrapper.iOSNative.csproj" />
     <Project Path="AMDevIT.Admob.Wrapper/AMDevIT.Admob.Wrapper.csproj" />
   </Folder>
 </Solution>
