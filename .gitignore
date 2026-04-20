@@ -41,6 +41,12 @@ google-services.json
 #
 # gitignore contributors: remember to update Global/Xcode.gitignore, Objective-C.gitignore & Swift.gitignore
 
+*.xcworkspace
+*.xcuserstate
+*.xccheckout
+*.moved-aside
+DerivedData/
+
 ## User settings
 xcuserdata/
 
@@ -69,6 +75,13 @@ playground.xcworkspace
 # .swiftpm
 
 .build/
+
+*.xcarchive
+*.xcframework
+
+# SPM
+.build/
+*.resolved
 
 # CocoaPods
 #
@@ -531,3 +544,12 @@ FodyWeavers.xsd
 *.msix
 *.msm
 *.msp
+
+# MacOS
+
+**/.DS_Store
+
+# Sharpie
+
+**/sharpie-out
+
