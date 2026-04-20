@@ -1,3 +1,8 @@
+
+using Foundation;
+using ObjCRuntime;
+using UIKit;
+
 namespace AMDevIT.Admob.Wrapper.iOSNative
 {
 
@@ -66,5 +71,155 @@ namespace AMDevIT.Admob.Wrapper.iOSNative
     //
     // For more information, see https://aka.ms/ios-binding
     //
+    
+    // @protocol OnInitializedListener
+    [Protocol]
+    [Model]
+    [BaseType(typeof(NSObject))]
+    interface OnInitializedListener
+    {
+        [Abstract]
+        [Export("onInitialized")]
+        void OnInitialized();
 
+        [Abstract]
+        [Export("onInitializationFailedWithError:")]
+        void OnInitializationFailed(string error);
+    }
+
+    // @protocol OnAdLoadedListener
+    [Protocol]
+    [Model]
+    [BaseType(typeof(NSObject))]
+    interface OnAdLoadedListener
+    {
+        [Abstract]
+        [Export("onAdLoaded")]
+        void OnAdLoaded();
+
+        [Abstract]
+        [Export("onAdFailedToLoadWithErrorCode:errorMessage:")]
+        void OnAdFailedToLoad(NSObject errorCode, string errorMessage);
+    }
+
+    // @protocol OnAdEventListener
+    [Protocol]
+    [Model]
+    [BaseType(typeof(NSObject))]
+    interface OnAdEventListener
+    {
+        [Abstract]
+        [Export("onAdShown")]
+        void OnAdShown();
+
+        [Abstract]
+        [Export("onAdDismissed")]
+        void OnAdDismissed();
+
+        [Abstract]
+        [Export("onAdClicked")]
+        void OnAdClicked();
+
+        [Abstract]
+        [Export("onAdImpression")]
+        void OnAdImpression();
+
+        [Abstract]
+        [Export("onAdFailedToShowWithErrorCode:errorMessage:")]
+        void OnAdFailedToShow(NSObject errorCode, string errorMessage);
+    }
+
+    // @protocol OnRewardEarnedListener
+    [Protocol]
+    [Model]
+    [BaseType(typeof(NSObject))]
+    interface OnRewardEarnedListener
+    {
+        [Abstract]
+        [Export("onRewardEarnedWithType:amount:")]
+        void OnRewardEarned(string type, NSObject amount);
+    }
+
+    // @interface AdMobManager
+    [DisableDefaultCtor]
+    [BaseType(typeof(NSObject))]
+    interface AdMobManager
+    {
+        [Static]
+        [Export("instance", ArgumentSemantic.Strong)]
+        AdMobManager Instance { get; }
+
+        [Export("initializeWithViewController:listener:")]
+        void Initialize(UIViewController viewController, IOnInitializedListener listener);
+
+        [Export("isInitialized")]
+        bool IsInitialized();
+    }
+
+    // @interface BannerAdWrapper
+    [BaseType(typeof(NSObject))]
+    interface BannerAdWrapper
+    {
+        [Export("loadWithAdUnitId:viewController:loadListener:eventListener:")]
+        UIView Load(string adUnitId,
+                    UIViewController viewController,
+                    IOnAdLoadedListener loadListener,
+                    [NullAllowed] IOnAdEventListener eventListener);
+
+        [Export("destroy")]
+        void Destroy();
+    }
+
+    // @interface InterstitialAdWrapper
+    [BaseType(typeof(NSObject))]
+    interface InterstitialAdWrapper
+    {
+        [Export("loadWithAdUnitId:loadListener:eventListener:")]
+        void Load(string adUnitId,
+                  IOnAdLoadedListener loadListener,
+                  [NullAllowed] IOnAdEventListener eventListener);
+
+        [Export("showWithViewController:")]
+        void Show(UIViewController viewController);
+
+        [Export("isLoaded")]
+        bool IsLoaded();
+    }
+
+    // @interface RewardedAdWrapper
+    [BaseType(typeof(NSObject))]
+    interface RewardedAdWrapper
+    {
+        [Export("loadWithAdUnitId:loadListener:eventListener:")]
+        void Load(string adUnitId,
+                  IOnAdLoadedListener loadListener,
+                  [NullAllowed] IOnAdEventListener eventListener);
+
+        [Export("showWithViewController:rewardListener:")]
+        void Show(UIViewController viewController, IOnRewardEarnedListener rewardListener);
+
+        [Export("isLoaded")]
+        bool IsLoaded();
+    }
+
+    // @interface AppOpenAdWrapper
+    [BaseType(typeof(NSObject))]
+    interface AppOpenAdWrapper
+    {
+        [Export("loadWithAdUnitId:loadListener:eventListener:")]
+        void Load(string adUnitId,
+                  IOnAdLoadedListener loadListener,
+                  [NullAllowed] IOnAdEventListener eventListener);
+
+        [Export("showWithViewController:")]
+        void Show(UIViewController viewController);
+
+        [Export("isLoaded")]
+        bool IsLoaded();
+
+        [Export("isShowing")]
+        bool IsShowing();
+    }
 }
+
+
