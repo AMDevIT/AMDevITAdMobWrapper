@@ -1,0 +1,2422 @@
+{
+  "ABIRoot": {
+    "kind": "Root",
+    "name": "AdMobWrapper",
+    "printedName": "AdMobWrapper",
+    "children": [
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "AdMobWrapper",
+        "declAttributes": [
+          "RawDocComment"
+        ]
+      },
+      {
+        "kind": "Import",
+        "name": "GoogleMobileAds",
+        "printedName": "GoogleMobileAds",
+        "declKind": "Import",
+        "moduleName": "AdMobWrapper"
+      },
+      {
+        "kind": "Import",
+        "name": "UIKit",
+        "printedName": "UIKit",
+        "declKind": "Import",
+        "moduleName": "AdMobWrapper"
+      },
+      {
+        "kind": "TypeDecl",
+        "name": "AppOpenAdWrapper",
+        "printedName": "AppOpenAdWrapper",
+        "children": [
+          {
+            "kind": "Constructor",
+            "name": "init",
+            "printedName": "init()",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "AppOpenAdWrapper",
+                "printedName": "AdMobWrapper.AppOpenAdWrapper",
+                "usr": "c:@M@AdMobWrapper@objc(cs)AppOpenAdWrapper"
+              }
+            ],
+            "declKind": "Constructor",
+            "usr": "c:@M@AdMobWrapper@objc(cs)AppOpenAdWrapper(im)init",
+            "mangledName": "$s12AdMobWrapper07AppOpenaC0CACycfc",
+            "moduleName": "AdMobWrapper",
+            "overriding": true,
+            "objc_name": "init",
+            "declAttributes": [
+              "Dynamic",
+              "ObjC",
+              "Override",
+              "AccessControl"
+            ],
+            "init_kind": "Designated"
+          },
+          {
+            "kind": "Function",
+            "name": "load",
+            "printedName": "load(adUnitId:loadListener:eventListener:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "OnAdLoadedListener",
+                "printedName": "any AdMobWrapper.OnAdLoadedListener",
+                "usr": "c:@M@AdMobWrapper@objc(pl)OnAdLoadedListener"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "(any AdMobWrapper.OnAdEventListener)?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "OnAdEventListener",
+                    "printedName": "any AdMobWrapper.OnAdEventListener",
+                    "usr": "c:@M@AdMobWrapper@objc(pl)OnAdEventListener"
+                  }
+                ],
+                "usr": "s:Sq"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@AdMobWrapper@objc(cs)AppOpenAdWrapper(im)loadWithAdUnitId:loadListener:eventListener:",
+            "mangledName": "$s12AdMobWrapper07AppOpenaC0C4load8adUnitId0F8Listener05eventJ0ySS_AA02Ona6LoadedJ0_pAA0la5EventJ0_pSgtF",
+            "moduleName": "AdMobWrapper",
+            "objc_name": "loadWithAdUnitId:loadListener:eventListener:",
+            "declAttributes": [
+              "AccessControl",
+              "ObjC"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "show",
+            "printedName": "show(viewController:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "UIViewController",
+                "printedName": "UIKit.UIViewController",
+                "usr": "c:objc(cs)UIViewController"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@AdMobWrapper@objc(cs)AppOpenAdWrapper(im)showWithViewController:",
+            "mangledName": "$s12AdMobWrapper07AppOpenaC0C4show14viewControllerySo06UIViewH0C_tF",
+            "moduleName": "AdMobWrapper",
+            "objc_name": "showWithViewController:",
+            "declAttributes": [
+              "AccessControl",
+              "ObjC"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "isLoaded",
+            "printedName": "isLoaded()",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Bool",
+                "printedName": "Swift.Bool",
+                "usr": "s:Sb"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@AdMobWrapper@objc(cs)AppOpenAdWrapper(im)isLoaded",
+            "mangledName": "$s12AdMobWrapper07AppOpenaC0C8isLoadedSbyF",
+            "moduleName": "AdMobWrapper",
+            "declAttributes": [
+              "AccessControl",
+              "ObjC"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "isShowing",
+            "printedName": "isShowing()",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Bool",
+                "printedName": "Swift.Bool",
+                "usr": "s:Sb"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@AdMobWrapper@objc(cs)AppOpenAdWrapper(im)isShowing",
+            "mangledName": "$s12AdMobWrapper07AppOpenaC0C9isShowingSbyF",
+            "moduleName": "AdMobWrapper",
+            "declAttributes": [
+              "AccessControl",
+              "ObjC"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "adDidRecordImpression",
+            "printedName": "adDidRecordImpression(_:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "FullScreenPresentingAd",
+                "printedName": "any GoogleMobileAds.FullScreenPresentingAd",
+                "usr": "c:objc(pl)GADFullScreenPresentingAd"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@CM@AdMobWrapper@objc(cs)AppOpenAdWrapper(im)adDidRecordImpression:",
+            "mangledName": "$s12AdMobWrapper07AppOpenaC0C21adDidRecordImpressionyySo023GADFullScreenPresentingA0_pF",
+            "moduleName": "AdMobWrapper",
+            "objc_name": "adDidRecordImpression:",
+            "declAttributes": [
+              "Dynamic",
+              "ObjC",
+              "Preconcurrency",
+              "Custom",
+              "AccessControl"
+            ],
+            "isFromExtension": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "adDidRecordClick",
+            "printedName": "adDidRecordClick(_:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "FullScreenPresentingAd",
+                "printedName": "any GoogleMobileAds.FullScreenPresentingAd",
+                "usr": "c:objc(pl)GADFullScreenPresentingAd"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@CM@AdMobWrapper@objc(cs)AppOpenAdWrapper(im)adDidRecordClick:",
+            "mangledName": "$s12AdMobWrapper07AppOpenaC0C16adDidRecordClickyySo023GADFullScreenPresentingA0_pF",
+            "moduleName": "AdMobWrapper",
+            "objc_name": "adDidRecordClick:",
+            "declAttributes": [
+              "Dynamic",
+              "ObjC",
+              "Preconcurrency",
+              "Custom",
+              "AccessControl"
+            ],
+            "isFromExtension": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "adWillPresentFullScreenContent",
+            "printedName": "adWillPresentFullScreenContent(_:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "FullScreenPresentingAd",
+                "printedName": "any GoogleMobileAds.FullScreenPresentingAd",
+                "usr": "c:objc(pl)GADFullScreenPresentingAd"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@CM@AdMobWrapper@objc(cs)AppOpenAdWrapper(im)adWillPresentFullScreenContent:",
+            "mangledName": "$s12AdMobWrapper07AppOpenaC0C30adWillPresentFullScreenContentyySo07GADFullj10PresentingA0_pF",
+            "moduleName": "AdMobWrapper",
+            "objc_name": "adWillPresentFullScreenContent:",
+            "declAttributes": [
+              "Dynamic",
+              "ObjC",
+              "Preconcurrency",
+              "Custom",
+              "AccessControl"
+            ],
+            "isFromExtension": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "adWillDismissFullScreenContent",
+            "printedName": "adWillDismissFullScreenContent(_:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "FullScreenPresentingAd",
+                "printedName": "any GoogleMobileAds.FullScreenPresentingAd",
+                "usr": "c:objc(pl)GADFullScreenPresentingAd"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@CM@AdMobWrapper@objc(cs)AppOpenAdWrapper(im)adWillDismissFullScreenContent:",
+            "mangledName": "$s12AdMobWrapper07AppOpenaC0C30adWillDismissFullScreenContentyySo07GADFullj10PresentingA0_pF",
+            "moduleName": "AdMobWrapper",
+            "objc_name": "adWillDismissFullScreenContent:",
+            "declAttributes": [
+              "Dynamic",
+              "ObjC",
+              "Preconcurrency",
+              "Custom",
+              "AccessControl"
+            ],
+            "isFromExtension": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "adDidDismissFullScreenContent",
+            "printedName": "adDidDismissFullScreenContent(_:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "FullScreenPresentingAd",
+                "printedName": "any GoogleMobileAds.FullScreenPresentingAd",
+                "usr": "c:objc(pl)GADFullScreenPresentingAd"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@CM@AdMobWrapper@objc(cs)AppOpenAdWrapper(im)adDidDismissFullScreenContent:",
+            "mangledName": "$s12AdMobWrapper07AppOpenaC0C29adDidDismissFullScreenContentyySo07GADFullj10PresentingA0_pF",
+            "moduleName": "AdMobWrapper",
+            "objc_name": "adDidDismissFullScreenContent:",
+            "declAttributes": [
+              "Dynamic",
+              "ObjC",
+              "Preconcurrency",
+              "Custom",
+              "AccessControl"
+            ],
+            "isFromExtension": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "ad",
+            "printedName": "ad(_:didFailToPresentFullScreenContentWithError:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "FullScreenPresentingAd",
+                "printedName": "any GoogleMobileAds.FullScreenPresentingAd",
+                "usr": "c:objc(pl)GADFullScreenPresentingAd"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Error",
+                "printedName": "any Swift.Error",
+                "usr": "s:s5ErrorP"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@CM@AdMobWrapper@objc(cs)AppOpenAdWrapper(im)ad:didFailToPresentFullScreenContentWithError:",
+            "mangledName": "$s12AdMobWrapper07AppOpenaC0C2ad_42didFailToPresentFullScreenContentWithErrorySo07GADFulll10PresentingA0_p_s0O0_ptF",
+            "moduleName": "AdMobWrapper",
+            "objc_name": "ad:didFailToPresentFullScreenContentWithError:",
+            "declAttributes": [
+              "Dynamic",
+              "ObjC",
+              "Preconcurrency",
+              "Custom",
+              "AccessControl"
+            ],
+            "isFromExtension": true,
+            "funcSelfKind": "NonMutating"
+          }
+        ],
+        "declKind": "Class",
+        "usr": "c:@M@AdMobWrapper@objc(cs)AppOpenAdWrapper",
+        "mangledName": "$s12AdMobWrapper07AppOpenaC0C",
+        "moduleName": "AdMobWrapper",
+        "declAttributes": [
+          "AccessControl",
+          "ObjC"
+        ],
+        "superclassUsr": "c:objc(cs)NSObject",
+        "inheritsConvenienceInitializers": true,
+        "superclassNames": [
+          "ObjectiveC.NSObject"
+        ],
+        "conformances": [
+          {
+            "kind": "Conformance",
+            "name": "Copyable",
+            "printedName": "Copyable",
+            "usr": "s:s8CopyableP",
+            "mangledName": "$ss8CopyableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Escapable",
+            "printedName": "Escapable",
+            "usr": "s:s9EscapableP",
+            "mangledName": "$ss9EscapableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Equatable",
+            "printedName": "Equatable",
+            "usr": "s:SQ",
+            "mangledName": "$sSQ"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Hashable",
+            "printedName": "Hashable",
+            "usr": "s:SH",
+            "mangledName": "$sSH"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CVarArg",
+            "printedName": "CVarArg",
+            "usr": "s:s7CVarArgP",
+            "mangledName": "$ss7CVarArgP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "_KeyValueCodingAndObservingPublishing",
+            "printedName": "_KeyValueCodingAndObservingPublishing",
+            "usr": "s:10Foundation37_KeyValueCodingAndObservingPublishingP",
+            "mangledName": "$s10Foundation37_KeyValueCodingAndObservingPublishingP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "_KeyValueCodingAndObserving",
+            "printedName": "_KeyValueCodingAndObserving",
+            "usr": "s:10Foundation27_KeyValueCodingAndObservingP",
+            "mangledName": "$s10Foundation27_KeyValueCodingAndObservingP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CustomStringConvertible",
+            "printedName": "CustomStringConvertible",
+            "usr": "s:s23CustomStringConvertibleP",
+            "mangledName": "$ss23CustomStringConvertibleP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CustomDebugStringConvertible",
+            "printedName": "CustomDebugStringConvertible",
+            "usr": "s:s28CustomDebugStringConvertibleP",
+            "mangledName": "$ss28CustomDebugStringConvertibleP"
+          }
+        ]
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "AdMobWrapper",
+        "declAttributes": [
+          "RawDocComment"
+        ]
+      },
+      {
+        "kind": "Import",
+        "name": "GoogleMobileAds",
+        "printedName": "GoogleMobileAds",
+        "declKind": "Import",
+        "moduleName": "AdMobWrapper"
+      },
+      {
+        "kind": "Import",
+        "name": "UIKit",
+        "printedName": "UIKit",
+        "declKind": "Import",
+        "moduleName": "AdMobWrapper"
+      },
+      {
+        "kind": "TypeDecl",
+        "name": "BannerAdWrapper",
+        "printedName": "BannerAdWrapper",
+        "children": [
+          {
+            "kind": "Constructor",
+            "name": "init",
+            "printedName": "init()",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "BannerAdWrapper",
+                "printedName": "AdMobWrapper.BannerAdWrapper",
+                "usr": "c:@M@AdMobWrapper@objc(cs)BannerAdWrapper"
+              }
+            ],
+            "declKind": "Constructor",
+            "usr": "c:@M@AdMobWrapper@objc(cs)BannerAdWrapper(im)init",
+            "mangledName": "$s12AdMobWrapper06BanneraC0CACycfc",
+            "moduleName": "AdMobWrapper",
+            "overriding": true,
+            "objc_name": "init",
+            "declAttributes": [
+              "Dynamic",
+              "ObjC",
+              "Override",
+              "AccessControl"
+            ],
+            "init_kind": "Designated"
+          },
+          {
+            "kind": "Function",
+            "name": "load",
+            "printedName": "load(adUnitId:viewController:loadListener:eventListener:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "BannerView",
+                "printedName": "GoogleMobileAds.BannerView",
+                "usr": "c:objc(cs)GADBannerView"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "UIViewController",
+                "printedName": "UIKit.UIViewController",
+                "usr": "c:objc(cs)UIViewController"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "OnAdLoadedListener",
+                "printedName": "any AdMobWrapper.OnAdLoadedListener",
+                "usr": "c:@M@AdMobWrapper@objc(pl)OnAdLoadedListener"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "(any AdMobWrapper.OnAdEventListener)?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "OnAdEventListener",
+                    "printedName": "any AdMobWrapper.OnAdEventListener",
+                    "usr": "c:@M@AdMobWrapper@objc(pl)OnAdEventListener"
+                  }
+                ],
+                "usr": "s:Sq"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@AdMobWrapper@objc(cs)BannerAdWrapper(im)loadWithAdUnitId:viewController:loadListener:eventListener:",
+            "mangledName": "$s12AdMobWrapper06BanneraC0C4load8adUnitId14viewController0E8Listener05eventK0So13GADBannerViewCSS_So06UIViewJ0CAA02Ona6LoadedK0_pAA0pa5EventK0_pSgtF",
+            "moduleName": "AdMobWrapper",
+            "objc_name": "loadWithAdUnitId:viewController:loadListener:eventListener:",
+            "declAttributes": [
+              "AccessControl",
+              "ObjC"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "destroy",
+            "printedName": "destroy()",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@AdMobWrapper@objc(cs)BannerAdWrapper(im)destroy",
+            "mangledName": "$s12AdMobWrapper06BanneraC0C7destroyyyF",
+            "moduleName": "AdMobWrapper",
+            "declAttributes": [
+              "AccessControl",
+              "ObjC"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "bannerViewDidReceiveAd",
+            "printedName": "bannerViewDidReceiveAd(_:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "BannerView",
+                "printedName": "GoogleMobileAds.BannerView",
+                "usr": "c:objc(cs)GADBannerView"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@CM@AdMobWrapper@objc(cs)BannerAdWrapper(im)bannerViewDidReceiveAd:",
+            "mangledName": "$s12AdMobWrapper06BanneraC0C020bannerViewDidReceiveA0yySo09GADBannerF0CF",
+            "moduleName": "AdMobWrapper",
+            "objc_name": "bannerViewDidReceiveAd:",
+            "declAttributes": [
+              "Dynamic",
+              "ObjC",
+              "Preconcurrency",
+              "Custom",
+              "AccessControl"
+            ],
+            "isFromExtension": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "bannerView",
+            "printedName": "bannerView(_:didFailToReceiveAdWithError:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "BannerView",
+                "printedName": "GoogleMobileAds.BannerView",
+                "usr": "c:objc(cs)GADBannerView"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Error",
+                "printedName": "any Swift.Error",
+                "usr": "s:s5ErrorP"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@CM@AdMobWrapper@objc(cs)BannerAdWrapper(im)bannerView:didFailToReceiveAdWithError:",
+            "mangledName": "$s12AdMobWrapper06BanneraC0C10bannerView_016didFailToReceiveA9WithErrorySo09GADBannerF0C_s0L0_ptF",
+            "moduleName": "AdMobWrapper",
+            "objc_name": "bannerView:didFailToReceiveAdWithError:",
+            "declAttributes": [
+              "Dynamic",
+              "ObjC",
+              "Preconcurrency",
+              "Custom",
+              "AccessControl"
+            ],
+            "isFromExtension": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "bannerViewDidRecordImpression",
+            "printedName": "bannerViewDidRecordImpression(_:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "BannerView",
+                "printedName": "GoogleMobileAds.BannerView",
+                "usr": "c:objc(cs)GADBannerView"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@CM@AdMobWrapper@objc(cs)BannerAdWrapper(im)bannerViewDidRecordImpression:",
+            "mangledName": "$s12AdMobWrapper06BanneraC0C29bannerViewDidRecordImpressionyySo09GADBannerF0CF",
+            "moduleName": "AdMobWrapper",
+            "objc_name": "bannerViewDidRecordImpression:",
+            "declAttributes": [
+              "Dynamic",
+              "ObjC",
+              "Preconcurrency",
+              "Custom",
+              "AccessControl"
+            ],
+            "isFromExtension": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "bannerViewDidRecordClick",
+            "printedName": "bannerViewDidRecordClick(_:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "BannerView",
+                "printedName": "GoogleMobileAds.BannerView",
+                "usr": "c:objc(cs)GADBannerView"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@CM@AdMobWrapper@objc(cs)BannerAdWrapper(im)bannerViewDidRecordClick:",
+            "mangledName": "$s12AdMobWrapper06BanneraC0C24bannerViewDidRecordClickyySo09GADBannerF0CF",
+            "moduleName": "AdMobWrapper",
+            "objc_name": "bannerViewDidRecordClick:",
+            "declAttributes": [
+              "Dynamic",
+              "ObjC",
+              "Preconcurrency",
+              "Custom",
+              "AccessControl"
+            ],
+            "isFromExtension": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "bannerViewWillPresentScreen",
+            "printedName": "bannerViewWillPresentScreen(_:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "BannerView",
+                "printedName": "GoogleMobileAds.BannerView",
+                "usr": "c:objc(cs)GADBannerView"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@CM@AdMobWrapper@objc(cs)BannerAdWrapper(im)bannerViewWillPresentScreen:",
+            "mangledName": "$s12AdMobWrapper06BanneraC0C27bannerViewWillPresentScreenyySo09GADBannerF0CF",
+            "moduleName": "AdMobWrapper",
+            "objc_name": "bannerViewWillPresentScreen:",
+            "declAttributes": [
+              "Dynamic",
+              "ObjC",
+              "Preconcurrency",
+              "Custom",
+              "AccessControl"
+            ],
+            "isFromExtension": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "bannerViewWillDismissScreen",
+            "printedName": "bannerViewWillDismissScreen(_:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "BannerView",
+                "printedName": "GoogleMobileAds.BannerView",
+                "usr": "c:objc(cs)GADBannerView"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@CM@AdMobWrapper@objc(cs)BannerAdWrapper(im)bannerViewWillDismissScreen:",
+            "mangledName": "$s12AdMobWrapper06BanneraC0C27bannerViewWillDismissScreenyySo09GADBannerF0CF",
+            "moduleName": "AdMobWrapper",
+            "objc_name": "bannerViewWillDismissScreen:",
+            "declAttributes": [
+              "Dynamic",
+              "ObjC",
+              "Preconcurrency",
+              "Custom",
+              "AccessControl"
+            ],
+            "isFromExtension": true,
+            "funcSelfKind": "NonMutating"
+          }
+        ],
+        "declKind": "Class",
+        "usr": "c:@M@AdMobWrapper@objc(cs)BannerAdWrapper",
+        "mangledName": "$s12AdMobWrapper06BanneraC0C",
+        "moduleName": "AdMobWrapper",
+        "declAttributes": [
+          "AccessControl",
+          "ObjC"
+        ],
+        "superclassUsr": "c:objc(cs)NSObject",
+        "inheritsConvenienceInitializers": true,
+        "superclassNames": [
+          "ObjectiveC.NSObject"
+        ],
+        "conformances": [
+          {
+            "kind": "Conformance",
+            "name": "Copyable",
+            "printedName": "Copyable",
+            "usr": "s:s8CopyableP",
+            "mangledName": "$ss8CopyableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Escapable",
+            "printedName": "Escapable",
+            "usr": "s:s9EscapableP",
+            "mangledName": "$ss9EscapableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Equatable",
+            "printedName": "Equatable",
+            "usr": "s:SQ",
+            "mangledName": "$sSQ"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Hashable",
+            "printedName": "Hashable",
+            "usr": "s:SH",
+            "mangledName": "$sSH"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CVarArg",
+            "printedName": "CVarArg",
+            "usr": "s:s7CVarArgP",
+            "mangledName": "$ss7CVarArgP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "_KeyValueCodingAndObservingPublishing",
+            "printedName": "_KeyValueCodingAndObservingPublishing",
+            "usr": "s:10Foundation37_KeyValueCodingAndObservingPublishingP",
+            "mangledName": "$s10Foundation37_KeyValueCodingAndObservingPublishingP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "_KeyValueCodingAndObserving",
+            "printedName": "_KeyValueCodingAndObserving",
+            "usr": "s:10Foundation27_KeyValueCodingAndObservingP",
+            "mangledName": "$s10Foundation27_KeyValueCodingAndObservingP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CustomStringConvertible",
+            "printedName": "CustomStringConvertible",
+            "usr": "s:s23CustomStringConvertibleP",
+            "mangledName": "$ss23CustomStringConvertibleP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CustomDebugStringConvertible",
+            "printedName": "CustomDebugStringConvertible",
+            "usr": "s:s28CustomDebugStringConvertibleP",
+            "mangledName": "$ss28CustomDebugStringConvertibleP"
+          }
+        ]
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "AdMobWrapper",
+        "declAttributes": [
+          "RawDocComment"
+        ]
+      },
+      {
+        "kind": "Import",
+        "name": "GoogleMobileAds",
+        "printedName": "GoogleMobileAds",
+        "declKind": "Import",
+        "moduleName": "AdMobWrapper"
+      },
+      {
+        "kind": "Import",
+        "name": "UIKit",
+        "printedName": "UIKit",
+        "declKind": "Import",
+        "moduleName": "AdMobWrapper"
+      },
+      {
+        "kind": "TypeDecl",
+        "name": "InterstitialAdWrapper",
+        "printedName": "InterstitialAdWrapper",
+        "children": [
+          {
+            "kind": "Constructor",
+            "name": "init",
+            "printedName": "init()",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "InterstitialAdWrapper",
+                "printedName": "AdMobWrapper.InterstitialAdWrapper",
+                "usr": "c:@M@AdMobWrapper@objc(cs)InterstitialAdWrapper"
+              }
+            ],
+            "declKind": "Constructor",
+            "usr": "c:@M@AdMobWrapper@objc(cs)InterstitialAdWrapper(im)init",
+            "mangledName": "$s12AdMobWrapper012InterstitialaC0CACycfc",
+            "moduleName": "AdMobWrapper",
+            "overriding": true,
+            "objc_name": "init",
+            "declAttributes": [
+              "Dynamic",
+              "ObjC",
+              "Override",
+              "AccessControl"
+            ],
+            "init_kind": "Designated"
+          },
+          {
+            "kind": "Function",
+            "name": "load",
+            "printedName": "load(adUnitId:loadListener:eventListener:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "OnAdLoadedListener",
+                "printedName": "any AdMobWrapper.OnAdLoadedListener",
+                "usr": "c:@M@AdMobWrapper@objc(pl)OnAdLoadedListener"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "(any AdMobWrapper.OnAdEventListener)?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "OnAdEventListener",
+                    "printedName": "any AdMobWrapper.OnAdEventListener",
+                    "usr": "c:@M@AdMobWrapper@objc(pl)OnAdEventListener"
+                  }
+                ],
+                "usr": "s:Sq"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@AdMobWrapper@objc(cs)InterstitialAdWrapper(im)loadWithAdUnitId:loadListener:eventListener:",
+            "mangledName": "$s12AdMobWrapper012InterstitialaC0C4load8adUnitId0E8Listener05eventI0ySS_AA02Ona6LoadedI0_pAA0ka5EventI0_pSgtF",
+            "moduleName": "AdMobWrapper",
+            "objc_name": "loadWithAdUnitId:loadListener:eventListener:",
+            "declAttributes": [
+              "AccessControl",
+              "ObjC"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "show",
+            "printedName": "show(viewController:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "UIViewController",
+                "printedName": "UIKit.UIViewController",
+                "usr": "c:objc(cs)UIViewController"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@AdMobWrapper@objc(cs)InterstitialAdWrapper(im)showWithViewController:",
+            "mangledName": "$s12AdMobWrapper012InterstitialaC0C4show14viewControllerySo06UIViewG0C_tF",
+            "moduleName": "AdMobWrapper",
+            "objc_name": "showWithViewController:",
+            "declAttributes": [
+              "AccessControl",
+              "ObjC"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "isLoaded",
+            "printedName": "isLoaded()",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Bool",
+                "printedName": "Swift.Bool",
+                "usr": "s:Sb"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@AdMobWrapper@objc(cs)InterstitialAdWrapper(im)isLoaded",
+            "mangledName": "$s12AdMobWrapper012InterstitialaC0C8isLoadedSbyF",
+            "moduleName": "AdMobWrapper",
+            "declAttributes": [
+              "AccessControl",
+              "ObjC"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "adDidRecordImpression",
+            "printedName": "adDidRecordImpression(_:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "FullScreenPresentingAd",
+                "printedName": "any GoogleMobileAds.FullScreenPresentingAd",
+                "usr": "c:objc(pl)GADFullScreenPresentingAd"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@CM@AdMobWrapper@objc(cs)InterstitialAdWrapper(im)adDidRecordImpression:",
+            "mangledName": "$s12AdMobWrapper012InterstitialaC0C21adDidRecordImpressionyySo023GADFullScreenPresentingA0_pF",
+            "moduleName": "AdMobWrapper",
+            "objc_name": "adDidRecordImpression:",
+            "declAttributes": [
+              "Dynamic",
+              "ObjC",
+              "Preconcurrency",
+              "Custom",
+              "AccessControl"
+            ],
+            "isFromExtension": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "adDidRecordClick",
+            "printedName": "adDidRecordClick(_:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "FullScreenPresentingAd",
+                "printedName": "any GoogleMobileAds.FullScreenPresentingAd",
+                "usr": "c:objc(pl)GADFullScreenPresentingAd"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@CM@AdMobWrapper@objc(cs)InterstitialAdWrapper(im)adDidRecordClick:",
+            "mangledName": "$s12AdMobWrapper012InterstitialaC0C16adDidRecordClickyySo023GADFullScreenPresentingA0_pF",
+            "moduleName": "AdMobWrapper",
+            "objc_name": "adDidRecordClick:",
+            "declAttributes": [
+              "Dynamic",
+              "ObjC",
+              "Preconcurrency",
+              "Custom",
+              "AccessControl"
+            ],
+            "isFromExtension": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "adWillPresentFullScreenContent",
+            "printedName": "adWillPresentFullScreenContent(_:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "FullScreenPresentingAd",
+                "printedName": "any GoogleMobileAds.FullScreenPresentingAd",
+                "usr": "c:objc(pl)GADFullScreenPresentingAd"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@CM@AdMobWrapper@objc(cs)InterstitialAdWrapper(im)adWillPresentFullScreenContent:",
+            "mangledName": "$s12AdMobWrapper012InterstitialaC0C30adWillPresentFullScreenContentyySo07GADFulli10PresentingA0_pF",
+            "moduleName": "AdMobWrapper",
+            "objc_name": "adWillPresentFullScreenContent:",
+            "declAttributes": [
+              "Dynamic",
+              "ObjC",
+              "Preconcurrency",
+              "Custom",
+              "AccessControl"
+            ],
+            "isFromExtension": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "adWillDismissFullScreenContent",
+            "printedName": "adWillDismissFullScreenContent(_:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "FullScreenPresentingAd",
+                "printedName": "any GoogleMobileAds.FullScreenPresentingAd",
+                "usr": "c:objc(pl)GADFullScreenPresentingAd"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@CM@AdMobWrapper@objc(cs)InterstitialAdWrapper(im)adWillDismissFullScreenContent:",
+            "mangledName": "$s12AdMobWrapper012InterstitialaC0C30adWillDismissFullScreenContentyySo07GADFulli10PresentingA0_pF",
+            "moduleName": "AdMobWrapper",
+            "objc_name": "adWillDismissFullScreenContent:",
+            "declAttributes": [
+              "Dynamic",
+              "ObjC",
+              "Preconcurrency",
+              "Custom",
+              "AccessControl"
+            ],
+            "isFromExtension": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "ad",
+            "printedName": "ad(_:didFailToPresentFullScreenContentWithError:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "FullScreenPresentingAd",
+                "printedName": "any GoogleMobileAds.FullScreenPresentingAd",
+                "usr": "c:objc(pl)GADFullScreenPresentingAd"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Error",
+                "printedName": "any Swift.Error",
+                "usr": "s:s5ErrorP"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@CM@AdMobWrapper@objc(cs)InterstitialAdWrapper(im)ad:didFailToPresentFullScreenContentWithError:",
+            "mangledName": "$s12AdMobWrapper012InterstitialaC0C2ad_42didFailToPresentFullScreenContentWithErrorySo07GADFullk10PresentingA0_p_s0N0_ptF",
+            "moduleName": "AdMobWrapper",
+            "objc_name": "ad:didFailToPresentFullScreenContentWithError:",
+            "declAttributes": [
+              "Dynamic",
+              "ObjC",
+              "Preconcurrency",
+              "Custom",
+              "AccessControl"
+            ],
+            "isFromExtension": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "adDidDismissFullScreenContent",
+            "printedName": "adDidDismissFullScreenContent(_:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "FullScreenPresentingAd",
+                "printedName": "any GoogleMobileAds.FullScreenPresentingAd",
+                "usr": "c:objc(pl)GADFullScreenPresentingAd"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@CM@AdMobWrapper@objc(cs)InterstitialAdWrapper(im)adDidDismissFullScreenContent:",
+            "mangledName": "$s12AdMobWrapper012InterstitialaC0C29adDidDismissFullScreenContentyySo07GADFulli10PresentingA0_pF",
+            "moduleName": "AdMobWrapper",
+            "objc_name": "adDidDismissFullScreenContent:",
+            "declAttributes": [
+              "Dynamic",
+              "ObjC",
+              "Preconcurrency",
+              "Custom",
+              "AccessControl"
+            ],
+            "isFromExtension": true,
+            "funcSelfKind": "NonMutating"
+          }
+        ],
+        "declKind": "Class",
+        "usr": "c:@M@AdMobWrapper@objc(cs)InterstitialAdWrapper",
+        "mangledName": "$s12AdMobWrapper012InterstitialaC0C",
+        "moduleName": "AdMobWrapper",
+        "declAttributes": [
+          "AccessControl",
+          "ObjC"
+        ],
+        "superclassUsr": "c:objc(cs)NSObject",
+        "inheritsConvenienceInitializers": true,
+        "superclassNames": [
+          "ObjectiveC.NSObject"
+        ],
+        "conformances": [
+          {
+            "kind": "Conformance",
+            "name": "Copyable",
+            "printedName": "Copyable",
+            "usr": "s:s8CopyableP",
+            "mangledName": "$ss8CopyableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Escapable",
+            "printedName": "Escapable",
+            "usr": "s:s9EscapableP",
+            "mangledName": "$ss9EscapableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Equatable",
+            "printedName": "Equatable",
+            "usr": "s:SQ",
+            "mangledName": "$sSQ"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Hashable",
+            "printedName": "Hashable",
+            "usr": "s:SH",
+            "mangledName": "$sSH"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CVarArg",
+            "printedName": "CVarArg",
+            "usr": "s:s7CVarArgP",
+            "mangledName": "$ss7CVarArgP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "_KeyValueCodingAndObservingPublishing",
+            "printedName": "_KeyValueCodingAndObservingPublishing",
+            "usr": "s:10Foundation37_KeyValueCodingAndObservingPublishingP",
+            "mangledName": "$s10Foundation37_KeyValueCodingAndObservingPublishingP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "_KeyValueCodingAndObserving",
+            "printedName": "_KeyValueCodingAndObserving",
+            "usr": "s:10Foundation27_KeyValueCodingAndObservingP",
+            "mangledName": "$s10Foundation27_KeyValueCodingAndObservingP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CustomStringConvertible",
+            "printedName": "CustomStringConvertible",
+            "usr": "s:s23CustomStringConvertibleP",
+            "mangledName": "$ss23CustomStringConvertibleP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CustomDebugStringConvertible",
+            "printedName": "CustomDebugStringConvertible",
+            "usr": "s:s28CustomDebugStringConvertibleP",
+            "mangledName": "$ss28CustomDebugStringConvertibleP"
+          }
+        ]
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "AdMobWrapper",
+        "declAttributes": [
+          "RawDocComment"
+        ]
+      },
+      {
+        "kind": "Import",
+        "name": "GoogleMobileAds",
+        "printedName": "GoogleMobileAds",
+        "declKind": "Import",
+        "moduleName": "AdMobWrapper"
+      },
+      {
+        "kind": "Import",
+        "name": "UIKit",
+        "printedName": "UIKit",
+        "declKind": "Import",
+        "moduleName": "AdMobWrapper"
+      },
+      {
+        "kind": "TypeDecl",
+        "name": "RewardedAdWrapper",
+        "printedName": "RewardedAdWrapper",
+        "children": [
+          {
+            "kind": "Constructor",
+            "name": "init",
+            "printedName": "init()",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "RewardedAdWrapper",
+                "printedName": "AdMobWrapper.RewardedAdWrapper",
+                "usr": "c:@M@AdMobWrapper@objc(cs)RewardedAdWrapper"
+              }
+            ],
+            "declKind": "Constructor",
+            "usr": "c:@M@AdMobWrapper@objc(cs)RewardedAdWrapper(im)init",
+            "mangledName": "$s12AdMobWrapper08RewardedaC0CACycfc",
+            "moduleName": "AdMobWrapper",
+            "overriding": true,
+            "objc_name": "init",
+            "declAttributes": [
+              "Dynamic",
+              "ObjC",
+              "Override",
+              "AccessControl"
+            ],
+            "init_kind": "Designated"
+          },
+          {
+            "kind": "Function",
+            "name": "load",
+            "printedName": "load(adUnitId:loadListener:eventListener:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "OnAdLoadedListener",
+                "printedName": "any AdMobWrapper.OnAdLoadedListener",
+                "usr": "c:@M@AdMobWrapper@objc(pl)OnAdLoadedListener"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "(any AdMobWrapper.OnAdEventListener)?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "OnAdEventListener",
+                    "printedName": "any AdMobWrapper.OnAdEventListener",
+                    "usr": "c:@M@AdMobWrapper@objc(pl)OnAdEventListener"
+                  }
+                ],
+                "usr": "s:Sq"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@AdMobWrapper@objc(cs)RewardedAdWrapper(im)loadWithAdUnitId:loadListener:eventListener:",
+            "mangledName": "$s12AdMobWrapper08RewardedaC0C4load8adUnitId0E8Listener05eventI0ySS_AA02Ona6LoadedI0_pAA0ka5EventI0_pSgtF",
+            "moduleName": "AdMobWrapper",
+            "objc_name": "loadWithAdUnitId:loadListener:eventListener:",
+            "declAttributes": [
+              "AccessControl",
+              "ObjC"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "show",
+            "printedName": "show(viewController:rewardListener:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "UIViewController",
+                "printedName": "UIKit.UIViewController",
+                "usr": "c:objc(cs)UIViewController"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "OnRewardEarnedListener",
+                "printedName": "any AdMobWrapper.OnRewardEarnedListener",
+                "usr": "c:@M@AdMobWrapper@objc(pl)OnRewardEarnedListener"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@AdMobWrapper@objc(cs)RewardedAdWrapper(im)showWithViewController:rewardListener:",
+            "mangledName": "$s12AdMobWrapper08RewardedaC0C4show14viewController14rewardListenerySo06UIViewG0C_AA014OnRewardEarnedI0_ptF",
+            "moduleName": "AdMobWrapper",
+            "objc_name": "showWithViewController:rewardListener:",
+            "declAttributes": [
+              "AccessControl",
+              "ObjC"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "isLoaded",
+            "printedName": "isLoaded()",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Bool",
+                "printedName": "Swift.Bool",
+                "usr": "s:Sb"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@AdMobWrapper@objc(cs)RewardedAdWrapper(im)isLoaded",
+            "mangledName": "$s12AdMobWrapper08RewardedaC0C8isLoadedSbyF",
+            "moduleName": "AdMobWrapper",
+            "declAttributes": [
+              "AccessControl",
+              "ObjC"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "adDidRecordImpression",
+            "printedName": "adDidRecordImpression(_:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "FullScreenPresentingAd",
+                "printedName": "any GoogleMobileAds.FullScreenPresentingAd",
+                "usr": "c:objc(pl)GADFullScreenPresentingAd"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@CM@AdMobWrapper@objc(cs)RewardedAdWrapper(im)adDidRecordImpression:",
+            "mangledName": "$s12AdMobWrapper08RewardedaC0C21adDidRecordImpressionyySo023GADFullScreenPresentingA0_pF",
+            "moduleName": "AdMobWrapper",
+            "objc_name": "adDidRecordImpression:",
+            "declAttributes": [
+              "Dynamic",
+              "ObjC",
+              "Preconcurrency",
+              "Custom",
+              "AccessControl"
+            ],
+            "isFromExtension": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "adDidRecordClick",
+            "printedName": "adDidRecordClick(_:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "FullScreenPresentingAd",
+                "printedName": "any GoogleMobileAds.FullScreenPresentingAd",
+                "usr": "c:objc(pl)GADFullScreenPresentingAd"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@CM@AdMobWrapper@objc(cs)RewardedAdWrapper(im)adDidRecordClick:",
+            "mangledName": "$s12AdMobWrapper08RewardedaC0C16adDidRecordClickyySo023GADFullScreenPresentingA0_pF",
+            "moduleName": "AdMobWrapper",
+            "objc_name": "adDidRecordClick:",
+            "declAttributes": [
+              "Dynamic",
+              "ObjC",
+              "Preconcurrency",
+              "Custom",
+              "AccessControl"
+            ],
+            "isFromExtension": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "adWillPresentFullScreenContent",
+            "printedName": "adWillPresentFullScreenContent(_:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "FullScreenPresentingAd",
+                "printedName": "any GoogleMobileAds.FullScreenPresentingAd",
+                "usr": "c:objc(pl)GADFullScreenPresentingAd"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@CM@AdMobWrapper@objc(cs)RewardedAdWrapper(im)adWillPresentFullScreenContent:",
+            "mangledName": "$s12AdMobWrapper08RewardedaC0C30adWillPresentFullScreenContentyySo07GADFulli10PresentingA0_pF",
+            "moduleName": "AdMobWrapper",
+            "objc_name": "adWillPresentFullScreenContent:",
+            "declAttributes": [
+              "Dynamic",
+              "ObjC",
+              "Preconcurrency",
+              "Custom",
+              "AccessControl"
+            ],
+            "isFromExtension": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "adWillDismissFullScreenContent",
+            "printedName": "adWillDismissFullScreenContent(_:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "FullScreenPresentingAd",
+                "printedName": "any GoogleMobileAds.FullScreenPresentingAd",
+                "usr": "c:objc(pl)GADFullScreenPresentingAd"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@CM@AdMobWrapper@objc(cs)RewardedAdWrapper(im)adWillDismissFullScreenContent:",
+            "mangledName": "$s12AdMobWrapper08RewardedaC0C30adWillDismissFullScreenContentyySo07GADFulli10PresentingA0_pF",
+            "moduleName": "AdMobWrapper",
+            "objc_name": "adWillDismissFullScreenContent:",
+            "declAttributes": [
+              "Dynamic",
+              "ObjC",
+              "Preconcurrency",
+              "Custom",
+              "AccessControl"
+            ],
+            "isFromExtension": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "adDidDismissFullScreenContent",
+            "printedName": "adDidDismissFullScreenContent(_:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "FullScreenPresentingAd",
+                "printedName": "any GoogleMobileAds.FullScreenPresentingAd",
+                "usr": "c:objc(pl)GADFullScreenPresentingAd"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@CM@AdMobWrapper@objc(cs)RewardedAdWrapper(im)adDidDismissFullScreenContent:",
+            "mangledName": "$s12AdMobWrapper08RewardedaC0C29adDidDismissFullScreenContentyySo07GADFulli10PresentingA0_pF",
+            "moduleName": "AdMobWrapper",
+            "objc_name": "adDidDismissFullScreenContent:",
+            "declAttributes": [
+              "Dynamic",
+              "ObjC",
+              "Preconcurrency",
+              "Custom",
+              "AccessControl"
+            ],
+            "isFromExtension": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "ad",
+            "printedName": "ad(_:didFailToPresentFullScreenContentWithError:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "FullScreenPresentingAd",
+                "printedName": "any GoogleMobileAds.FullScreenPresentingAd",
+                "usr": "c:objc(pl)GADFullScreenPresentingAd"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Error",
+                "printedName": "any Swift.Error",
+                "usr": "s:s5ErrorP"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@CM@AdMobWrapper@objc(cs)RewardedAdWrapper(im)ad:didFailToPresentFullScreenContentWithError:",
+            "mangledName": "$s12AdMobWrapper08RewardedaC0C2ad_42didFailToPresentFullScreenContentWithErrorySo07GADFullk10PresentingA0_p_s0N0_ptF",
+            "moduleName": "AdMobWrapper",
+            "objc_name": "ad:didFailToPresentFullScreenContentWithError:",
+            "declAttributes": [
+              "Dynamic",
+              "ObjC",
+              "Preconcurrency",
+              "Custom",
+              "AccessControl"
+            ],
+            "isFromExtension": true,
+            "funcSelfKind": "NonMutating"
+          }
+        ],
+        "declKind": "Class",
+        "usr": "c:@M@AdMobWrapper@objc(cs)RewardedAdWrapper",
+        "mangledName": "$s12AdMobWrapper08RewardedaC0C",
+        "moduleName": "AdMobWrapper",
+        "declAttributes": [
+          "AccessControl",
+          "ObjC"
+        ],
+        "superclassUsr": "c:objc(cs)NSObject",
+        "inheritsConvenienceInitializers": true,
+        "superclassNames": [
+          "ObjectiveC.NSObject"
+        ],
+        "conformances": [
+          {
+            "kind": "Conformance",
+            "name": "Copyable",
+            "printedName": "Copyable",
+            "usr": "s:s8CopyableP",
+            "mangledName": "$ss8CopyableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Escapable",
+            "printedName": "Escapable",
+            "usr": "s:s9EscapableP",
+            "mangledName": "$ss9EscapableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Equatable",
+            "printedName": "Equatable",
+            "usr": "s:SQ",
+            "mangledName": "$sSQ"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Hashable",
+            "printedName": "Hashable",
+            "usr": "s:SH",
+            "mangledName": "$sSH"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CVarArg",
+            "printedName": "CVarArg",
+            "usr": "s:s7CVarArgP",
+            "mangledName": "$ss7CVarArgP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "_KeyValueCodingAndObservingPublishing",
+            "printedName": "_KeyValueCodingAndObservingPublishing",
+            "usr": "s:10Foundation37_KeyValueCodingAndObservingPublishingP",
+            "mangledName": "$s10Foundation37_KeyValueCodingAndObservingPublishingP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "_KeyValueCodingAndObserving",
+            "printedName": "_KeyValueCodingAndObserving",
+            "usr": "s:10Foundation27_KeyValueCodingAndObservingP",
+            "mangledName": "$s10Foundation27_KeyValueCodingAndObservingP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CustomStringConvertible",
+            "printedName": "CustomStringConvertible",
+            "usr": "s:s23CustomStringConvertibleP",
+            "mangledName": "$ss23CustomStringConvertibleP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CustomDebugStringConvertible",
+            "printedName": "CustomDebugStringConvertible",
+            "usr": "s:s28CustomDebugStringConvertibleP",
+            "mangledName": "$ss28CustomDebugStringConvertibleP"
+          }
+        ]
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "AdMobWrapper",
+        "declAttributes": [
+          "RawDocComment"
+        ]
+      },
+      {
+        "kind": "TypeDecl",
+        "name": "OnAdEventListener",
+        "printedName": "OnAdEventListener",
+        "children": [
+          {
+            "kind": "Function",
+            "name": "onAdShown",
+            "printedName": "onAdShown()",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@AdMobWrapper@objc(pl)OnAdEventListener(im)onAdShown",
+            "mangledName": "$s12AdMobWrapper02OnA13EventListenerP02onA5ShownyyF",
+            "moduleName": "AdMobWrapper",
+            "genericSig": "<τ_0_0 where τ_0_0 : AdMobWrapper.OnAdEventListener>",
+            "sugared_genericSig": "<Self where Self : AdMobWrapper.OnAdEventListener>",
+            "protocolReq": true,
+            "declAttributes": [
+              "ObjC"
+            ],
+            "reqNewWitnessTableEntry": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "onAdDismissed",
+            "printedName": "onAdDismissed()",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@AdMobWrapper@objc(pl)OnAdEventListener(im)onAdDismissed",
+            "mangledName": "$s12AdMobWrapper02OnA13EventListenerP02onA9DismissedyyF",
+            "moduleName": "AdMobWrapper",
+            "genericSig": "<τ_0_0 where τ_0_0 : AdMobWrapper.OnAdEventListener>",
+            "sugared_genericSig": "<Self where Self : AdMobWrapper.OnAdEventListener>",
+            "protocolReq": true,
+            "declAttributes": [
+              "ObjC"
+            ],
+            "reqNewWitnessTableEntry": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "onAdClicked",
+            "printedName": "onAdClicked()",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@AdMobWrapper@objc(pl)OnAdEventListener(im)onAdClicked",
+            "mangledName": "$s12AdMobWrapper02OnA13EventListenerP02onA7ClickedyyF",
+            "moduleName": "AdMobWrapper",
+            "genericSig": "<τ_0_0 where τ_0_0 : AdMobWrapper.OnAdEventListener>",
+            "sugared_genericSig": "<Self where Self : AdMobWrapper.OnAdEventListener>",
+            "protocolReq": true,
+            "declAttributes": [
+              "ObjC"
+            ],
+            "reqNewWitnessTableEntry": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "onAdImpression",
+            "printedName": "onAdImpression()",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@AdMobWrapper@objc(pl)OnAdEventListener(im)onAdImpression",
+            "mangledName": "$s12AdMobWrapper02OnA13EventListenerP02onA10ImpressionyyF",
+            "moduleName": "AdMobWrapper",
+            "genericSig": "<τ_0_0 where τ_0_0 : AdMobWrapper.OnAdEventListener>",
+            "sugared_genericSig": "<Self where Self : AdMobWrapper.OnAdEventListener>",
+            "protocolReq": true,
+            "declAttributes": [
+              "ObjC"
+            ],
+            "reqNewWitnessTableEntry": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "onAdFailedToShow",
+            "printedName": "onAdFailedToShow(errorCode:errorMessage:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Int32",
+                "printedName": "Swift.Int32",
+                "usr": "s:s5Int32V"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@AdMobWrapper@objc(pl)OnAdEventListener(im)onAdFailedToShowWithErrorCode:errorMessage:",
+            "mangledName": "$s12AdMobWrapper02OnA13EventListenerP02onA12FailedToShow9errorCode0K7Messageys5Int32V_SStF",
+            "moduleName": "AdMobWrapper",
+            "genericSig": "<τ_0_0 where τ_0_0 : AdMobWrapper.OnAdEventListener>",
+            "sugared_genericSig": "<Self where Self : AdMobWrapper.OnAdEventListener>",
+            "protocolReq": true,
+            "declAttributes": [
+              "ObjC"
+            ],
+            "reqNewWitnessTableEntry": true,
+            "funcSelfKind": "NonMutating"
+          }
+        ],
+        "declKind": "Protocol",
+        "usr": "c:@M@AdMobWrapper@objc(pl)OnAdEventListener",
+        "mangledName": "$s12AdMobWrapper02OnA13EventListenerP",
+        "moduleName": "AdMobWrapper",
+        "genericSig": "<τ_0_0 : AnyObject>",
+        "sugared_genericSig": "<Self : AnyObject>",
+        "declAttributes": [
+          "AccessControl",
+          "ObjC"
+        ],
+        "conformances": [
+          {
+            "kind": "Conformance",
+            "name": "Escapable",
+            "printedName": "Escapable",
+            "usr": "s:s9EscapableP",
+            "mangledName": "$ss9EscapableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Copyable",
+            "printedName": "Copyable",
+            "usr": "s:s8CopyableP",
+            "mangledName": "$ss8CopyableP"
+          }
+        ]
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "AdMobWrapper",
+        "declAttributes": [
+          "RawDocComment"
+        ]
+      },
+      {
+        "kind": "TypeDecl",
+        "name": "OnAdLoadedListener",
+        "printedName": "OnAdLoadedListener",
+        "children": [
+          {
+            "kind": "Function",
+            "name": "onAdLoaded",
+            "printedName": "onAdLoaded()",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@AdMobWrapper@objc(pl)OnAdLoadedListener(im)onAdLoaded",
+            "mangledName": "$s12AdMobWrapper02OnA14LoadedListenerP02onaE0yyF",
+            "moduleName": "AdMobWrapper",
+            "genericSig": "<τ_0_0 where τ_0_0 : AdMobWrapper.OnAdLoadedListener>",
+            "sugared_genericSig": "<Self where Self : AdMobWrapper.OnAdLoadedListener>",
+            "protocolReq": true,
+            "declAttributes": [
+              "ObjC"
+            ],
+            "reqNewWitnessTableEntry": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "onAdFailedToLoad",
+            "printedName": "onAdFailedToLoad(errorCode:errorMessage:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Int32",
+                "printedName": "Swift.Int32",
+                "usr": "s:s5Int32V"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@AdMobWrapper@objc(pl)OnAdLoadedListener(im)onAdFailedToLoadWithErrorCode:errorMessage:",
+            "mangledName": "$s12AdMobWrapper02OnA14LoadedListenerP02onA12FailedToLoad9errorCode0K7Messageys5Int32V_SStF",
+            "moduleName": "AdMobWrapper",
+            "genericSig": "<τ_0_0 where τ_0_0 : AdMobWrapper.OnAdLoadedListener>",
+            "sugared_genericSig": "<Self where Self : AdMobWrapper.OnAdLoadedListener>",
+            "protocolReq": true,
+            "declAttributes": [
+              "ObjC"
+            ],
+            "reqNewWitnessTableEntry": true,
+            "funcSelfKind": "NonMutating"
+          }
+        ],
+        "declKind": "Protocol",
+        "usr": "c:@M@AdMobWrapper@objc(pl)OnAdLoadedListener",
+        "mangledName": "$s12AdMobWrapper02OnA14LoadedListenerP",
+        "moduleName": "AdMobWrapper",
+        "genericSig": "<τ_0_0 : AnyObject>",
+        "sugared_genericSig": "<Self : AnyObject>",
+        "declAttributes": [
+          "AccessControl",
+          "ObjC"
+        ],
+        "conformances": [
+          {
+            "kind": "Conformance",
+            "name": "Escapable",
+            "printedName": "Escapable",
+            "usr": "s:s9EscapableP",
+            "mangledName": "$ss9EscapableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Copyable",
+            "printedName": "Copyable",
+            "usr": "s:s8CopyableP",
+            "mangledName": "$ss8CopyableP"
+          }
+        ]
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "AdMobWrapper",
+        "declAttributes": [
+          "RawDocComment"
+        ]
+      },
+      {
+        "kind": "TypeDecl",
+        "name": "OnInitializedListener",
+        "printedName": "OnInitializedListener",
+        "children": [
+          {
+            "kind": "Function",
+            "name": "onInitialized",
+            "printedName": "onInitialized()",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@AdMobWrapper@objc(pl)OnInitializedListener(im)onInitialized",
+            "mangledName": "$s12AdMobWrapper21OnInitializedListenerP02onE0yyF",
+            "moduleName": "AdMobWrapper",
+            "genericSig": "<τ_0_0 where τ_0_0 : AdMobWrapper.OnInitializedListener>",
+            "sugared_genericSig": "<Self where Self : AdMobWrapper.OnInitializedListener>",
+            "protocolReq": true,
+            "declAttributes": [
+              "ObjC"
+            ],
+            "reqNewWitnessTableEntry": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "onInitializationFailed",
+            "printedName": "onInitializationFailed(error:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@AdMobWrapper@objc(pl)OnInitializedListener(im)onInitializationFailedWithError:",
+            "mangledName": "$s12AdMobWrapper21OnInitializedListenerP22onInitializationFailed5errorySS_tF",
+            "moduleName": "AdMobWrapper",
+            "genericSig": "<τ_0_0 where τ_0_0 : AdMobWrapper.OnInitializedListener>",
+            "sugared_genericSig": "<Self where Self : AdMobWrapper.OnInitializedListener>",
+            "protocolReq": true,
+            "declAttributes": [
+              "ObjC"
+            ],
+            "reqNewWitnessTableEntry": true,
+            "funcSelfKind": "NonMutating"
+          }
+        ],
+        "declKind": "Protocol",
+        "usr": "c:@M@AdMobWrapper@objc(pl)OnInitializedListener",
+        "mangledName": "$s12AdMobWrapper21OnInitializedListenerP",
+        "moduleName": "AdMobWrapper",
+        "genericSig": "<τ_0_0 : AnyObject>",
+        "sugared_genericSig": "<Self : AnyObject>",
+        "declAttributes": [
+          "AccessControl",
+          "ObjC"
+        ],
+        "conformances": [
+          {
+            "kind": "Conformance",
+            "name": "Escapable",
+            "printedName": "Escapable",
+            "usr": "s:s9EscapableP",
+            "mangledName": "$ss9EscapableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Copyable",
+            "printedName": "Copyable",
+            "usr": "s:s8CopyableP",
+            "mangledName": "$ss8CopyableP"
+          }
+        ]
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "AdMobWrapper",
+        "declAttributes": [
+          "RawDocComment"
+        ]
+      },
+      {
+        "kind": "TypeDecl",
+        "name": "OnRewardEarnedListener",
+        "printedName": "OnRewardEarnedListener",
+        "children": [
+          {
+            "kind": "Function",
+            "name": "onRewardEarned",
+            "printedName": "onRewardEarned(type:amount:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Int32",
+                "printedName": "Swift.Int32",
+                "usr": "s:s5Int32V"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@AdMobWrapper@objc(pl)OnRewardEarnedListener(im)onRewardEarnedWithType:amount:",
+            "mangledName": "$s12AdMobWrapper22OnRewardEarnedListenerP02oneF04type6amountySS_s5Int32VtF",
+            "moduleName": "AdMobWrapper",
+            "genericSig": "<τ_0_0 where τ_0_0 : AdMobWrapper.OnRewardEarnedListener>",
+            "sugared_genericSig": "<Self where Self : AdMobWrapper.OnRewardEarnedListener>",
+            "protocolReq": true,
+            "declAttributes": [
+              "ObjC"
+            ],
+            "reqNewWitnessTableEntry": true,
+            "funcSelfKind": "NonMutating"
+          }
+        ],
+        "declKind": "Protocol",
+        "usr": "c:@M@AdMobWrapper@objc(pl)OnRewardEarnedListener",
+        "mangledName": "$s12AdMobWrapper22OnRewardEarnedListenerP",
+        "moduleName": "AdMobWrapper",
+        "genericSig": "<τ_0_0 : AnyObject>",
+        "sugared_genericSig": "<Self : AnyObject>",
+        "declAttributes": [
+          "AccessControl",
+          "ObjC"
+        ],
+        "conformances": [
+          {
+            "kind": "Conformance",
+            "name": "Escapable",
+            "printedName": "Escapable",
+            "usr": "s:s9EscapableP",
+            "mangledName": "$ss9EscapableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Copyable",
+            "printedName": "Copyable",
+            "usr": "s:s8CopyableP",
+            "mangledName": "$ss8CopyableP"
+          }
+        ]
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "AdMobWrapper",
+        "declAttributes": [
+          "RawDocComment"
+        ]
+      },
+      {
+        "kind": "Import",
+        "name": "GoogleMobileAds",
+        "printedName": "GoogleMobileAds",
+        "declKind": "Import",
+        "moduleName": "AdMobWrapper"
+      },
+      {
+        "kind": "TypeDecl",
+        "name": "AdMobManager",
+        "printedName": "AdMobManager",
+        "children": [
+          {
+            "kind": "Var",
+            "name": "instance",
+            "printedName": "instance",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "AdMobManager",
+                "printedName": "AdMobWrapper.AdMobManager",
+                "usr": "c:@M@AdMobWrapper@objc(cs)AdMobManager"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "c:@M@AdMobWrapper@objc(cs)AdMobManager(cpy)instance",
+            "mangledName": "$s12AdMobWrapper0aB7ManagerC8instanceACvpZ",
+            "moduleName": "AdMobWrapper",
+            "static": true,
+            "declAttributes": [
+              "HasInitialValue",
+              "Final",
+              "HasStorage",
+              "AccessControl",
+              "ObjC"
+            ],
+            "isLet": true,
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "AdMobManager",
+                    "printedName": "AdMobWrapper.AdMobManager",
+                    "usr": "c:@M@AdMobWrapper@objc(cs)AdMobManager"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "c:@M@AdMobWrapper@objc(cs)AdMobManager(cm)instance",
+                "mangledName": "$s12AdMobWrapper0aB7ManagerC8instanceACvgZ",
+                "moduleName": "AdMobWrapper",
+                "static": true,
+                "implicit": true,
+                "declAttributes": [
+                  "Final",
+                  "ObjC"
+                ],
+                "accessorKind": "get"
+              }
+            ]
+          },
+          {
+            "kind": "Function",
+            "name": "initialize",
+            "printedName": "initialize(viewController:listener:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "UIViewController",
+                "printedName": "UIKit.UIViewController",
+                "usr": "c:objc(cs)UIViewController"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "OnInitializedListener",
+                "printedName": "any AdMobWrapper.OnInitializedListener",
+                "usr": "c:@M@AdMobWrapper@objc(pl)OnInitializedListener"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@AdMobWrapper@objc(cs)AdMobManager(im)initializeWithViewController:listener:",
+            "mangledName": "$s12AdMobWrapper0aB7ManagerC10initialize14viewController8listenerySo06UIViewG0C_AA21OnInitializedListener_ptF",
+            "moduleName": "AdMobWrapper",
+            "objc_name": "initializeWithViewController:listener:",
+            "declAttributes": [
+              "AccessControl",
+              "ObjC"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "isInitialized",
+            "printedName": "isInitialized()",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Bool",
+                "printedName": "Swift.Bool",
+                "usr": "s:Sb"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@AdMobWrapper@objc(cs)AdMobManager(im)isInitialized",
+            "mangledName": "$s12AdMobWrapper0aB7ManagerC13isInitializedSbyF",
+            "moduleName": "AdMobWrapper",
+            "declAttributes": [
+              "AccessControl",
+              "ObjC"
+            ],
+            "funcSelfKind": "NonMutating"
+          }
+        ],
+        "declKind": "Class",
+        "usr": "c:@M@AdMobWrapper@objc(cs)AdMobManager",
+        "mangledName": "$s12AdMobWrapper0aB7ManagerC",
+        "moduleName": "AdMobWrapper",
+        "declAttributes": [
+          "AccessControl",
+          "ObjC"
+        ],
+        "superclassUsr": "c:objc(cs)NSObject",
+        "hasMissingDesignatedInitializers": true,
+        "inheritsConvenienceInitializers": true,
+        "superclassNames": [
+          "ObjectiveC.NSObject"
+        ],
+        "conformances": [
+          {
+            "kind": "Conformance",
+            "name": "Copyable",
+            "printedName": "Copyable",
+            "usr": "s:s8CopyableP",
+            "mangledName": "$ss8CopyableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Escapable",
+            "printedName": "Escapable",
+            "usr": "s:s9EscapableP",
+            "mangledName": "$ss9EscapableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Equatable",
+            "printedName": "Equatable",
+            "usr": "s:SQ",
+            "mangledName": "$sSQ"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Hashable",
+            "printedName": "Hashable",
+            "usr": "s:SH",
+            "mangledName": "$sSH"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CVarArg",
+            "printedName": "CVarArg",
+            "usr": "s:s7CVarArgP",
+            "mangledName": "$ss7CVarArgP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "_KeyValueCodingAndObservingPublishing",
+            "printedName": "_KeyValueCodingAndObservingPublishing",
+            "usr": "s:10Foundation37_KeyValueCodingAndObservingPublishingP",
+            "mangledName": "$s10Foundation37_KeyValueCodingAndObservingPublishingP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "_KeyValueCodingAndObserving",
+            "printedName": "_KeyValueCodingAndObserving",
+            "usr": "s:10Foundation27_KeyValueCodingAndObservingP",
+            "mangledName": "$s10Foundation27_KeyValueCodingAndObservingP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CustomStringConvertible",
+            "printedName": "CustomStringConvertible",
+            "usr": "s:s23CustomStringConvertibleP",
+            "mangledName": "$ss23CustomStringConvertibleP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CustomDebugStringConvertible",
+            "printedName": "CustomDebugStringConvertible",
+            "usr": "s:s28CustomDebugStringConvertibleP",
+            "mangledName": "$ss28CustomDebugStringConvertibleP"
+          }
+        ]
+      }
+    ],
+    "json_format_version": 8
+  },
+  "ConstValues": [
+    {
+      "filePath": "\/Users\/amorvillo\/Documents\/Git\/AMDevITAdMobWrapper\/sources\/apple\/ios\/AdMobWrapper\/Ads\/AppOpenAdWrapper.swift",
+      "kind": "BooleanLiteral",
+      "offset": 284,
+      "length": 5,
+      "value": "false"
+    },
+    {
+      "filePath": "\/Users\/amorvillo\/Documents\/Git\/AMDevITAdMobWrapper\/sources\/apple\/ios\/AdMobWrapper\/AdMobManager.swift",
+      "kind": "BooleanLiteral",
+      "offset": 278,
+      "length": 5,
+      "value": "false"
+    }
+  ]
+}

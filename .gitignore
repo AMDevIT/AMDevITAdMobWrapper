@@ -77,7 +77,8 @@ playground.xcworkspace
 .build/
 
 *.xcarchive
-*.xcframework
+# *.xcframework
+sources/apple/ios/build/*.xcframework
 
 # SPM
 .build/
