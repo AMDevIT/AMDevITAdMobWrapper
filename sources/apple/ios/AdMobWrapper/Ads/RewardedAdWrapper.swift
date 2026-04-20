@@ -32,7 +32,7 @@ import UIKit
             
             if let error = error {
                 let nsError = error as NSError
-                self.loadListener?.onAdFailedToLoad(errorCode: Int32(nsError.code),
+                self.loadListener?.onAdFailedToLoad(errorCode: nsError.code,
                                                     errorMessage: nsError.localizedDescription)
                 return
             }
@@ -56,7 +56,7 @@ import UIKit
             guard let self = self else { return }
             let reward = ad.adReward
             self.rewardListener?.onRewardEarned(type: reward.type,
-                                                amount: Int32(truncating: reward.amount))
+                                                amount: Int(truncating: reward.amount))
         }
     }
     
@@ -91,7 +91,7 @@ extension RewardedAdWrapper: FullScreenContentDelegate {
     public func ad(_ ad: FullScreenPresentingAd,
                    didFailToPresentFullScreenContentWithError error: Error) {
         let nsError = error as NSError
-        self.eventListener?.onAdFailedToShow(errorCode: Int32(nsError.code),
+        self.eventListener?.onAdFailedToShow(errorCode: nsError.code,
                                              errorMessage: nsError.localizedDescription)
         self.rewardedAd = nil
     }

@@ -32,7 +32,7 @@ import UIKit
             
             if let error = error {
                 let nsError = error as NSError
-                self.loadListener?.onAdFailedToLoad(errorCode: Int32(nsError.code),
+                self.loadListener?.onAdFailedToLoad(errorCode: nsError.code,
                                                     errorMessage: nsError.localizedDescription)
                 return
             }
@@ -93,7 +93,7 @@ extension AppOpenAdWrapper: FullScreenContentDelegate {
         let nsError = error as NSError
         self.isShowingAd = false
         self.appOpenAd = nil
-        self.eventListener?.onAdFailedToShow(errorCode: Int32(nsError.code),
+        self.eventListener?.onAdFailedToShow(errorCode: nsError.code,
                                              errorMessage: nsError.localizedDescription)
     }
 }

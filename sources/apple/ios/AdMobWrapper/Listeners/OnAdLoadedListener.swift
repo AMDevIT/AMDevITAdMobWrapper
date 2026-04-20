@@ -9,5 +9,5 @@ import Foundation
 
 @objc public protocol OnAdLoadedListener: AnyObject {
     func onAdLoaded()
-    func onAdFailedToLoad(errorCode: Int32, errorMessage: String)
+    func onAdFailedToLoad(errorCode: Int, errorMessage: String)
 }

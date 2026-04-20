@@ -30,7 +30,7 @@ xcodebuild archive \
     SKIP_INSTALL=NO \
     BUILD_LIBRARY_FOR_DISTRIBUTION=YES \
     SWIFT_INSTALL_OBJC_HEADER=YES \
-    SWIFT_OBJC_INTERFACE_HEADER_NAME="$XCFRAMEWORK_NAME-Swift.h" \
+    SWIFT_OBJC_INTERFACE_HEADER_NAME="$XCFRAMEWORK_NAME.h" \
     | xcpretty || true
 
 echo "🖥️ Building archive for simulator (arm64 + x86_64)..."
@@ -42,7 +42,7 @@ xcodebuild archive \
     SKIP_INSTALL=NO \
     BUILD_LIBRARY_FOR_DISTRIBUTION=YES \
     SWIFT_INSTALL_OBJC_HEADER=YES \
-    SWIFT_OBJC_INTERFACE_HEADER_NAME="$XCFRAMEWORK_NAME-Swift.h" \
+    SWIFT_OBJC_INTERFACE_HEADER_NAME="$XCFRAMEWORK_NAME.h" \
     | xcpretty || true
 
 echo "📦 Creating xcframework..."

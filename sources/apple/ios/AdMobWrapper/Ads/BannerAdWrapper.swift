@@ -22,7 +22,7 @@ import UIKit
     @objc public func load(adUnitId: String,
                            viewController: UIViewController,
                            loadListener: OnAdLoadedListener,
-                           eventListener: OnAdEventListener?) -> BannerView {
+                           eventListener: OnAdEventListener?) -> UIView {
         self.bannerView?.removeFromSuperview()
         self.loadListener = loadListener
         self.eventListener = eventListener
@@ -55,7 +55,7 @@ extension BannerAdWrapper: BannerViewDelegate {
     public func bannerView(_ bannerView: BannerView,
                            didFailToReceiveAdWithError error: Error) {
         let nsError = error as NSError
-        self.loadListener?.onAdFailedToLoad(errorCode: Int32(nsError.code),
+        self.loadListener?.onAdFailedToLoad(errorCode: nsError.code,
                                             errorMessage: nsError.localizedDescription)
     }
     

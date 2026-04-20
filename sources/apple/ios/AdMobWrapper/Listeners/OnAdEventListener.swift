@@ -12,5 +12,5 @@ import Foundation
     func onAdDismissed()
     func onAdClicked()
     func onAdImpression()
-    func onAdFailedToShow(errorCode: Int32, errorMessage: String)
+    func onAdFailedToShow(errorCode: Int, errorMessage: String)
 }

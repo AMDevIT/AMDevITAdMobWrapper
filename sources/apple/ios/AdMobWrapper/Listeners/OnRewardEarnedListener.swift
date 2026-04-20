@@ -8,5 +8,5 @@
 import Foundation
 
 @objc public protocol OnRewardEarnedListener: AnyObject {
-    func onRewardEarned(type: String, amount: Int32)
+    func onRewardEarned(type: String, amount: Int)
 }
