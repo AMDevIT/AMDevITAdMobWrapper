@@ -1,5 +1,8 @@
 <Solution>
   <Folder Name="/Apps/">
+    <Project Path="AMDevIT.Admob.Wrapper.AppleTestApp/AMDevIT.Admob.Wrapper.AppleTestApp.csproj" Id="e5e6deee-6209-4265-9adf-896d5c159145">
+      <Deploy />
+    </Project>
     <Project Path="AMDevIT.Admob.Wrapper.DroidTestApp/AMDevIT.Admob.Wrapper.DroidTestApp.csproj">
       <Deploy />
     </Project>

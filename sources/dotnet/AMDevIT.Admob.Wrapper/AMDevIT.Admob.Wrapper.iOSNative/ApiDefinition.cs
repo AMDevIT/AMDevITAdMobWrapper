@@ -104,7 +104,7 @@ namespace AMDevIT.Admob.Wrapper.iOSNative
 	{
 		// @required -(void)onRewardEarnedWithType:(NSString * _Nonnull)type amount:(NSInteger)amount;
 		[Export ("onRewardEarnedWithType:amount:")]
-		void Amount (string type, nint amount);
+		void OnRewardEarnedWithType (string type, nint amount);
 	}
 
 	// @interface AdMobManager : NSObject
@@ -119,7 +119,7 @@ namespace AMDevIT.Admob.Wrapper.iOSNative
 
 		// -(void)initializeWithViewController:(UIViewController * _Nonnull)viewController listener:(id<OnInitializedListener> _Nonnull)listener;
 		[Export ("initializeWithViewController:listener:")]
-		void InitializeWithViewController (UIViewController viewController, OnInitializedListener listener);
+		void InitializeWithViewController (UIViewController viewController, IOnInitializedListener listener);
 
 		// -(BOOL)isInitialized __attribute__((warn_unused_result("")));
 		[Export ("isInitialized")]
@@ -132,7 +132,7 @@ namespace AMDevIT.Admob.Wrapper.iOSNative
 	{
 		// -(void)loadWithAdUnitId:(NSString * _Nonnull)adUnitId loadListener:(id<OnAdLoadedListener> _Nonnull)loadListener eventListener:(id<OnAdEventListener> _Nullable)eventListener;
 		[Export ("loadWithAdUnitId:loadListener:eventListener:")]
-		void LoadWithAdUnitId (string adUnitId, OnAdLoadedListener loadListener, [NullAllowed] OnAdEventListener eventListener);
+		void LoadWithAdUnitId (string adUnitId, IOnAdLoadedListener loadListener, [NullAllowed] IOnAdEventListener eventListener);
 
 		// -(void)showWithViewController:(UIViewController * _Nonnull)viewController;
 		[Export ("showWithViewController:")]
@@ -153,7 +153,7 @@ namespace AMDevIT.Admob.Wrapper.iOSNative
 	{
 		// -(UIView * _Nonnull)loadWithAdUnitId:(NSString * _Nonnull)adUnitId viewController:(UIViewController * _Nonnull)viewController loadListener:(id<OnAdLoadedListener> _Nonnull)loadListener eventListener:(id<OnAdEventListener> _Nullable)eventListener __attribute__((warn_unused_result("")));
 		[Export ("loadWithAdUnitId:viewController:loadListener:eventListener:")]
-		UIView LoadWithAdUnitId (string adUnitId, UIViewController viewController, OnAdLoadedListener loadListener, [NullAllowed] OnAdEventListener eventListener);
+		UIView LoadWithAdUnitId (string adUnitId, UIViewController viewController, IOnAdLoadedListener loadListener, [NullAllowed] IOnAdEventListener eventListener);
 
 		// -(void)destroy;
 		[Export ("destroy")]
@@ -166,7 +166,7 @@ namespace AMDevIT.Admob.Wrapper.iOSNative
 	{
 		// -(void)loadWithAdUnitId:(NSString * _Nonnull)adUnitId loadListener:(id<OnAdLoadedListener> _Nonnull)loadListener eventListener:(id<OnAdEventListener> _Nullable)eventListener;
 		[Export ("loadWithAdUnitId:loadListener:eventListener:")]
-		void LoadWithAdUnitId (string adUnitId, OnAdLoadedListener loadListener, [NullAllowed] OnAdEventListener eventListener);
+		void LoadWithAdUnitId (string adUnitId, IOnAdLoadedListener loadListener, [NullAllowed] IOnAdEventListener eventListener);
 
 		// -(void)showWithViewController:(UIViewController * _Nonnull)viewController;
 		[Export ("showWithViewController:")]
@@ -183,11 +183,11 @@ namespace AMDevIT.Admob.Wrapper.iOSNative
 	{
 		// -(void)loadWithAdUnitId:(NSString * _Nonnull)adUnitId loadListener:(id<OnAdLoadedListener> _Nonnull)loadListener eventListener:(id<OnAdEventListener> _Nullable)eventListener;
 		[Export ("loadWithAdUnitId:loadListener:eventListener:")]
-		void LoadWithAdUnitId (string adUnitId, OnAdLoadedListener loadListener, [NullAllowed] OnAdEventListener eventListener);
+		void LoadWithAdUnitId (string adUnitId, OnAdLoadedListener loadListener, [NullAllowed] IOnAdEventListener eventListener);
 
 		// -(void)showWithViewController:(UIViewController * _Nonnull)viewController rewardListener:(id<OnRewardEarnedListener> _Nonnull)rewardListener;
 		[Export ("showWithViewController:rewardListener:")]
-		void ShowWithViewController (UIViewController viewController, OnRewardEarnedListener rewardListener);
+		void ShowWithViewController (UIViewController viewController, IOnRewardEarnedListener rewardListener);
 
 		// -(BOOL)isLoaded __attribute__((warn_unused_result("")));
 		[Export ("isLoaded")]
