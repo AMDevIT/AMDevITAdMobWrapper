@@ -1,7 +1,7 @@
 // swift-interface-format-version: 1.0
-// swift-compiler-version: Apple Swift version 6.2.4 effective-5.10 (swiftlang-6.2.4.1.4 clang-1700.6.4.2)
-// swift-module-flags: -target x86_64-apple-ios15.6-simulator -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -enable-upcoming-feature DisableOutwardActorInference -enable-upcoming-feature InferSendableFromCaptures -enable-upcoming-feature GlobalActorIsolatedTypesUsability -enable-upcoming-feature MemberImportVisibility -enable-upcoming-feature InferIsolatedConformances -enable-upcoming-feature NonisolatedNonsendingByDefault -enable-experimental-feature DebugDescriptionMacro -enable-bare-slash-regex -module-name AdMobWrapper
-// swift-module-flags-ignorable: -no-verify-emitted-module-interface -formal-cxx-interoperability-mode=off -interface-compiler-version 6.2.4
+// swift-compiler-version: Apple Swift version 6.3.1 effective-5.10 (swiftlang-6.3.1.1.2 clang-2100.0.123.102)
+// swift-module-flags: -target x86_64-apple-ios15.6-simulator -enable-objc-interop -enable-library-evolution -swift-version 5 -O -enable-upcoming-feature DisableOutwardActorInference -enable-upcoming-feature InferSendableFromCaptures -enable-upcoming-feature GlobalActorIsolatedTypesUsability -enable-upcoming-feature MemberImportVisibility -enable-upcoming-feature InferIsolatedConformances -enable-upcoming-feature NonisolatedNonsendingByDefault -enable-experimental-feature DebugDescriptionMacro -enable-bare-slash-regex -module-name AdMobWrapper
+// swift-module-flags-ignorable: -no-verify-emitted-module-interface -formal-cxx-interoperability-mode=off -interface-compiler-version 6.3.1
 import Foundation
 import GoogleMobileAds
 import Swift
@@ -11,9 +11,7 @@ import _StringProcessing
 import _SwiftConcurrencyShims
 @_inheritsConvenienceInitializers @objc public class AppOpenAdWrapper : ObjectiveC.NSObject {
   @objc override dynamic public init()
-  #if compiler(>=5.3) && $NonescapableTypes
   @objc public func load(adUnitId: Swift.String, loadListener: any AdMobWrapper.OnAdLoadedListener, eventListener: (any AdMobWrapper.OnAdEventListener)?)
-  #endif
   @objc public func show(viewController: UIKit.UIViewController)
   @objc public func isLoaded() -> Swift.Bool
   @objc public func isShowing() -> Swift.Bool
@@ -29,9 +27,7 @@ extension AdMobWrapper.AppOpenAdWrapper : GoogleMobileAds.FullScreenContentDeleg
 }
 @_inheritsConvenienceInitializers @objc public class BannerAdWrapper : ObjectiveC.NSObject {
   @objc override dynamic public init()
-  #if compiler(>=5.3) && $NonescapableTypes
-  @objc public func load(adUnitId: Swift.String, viewController: UIKit.UIViewController, loadListener: any AdMobWrapper.OnAdLoadedListener, eventListener: (any AdMobWrapper.OnAdEventListener)?) -> GoogleMobileAds.BannerView
-  #endif
+  @objc public func load(adUnitId: Swift.String, viewController: UIKit.UIViewController, loadListener: any AdMobWrapper.OnAdLoadedListener, eventListener: (any AdMobWrapper.OnAdEventListener)?) -> UIKit.UIView
   @objc public func destroy()
   @objc deinit
 }
@@ -45,9 +41,7 @@ extension AdMobWrapper.BannerAdWrapper : GoogleMobileAds.BannerViewDelegate {
 }
 @_inheritsConvenienceInitializers @objc public class InterstitialAdWrapper : ObjectiveC.NSObject {
   @objc override dynamic public init()
-  #if compiler(>=5.3) && $NonescapableTypes
   @objc public func load(adUnitId: Swift.String, loadListener: any AdMobWrapper.OnAdLoadedListener, eventListener: (any AdMobWrapper.OnAdEventListener)?)
-  #endif
   @objc public func show(viewController: UIKit.UIViewController)
   @objc public func isLoaded() -> Swift.Bool
   @objc deinit
@@ -62,9 +56,7 @@ extension AdMobWrapper.InterstitialAdWrapper : GoogleMobileAds.FullScreenContent
 }
 @_inheritsConvenienceInitializers @objc public class RewardedAdWrapper : ObjectiveC.NSObject {
   @objc override dynamic public init()
-  #if compiler(>=5.3) && $NonescapableTypes
   @objc public func load(adUnitId: Swift.String, loadListener: any AdMobWrapper.OnAdLoadedListener, eventListener: (any AdMobWrapper.OnAdEventListener)?)
-  #endif
   @objc public func show(viewController: UIKit.UIViewController, rewardListener: any AdMobWrapper.OnRewardEarnedListener)
   @objc public func isLoaded() -> Swift.Bool
   @objc deinit
@@ -82,18 +74,18 @@ extension AdMobWrapper.RewardedAdWrapper : GoogleMobileAds.FullScreenContentDele
   @objc func onAdDismissed()
   @objc func onAdClicked()
   @objc func onAdImpression()
-  @objc func onAdFailedToShow(errorCode: Swift.Int32, errorMessage: Swift.String)
+  @objc func onAdFailedToShow(errorCode: Swift.Int, errorMessage: Swift.String)
 }
 @objc public protocol OnAdLoadedListener {
   @objc func onAdLoaded()
-  @objc func onAdFailedToLoad(errorCode: Swift.Int32, errorMessage: Swift.String)
+  @objc func onAdFailedToLoad(errorCode: Swift.Int, errorMessage: Swift.String)
 }
 @objc public protocol OnInitializedListener {
   @objc func onInitialized()
   @objc func onInitializationFailed(error: Swift.String)
 }
 @objc public protocol OnRewardEarnedListener {
-  @objc func onRewardEarned(type: Swift.String, amount: Swift.Int32)
+  @objc func onRewardEarned(type: Swift.String, amount: Swift.Int)
 }
 @_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers @objc public class AdMobManager : ObjectiveC.NSObject {
   @objc public static let instance: AdMobWrapper.AdMobManager

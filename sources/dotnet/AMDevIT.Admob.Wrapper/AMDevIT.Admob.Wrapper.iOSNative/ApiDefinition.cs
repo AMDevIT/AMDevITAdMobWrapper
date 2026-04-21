@@ -1,70 +1,198 @@
-namespace AMDevIT.Admob.Wrapper.iOSNative
+using Foundation;
+using ObjCRuntime;
+using UIKit;
+ 
+
+namespace AMDevIT.Admob.Wrapper
 {
+	// @interface AdMobManager : NSObject
+	[BaseType (typeof(NSObject), Name = "_TtC12AdMobWrapper12AdMobManager")]
+	[DisableDefaultCtor]
+	interface AdMobManager
+	{
+		// @property (readonly, nonatomic, strong, class) AdMobManager * _Nonnull instance;
+		[Static]
+		[Export ("instance", ArgumentSemantic.Strong)]
+		AdMobManager Instance { get; }
 
-    // The first step to creating a binding is to add your native framework ("MyLibrary.xcframework")
-    // to the project.
-    // Open your binding csproj and add a section like this
-    // <ItemGroup>
-    //   <NativeReference Include="MyLibrary.xcframework">
-    //     <Kind>Framework</Kind>
-    //     <Frameworks></Frameworks>
-    //   </NativeReference>
-    // </ItemGroup>
-    //
-    // Once you've added it, you will need to customize it for your specific library:
-    //  - Change the Include to the correct path/name of your library
-    //  - Change Kind to Static (.a) or Framework (.framework/.xcframework) based upon the library kind and extension.
-    //    - Dynamic (.dylib) is a third option but rarely if ever valid, and only on macOS and Mac Catalyst
-    //  - If your library depends on other frameworks, add them inside <Frameworks></Frameworks>
-    // Example:
-    // <NativeReference Include="libs\MyTestFramework.xcframework">
-    //   <Kind>Framework</Kind>
-    //   <Frameworks>CoreLocation ModelIO</Frameworks>
-    // </NativeReference>
-    // 
-    // Once you've done that, you're ready to move on to binding the API...
-    //
-    // Here is where you'd define your API definition for the native Objective-C library.
-    //
-    // For example, to bind the following Objective-C class:
-    //
-    //     @interface Widget : NSObject {
-    //     }
-    //
-    // The C# binding would look like this:
-    //
-    //     [BaseType (typeof (NSObject))]
-    //     interface Widget {
-    //     }
-    //
-    // To bind Objective-C properties, such as:
-    //
-    //     @property (nonatomic, readwrite, assign) CGPoint center;
-    //
-    // You would add a property definition in the C# interface like so:
-    //
-    //     [Export ("center")]
-    //     CGPoint Center { get; set; }
-    //
-    // To bind an Objective-C method, such as:
-    //
-    //     -(void) doSomething:(NSObject *)object atIndex:(NSInteger)index;
-    //
-    // You would add a method definition to the C# interface like so:
-    //
-    //     [Export ("doSomething:atIndex:")]
-    //     void DoSomething (NSObject object, nint index);
-    //
-    // Objective-C "constructors" such as:
-    //
-    //     -(id)initWithElmo:(ElmoMuppet *)elmo;
-    //
-    // Can be bound as:
-    //
-    //     [Export ("initWithElmo:")]
-    //     NativeHandle Constructor (ElmoMuppet elmo);
-    //
-    // For more information, see https://aka.ms/ios-binding
-    //
+		// -(void)initializeWithViewController:(UIViewController * _Nonnull)viewController listener:(id<OnInitializedListener> _Nonnull)listener;
+		[Export ("initializeWithViewController:listener:")]
+		void InitializeWithViewController (UIViewController viewController, OnInitializedListener listener);
 
+		// -(BOOL)isInitialized __attribute__((warn_unused_result("")));
+		[Export ("isInitialized")]
+		bool IsInitialized { get; }
+	}
+
+	// @interface AppOpenAdWrapper : NSObject
+	[BaseType (typeof(NSObject), Name = "_TtC12AdMobWrapper16AppOpenAdWrapper")]
+	interface AppOpenAdWrapper
+	{
+		// -(void)loadWithAdUnitId:(NSString * _Nonnull)adUnitId loadListener:(id<OnAdLoadedListener> _Nonnull)loadListener eventListener:(id<OnAdEventListener> _Nullable)eventListener;
+		[Export ("loadWithAdUnitId:loadListener:eventListener:")]
+		void LoadWithAdUnitId (string adUnitId, OnAdLoadedListener loadListener, [NullAllowed] OnAdEventListener eventListener);
+
+		// -(void)showWithViewController:(UIViewController * _Nonnull)viewController;
+		[Export ("showWithViewController:")]
+		void ShowWithViewController (UIViewController viewController);
+
+		// -(BOOL)isLoaded __attribute__((warn_unused_result("")));
+		[Export ("isLoaded")]
+		bool IsLoaded { get; }
+
+		// -(BOOL)isShowing __attribute__((warn_unused_result("")));
+		[Export ("isShowing")]
+		bool IsShowing { get; }
+	}	
+
+	// @interface BannerAdWrapper : NSObject
+	[BaseType (typeof(NSObject), Name = "_TtC12AdMobWrapper15BannerAdWrapper")]
+	interface BannerAdWrapper
+	{
+		// -(UIView * _Nonnull)loadWithAdUnitId:(NSString * _Nonnull)adUnitId viewController:(UIViewController * _Nonnull)viewController loadListener:(id<OnAdLoadedListener> _Nonnull)loadListener eventListener:(id<OnAdEventListener> _Nullable)eventListener __attribute__((warn_unused_result("")));
+		[Export ("loadWithAdUnitId:viewController:loadListener:eventListener:")]
+		UIView LoadWithAdUnitId (string adUnitId, UIViewController viewController, OnAdLoadedListener loadListener, [NullAllowed] OnAdEventListener eventListener);
+
+		// -(void)destroy;
+		[Export ("destroy")]
+		void Destroy ();
+	}	
+
+	// @interface InterstitialAdWrapper : NSObject
+	[BaseType (typeof(NSObject), Name = "_TtC12AdMobWrapper21InterstitialAdWrapper")]
+	interface InterstitialAdWrapper
+	{
+		// -(void)loadWithAdUnitId:(NSString * _Nonnull)adUnitId loadListener:(id<OnAdLoadedListener> _Nonnull)loadListener eventListener:(id<OnAdEventListener> _Nullable)eventListener;
+		[Export ("loadWithAdUnitId:loadListener:eventListener:")]
+		void LoadWithAdUnitId (string adUnitId, OnAdLoadedListener loadListener, [NullAllowed] OnAdEventListener eventListener);
+
+		// -(void)showWithViewController:(UIViewController * _Nonnull)viewController;
+		[Export ("showWithViewController:")]
+		void ShowWithViewController (UIViewController viewController);
+
+		// -(BOOL)isLoaded __attribute__((warn_unused_result("")));
+		[Export ("isLoaded")]
+		bool IsLoaded { get; }
+	}
+
+	
+
+	// @protocol OnAdEventListener
+	/*
+  Check whether adding [Model] to this declaration is appropriate.
+  [Model] is used to generate a C# class that implements this protocol,
+  and might be useful for protocols that consumers are supposed to implement,
+  since consumers can subclass the generated class instead of implementing
+  the generated interface. If consumers are not supposed to implement this
+  protocol, then [Model] is redundant and will generate code that will never
+  be used.
+*/[Protocol (Name = "_TtP12AdMobWrapper17OnAdEventListener_")]
+	interface OnAdEventListener
+	{
+		// @required -(void)onAdShown;
+		[Abstract]
+		[Export ("onAdShown")]
+		void OnAdShown ();
+
+		// @required -(void)onAdDismissed;
+		[Abstract]
+		[Export ("onAdDismissed")]
+		void OnAdDismissed ();
+
+		// @required -(void)onAdClicked;
+		[Abstract]
+		[Export ("onAdClicked")]
+		void OnAdClicked ();
+
+		// @required -(void)onAdImpression;
+		[Abstract]
+		[Export ("onAdImpression")]
+		void OnAdImpression ();
+
+		// @required -(void)onAdFailedToShowWithErrorCode:(NSInteger)errorCode errorMessage:(NSString * _Nonnull)errorMessage;
+		[Abstract]
+		[Export ("onAdFailedToShowWithErrorCode:errorMessage:")]
+		void OnAdFailedToShowWithErrorCode (nint errorCode, string errorMessage);
+	}
+
+	// @protocol OnAdLoadedListener
+	/*
+  Check whether adding [Model] to this declaration is appropriate.
+  [Model] is used to generate a C# class that implements this protocol,
+  and might be useful for protocols that consumers are supposed to implement,
+  since consumers can subclass the generated class instead of implementing
+  the generated interface. If consumers are not supposed to implement this
+  protocol, then [Model] is redundant and will generate code that will never
+  be used.
+*/[Protocol (Name = "_TtP12AdMobWrapper18OnAdLoadedListener_")]
+	interface OnAdLoadedListener
+	{
+		// @required -(void)onAdLoaded;
+		[Abstract]
+		[Export ("onAdLoaded")]
+		void OnAdLoaded ();
+
+		// @required -(void)onAdFailedToLoadWithErrorCode:(NSInteger)errorCode errorMessage:(NSString * _Nonnull)errorMessage;
+		[Abstract]
+		[Export ("onAdFailedToLoadWithErrorCode:errorMessage:")]
+		void OnAdFailedToLoadWithErrorCode (nint errorCode, string errorMessage);
+	}
+
+	// @protocol OnInitializedListener
+	/*
+  Check whether adding [Model] to this declaration is appropriate.
+  [Model] is used to generate a C# class that implements this protocol,
+  and might be useful for protocols that consumers are supposed to implement,
+  since consumers can subclass the generated class instead of implementing
+  the generated interface. If consumers are not supposed to implement this
+  protocol, then [Model] is redundant and will generate code that will never
+  be used.
+*/[Protocol (Name = "_TtP12AdMobWrapper21OnInitializedListener_")]
+	interface OnInitializedListener
+	{
+		// @required -(void)onInitialized;
+		[Abstract]
+		[Export ("onInitialized")]
+		void OnInitialized ();
+
+		// @required -(void)onInitializationFailedWithError:(NSString * _Nonnull)error;
+		[Abstract]
+		[Export ("onInitializationFailedWithError:")]
+		void OnInitializationFailedWithError (string error);
+	}
+
+	// @protocol OnRewardEarnedListener
+	/*
+  Check whether adding [Model] to this declaration is appropriate.
+  [Model] is used to generate a C# class that implements this protocol,
+  and might be useful for protocols that consumers are supposed to implement,
+  since consumers can subclass the generated class instead of implementing
+  the generated interface. If consumers are not supposed to implement this
+  protocol, then [Model] is redundant and will generate code that will never
+  be used.
+*/[Protocol (Name = "_TtP12AdMobWrapper22OnRewardEarnedListener_")]
+	interface OnRewardEarnedListener
+	{
+		// @required -(void)onRewardEarnedWithType:(NSString * _Nonnull)type amount:(NSInteger)amount;
+		[Abstract]
+		[Export ("onRewardEarnedWithType:amount:")]
+		void Amount (string type, nint amount);
+	}
+
+	// @interface RewardedAdWrapper : NSObject
+	[BaseType (typeof(NSObject), Name = "_TtC12AdMobWrapper17RewardedAdWrapper")]
+	interface RewardedAdWrapper
+	{
+		// -(void)loadWithAdUnitId:(NSString * _Nonnull)adUnitId loadListener:(id<OnAdLoadedListener> _Nonnull)loadListener eventListener:(id<OnAdEventListener> _Nullable)eventListener;
+		[Export ("loadWithAdUnitId:loadListener:eventListener:")]
+		void LoadWithAdUnitId (string adUnitId, OnAdLoadedListener loadListener, [NullAllowed] OnAdEventListener eventListener);
+
+		// -(void)showWithViewController:(UIViewController * _Nonnull)viewController rewardListener:(id<OnRewardEarnedListener> _Nonnull)rewardListener;
+		[Export ("showWithViewController:rewardListener:")]
+		void ShowWithViewController (UIViewController viewController, OnRewardEarnedListener rewardListener);
+
+		// -(BOOL)isLoaded __attribute__((warn_unused_result("")));
+		[Export ("isLoaded")]
+		bool IsLoaded { get; }
+	}
 }
