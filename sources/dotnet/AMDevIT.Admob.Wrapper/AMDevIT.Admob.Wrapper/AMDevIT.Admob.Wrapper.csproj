@@ -16,6 +16,7 @@
 	  <PackageReadmeFile>README.md</PackageReadmeFile>
 	  <PackageTags>AdMob;Wrapper;MAUI;Google;Advertising;Monetization;Android;iOS</PackageTags>
 	  <PackageReleaseNotes>First version that includes Android bindings.</PackageReleaseNotes>
+	  <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
   </PropertyGroup>
 
   <ItemGroup Condition="'$(TargetFramework)' == 'net10.0-android'">

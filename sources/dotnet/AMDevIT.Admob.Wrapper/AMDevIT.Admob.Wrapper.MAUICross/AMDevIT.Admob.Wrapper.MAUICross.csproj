@@ -33,7 +33,19 @@
 		<PackageTags>AdMob;Binding;MAUI;Google;Advertising;Monetization;Android;iOS</PackageTags>
 		<PackageReleaseNotes>First working version</PackageReleaseNotes>
 		<PackageIcon>admob_maui_icon_v4_wallet_block.png</PackageIcon>
+		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 	</PropertyGroup>
+
+	<ItemGroup>
+	  <None Include="..\..\..\..\assets\icons\png\admob_maui_icon_v4_wallet_block.png">
+	    <Pack>True</Pack>
+	    <PackagePath>\</PackagePath>
+	  </None>
+	  <None Include="..\..\..\..\README.md">
+	    <Pack>True</Pack>
+	    <PackagePath>\</PackagePath>
+	  </None>
+	</ItemGroup>
 
 	<ItemGroup>
 		<PackageReference Include="Microsoft.Maui.Controls" Version="10.0.51" />

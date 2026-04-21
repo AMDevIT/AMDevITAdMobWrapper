@@ -10,8 +10,8 @@ A modern, lightweight AdMob wrapper for **.NET 10 Android**, **.NET 10 iOS**, an
 
 | Package | Description | NuGet |
 |---|---|---|
-| `AMDevIT.Admob.Wrapper.Android` | .NET binding for the native Kotlin AAR | [![NuGet](https://img.shields.io/nuget/v/AMDevIT.Admob.Wrapper.Android)](https://www.nuget.org/packages/AMDevIT.Admob.Wrapper.Android) |
-| `AMDevIT.Admob.Wrapper.iOS` | .NET binding for the native Swift xcframework | [![NuGet](https://img.shields.io/nuget/v/AMDevIT.Admob.Wrapper.iOS)](https://www.nuget.org/packages/AMDevIT.Admob.Wrapper.iOS) |
+| `AMDevIT.Admob.Wrapper.Android` | .NET binding for the native Kotlin AAR | [![NuGet](https://img.shields.io/nuget/v/AMDevIT.Admob.Wrapper.Android)](https://www.nuget.org/packages/AMDevIT.Admob.Wrapper.Droid) |
+| `AMDevIT.Admob.Wrapper.iOS` | .NET binding for the native Swift xcframework | [![NuGet](https://img.shields.io/nuget/v/AMDevIT.Admob.Wrapper.iOS)](https://www.nuget.org/packages/AMDevIT.Admob.Wrapper.iOSNative) |
 | `AMDevIT.Admob.Wrapper` | Multi-platform wrapper with `async/await` extensions | [![NuGet](https://img.shields.io/nuget/v/AMDevIT.Admob.Wrapper)](https://www.nuget.org/packages/AMDevIT.Admob.Wrapper) |
 | `AMDevIT.Admob.Wrapper.MAUICross` | MAUI controls and handlers (optional) | [![NuGet](https://img.shields.io/nuget/v/AMDevIT.Admob.Wrapper.MAUICross)](https://www.nuget.org/packages/AMDevIT.Admob.Wrapper.MAUICross) |
 
