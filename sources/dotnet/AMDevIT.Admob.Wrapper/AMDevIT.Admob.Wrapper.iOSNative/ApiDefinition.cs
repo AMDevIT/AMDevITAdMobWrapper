@@ -183,7 +183,7 @@ namespace AMDevIT.Admob.Wrapper.iOSNative
 	{
 		// -(void)loadWithAdUnitId:(NSString * _Nonnull)adUnitId loadListener:(id<OnAdLoadedListener> _Nonnull)loadListener eventListener:(id<OnAdEventListener> _Nullable)eventListener;
 		[Export ("loadWithAdUnitId:loadListener:eventListener:")]
-		void LoadWithAdUnitId (string adUnitId, OnAdLoadedListener loadListener, [NullAllowed] IOnAdEventListener eventListener);
+		void LoadWithAdUnitId (string adUnitId, IOnAdLoadedListener loadListener, [NullAllowed] IOnAdEventListener eventListener);
 
 		// -(void)showWithViewController:(UIViewController * _Nonnull)viewController rewardListener:(id<OnRewardEarnedListener> _Nonnull)rewardListener;
 		[Export ("showWithViewController:rewardListener:")]
