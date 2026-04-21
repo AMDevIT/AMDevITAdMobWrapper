@@ -1,3 +1,4 @@
+using System;
 using AdMobWrapper;
 using Foundation;
 using ObjCRuntime;
@@ -81,19 +82,19 @@ namespace AMDevIT.Admob.Wrapper
 	[BaseType (typeof(NSObject), Name = "_TtC12AdMobWrapper15BannerAdWrapper")]
 	interface BannerAdWrapper
 	{
-		// -(GADBannerView * _Nonnull)loadWithAdUnitId:(NSString * _Nonnull)adUnitId viewController:(UIViewController * _Nonnull)viewController loadListener:(id<OnAdLoadedListener> _Nonnull)loadListener eventListener:(id<OnAdEventListener> _Nullable)eventListener __attribute__((warn_unused_result("")));
+		// -(UIView * _Nonnull)loadWithAdUnitId:(NSString * _Nonnull)adUnitId viewController:(UIViewController * _Nonnull)viewController loadListener:(id<OnAdLoadedListener> _Nonnull)loadListener eventListener:(id<OnAdEventListener> _Nullable)eventListener __attribute__((warn_unused_result("")));
 		[Export ("loadWithAdUnitId:viewController:loadListener:eventListener:")]
-		GADBannerView LoadWithAdUnitId (string adUnitId, UIViewController viewController, OnAdLoadedListener loadListener, [NullAllowed] OnAdEventListener eventListener);
+		UIView LoadWithAdUnitId (string adUnitId, UIViewController viewController, OnAdLoadedListener loadListener, [NullAllowed] OnAdEventListener eventListener);
 
 		// -(void)destroy;
 		[Export ("destroy")]
 		void Destroy ();
 	}
 
-	// @interface AdMobWrapper_Swift_350 (BannerAdWrapper)
+	// @interface AdMobWrapper_Swift_351 (BannerAdWrapper)
 	[Category]
 	[BaseType (typeof(BannerAdWrapper))]
-	interface BannerAdWrapper_AdMobWrapper_Swift_350
+	interface BannerAdWrapper_AdMobWrapper_Swift_351
 	{
 		// -(void)bannerViewDidReceiveAd:(GADBannerView * _Nonnull)bannerView;
 		[Export ("bannerViewDidReceiveAd:")]
@@ -138,10 +139,10 @@ namespace AMDevIT.Admob.Wrapper
 		bool IsLoaded { get; }
 	}
 
-	// @interface AdMobWrapper_Swift_367 (InterstitialAdWrapper)
+	// @interface AdMobWrapper_Swift_368 (InterstitialAdWrapper)
 	[Category]
 	[BaseType (typeof(InterstitialAdWrapper))]
-	interface InterstitialAdWrapper_AdMobWrapper_Swift_367
+	interface InterstitialAdWrapper_AdMobWrapper_Swift_368
 	{
 		// -(void)adDidRecordImpression:(id<GADFullScreenPresentingAd> _Nonnull)ad;
 		[Export ("adDidRecordImpression:")]
@@ -200,10 +201,10 @@ namespace AMDevIT.Admob.Wrapper
 		[Export ("onAdImpression")]
 		void OnAdImpression ();
 
-		// @required -(void)onAdFailedToShowWithErrorCode:(int32_t)errorCode errorMessage:(NSString * _Nonnull)errorMessage;
+		// @required -(void)onAdFailedToShowWithErrorCode:(NSInteger)errorCode errorMessage:(NSString * _Nonnull)errorMessage;
 		[Abstract]
 		[Export ("onAdFailedToShowWithErrorCode:errorMessage:")]
-		void OnAdFailedToShowWithErrorCode (int errorCode, string errorMessage);
+		void OnAdFailedToShowWithErrorCode (nint errorCode, string errorMessage);
 	}
 
 	// @protocol OnAdLoadedListener
@@ -223,10 +224,10 @@ namespace AMDevIT.Admob.Wrapper
 		[Export ("onAdLoaded")]
 		void OnAdLoaded ();
 
-		// @required -(void)onAdFailedToLoadWithErrorCode:(int32_t)errorCode errorMessage:(NSString * _Nonnull)errorMessage;
+		// @required -(void)onAdFailedToLoadWithErrorCode:(NSInteger)errorCode errorMessage:(NSString * _Nonnull)errorMessage;
 		[Abstract]
 		[Export ("onAdFailedToLoadWithErrorCode:errorMessage:")]
-		void OnAdFailedToLoadWithErrorCode (int errorCode, string errorMessage);
+		void OnAdFailedToLoadWithErrorCode (nint errorCode, string errorMessage);
 	}
 
 	// @protocol OnInitializedListener
@@ -264,10 +265,10 @@ namespace AMDevIT.Admob.Wrapper
 */[Protocol (Name = "_TtP12AdMobWrapper22OnRewardEarnedListener_")]
 	interface OnRewardEarnedListener
 	{
-		// @required -(void)onRewardEarnedWithType:(NSString * _Nonnull)type amount:(int32_t)amount;
+		// @required -(void)onRewardEarnedWithType:(NSString * _Nonnull)type amount:(NSInteger)amount;
 		[Abstract]
 		[Export ("onRewardEarnedWithType:amount:")]
-		void Amount (string type, int amount);
+		void Amount (string type, nint amount);
 	}
 
 	// @interface RewardedAdWrapper : NSObject
@@ -288,10 +289,10 @@ namespace AMDevIT.Admob.Wrapper
 		bool IsLoaded { get; }
 	}
 
-	// @interface AdMobWrapper_Swift_410 (RewardedAdWrapper)
+	// @interface AdMobWrapper_Swift_411 (RewardedAdWrapper)
 	[Category]
 	[BaseType (typeof(RewardedAdWrapper))]
-	interface RewardedAdWrapper_AdMobWrapper_Swift_410
+	interface RewardedAdWrapper_AdMobWrapper_Swift_411
 	{
 		// -(void)adDidRecordImpression:(id<GADFullScreenPresentingAd> _Nonnull)ad;
 		[Export ("adDidRecordImpression:")]
