@@ -12,6 +12,13 @@
     <IsTrimmable>true</IsTrimmable>
   </PropertyGroup>
 
+	<ItemGroup>
+		<NativeReference Include="libs\AdMobWrapper.xcframework">
+			<Kind>Framework</Kind>
+			<Frameworks>Foundation UIKit</Frameworks>
+		</NativeReference>
+	</ItemGroup>
+
   <ItemGroup>
     <ObjcBindingApiDefinition Include="ApiDefinition.cs" />
     <ObjcBindingCoreSource Include="StructsAndEnums.cs" />
