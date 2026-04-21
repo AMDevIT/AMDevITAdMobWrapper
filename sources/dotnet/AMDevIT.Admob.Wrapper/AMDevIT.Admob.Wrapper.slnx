@@ -6,6 +6,7 @@
     <Project Path="AMDevIT.Admob.Wrapper.DroidTestApp/AMDevIT.Admob.Wrapper.DroidTestApp.csproj">
       <Deploy />
     </Project>
+    <Project Path="AMDevIT.Admob.Wrapper.MAUITestApp/AMDevIT.Admob.Wrapper.MAUITestApp.csproj" Id="88b0d5ae-b3d1-4f04-925a-0a66d153bec3" />
   </Folder>
   <Folder Name="/Elementi di soluzione/">
     <File Path="../../../LICENSE" />

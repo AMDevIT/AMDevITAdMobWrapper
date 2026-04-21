@@ -1,6 +1,4 @@
 using AMDevIT.Admob.Wrapper.iOSNative;
-using CoreAudioKit;
-using System.Diagnostics.Tracing;
 
 namespace AMDevIT.Admob.Wrapper.AppleTestApp.Controllers;
 
