@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using AMDevIT.Admob.Wrapper.MAUICross;
+using Microsoft.Extensions.Logging;
 
 namespace AMDevIT.Admob.Wrapper.MAUITestApp
 {
@@ -18,7 +19,7 @@ namespace AMDevIT.Admob.Wrapper.MAUITestApp
 #if DEBUG
     		builder.Logging.AddDebug();
 #endif
-
+            builder.UseAMDevITAdMobWrapper();
             return builder.Build();
         }
     }

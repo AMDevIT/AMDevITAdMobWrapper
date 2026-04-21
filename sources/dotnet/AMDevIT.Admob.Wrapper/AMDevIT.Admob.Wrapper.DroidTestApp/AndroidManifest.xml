@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android" package="it.amdev.admob.wrapper.droid.testapp" android:versionCode="1" android:versionName="0.0.1">
-	<application android:allowBackup="true" android:icon="@mipmap/appicon" android:label="@string/app_name" android:supportsRtl="true">
+	<application android:allowBackup="false" android:icon="@mipmap/appicon" android:label="@string/app_name" android:supportsRtl="true">
 		<meta-data
 		  android:name="com.google.android.gms.ads.APPLICATION_ID"
 		  android:value="ca-app-pub-3940256099942544~3347511713"/>

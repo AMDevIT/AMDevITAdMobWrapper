@@ -1,24 +1,35 @@
-﻿namespace AMDevIT.Admob.Wrapper.MAUITestApp
+﻿using Microsoft.Extensions.Logging;
+
+namespace AMDevIT.Admob.Wrapper.MAUITestApp
 {
     public partial class MainPage : ContentPage
     {
-        int count = 0;
+        #region Properties
 
-        public MainPage()
+        protected ILogger<MainPage> Logger
+        { 
+            get; 
+        }
+
+        #endregion
+
+        public MainPage(ILogger<MainPage> logger)
         {
             InitializeComponent();
+            this.Logger = logger;
         }
 
-        private void OnCounterClicked(object? sender, EventArgs e)
+        #region Event Handlers
+        private void BannerAd_AdLoaded(object sender, EventArgs e)
         {
-            count++;
-
-            if (count == 1)
-                CounterBtn.Text = $"Clicked {count} time";
-            else
-                CounterBtn.Text = $"Clicked {count} times";
-
-            SemanticScreenReader.Announce(CounterBtn.Text);
+           Logger.LogDebug("Banner loaded");
         }
+
+        private void BannerAd_AdFailed(object sender, MAUICross.BannerAdFailedEventArgs e)
+        {
+            Logger.LogDebug($"Banner failed: [{e.ErrorCode}] {e.ErrorMessage}");
+        }
+
+        #endregion
     }
 }
