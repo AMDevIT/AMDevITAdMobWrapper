@@ -164,15 +164,17 @@ public class MainViewController
             Console.WriteLine($"AdMob init failed: {error}");
     }
 
-    private class AdMobLoadListener(MainViewController vc) 
-        : NSObject, IOnAdLoadedListener
+    private class AdMobLoadListener(MainViewController vc, string tag)
+                : NSObject, IOnAdLoadedListener
     {
         private readonly MainViewController viewController = vc;
+        private readonly string tag = tag;
+
         public void OnAdLoaded() =>
-            Console.WriteLine("Banner loaded");
+            this.viewController.UpdateStatus($"{this.tag}: loaded ✓");
 
         public void OnAdFailedToLoadWithErrorCode(nint errorCode, string errorMessage) =>
-           Console.WriteLine($"Banner failed: [{errorCode}] {errorMessage}");
+            this.viewController.UpdateStatus($"{this.tag}: failed [{errorCode}] {errorMessage}");
     }
 
     private class AdMobEventListener(MainViewController vc, string tag) 

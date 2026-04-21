@@ -17,17 +17,15 @@ class RewardedAdWrapper(private val context: Context) {
     private var rewardedAd: RewardedAd? = null
 
     @JvmOverloads
-    fun load(
-        adUnitId: String,
-        loadListener: OnAdLoadedListener,
-        eventListener: OnAdEventListener? = null
-    ) {
+    fun load(adUnitId: String,
+             loadListener: OnAdLoadedListener,
+             eventListener: OnAdEventListener? = null)
+    {
         val adRequest = AdRequest.Builder().build()
 
-        RewardedAd.load(
-            context,
-            adUnitId,
-            adRequest,
+        RewardedAd.load(context,
+                        adUnitId,
+                        adRequest,
             object : RewardedAdLoadCallback() {
                 override fun onAdLoaded(ad: RewardedAd) {
                     rewardedAd = ad
@@ -62,11 +60,9 @@ class RewardedAdWrapper(private val context: Context) {
     }
 
     @JvmOverloads
-    fun show(
-        activity: Activity,
-        rewardListener: OnRewardEarnedListener,
-        loadListener: OnAdLoadedListener? = null
-    ) {
+    fun show(activity: Activity,
+             rewardListener: OnRewardEarnedListener,
+             loadListener: OnAdLoadedListener? = null) {
         if (rewardedAd != null) {
             rewardedAd?.show(activity) { rewardItem ->
                 rewardListener.onRewardEarned(rewardItem.type, rewardItem.amount)

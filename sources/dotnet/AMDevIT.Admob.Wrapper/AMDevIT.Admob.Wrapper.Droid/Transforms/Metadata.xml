@@ -1,4 +1,18 @@
 ﻿<metadata>
 	<remove-node path="/api/package[@name='it.amdev.admob.wrapper']/class[@name='AdMobManager.Companion']" />
 	<remove-node path="/api/package[@name='it.amdev.admob.wrapper']/class[@name='AdMobManager']/field[@name='Companion']" />
+
+
+	<attr path="/api/package[@name='it.amdev.admob.wrapper.ads']/class[@name='BannerAdViewSize']/field[@name='Banner']"
+      name="not-null">true</attr>
+	<attr path="/api/package[@name='it.amdev.admob.wrapper.ads']/class[@name='BannerAdViewSize']/field[@name='LargeBanner']"
+		  name="not-null">true</attr>
+	<attr path="/api/package[@name='it.amdev.admob.wrapper.ads']/class[@name='BannerAdViewSize']/field[@name='MediumRectangle']"
+		  name="not-null">true</attr>
+	<attr path="/api/package[@name='it.amdev.admob.wrapper.ads']/class[@name='BannerAdViewSize']/field[@name='FullBanner']"
+		  name="not-null">true</attr>
+	<attr path="/api/package[@name='it.amdev.admob.wrapper.ads']/class[@name='BannerAdViewSize']/field[@name='Leaderboard']"
+		  name="not-null">true</attr>
+	<attr path="/api/package[@name='it.amdev.admob.wrapper.ads']/class[@name='BannerAdViewSize']/field[@name='Adaptive']"
+		  name="not-null">true</attr>
 </metadata>

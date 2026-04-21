@@ -7,7 +7,7 @@
 	  <Version>0.0.1.0-alpha</Version>
 	  <Authors>Alessandro Morvillo</Authors>
 	  <Description>AdMob wrapper with async support for .NET MAUI, Android and iOS. It uses the native binding libraries to wrap the AdMob functionalities for all the mobile OSes.</Description>
-	  <PackageLicenseExpression>MIT</PackageLicenseExpression>
+	  <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
 	  <Title>AMDev.IT AdMob wrapping library </Title>
 	  <Company>AMDev.IT di Alessandro Morvillo</Company>
 	  <Copyright>Alessandro Morvillo, 2026</Copyright>

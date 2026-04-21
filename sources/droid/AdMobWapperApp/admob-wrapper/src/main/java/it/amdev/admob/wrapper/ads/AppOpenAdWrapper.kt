@@ -16,17 +16,15 @@ class AppOpenAdWrapper(private val context: Context) {
     private var isShowingAd = false
 
     @JvmOverloads
-    fun load(
-        adUnitId: String,
-        loadListener: OnAdLoadedListener,
-        eventListener: OnAdEventListener? = null
-    ) {
+    fun load(adUnitId: String,
+             loadListener: OnAdLoadedListener,
+             eventListener: OnAdEventListener? = null)
+    {
         val adRequest = AdRequest.Builder().build()
 
-        AppOpenAd.load(
-            context,
-            adUnitId,
-            adRequest,
+        AppOpenAd.load(context,
+                       adUnitId,
+                       adRequest,
             object : AppOpenAd.AppOpenAdLoadCallback() {
                 override fun onAdLoaded(ad: AppOpenAd) {
                     appOpenAd = ad

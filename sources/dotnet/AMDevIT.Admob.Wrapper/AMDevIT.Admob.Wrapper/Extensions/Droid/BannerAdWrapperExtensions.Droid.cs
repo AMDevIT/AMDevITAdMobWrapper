@@ -2,7 +2,7 @@
 
 using AMDevIT.Admob.Wrapper.Ads;
 using AMDevIT.Admob.Wrapper.Listeners;
-using Google.Android.Gms.Ads;
+using Android.Views;
 
 namespace AMDevIT.Admob.Wrapper.Extensions.Droid;
 
@@ -10,20 +10,17 @@ public static class BannerAdWrapperExtensions
 {
     #region Methods
 
-    public static Task<AdView> LoadAsync(this BannerAdWrapper wrapper,
-                                         string adUnitId,
-                                         AdSize? adSize = null)
+    public static Task<View> LoadAsync(this BannerAdWrapper wrapper,
+                                       string adUnitId,
+                                       BannerAdViewSize? adSize = null)
     {
-        TaskCompletionSource<AdView> tcs = new ();
-        AdView? adView = null;
+        TaskCompletionSource<View> tcs = new ();
+        View? adView = null;
 
         LoadListener loadListener = new (onLoaded: () => tcs.SetResult(adView!),
                                          onFailed: (code, msg) => tcs.SetException(new AdException(code, msg)));
 
-        adView = adSize != null
-            ? wrapper.Load(adUnitId, adSize, loadListener)
-            : wrapper.Load(adUnitId, loadListener);
-
+        adView = adSize != null ? wrapper.Load(adUnitId, adSize, loadListener) : wrapper.Load(adUnitId, loadListener);
         return tcs.Task;
     }
 

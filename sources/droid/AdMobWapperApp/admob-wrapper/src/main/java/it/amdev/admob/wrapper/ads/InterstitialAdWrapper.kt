@@ -16,17 +16,15 @@ class InterstitialAdWrapper(private val context: Context) {
     private var interstitialAd: InterstitialAd? = null
 
     @JvmOverloads
-    fun load(
-        adUnitId: String,
-        loadListener: OnAdLoadedListener,
-        eventListener: OnAdEventListener? = null
-    ) {
+    fun load(adUnitId: String,
+             loadListener: OnAdLoadedListener,
+             eventListener: OnAdEventListener? = null)
+    {
         val adRequest = AdRequest.Builder().build()
 
-        InterstitialAd.load(
-            context,
-            adUnitId,
-            adRequest,
+        InterstitialAd.load(context,
+                            adUnitId,
+                            adRequest,
             object : InterstitialAdLoadCallback() {
                 override fun onAdLoaded(ad: InterstitialAd) {
                     interstitialAd = ad
