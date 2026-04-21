@@ -545,6 +545,6 @@ When updating the native iOS SDK version:
 
 ## License
 
-MIT License — see [LICENSE](LICENSE) for details.
+Apache 2.0 License — see [LICENSE](LICENSE) for details.
 
 This library is not affiliated with or endorsed by Google. AdMob is a trademark of Google LLC.
