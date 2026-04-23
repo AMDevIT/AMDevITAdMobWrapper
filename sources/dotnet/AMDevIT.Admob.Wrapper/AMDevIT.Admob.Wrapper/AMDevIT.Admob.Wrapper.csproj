@@ -4,7 +4,7 @@
 	  <TargetFrameworks>net10.0-android;net10.0-ios</TargetFrameworks>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-	  <Version>0.0.1.0-alpha</Version>
+	  <Version>0.0.1.1-alpha</Version>
 	  <Authors>Alessandro Morvillo</Authors>
 	  <Description>AdMob wrapper with async support for .NET MAUI, Android and iOS. It uses the native binding libraries to wrap the AdMob functionalities for all the mobile OSes.</Description>
 	  <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>

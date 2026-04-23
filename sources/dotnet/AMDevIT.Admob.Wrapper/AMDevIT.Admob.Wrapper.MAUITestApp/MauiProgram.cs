@@ -20,6 +20,8 @@ namespace AMDevIT.Admob.Wrapper.MAUITestApp
     		builder.Logging.AddDebug();
 #endif
             builder.UseAMDevITAdMobWrapper();
+
+            builder.Services.AddTransient<MainPage>();
             return builder.Build();
         }
     }

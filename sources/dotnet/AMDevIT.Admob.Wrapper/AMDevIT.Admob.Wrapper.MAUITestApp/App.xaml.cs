@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 
 namespace AMDevIT.Admob.Wrapper.MAUITestApp
 {
@@ -11,7 +12,9 @@ namespace AMDevIT.Admob.Wrapper.MAUITestApp
 
         protected override Window CreateWindow(IActivationState? activationState)
         {
-            return new Window(new AppShell());
+            MainPage? mainPage = IPlatformApplication.Current?.Services.GetRequiredService<MainPage>();
+            NavigationPage navigationPage = new (mainPage);
+            return new Window(navigationPage);
         }
     }
 }
