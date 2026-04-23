@@ -25,7 +25,7 @@ namespace AMDevIT.Admob.Wrapper.MAUITestApp
            Logger.LogDebug("Banner loaded");
         }
 
-        private void BannerAd_AdFailed(object sender, MAUICross.BannerAdFailedEventArgs e)
+        private void BannerAd_AdFailed(object sender, MAUICross.AdFailedEventArgs e)
         {
             Logger.LogDebug($"Banner failed: [{e.ErrorCode}] {e.ErrorMessage}");
         }

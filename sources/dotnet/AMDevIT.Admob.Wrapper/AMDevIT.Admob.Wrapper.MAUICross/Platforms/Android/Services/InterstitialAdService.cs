@@ -51,7 +51,7 @@ public partial class InterstitialAdService
 
     #region Methods
 
-    public Task LoadAsync(string adUnitId)
+    public Task LoadAsync(string adUnitId, CancellationToken cancellationToken = default)
     {
         ObjectDisposedException.ThrowIf(this.Disposed, this);
 
@@ -60,6 +60,9 @@ public partial class InterstitialAdService
 
         TaskCompletionSource taskCompletionSource = new ();
 
+        cancellationToken.Register(() => taskCompletionSource.TrySetCanceled(cancellationToken));
+
+        cancellationToken.ThrowIfCancellationRequested();
         this.wrapper.Load(adUnitId,
                           this.onAdLoadedListener,
                           this.onAdEventListener);
@@ -94,12 +97,31 @@ public partial class InterstitialAdService
             return;
 
         this.wrapper.Show(activity, this.onAdLoadedListener);
-    }    
+    }
+
+    public async Task ShowAsync(string adUnitId, CancellationToken cancellationToken = default)
+    {
+        ObjectDisposedException.ThrowIf(this.Disposed, this);
+
+        await this.LoadAsync(adUnitId, cancellationToken);
+
+        if (this.IsLoaded)
+        {
+            cancellationToken.ThrowIfCancellationRequested();
+            this.Show();
+        }
+    }
 
     protected virtual void DisposeObjects()
     {
         this.onAdLoadedListener.AdLoaded -= OnAdLoadedListener_AdLoaded;
         this.onAdLoadedListener.AdFailedToLoad -= OnAdLoadedListener_AdFailedToLoad;
+
+        this.onAdEventListener.AdClicked -= OnAdEventListener_AdClicked;
+        this.onAdEventListener.AdShown -= OnAdEventListener_AdShown;
+        this.onAdEventListener.AdImpression -= OnAdEventListener_AdImpression;
+        this.onAdEventListener.AdDismissed -= OnAdEventListener_AdDismissed;
+        this.onAdEventListener.AdFailedToShow -= OnAdEventListener_AdFailedToShow;
     }
 
     #endregion

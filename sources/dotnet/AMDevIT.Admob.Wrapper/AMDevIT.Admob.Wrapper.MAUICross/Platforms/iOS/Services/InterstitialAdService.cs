@@ -37,12 +37,17 @@ public partial class InterstitialAdService
 
     #region Methods
 
-    public Task LoadAsync(string adUnitId)
+    public Task LoadAsync(string adUnitId, CancellationToken cancellationToken = default)
     {
         throw new NotImplementedException();
     }
 
     public void Show()
+    {
+        throw new NotImplementedException();
+    }
+
+    public async Task ShowAsync(string adUnitId, CancellationToken cancellationToken = default)
     {
         throw new NotImplementedException();
     }

@@ -22,7 +22,7 @@ public interface IFullScreenAdService
 
     #region Methods
 
-    Task LoadAsync(string adUnitId);
+    Task LoadAsync(string adUnitId, CancellationToken cancellationToken = default);
 
     #endregion
 }
