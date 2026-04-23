@@ -1,4 +1,6 @@
-﻿namespace AMDevIT.Admob.Wrapper.MAUICross;
+﻿using AMDevIT.Admob.Wrapper.MAUICross.Services;
+
+namespace AMDevIT.Admob.Wrapper.MAUICross;
 
 public static class MauiAppBuilderExtensions
 {
@@ -8,6 +10,10 @@ public static class MauiAppBuilderExtensions
         {
             handlers.AddHandler<BannerAd, BannerAdHandler>();
         });
+
+        builder.Services.AddSingleton<IInterstitialAdService, InterstitialAdService>();
+        builder.Services.AddSingleton<IAppOpenAdService, AppOpenAdService>();
+        builder.Services.AddSingleton<IShowableRewardedAdService, RewardedAdService>();
 
         return builder;
     }

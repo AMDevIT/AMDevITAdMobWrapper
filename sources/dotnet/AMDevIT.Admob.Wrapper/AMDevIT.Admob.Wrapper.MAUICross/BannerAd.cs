@@ -7,7 +7,7 @@
         #region Events
 
         public event EventHandler? AdLoaded;
-        public event EventHandler<BannerAdFailedEventArgs>? AdFailed;
+        public event EventHandler<AdFailedEventArgs>? AdFailed;
         public event EventHandler? AdClicked;
         public event EventHandler? AdImpression;
 
@@ -45,7 +45,7 @@
             this.AdLoaded?.Invoke(this, EventArgs.Empty);
 
         internal void RaiseAdFailed(int errorCode, string errorMessage) =>
-            this.AdFailed?.Invoke(this, new BannerAdFailedEventArgs(errorCode, errorMessage));
+            this.AdFailed?.Invoke(this, new AdFailedEventArgs(errorCode, errorMessage));
 
         internal void RaiseAdClicked() =>
             this.AdClicked?.Invoke(this, EventArgs.Empty);
