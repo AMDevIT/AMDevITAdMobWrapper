@@ -10,7 +10,7 @@ public partial class RewardedAdService
     #region Events
 
     public event EventHandler? AdLoaded;
-    public event EventHandler<AdFailedEventArgs>? AdFailed;
+    public event EventHandler<AdFailedEventArgs>? AdFailedToLoad;
     public event EventHandler? AdShown;
     public event EventHandler? AdDismissed;
     public event EventHandler? AdClicked;

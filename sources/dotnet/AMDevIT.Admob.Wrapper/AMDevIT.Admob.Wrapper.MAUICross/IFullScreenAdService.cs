@@ -5,7 +5,7 @@ public interface IFullScreenAdService
     #region Events
 
     event EventHandler? AdLoaded;
-    event EventHandler<AdFailedEventArgs>? AdFailed;
+    event EventHandler<AdFailedEventArgs>? AdFailedToLoad;
     event EventHandler? AdShown;
     event EventHandler? AdDismissed;
     event EventHandler? AdClicked;
