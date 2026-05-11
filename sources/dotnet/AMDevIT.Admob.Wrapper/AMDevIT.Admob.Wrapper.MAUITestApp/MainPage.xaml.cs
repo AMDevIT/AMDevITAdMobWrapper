@@ -20,12 +20,12 @@ namespace AMDevIT.Admob.Wrapper.MAUITestApp
         }
 
         #region Event Handlers
-        private void BannerAd_AdLoaded(object sender, EventArgs e)
+        private void BannerAd_AdLoaded(object? sender, EventArgs e)
         {
            Logger.LogDebug("Banner loaded");
         }
 
-        private void BannerAd_AdFailed(object sender, MAUICross.AdFailedEventArgs e)
+        private void BannerAd_AdFailed(object? sender, MAUICross.AdFailedEventArgs e)
         {
             Logger.LogDebug($"Banner failed: [{e.ErrorCode}] {e.ErrorMessage}");
         }
