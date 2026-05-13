@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace AMDevIT.Admob.Wrapper.MAUICross.Services;
+﻿namespace AMDevIT.Admob.Wrapper.MAUICross.Services;
 
 public partial class AppOpenAdService
     : IAppOpenAdService

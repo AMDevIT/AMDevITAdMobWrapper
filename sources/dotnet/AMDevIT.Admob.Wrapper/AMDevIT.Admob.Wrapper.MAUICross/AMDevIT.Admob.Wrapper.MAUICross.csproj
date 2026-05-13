@@ -2,7 +2,6 @@
 
 	<PropertyGroup>
 		<TargetFrameworks>net10.0-android;net10.0-ios;</TargetFrameworks>
-		<TargetFrameworks Condition="!$([MSBuild]::IsOSPlatform('linux'))">$(TargetFrameworks);net10.0-ios;</TargetFrameworks>
 
 		<UseMaui>true</UseMaui>
 		<SingleProject>true</SingleProject>

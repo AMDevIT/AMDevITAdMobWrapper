@@ -1,12 +1,22 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-               xmlns:admob="clr-namespace:AMDevIT.Admob.Wrapper.MAUICross;assembly=AMDevIT.Admob.Wrapper.MAUICross"
-             x:Class="AMDevIT.Admob.Wrapper.MAUITestApp.MainPage">
+             xmlns:admob="clr-namespace:AMDevIT.Admob.Wrapper.MAUICross;assembly=AMDevIT.Admob.Wrapper.MAUICross"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:viewModels="clr-namespace:AMDevIT.Admob.Wrapper.MAUITestApp.ViewModels"
+             x:Class="AMDevIT.Admob.Wrapper.MAUITestApp.MainPage"
+             x:DataType="viewModels:MainPageViewModel">
 
     <ScrollView>
-        <Grid RowDefinitions="*, Auto">
+        <Grid RowDefinitions="*, *, *, Auto">            
             <Label Grid.Row="0" Text="Hello AdMob on MAUI!" />
+            <Label Grid.Row="1" 
+                   Text="{Binding StatusMessage}" 
+                   IsVisible="{Binding ShowStatusMessage}" />            
+            
+            <Button Text="Show interstitial banner" 
+                    Command="{Binding ShowInterstitialAdCommand}" />
+            
             <admob:BannerAd Grid.Row="1"
                     AdUnitId="ca-app-pub-3940256099942544/6300978111"
                     AdLoaded="BannerAd_AdLoaded"
