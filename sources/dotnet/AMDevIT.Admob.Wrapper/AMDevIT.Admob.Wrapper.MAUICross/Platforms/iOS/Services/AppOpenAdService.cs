@@ -28,7 +28,7 @@ public partial class AppOpenAdService
         throw new NotImplementedException();
     }
 
-    public async Task ShowAsync(string adUnitId, CancellationToken cancellationToken = default)
+    public async Task LoadAndShowAsync(string adUnitId, CancellationToken cancellationToken = default)
     {
         throw new NotImplementedException();
     }

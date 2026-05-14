@@ -1,11 +1,12 @@
-﻿namespace AMDevIT.Admob.Wrapper.MAUICross;
+﻿namespace AMDevIT.Admob.Wrapper.MAUICross.Platforms.iOS.Listeners;
 
-public class AdFailedEventArgs(long errorCode, string errorMessage)
+internal class AdFailedToShowArgs(long errorCode, string errorMessage)
     : EventArgs
 {
     #region Properties
 
     public long ErrorCode => errorCode;
+
     public string ErrorMessage => errorMessage;
 
     #endregion
@@ -14,7 +15,7 @@ public class AdFailedEventArgs(long errorCode, string errorMessage)
 
     public override string ToString()
     {
-        return $"ErrorCode={ErrorCode}, ErrorMessage={ErrorMessage}";
+        return $"ErrorCode={this.ErrorCode}, ErrorMessage={this.ErrorMessage}";
     }
 
     #endregion

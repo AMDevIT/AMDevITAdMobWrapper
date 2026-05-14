@@ -14,19 +14,11 @@ public partial class InterstitialAdService
     #region Fields
 
     private InterstitialAdWrapper? wrapper;
-    private readonly OnAdLoadedListener onAdLoadedListener;
-    private readonly OnAdEventListener onAdEventListener;
+    private readonly DroidOnAdLoadedListener onAdLoadedListener;
+    private readonly DroidOnAdEventListener onAdEventListener;
 
     #endregion
-
-    #region Properties    
-
-    public bool IsShowing => throw new NotImplementedException();
-
-    public bool IsLoaded => throw new NotImplementedException();
-
-    #endregion
-
+    
     #region .ctor
 
     public InterstitialAdService(ILogger<InterstitialAdService> logger)
@@ -55,24 +47,34 @@ public partial class InterstitialAdService
     {
         ObjectDisposedException.ThrowIf(this.Disposed, this);
 
+        TaskCompletionSource taskCompletionSource = new();
         Context context = Android.App.Application.Context;        
-        this.wrapper ??= new InterstitialAdWrapper(context);
 
-        TaskCompletionSource taskCompletionSource = new ();
+        this.wrapper ??= new InterstitialAdWrapper(context);      
 
         cancellationToken.Register(() => taskCompletionSource.TrySetCanceled(cancellationToken));
-
         cancellationToken.ThrowIfCancellationRequested();
-        this.wrapper.Load(adUnitId,
-                          this.onAdLoadedListener,
-                          this.onAdEventListener);
+
+        try
+        {
+            this.wrapper.Load(adUnitId,
+                              this.onAdLoadedListener,
+                              this.onAdEventListener);
+        }
+        catch (OperationCanceledException)
+        {
+            throw;
+        }
+        catch(Exception exc)
+        {
+            taskCompletionSource.SetException(exc);
+        }
         return taskCompletionSource.Task;
     }
 
     public void Show()
     {
         ObjectDisposedException.ThrowIf(this.Disposed, this);
-
         Activity? activity;
 
         if (this.wrapper == null)
@@ -81,6 +83,13 @@ public partial class InterstitialAdService
                 this.Logger.LogError("Interstitial ad wrapper is not initialized. Call LoadAsync first.");
             throw new InvalidOperationException("Interstitial ad wrapper is not initialized. Call LoadAsync first.");
         }
+
+        if (!this.IsLoaded)
+        {
+            if (this.Logger.IsEnabled(LogLevel.Warning))
+                this.Logger.LogWarning("Cannot show interstitial ad because it is not loaded.");
+            throw new InvalidOperationException("Cannot show interstitial ad because it is not loaded.");
+        }               
 
         try
         {
@@ -97,20 +106,7 @@ public partial class InterstitialAdService
             return;
 
         this.wrapper.Show(activity, this.onAdLoadedListener);
-    }
-
-    public async Task ShowAsync(string adUnitId, CancellationToken cancellationToken = default)
-    {
-        ObjectDisposedException.ThrowIf(this.Disposed, this);
-
-        await this.LoadAsync(adUnitId, cancellationToken);
-
-        if (this.IsLoaded)
-        {
-            cancellationToken.ThrowIfCancellationRequested();
-            this.Show();
-        }
-    }
+    }    
 
     protected virtual void DisposeObjects()
     {
@@ -132,11 +128,17 @@ public partial class InterstitialAdService
 
     private void OnAdLoadedListener_AdFailedToLoad(object? sender, AdFailedToLoadEventArgs e)
     {
+        this.IsLoaded = false;
+        this.IsShowing = false;
+
         this.OnAdFailedToLoad(e.ErrorCode, e.ErrorMessage);
     }
 
     private void OnAdLoadedListener_AdLoaded(object? sender, EventArgs e)
     {
+        this.IsLoaded = true;
+        this.IsShowing = false;
+
         this.OnAdLoaded();
     }
 
@@ -146,11 +148,16 @@ public partial class InterstitialAdService
 
     private void OnAdEventListener_AdFailedToShow(object? sender, AdFailedToShowEventArgs e)
     {
+        this.IsShowing = false;
+
         this.OnAdFailedToShow(e.ErrorCode, e.ErrorMessage);
     }
 
     private void OnAdEventListener_AdDismissed(object? sender, EventArgs e)
     {
+        this.IsLoaded = false;
+        this.IsShowing = false;
+
         this.OnAdDismissed();
     }
 
@@ -161,6 +168,8 @@ public partial class InterstitialAdService
 
     private void OnAdEventListener_AdShown(object? sender, EventArgs e)
     {
+        this.IsShowing = true;
+
         this.OnAdShown();
     }
 
@@ -170,7 +179,6 @@ public partial class InterstitialAdService
     }
 
     #endregion
-
 
     #endregion
 }

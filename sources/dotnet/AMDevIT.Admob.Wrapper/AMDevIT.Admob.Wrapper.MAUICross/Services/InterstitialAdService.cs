@@ -29,13 +29,44 @@ public partial class InterstitialAdService
 
     public bool Disposed => this.disposedValue;
 
+    public bool IsShowing
+    {
+        get;
+        protected set;
+    } = false;
+
+    public bool IsLoaded
+    {
+        get;
+        protected set;
+    } = false;
+
     #endregion
 
     #region Methods
 
+    public async Task LoadAndShowAsync(string adUnitId, CancellationToken cancellationToken = default)
+    {
+        ObjectDisposedException.ThrowIf(this.Disposed, this);
+
+        await this.LoadAsync(adUnitId, cancellationToken);
+
+        if (this.IsLoaded)
+        {
+            cancellationToken.ThrowIfCancellationRequested();
+            this.Show();
+        }
+        else
+        {
+            if (this.Logger.IsEnabled(LogLevel.Warning))
+                this.Logger.LogWarning("Cannot show interstitial ad because it is not loaded.");
+            throw new InvalidOperationException("Cannot show interstitial ad because it is not loaded.");
+        }
+    }
+
     protected void OnAdLoaded() => MainThread.BeginInvokeOnMainThread(() => this.AdLoaded?.Invoke(this, EventArgs.Empty));
 
-    protected void OnAdFailedToLoad(int code, string msg)
+    protected void OnAdFailedToLoad(long code, string msg)
     {
         MainThread.BeginInvokeOnMainThread(() =>
         {
@@ -48,7 +79,7 @@ public partial class InterstitialAdService
     protected void OnAdDismissed() => MainThread.BeginInvokeOnMainThread(() => this.AdDismissed?.Invoke(this, EventArgs.Empty));
     protected void OnAdClicked() => MainThread.BeginInvokeOnMainThread(() => this.AdClicked?.Invoke(this, EventArgs.Empty));
     protected void OnAdImpression() => MainThread.BeginInvokeOnMainThread(() => this.AdImpression?.Invoke(this, EventArgs.Empty));
-    protected void OnAdFailedToShow(int code, string msg)
+    protected void OnAdFailedToShow(long code, string msg)
     {
         MainThread.BeginInvokeOnMainThread(() =>
         {

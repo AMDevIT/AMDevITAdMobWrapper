@@ -12,7 +12,7 @@ public interface IShowableAdService
     #region Methods
 
     void Show();
-    Task ShowAsync(string adUnitId, CancellationToken cancellationToken = default);
+    Task LoadAndShowAsync(string adUnitId, CancellationToken cancellationToken = default);
 
     #endregion
 }

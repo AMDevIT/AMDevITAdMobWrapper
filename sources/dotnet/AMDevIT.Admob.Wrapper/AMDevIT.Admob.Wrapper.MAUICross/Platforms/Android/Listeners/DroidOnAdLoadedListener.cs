@@ -4,7 +4,7 @@ using AMDevIT.Admob.Wrapper.Listeners;
 
 namespace AMDevIT.Admob.Wrapper.MAUICross.Platforms.Android.Listeners;
 
-public class OnAdLoadedListener
+internal class DroidOnAdLoadedListener
     : Java.Lang.Object, IOnAdLoadedListener
 {
     #region Events
