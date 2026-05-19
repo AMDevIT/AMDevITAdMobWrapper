@@ -10,6 +10,7 @@ using Microsoft.Extensions.Logging;
 namespace AMDevIT.Admob.Wrapper.MAUICross.Services;
 
 public partial class InterstitialAdService
+    : BaseFullScreenAdService, IInterstitialAdService
 {
     #region Fields
 
@@ -23,10 +24,8 @@ public partial class InterstitialAdService
 
     public InterstitialAdService(ILogger<InterstitialAdService> logger,
                                  IContextResolverService contextResolverService)
+        : base(logger, contextResolverService)
     {
-        this.Logger = logger;
-        this.ContextResolverService = contextResolverService;
-
         this.onAdLoadedListener = new();
 
         this.onAdLoadedListener.AdLoaded += OnAdLoadedListener_AdLoaded;
@@ -40,78 +39,76 @@ public partial class InterstitialAdService
         this.onAdEventListener.AdDismissed += OnAdEventListener_AdDismissed;
         this.onAdEventListener.AdFailedToShow += OnAdEventListener_AdFailedToShow;        
     }
-   
+
     #endregion
 
     #region Methods
 
-    public Task LoadAsync(string adUnitId, CancellationToken cancellationToken = default)
+    public override Task LoadAsync(string adUnitId, CancellationToken cancellationToken = default)
     {
         ObjectDisposedException.ThrowIf(this.Disposed, this);
 
         TaskCompletionSource taskCompletionSource = new();
-        // Context context = Android.App.Application.Context;        
-        Context context = this.ContextResolverService.GetContext() ?? throw new InvalidOperationException("Context cannot be null");
+        Context context = this.ContextResolverService.GetContext()
+            ?? throw new InvalidOperationException("Context cannot be null");
 
-        this.wrapper ??= new InterstitialAdWrapper(context);      
+        this.wrapper ??= new InterstitialAdWrapper(context);
 
         cancellationToken.Register(() => taskCompletionSource.TrySetCanceled(cancellationToken));
         cancellationToken.ThrowIfCancellationRequested();
 
         try
         {
-            this.wrapper.Load(adUnitId,
-                              this.onAdLoadedListener,
-                              this.onAdEventListener);
+            this.wrapper.Load(adUnitId, this.onAdLoadedListener, this.onAdEventListener);
         }
         catch (OperationCanceledException)
         {
             throw;
         }
-        catch(Exception exc)
+        catch (Exception exc)
         {
             taskCompletionSource.SetException(exc);
         }
+
         return taskCompletionSource.Task;
     }
 
-    public void Show()
+    public override void Show()
     {
         ObjectDisposedException.ThrowIf(this.Disposed, this);
-        Activity? activity;
 
         if (this.wrapper == null)
         {
-            if (this.Logger.IsEnabled(LogLevel.Error))
-                this.Logger.LogError("Interstitial ad wrapper is not initialized. Call LoadAsync first.");
+            this.Logger.LogError("Interstitial ad wrapper is not initialized. Call LoadAsync first.");
             throw new InvalidOperationException("Interstitial ad wrapper is not initialized. Call LoadAsync first.");
         }
 
         if (!this.IsLoaded)
         {
-            if (this.Logger.IsEnabled(LogLevel.Warning))
-                this.Logger.LogWarning("Cannot show interstitial ad because it is not loaded.");
+            this.Logger.LogWarning("Cannot show interstitial ad because it is not loaded.");
             throw new InvalidOperationException("Cannot show interstitial ad because it is not loaded.");
-        }               
+        }
+
+        Activity? activity;
 
         try
         {
             activity = Platform.CurrentActivity;
         }
-        catch(Exception exc)
+        catch (Exception exc)
         {
-            if (this.Logger.IsEnabled(LogLevel.Error))
-                this.Logger.LogError(exc, "Failed to retrieve current activity.");
+            this.Logger.LogError(exc, "Failed to retrieve current activity.");
             activity = null;
         }
 
-        if (activity == null) 
+        if (activity == null)
             return;
 
         this.wrapper.Show(activity, this.onAdLoadedListener);
-    }    
+    }
 
-    protected virtual void DisposeObjects()
+
+    protected override void DisposeObjects()
     {
         this.onAdLoadedListener.AdLoaded -= OnAdLoadedListener_AdLoaded;
         this.onAdLoadedListener.AdFailedToLoad -= OnAdLoadedListener_AdFailedToLoad;

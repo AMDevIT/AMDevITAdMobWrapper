@@ -10,6 +10,7 @@ using Microsoft.Extensions.Logging;
 namespace AMDevIT.Admob.Wrapper.MAUICross.Services;
 
 public partial class AppOpenAdService
+    : BaseFullScreenAdService, IAppOpenAdService
 {
     #region Fields
 
@@ -25,11 +26,10 @@ public partial class AppOpenAdService
 
     #region .ctor  
 
-    public AppOpenAdService(ILogger<AppOpenAdService> logger, IContextResolverService contextResolverService) 
+    public AppOpenAdService(ILogger<AppOpenAdService> logger, 
+                            IContextResolverService contextResolverService)
+        : base(logger, contextResolverService)
     {
-        this.Logger = logger;
-        this.ContextResolverService = contextResolverService;
-
         this.onAdLoadedListener = new DroidOnAdLoadedListener();
 
         this.onAdLoadedListener.AdLoaded += OnAdLoadedListener_AdLoaded;
@@ -48,7 +48,7 @@ public partial class AppOpenAdService
 
     #region Methods
 
-    public Task LoadAsync(string adUnitId, CancellationToken cancellationToken)
+    public override Task LoadAsync(string adUnitId, CancellationToken cancellationToken)
     {
         ObjectDisposedException.ThrowIf(this.Disposed, this);
 
@@ -77,7 +77,7 @@ public partial class AppOpenAdService
         return taskCompletionSource.Task;
     }   
 
-    public void Show()
+    public override void Show()
     {
         ObjectDisposedException.ThrowIf(this.Disposed, this);
         Activity? activity;
@@ -113,7 +113,7 @@ public partial class AppOpenAdService
         this.wrapper.Show(activity, this.onAdLoadedListener);
     }
 
-    protected virtual void DisposeObjects()
+    protected override void DisposeObjects()
     {
         this.onAdLoadedListener.AdLoaded -= OnAdLoadedListener_AdLoaded;
         this.onAdLoadedListener.AdFailedToLoad -= OnAdLoadedListener_AdFailedToLoad;

@@ -8,6 +8,7 @@ using UIKit;
 namespace AMDevIT.Admob.Wrapper.MAUICross.Services;
 
 public partial class AppOpenAdService
+    : BaseFullScreenAdService, IAppOpenAdService
 {
     #region Fields
 
@@ -25,10 +26,8 @@ public partial class AppOpenAdService
 
     public AppOpenAdService(ILogger<AppOpenAdService> logger,
                             IContextResolverService contextResolverService)
+        : base(logger, contextResolverService)
     {
-        this.Logger = logger;
-        this.ContextResolverService = contextResolverService;
-
         this.onAdLoadedListener = new();
         this.onAdLoadedListener.AdLoaded += OnAdLoadedListener_AdLoaded;
         this.onAdLoadedListener.AdFailedToLoad += OnAdLoadedListener_AdFailedToLoad;
@@ -45,7 +44,7 @@ public partial class AppOpenAdService
 
     #region Methods
 
-    public Task LoadAsync(string adUnitId, CancellationToken cancellationToken = default)
+    public override Task LoadAsync(string adUnitId, CancellationToken cancellationToken = default)
     {
         ObjectDisposedException.ThrowIf(this.Disposed, this);
         TaskCompletionSource taskCompletionSource = new();
@@ -76,7 +75,7 @@ public partial class AppOpenAdService
         return taskCompletionSource.Task;
     }
 
-    public void Show()
+    public override void Show()
     {
         ObjectDisposedException.ThrowIf(this.Disposed, this);
         UIViewController? viewController;
@@ -116,7 +115,7 @@ public partial class AppOpenAdService
         }
     }
 
-    protected virtual void DisposeObjects()
+    protected override void DisposeObjects()
     {
         this.onAdLoadedListener.AdLoaded -= OnAdLoadedListener_AdLoaded;
         this.onAdLoadedListener.AdFailedToLoad -= OnAdLoadedListener_AdFailedToLoad;

@@ -8,6 +8,7 @@ using UIKit;
 namespace AMDevIT.Admob.Wrapper.MAUICross.Services;
 
 public partial class InterstitialAdService
+    : BaseFullScreenAdService, IInterstitialAdService
 {
     #region Fields
 
@@ -26,10 +27,8 @@ public partial class InterstitialAdService
 
     public InterstitialAdService(ILogger<InterstitialAdService> logger,
                                  IContextResolverService contextResolverService)
+        : base(logger, contextResolverService)
     {
-        this.Logger = logger;
-        this.ContextResolverService = contextResolverService;
-
         this.onAdLoadedListener = new();
         this.onAdLoadedListener.AdLoaded += OnAdLoadedListener_AdLoaded;
         this.onAdLoadedListener.AdFailedToLoad += OnAdLoadedListener_AdFailedToLoad;
@@ -40,68 +39,61 @@ public partial class InterstitialAdService
         this.onAdEventListener.AdDismissed += OnAdEventListener_AdDismissed;
         this.onAdEventListener.AdImpression += OnAdEventListener_AdImpression;
         this.onAdEventListener.AdFailedToShow += OnAdEventListener_AdFailedToShow;
-    }    
+    }
 
     #endregion
 
     #region Methods
 
-    public Task LoadAsync(string adUnitId, CancellationToken cancellationToken = default)
+    public override Task LoadAsync(string adUnitId, CancellationToken cancellationToken = default)
     {
         ObjectDisposedException.ThrowIf(this.Disposed, this);
+
         TaskCompletionSource taskCompletionSource = new();
 
-        this.wrapper ??= new InterstitialAdWrapper();        
+        this.wrapper ??= new InterstitialAdWrapper();
 
         cancellationToken.Register(() => taskCompletionSource.TrySetCanceled(cancellationToken));
         cancellationToken.ThrowIfCancellationRequested();
 
         try
         {
-            this.wrapper.LoadWithAdUnitId(adUnitId,
-                                          this.onAdLoadedListener,
-                                          this.onAdEventListener);
+            this.wrapper.LoadWithAdUnitId(adUnitId, this.onAdLoadedListener, this.onAdEventListener);
         }
-        catch(OperationCanceledException)
+        catch (OperationCanceledException)
         {
             throw;
         }
-        catch(Exception exc)
+        catch (Exception exc)
         {
-            if (this.Logger.IsEnabled(LogLevel.Error))            
-                this.Logger.LogError(exc, "Failed to load interstitial ad with ad unit id {AdUnitId}", adUnitId);
-            
+            this.Logger.LogError(exc, "Failed to load interstitial ad with ad unit id {AdUnitId}", adUnitId);
             taskCompletionSource.SetException(exc);
         }
 
         return taskCompletionSource.Task;
     }
 
-    public void Show()
+    public override void Show()
     {
         ObjectDisposedException.ThrowIf(this.Disposed, this);
-        UIViewController? viewController;
 
         if (this.wrapper == null)
         {
-            if (this.Logger.IsEnabled(LogLevel.Error))
-                this.Logger.LogError("Interstitial ad wrapper is not initialized. Call LoadAsync first.");
+            this.Logger.LogError("Interstitial ad wrapper is not initialized. Call LoadAsync first.");
             throw new InvalidOperationException("Interstitial ad wrapper is not initialized. Call LoadAsync first.");
         }
 
         if (!this.IsLoaded)
         {
-            if (this.Logger.IsEnabled(LogLevel.Warning))
-                this.Logger.LogWarning("Cannot show interstitial ad because it is not loaded.");
+            this.Logger.LogWarning("Cannot show interstitial ad because it is not loaded.");
             throw new InvalidOperationException("Cannot show interstitial ad because it is not loaded.");
         }
 
-        // viewController = ViewControllerHelper.GetTopViewController();
-        viewController = this.ContextResolverService.GetViewController();
+        UIViewController? viewController = this.ContextResolverService.GetViewController();
+
         if (viewController == null)
         {
-            if (this.Logger.IsEnabled(LogLevel.Error))
-                this.Logger.LogError("Failed to get top view controller to show interstitial ad.");
+            this.Logger.LogError("Failed to get top view controller to show interstitial ad.");
             throw new InvalidOperationException("Failed to get top view controller to show interstitial ad.");
         }
 
@@ -109,15 +101,14 @@ public partial class InterstitialAdService
         {
             this.wrapper.ShowWithViewController(viewController);
         }
-        catch(Exception exc)
+        catch (Exception exc)
         {
-            if (this.Logger.IsEnabled(LogLevel.Error))
-                this.Logger.LogError(exc, "Failed to show interstitial ad.");
+            this.Logger.LogError(exc, "Failed to show interstitial ad.");
             throw;
         }
     }
 
-    protected virtual void DisposeObjects()
+    protected override void DisposeObjects()
     {
         this.onAdLoadedListener.AdLoaded -= OnAdLoadedListener_AdLoaded;
         this.onAdLoadedListener.AdFailedToLoad -= OnAdLoadedListener_AdFailedToLoad;
