@@ -1,18 +1,45 @@
 ﻿#if IOS
 
-using System;
-using System.Collections.Generic;
-using System.Text;
+using AMDevIT.Admob.Wrapper.iOSNative;
+using AMDevIT.Admob.Wrapper.MAUICross.Platforms.iOS.Listeners;
+using Microsoft.Extensions.Logging;
+using UIKit;
 
 namespace AMDevIT.Admob.Wrapper.MAUICross.Services;
 
 public partial class AppOpenAdService
 {
+    #region Fields
+
+    private AppOpenAdWrapper? wrapper;
+    private AppleOnAdEventListener onAdEventListener;
+    private AppleOnAdLoadedListener onAdLoadedListener;
+
+    #endregion
+
     #region Properties
 
-    public bool IsShowing => throw new NotImplementedException();
+    #endregion
 
-    public bool IsLoaded => throw new NotImplementedException();
+    #region .ctor
+
+    public AppOpenAdService(ILogger<AppOpenAdService> logger,
+                            IContextResolverService contextResolverService)
+    {
+        this.Logger = logger;
+        this.ContextResolverService = contextResolverService;
+
+        this.onAdLoadedListener = new();
+        this.onAdLoadedListener.AdLoaded += OnAdLoadedListener_AdLoaded;
+        this.onAdLoadedListener.AdFailedToLoad += OnAdLoadedListener_AdFailedToLoad;
+
+        this.onAdEventListener = new();
+        this.onAdEventListener.AdClicked += OnAdEventListener_AdClicked;
+        this.onAdEventListener.AdShown += OnAdEventListener_AdShown;
+        this.onAdEventListener.AdDismissed += OnAdEventListener_AdDismissed;
+        this.onAdEventListener.AdImpression += OnAdEventListener_AdImpression;
+        this.onAdEventListener.AdFailedToShow += OnAdEventListener_AdFailedToShow;
+    }
 
     #endregion
 
@@ -20,17 +47,141 @@ public partial class AppOpenAdService
 
     public Task LoadAsync(string adUnitId, CancellationToken cancellationToken = default)
     {
-        throw new NotImplementedException();
+        ObjectDisposedException.ThrowIf(this.Disposed, this);
+        TaskCompletionSource taskCompletionSource = new();
+
+        this.wrapper ??= new AppOpenAdWrapper();
+
+        cancellationToken.Register(() => taskCompletionSource.TrySetCanceled(cancellationToken));
+        cancellationToken.ThrowIfCancellationRequested();
+
+        try
+        {
+            this.wrapper.LoadWithAdUnitId(adUnitId,
+                                          this.onAdLoadedListener,
+                                          this.onAdEventListener);
+        }
+        catch (OperationCanceledException)
+        {
+            throw;
+        }
+        catch (Exception exc)
+        {
+            if (this.Logger.IsEnabled(LogLevel.Error))
+                this.Logger.LogError(exc, "Failed to load App Open ad with ad unit id {AdUnitId}", adUnitId);
+
+            taskCompletionSource.SetException(exc);
+        }
+
+        return taskCompletionSource.Task;
     }
 
     public void Show()
     {
-        throw new NotImplementedException();
+        ObjectDisposedException.ThrowIf(this.Disposed, this);
+        UIViewController? viewController;
+
+        if (this.wrapper == null)
+        {
+            if (this.Logger.IsEnabled(LogLevel.Error))
+                this.Logger.LogError("App Open ad wrapper is not initialized. Call LoadAsync first.");
+            throw new InvalidOperationException("App Open ad wrapper is not initialized. Call LoadAsync first.");
+        }
+
+        if (!this.IsLoaded)
+        {
+            if (this.Logger.IsEnabled(LogLevel.Warning))
+                this.Logger.LogWarning("Cannot show App Open ad because it is not loaded.");
+            throw new InvalidOperationException("Cannot show App Open ad because it is not loaded.");
+        }
+
+        // viewController = ViewControllerHelper.GetTopViewController();
+        viewController = this.ContextResolverService.GetViewController();
+        if (viewController == null)
+        {
+            if (this.Logger.IsEnabled(LogLevel.Error))
+                this.Logger.LogError("Failed to get top view controller to show App Open ad.");
+            throw new InvalidOperationException("Failed to get top view controller to show App Open ad.");
+        }
+
+        try
+        {
+            this.wrapper.ShowWithViewController(viewController);
+        }
+        catch (Exception exc)
+        {
+            if (this.Logger.IsEnabled(LogLevel.Error))
+                this.Logger.LogError(exc, "Failed to show App Open ad.");
+            throw;
+        }
     }
 
-    public async Task LoadAndShowAsync(string adUnitId, CancellationToken cancellationToken = default)
+    protected virtual void DisposeObjects()
     {
-        throw new NotImplementedException();
+        this.onAdLoadedListener.AdLoaded -= OnAdLoadedListener_AdLoaded;
+        this.onAdLoadedListener.AdFailedToLoad -= OnAdLoadedListener_AdFailedToLoad;
+
+        this.onAdEventListener.AdClicked -= OnAdEventListener_AdClicked;
+        this.onAdEventListener.AdShown -= OnAdEventListener_AdShown;
+        this.onAdEventListener.AdDismissed -= OnAdEventListener_AdDismissed;
+        this.onAdEventListener.AdImpression -= OnAdEventListener_AdImpression;
+        this.onAdEventListener.AdFailedToShow -= OnAdEventListener_AdFailedToShow;
+
+        try
+        {
+            this.wrapper?.Dispose();
+        }
+        catch (Exception)
+        {
+
+        }
+    }
+
+    #endregion
+
+    #region Event Handlers
+
+    private void OnAdLoadedListener_AdFailedToLoad(object? sender, AdFailedToLoadArgs e)
+    {
+        this.IsLoaded = false;
+        this.IsShowing = false;
+        this.OnAdFailedToLoad(e.ErrorCode, e.ErrorMessage);
+    }
+
+    private void OnAdLoadedListener_AdLoaded(object? sender, EventArgs e)
+    {
+        this.IsLoaded = true;
+        this.IsShowing = false;
+        this.OnAdLoaded();
+    }
+
+    private void OnAdEventListener_AdFailedToShow(object? sender, AdFailedToShowArgs e)
+    {
+        this.IsShowing = false;
+        this.OnAdFailedToShow(e.ErrorCode, e.ErrorMessage);
+    }
+
+    private void OnAdEventListener_AdImpression(object? sender, EventArgs e)
+    {
+        this.OnAdImpression();
+    }
+
+    private void OnAdEventListener_AdDismissed(object? sender, EventArgs e)
+    {
+        this.IsLoaded = false;
+        this.IsShowing = false;
+        this.OnAdDismissed();
+    }
+
+    private void OnAdEventListener_AdShown(object? sender, EventArgs e)
+    {
+        this.IsShowing = true;
+        this.OnAdShown();
+    }
+
+    private void OnAdEventListener_AdClicked(object? sender, EventArgs e)
+    {
+        this.OnAdClicked();
     }
 
     #endregion

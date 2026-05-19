@@ -1,7 +1,6 @@
 ﻿#if IOS
 
 using AMDevIT.Admob.Wrapper.iOSNative;
-using AMDevIT.Admob.Wrapper.MAUICross.Platforms.iOS.Helpers;
 using AMDevIT.Admob.Wrapper.MAUICross.Platforms.iOS.Listeners;
 using Microsoft.Extensions.Logging;
 using UIKit;
@@ -25,9 +24,11 @@ public partial class InterstitialAdService
 
     #region .ctor
 
-    public InterstitialAdService(ILogger<InterstitialAdService> logger)
+    public InterstitialAdService(ILogger<InterstitialAdService> logger,
+                                 IContextResolverService contextResolverService)
     {
         this.Logger = logger;
+        this.ContextResolverService = contextResolverService;
 
         this.onAdLoadedListener = new();
         this.onAdLoadedListener.AdLoaded += OnAdLoadedListener_AdLoaded;
@@ -95,7 +96,8 @@ public partial class InterstitialAdService
             throw new InvalidOperationException("Cannot show interstitial ad because it is not loaded.");
         }
 
-        viewController = ViewControllerHelper.GetTopViewController();
+        // viewController = ViewControllerHelper.GetTopViewController();
+        viewController = this.ContextResolverService.GetViewController();
         if (viewController == null)
         {
             if (this.Logger.IsEnabled(LogLevel.Error))

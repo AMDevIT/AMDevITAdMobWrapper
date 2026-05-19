@@ -10,6 +10,8 @@ namespace AMDevIT.Admob.Wrapper.MAUICross;
 public partial class BannerAdHandler
     : ViewHandler<BannerAd, UIView>
 {
+    #region Fields
+
     private BannerAdWrapper? bannerWrapper;
 
     private BannerLoadListener? loadListener;
@@ -17,30 +19,25 @@ public partial class BannerAdHandler
 
     private UIView? currentAdView;
 
+    #endregion
+
+    #region Methods
+
     protected override UIView CreatePlatformView()
     {
         UIView view;
 
-        view = new BannerView(this.InitializeAdView);
-        view.BackgroundColor = UIColor.Clear;
+        view = new BannerView(this.InitializeAdView)
+        {
+            BackgroundColor = UIColor.Clear
+        };
+
         return view;
     }
 
     protected override void ConnectHandler(UIView platformView)
     {
         base.ConnectHandler(platformView);
-
-        // platformView.TranslatesAutoresizingMaskIntoConstraints = false;
-        // if (platformView.Superview != null)
-        // {
-        //     NSLayoutConstraint.ActivateConstraints(
-        //     [
-        //          platformView.TopAnchor.ConstraintEqualTo(platformView.Superview.TopAnchor),
-        //          platformView.BottomAnchor.ConstraintEqualTo(platformView.Superview.BottomAnchor),
-        //          platformView.LeadingAnchor.ConstraintEqualTo(platformView.Superview.LeadingAnchor),
-        //          platformView.TrailingAnchor.ConstraintEqualTo(platformView.Superview.TrailingAnchor),
-        //     ]);
-        // }
     }
 
     protected override void DisconnectHandler(UIView platformView)
@@ -95,7 +92,7 @@ public partial class BannerAdHandler
                  this.currentAdView.LeadingAnchor.ConstraintEqualTo(this.PlatformView.LeadingAnchor),
                  this.currentAdView.TrailingAnchor.ConstraintEqualTo(this.PlatformView.TrailingAnchor),
             ]);
-        }
+        }        
     }
 
     partial void UpdateAdUnitId()
@@ -115,6 +112,8 @@ public partial class BannerAdHandler
 
     partial void UpdateAdSize() { }
 
+    #endregion
+
     #region Nested classes
 
     #region Listeners
@@ -122,7 +121,13 @@ public partial class BannerAdHandler
     private class BannerLoadListener(BannerAd view)
         : NSObject, IOnAdLoadedListener
     {
+        #region Fields
+
         private readonly BannerAd view = view;
+
+        #endregion
+
+        #region Methods
 
         public void OnAdLoaded()
         {
@@ -137,18 +142,28 @@ public partial class BannerAdHandler
         {
             MainThread.BeginInvokeOnMainThread(() => this.view.RaiseAdFailed((int)errorCode, errorMessage));
         }
+
+        #endregion
     }
 
     private class BannerEventListener(BannerAd view)
         : NSObject, IOnAdEventListener
     {
+        #region Fields
+
         private readonly BannerAd view = view;
 
-        public void OnAdShown() { }
-        public void OnAdDismissed() { }
+        #endregion
+
+        #region Methods
+
+        public void OnAdShown() => MainThread.BeginInvokeOnMainThread(() => this.view.RaiseAdLoaded());
+        public void OnAdDismissed() => MainThread.BeginInvokeOnMainThread(() => this.view.RaiseAdDismissed());
         public void OnAdClicked() => MainThread.BeginInvokeOnMainThread(() => this.view.RaiseAdClicked());
         public void OnAdImpression() => MainThread.BeginInvokeOnMainThread(() => this.view.RaiseAdImpression());
-        public void OnAdFailedToShowWithErrorCode(nint errorCode, string errorMessage) { }
+        public void OnAdFailedToShowWithErrorCode(nint errorCode, string errorMessage) => MainThread.BeginInvokeOnMainThread(() => this.view.RaiseAdFailed((int)errorCode, errorMessage));
+
+        #endregion
     }
 
     #endregion

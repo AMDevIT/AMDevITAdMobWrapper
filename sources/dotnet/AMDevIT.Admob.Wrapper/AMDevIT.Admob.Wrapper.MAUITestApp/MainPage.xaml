@@ -18,9 +18,9 @@
                     Command="{Binding ShowInterstitialAdCommand}" />
             
             <admob:BannerAd Grid.Row="1"
-                    AdUnitId="ca-app-pub-3940256099942544/6300978111"
-                    AdLoaded="BannerAd_AdLoaded"
-                    AdFailed="BannerAd_AdFailed" />
+                            AdUnitId="ca-app-pub-3940256099942544/6300978111"
+                            AdLoaded="BannerAd_AdLoaded"
+                            AdFailed="BannerAd_AdFailed" />
         </Grid>
     </ScrollView>
 

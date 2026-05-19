@@ -26,6 +26,7 @@ public partial class InterstitialAdService
     #region Properties
 
     protected ILogger<InterstitialAdService> Logger { get; }
+    protected IContextResolverService ContextResolverService { get; }
 
     public bool Disposed => this.disposedValue;
 

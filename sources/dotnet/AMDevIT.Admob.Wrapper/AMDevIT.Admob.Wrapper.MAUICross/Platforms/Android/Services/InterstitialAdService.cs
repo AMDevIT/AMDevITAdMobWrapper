@@ -21,9 +21,11 @@ public partial class InterstitialAdService
     
     #region .ctor
 
-    public InterstitialAdService(ILogger<InterstitialAdService> logger)
+    public InterstitialAdService(ILogger<InterstitialAdService> logger,
+                                 IContextResolverService contextResolverService)
     {
         this.Logger = logger;
+        this.ContextResolverService = contextResolverService;
 
         this.onAdLoadedListener = new();
 
@@ -48,7 +50,8 @@ public partial class InterstitialAdService
         ObjectDisposedException.ThrowIf(this.Disposed, this);
 
         TaskCompletionSource taskCompletionSource = new();
-        Context context = Android.App.Application.Context;        
+        // Context context = Android.App.Application.Context;        
+        Context context = this.ContextResolverService.GetContext() ?? throw new InvalidOperationException("Context cannot be null");
 
         this.wrapper ??= new InterstitialAdWrapper(context);      
 

@@ -10,7 +10,14 @@ namespace AMDevIT.Admob.Wrapper.MAUICross;
 public partial class BannerAdHandler 
     : ViewHandler<BannerAd, AndroidView>
 {
+
+    #region Fields
+
     private BannerAdWrapper? bannerWrapper;
+
+    #endregion
+
+    #region Methods
 
     protected override AndroidView CreatePlatformView()
     {
@@ -42,7 +49,10 @@ public partial class BannerAdHandler
                                  new BannerEventListener(this.VirtualView));
     }
 
-    partial void UpdateAdSize() { } // gestito in CreatePlatformView
+    // Manager in CreatePlatformView
+    partial void UpdateAdSize() 
+    { 
+    } 
 
     private BannerAdViewSize MapAdSizeToNative(BannerAdSize size) => size switch
     {   
@@ -55,16 +65,22 @@ public partial class BannerAdHandler
         _ => BannerAdViewSize.Banner
     };
 
+    #region Nested classes
+
     private class BannerLoadListener(BannerAd view)
                 : Java.Lang.Object, IOnAdLoadedListener
     {
         private readonly BannerAd view = view;
 
-        public void OnAdLoaded() =>
+        public void OnAdLoaded()
+        {
             MainThread.BeginInvokeOnMainThread(() => this.view.RaiseAdLoaded());
+        }
 
-        public void OnAdFailedToLoad(int errorCode, string errorMessage) =>
+        public void OnAdFailedToLoad(int errorCode, string errorMessage)
+        {
             MainThread.BeginInvokeOnMainThread(() => this.view.RaiseAdFailed(errorCode, errorMessage));
+        }
     }
 
     private class BannerEventListener(BannerAd view)
@@ -72,11 +88,39 @@ public partial class BannerAdHandler
     {
         private readonly BannerAd view = view;
 
-        public void OnAdShown() { }
-        public void OnAdDismissed() { }
-        public void OnAdClicked() => MainThread.BeginInvokeOnMainThread(() => this.view.RaiseAdClicked());
-        public void OnAdImpression() => MainThread.BeginInvokeOnMainThread(() => this.view.RaiseAdImpression());
-        public void OnAdFailedToShow(int errorCode, string errorMessage) { }
+        public void OnAdShown() 
+        {
+            MainThread.BeginInvokeOnMainThread(() =>
+            {
+                this.view.InvalidateMeasure();
+                this.view.RaiseAdLoaded();
+            });            
+        }
+
+        public void OnAdDismissed() 
+        {            
+            MainThread.BeginInvokeOnMainThread(() => this.view.RaiseAdDismissed());
+        }
+
+        public void OnAdClicked()
+        {
+            MainThread.BeginInvokeOnMainThread(() => this.view.RaiseAdClicked());
+        }
+
+        public void OnAdImpression()
+        {
+            MainThread.BeginInvokeOnMainThread(() => this.view.RaiseAdImpression());
+        }                
+
+        public void OnAdFailedToShow(int errorCode, string errorMessage) 
+        {
+            MainThread.BeginInvokeOnMainThread(() => this.view.RaiseAdFailed(errorCode, errorMessage));
+        }
     }
+
+    #endregion
+
+    #endregion
 }
+
 #endif
