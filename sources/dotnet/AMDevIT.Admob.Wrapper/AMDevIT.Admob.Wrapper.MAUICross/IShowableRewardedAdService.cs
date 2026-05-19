@@ -5,8 +5,11 @@ public interface IShowableRewardedAdService
 {
     #region Methods
 
-    Task<AdReward> ShowAsync();
-    void Show(Action<AdReward> onRewardEarned);
+    // These methods are useless?
+    // I have to think about it.
+
+    //Task<AdReward> ShowAsync();
+    //void Show(Action<AdReward> onRewardEarned);
 
     #endregion
 }

@@ -17,11 +17,7 @@ public partial class InterstitialAdService
     private AppleOnAdEventListener onAdEventListener;
     private AppleOnAdLoadedListener onAdLoadedListener;
 
-    #endregion
-
-    #region Properties
-
-    #endregion
+    #endregion 
 
     #region .ctor
 

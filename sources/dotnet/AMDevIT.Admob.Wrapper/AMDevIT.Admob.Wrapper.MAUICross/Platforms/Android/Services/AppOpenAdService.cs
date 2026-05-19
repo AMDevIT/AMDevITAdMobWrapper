@@ -30,12 +30,12 @@ public partial class AppOpenAdService
                             IContextResolverService contextResolverService)
         : base(logger, contextResolverService)
     {
-        this.onAdLoadedListener = new DroidOnAdLoadedListener();
+        this.onAdLoadedListener = new();
 
         this.onAdLoadedListener.AdLoaded += OnAdLoadedListener_AdLoaded;
         this.onAdLoadedListener.AdFailedToLoad += OnAdLoadedListener_AdFailedToLoad;
 
-        this.onAdEventListener = new DroidOnAdEventListener();
+        this.onAdEventListener = new();
         
         this.onAdEventListener.AdClicked += OnAdEventListener_AdClicked;
         this.onAdEventListener.AdShown += OnAdEventListener_AdShown;

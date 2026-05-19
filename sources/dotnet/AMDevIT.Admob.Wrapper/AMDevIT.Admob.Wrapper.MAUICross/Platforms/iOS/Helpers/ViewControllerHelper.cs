@@ -1,22 +1,55 @@
-using System;
 using UIKit;
 
 namespace AMDevIT.Admob.Wrapper.MAUICross.Platforms.iOS.Helpers;
 
 public static class ViewControllerHelper
 {
+    //public static UIViewController? GetTopViewController()
+    //{
+    //    // UIWindow? window = UIApplication.SharedApplication.KeyWindow;
+    //    // UIViewController? vc = window?.RootViewController;
+
+    //    UIViewController? viewController = UIApplication.SharedApplication
+    //                                                    .ConnectedScenes
+    //                                                    .OfType<UIWindowScene>()
+    //                                                    .SelectMany(scene => scene.Windows)
+    //                                                    .FirstOrDefault(w => w.IsKeyWindow)?
+    //                                                    .RootViewController;
+
+
+    //    while (viewController is { PresentedViewController: { } })
+    //        viewController = viewController.PresentedViewController;
+
+    //    if (viewController is UINavigationController { ViewControllers: { } } navController)
+    //        viewController = navController.ViewControllers.Last();
+
+    //    return viewController;
+    //}
+
     public static UIViewController? GetTopViewController()
     {
-        var window = UIApplication.SharedApplication.KeyWindow;
-        var vc = window?.RootViewController;
+        UIViewController? viewController = UIApplication.SharedApplication
+                                                        .ConnectedScenes
+                                                        .OfType<UIWindowScene>()
+                                                        .SelectMany(scene => scene.Windows)
+                                                        .FirstOrDefault(w => w.IsKeyWindow)?
+                                                        .RootViewController;
 
-        while (vc is { PresentedViewController: { } })
-            vc = vc.PresentedViewController;
+        return GetTopViewController(viewController);
+    }
 
-        if (vc is UINavigationController { ViewControllers: { } } navController)
-            vc = navController.ViewControllers.Last();
+    private static UIViewController? GetTopViewController(UIViewController? root)
+    {
+        if (root is UINavigationController nav)
+            return GetTopViewController(nav.VisibleViewController);
 
-        return vc;
+        if (root is UITabBarController tab)
+            return GetTopViewController(tab.SelectedViewController);
+
+        if (root?.PresentedViewController != null)
+            return GetTopViewController(root.PresentedViewController);
+
+        return root;
     }
 
     public static UIWindow? GetKeyWindow(this UIApplication application)

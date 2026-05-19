@@ -9,9 +9,5 @@ public partial class InterstitialAdService
 
     protected override string AdTypeName => "interstitial ad";
 
-    #endregion
-
-    #region Methods
-
-    #endregion
+    #endregion  
 }

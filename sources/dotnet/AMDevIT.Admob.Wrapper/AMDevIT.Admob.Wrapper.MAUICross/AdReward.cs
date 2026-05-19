@@ -1,12 +1,12 @@
 ﻿namespace AMDevIT.Admob.Wrapper.MAUICross;
 
-public class AdReward(string type, int amount)
+public class AdReward(string type, long amount)
 {
     #region Properties
 
     public string Type => type;
 
-    public int Amount => amount;
+    public long Amount => amount;
 
     #endregion
 

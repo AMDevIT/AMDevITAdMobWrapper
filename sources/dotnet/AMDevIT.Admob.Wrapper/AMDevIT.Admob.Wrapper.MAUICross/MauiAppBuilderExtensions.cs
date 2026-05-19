@@ -14,6 +14,8 @@ public static class MauiAppBuilderExtensions
         builder.Services.AddSingleton<IInterstitialAdService, InterstitialAdService>();
         builder.Services.AddSingleton<IAppOpenAdService, AppOpenAdService>();
         builder.Services.AddSingleton<IShowableRewardedAdService, RewardedAdService>();
+        builder.Services.AddSingleton<IContextResolverService, ContextResolverService>();
+
 
         return builder;
     }

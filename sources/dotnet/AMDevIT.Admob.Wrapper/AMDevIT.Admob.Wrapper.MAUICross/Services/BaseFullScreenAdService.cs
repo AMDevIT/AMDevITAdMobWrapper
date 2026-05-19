@@ -24,8 +24,8 @@ public abstract class BaseFullScreenAdService : IDisposable
 
     #region Properties
 
-    protected ILogger Logger { get; };
-    protected IContextResolverService ContextResolverService { get; };
+    protected ILogger Logger { get; }
+    protected IContextResolverService ContextResolverService { get; }
 
     public bool Disposed => this.disposedValue;
 
