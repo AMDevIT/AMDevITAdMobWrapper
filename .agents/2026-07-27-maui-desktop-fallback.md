@@ -55,3 +55,14 @@ platforms, render a XAML-configurable fallback view. Completed.
   SDK configured through `JavaSdkDirectory` or the standard .NET Android setup.
 - Review the public `FallbackTemplate` API and desktop unsupported-service
   behavior before committing.
+
+## Target framework follow-up
+
+- Added `net10.0-maccatalyst` to the unconditional MAUI wrapper target list and
+  set its minimum supported platform version to 15.0.
+- Preserved the Windows configuration added separately:
+  `net10.0-windows10.0.26100.0` is appended only on Windows hosts, with minimum
+  runtime version `10.0.17763.0`.
+- MSBuild resolves all four targets on Windows.
+- The wrapper builds successfully for both Mac Catalyst and Windows with zero
+  errors; the existing `NU1608` dependency warnings remain.
