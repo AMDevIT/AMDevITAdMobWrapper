@@ -410,7 +410,15 @@ builder.UseAdMobWrapper();
                         AdUnitId="ca-app-pub-3940256099942544/6300978111"
                         AdSize="Adaptive"
                         AdLoaded="OnBannerLoaded"
-                        AdFailed="OnBannerFailed" />
+                        AdFailed="OnBannerFailed">
+            <admob:BannerAd.FallbackTemplate>
+                <DataTemplate>
+                    <Border Padding="12">
+                        <Label Text="AdMob banner ads aren't supported on this platform." />
+                    </Border>
+                </DataTemplate>
+            </admob:BannerAd.FallbackTemplate>
+        </admob:BannerAd>
 
     </Grid>
 </ContentPage>
@@ -427,6 +435,16 @@ private void OnBannerFailed(object sender, BannerAdFailedEventArgs e)
     Console.WriteLine($"Banner failed: [{e.ErrorCode}] {e.ErrorMessage}");
 }
 ```
+
+`FallbackTemplate` is rendered on Windows and Mac Catalyst, where AdMob isn't
+supported. Its content is created lazily by the platform handler. If the
+property isn't set, the default template creates an empty `ContentView`.
+Android and iOS continue to render the native AdMob banner view and don't
+instantiate the fallback template.
+
+Full-screen ad services are available for dependency injection on every
+supported MAUI target. Calling them on Windows or Mac Catalyst throws
+`PlatformNotSupportedException`.
 
 ### Banner Ad sizes
 
