@@ -155,6 +155,10 @@ namespace AMDevIT.Admob.Wrapper.iOSNative
 		[Export ("loadWithAdUnitId:viewController:loadListener:eventListener:")]
 		UIView LoadWithAdUnitId (string adUnitId, UIViewController viewController, IOnAdLoadedListener loadListener, [NullAllowed] IOnAdEventListener eventListener);
 
+		// -(UIView * _Nonnull)loadWithAdUnitId:(NSString * _Nonnull)adUnitId viewController:(UIViewController * _Nonnull)viewController adSize:(enum BannerAdViewSize)adSize adWidth:(CGFloat)adWidth loadListener:(id<OnAdLoadedListener> _Nonnull)loadListener eventListener:(id<OnAdEventListener> _Nullable)eventListener __attribute__((warn_unused_result("")));
+		[Export ("loadWithAdUnitId:viewController:adSize:adWidth:loadListener:eventListener:")]
+		UIView LoadWithAdUnitId (string adUnitId, UIViewController viewController, BannerAdViewSize adSize, nfloat adWidth, IOnAdLoadedListener loadListener, [NullAllowed] IOnAdEventListener eventListener);
+
 		// -(void)destroy;
 		[Export ("destroy")]
 		void Destroy ();

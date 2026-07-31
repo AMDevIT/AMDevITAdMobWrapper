@@ -15,12 +15,23 @@
                    IsVisible="{Binding ShowStatusMessage}" />            
             
             <Button Text="Show interstitial banner" 
-                    Command="{Binding ShowInterstitialAdCommand}" />
+                    Command="{Binding ShowInterstitialAdCommand}"
+                    IsVisible="{OnPlatform True, WinUI=False, MacCatalyst=False}" />
             
             <admob:BannerAd Grid.Row="1"
                             AdUnitId="ca-app-pub-3940256099942544/6300978111"
                             AdLoaded="BannerAd_AdLoaded"
-                            AdFailed="BannerAd_AdFailed" />
+                            AdFailed="BannerAd_AdFailed">
+                <admob:BannerAd.FallbackTemplate>
+                    <DataTemplate>
+                        <Border Padding="12"
+                                BackgroundColor="#EEEEEE">
+                            <Label Text="AdMob banner ads aren't supported on this platform."
+                                   HorizontalTextAlignment="Center" />
+                        </Border>
+                    </DataTemplate>
+                </admob:BannerAd.FallbackTemplate>
+            </admob:BannerAd>
         </Grid>
     </ScrollView>
 

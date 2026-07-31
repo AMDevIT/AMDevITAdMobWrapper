@@ -18,7 +18,10 @@ public abstract class BaseFullScreenAdService : IDisposable
 
     #region Fields
 
-    private bool disposedValue;
+    private readonly object loadSyncRoot = new();
+    private volatile bool disposedValue;
+    private TaskCompletionSource? loadCompletionSource;
+    private CancellationTokenRegistration loadCancellationRegistration;
 
     #endregion
 
@@ -51,7 +54,6 @@ public abstract class BaseFullScreenAdService : IDisposable
 
     public abstract Task LoadAsync(string adUnitId, CancellationToken cancellationToken = default);
     public abstract void Show();
-    protected abstract void DisposeObjects();
 
     public async Task LoadAndShowAsync(string adUnitId, CancellationToken cancellationToken = default)
     {
@@ -63,6 +65,80 @@ public abstract class BaseFullScreenAdService : IDisposable
             throw new InvalidOperationException($"Cannot show {this.AdTypeName} because it is not loaded.");
 
         this.Show();
+    }
+
+    public void Dispose()
+    {
+        Dispose(disposing: true);
+        GC.SuppressFinalize(this);
+    }
+
+    protected abstract void DisposeObjects();
+
+    protected Task StartLoadAsync(string adUnitId,
+                                  Action startLoad,
+                                  CancellationToken cancellationToken = default)
+    {
+        ArgumentException.ThrowIfNullOrWhiteSpace(adUnitId);
+        ArgumentNullException.ThrowIfNull(startLoad);
+        cancellationToken.ThrowIfCancellationRequested();
+
+        TaskCompletionSource taskCompletionSource;
+
+        lock (this.loadSyncRoot)
+        {
+            ObjectDisposedException.ThrowIf(this.disposedValue, this);
+
+            if (this.loadCompletionSource != null)
+                throw new InvalidOperationException($"A {this.AdTypeName} load operation is already in progress.");
+
+            if (this.IsShowing)
+                throw new InvalidOperationException($"Cannot load {this.AdTypeName} while it is being shown.");
+
+            this.IsLoaded = false;
+            taskCompletionSource = new(TaskCreationOptions.RunContinuationsAsynchronously);
+            this.loadCompletionSource = taskCompletionSource;
+            this.loadCancellationRegistration = cancellationToken.Register(() =>
+                this.CancelLoadAwait(cancellationToken));
+        }
+
+        try
+        {
+            startLoad();
+        }
+        catch (Exception exc)
+        {
+            this.CompleteLoadFailure(exc);
+        }
+
+        return taskCompletionSource.Task;
+    }
+
+    protected void CompleteLoadSuccess()
+    {
+        TaskCompletionSource? taskCompletionSource;
+        CancellationTokenRegistration cancellationRegistration;
+
+        lock (this.loadSyncRoot)
+        {
+            if (this.disposedValue || this.loadCompletionSource == null)
+                return;
+
+            this.IsLoaded = true;
+            this.IsShowing = false;
+            taskCompletionSource = this.loadCompletionSource;
+            this.loadCompletionSource = null;
+            cancellationRegistration = this.loadCancellationRegistration;
+            this.loadCancellationRegistration = default;
+        }
+
+        cancellationRegistration.Dispose();
+        taskCompletionSource.TrySetResult();
+    }
+
+    protected void CompleteLoadFailure(long errorCode, string errorMessage)
+    {
+        this.CompleteLoadFailure(new AdLoadException(errorCode, errorMessage));
     }
 
     protected void OnAdLoaded() => MainThread.BeginInvokeOnMainThread(() => this.AdLoaded?.Invoke(this, EventArgs.Empty));
@@ -81,19 +157,56 @@ public abstract class BaseFullScreenAdService : IDisposable
 
     protected virtual void Dispose(bool disposing)
     {
-        if (!this.disposedValue)
+        TaskCompletionSource? taskCompletionSource;
+        CancellationTokenRegistration cancellationRegistration;
+
+        lock (this.loadSyncRoot)
         {
-            if (disposing)
-                this.DisposeObjects();
+            if (this.disposedValue)
+                return;
 
             this.disposedValue = true;
+            this.IsLoaded = false;
+            this.IsShowing = false;
+            taskCompletionSource = this.loadCompletionSource;
+            this.loadCompletionSource = null;
+            cancellationRegistration = this.loadCancellationRegistration;
+            this.loadCancellationRegistration = default;
         }
+
+        cancellationRegistration.Dispose();
+        taskCompletionSource?.TrySetException(new ObjectDisposedException(this.GetType().FullName));
+
+        if (disposing)
+            this.DisposeObjects();
     }
 
-    public void Dispose()
+    private void CancelLoadAwait(CancellationToken cancellationToken)
     {
-        Dispose(disposing: true);
-        GC.SuppressFinalize(this);
+        lock (this.loadSyncRoot)
+            this.loadCompletionSource?.TrySetCanceled(cancellationToken);
+    }
+
+    private void CompleteLoadFailure(Exception exception)
+    {
+        TaskCompletionSource? taskCompletionSource;
+        CancellationTokenRegistration cancellationRegistration;
+
+        lock (this.loadSyncRoot)
+        {
+            if (this.disposedValue || this.loadCompletionSource == null)
+                return;
+
+            this.IsLoaded = false;
+            this.IsShowing = false;
+            taskCompletionSource = this.loadCompletionSource;
+            this.loadCompletionSource = null;
+            cancellationRegistration = this.loadCancellationRegistration;
+            this.loadCancellationRegistration = default;
+        }
+
+        cancellationRegistration.Dispose();
+        taskCompletionSource.TrySetException(exception);
     }
 
     #endregion

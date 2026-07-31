@@ -1,10 +1,11 @@
 # AMDev.IT AdMob Wrapper
-[![License: MIT](https://img.shields.io/badge/license-Apache%20License%202.0-blue.svg)](LICENSE)
-[![.NET](https://img.shields.io/badge/.NET-8%20%7C%209%20%7C%2010-512BD4)](https://dotnet.microsoft.com)
+[![License: Apache-2.0](https://img.shields.io/badge/license-Apache%20License%202.0-blue.svg)](LICENSE)
+[![.NET](https://img.shields.io/badge/.NET-10-512BD4)](https://dotnet.microsoft.com)
 
 A modern, lightweight AdMob wrapper for **.NET 10 Android**, **.NET 10 iOS**, and **.NET MAUI**, designed to solve the lack of working AdMob bindings in the current .NET ecosystem.
 
-> **Why this exists**: As of 2025, there are no fully functional, up-to-date AdMob bindings for .NET MAUI. The official `Xamarin.GooglePlayServices.Ads` binding has broken classes (`InterstitialAdLoadCallback.OnAdLoaded` and others), and the iOS binding repository has been archived with no replacement. This library wraps the native Android and iOS SDKs in clean, bindable Kotlin and Swift layers and exposes them to .NET with both callback and `async/await` APIs.
+The library wraps the native Android and iOS SDKs in bindable Kotlin and Swift
+layers and exposes them to .NET with both callback and `async/await` APIs.
 
 ---
 
@@ -15,7 +16,7 @@ A modern, lightweight AdMob wrapper for **.NET 10 Android**, **.NET 10 iOS**, an
 | `AMDevIT.Admob.Wrapper.Droid` | .NET binding for the native Kotlin AAR | [![NuGet](https://img.shields.io/nuget/v/AMDevIT.Admob.Wrapper.Droid)](https://www.nuget.org/packages/AMDevIT.Admob.Wrapper.Droid) | [![Downloads](https://img.shields.io/nuget/dt/AMDevIT.Admob.Wrapper.Droid)](https://www.nuget.org/packages/AMDevIT.Admob.Wrapper.Droid)|
 | `AMDevIT.Admob.Wrapper.iOSNative` | .NET binding for the native Swift xcframework | [![NuGet](https://img.shields.io/nuget/v/AMDevIT.Admob.Wrapper.iOSNative)](https://www.nuget.org/packages/AMDevIT.Admob.Wrapper.iOSNative) |[![Downloads](https://img.shields.io/nuget/dt/AMDevIT.Admob.Wrapper.iOSNative)](https://www.nuget.org/packages/AMDevIT.Admob.Wrapper.iOSNative)|
 | `AMDevIT.Admob.Wrapper` | Multi-platform wrapper with `async/await` extensions | [![NuGet](https://img.shields.io/nuget/v/AMDevIT.Admob.Wrapper)](https://www.nuget.org/packages/AMDevIT.Admob.Wrapper) |[![Downloads](https://img.shields.io/nuget/dt/AMDevIT.Admob.Wrapper)](https://www.nuget.org/packages/AMDevIT.Admob.Wrapper)
-| `AMDevIT.Admob.Wrapper.MAUICross` | MAUI controls and handlers (optional) | [![NuGet](https://img.shields.io/nuget/v/AMDevIT.Admob.Wrapper.MAUICross)](https://www.nuget.org/packages/AMDevIT.Admob.Wrapper.MAUICross) |[![Downloads](https://img.shields.io/nuget/dt/AMDevIT.Admob.Wrapper.MAUICross)](https://www.nuget.org/packages/AMDevIT.Admob.Wrapper.MAUICross)|
+| `AMDevIT.Admob.Wrapper.MAUICross` | MAUI controls, handlers, and full-screen services | [![NuGet](https://img.shields.io/nuget/v/AMDevIT.Admob.Wrapper.MAUICross)](https://www.nuget.org/packages/AMDevIT.Admob.Wrapper.MAUICross) |[![Downloads](https://img.shields.io/nuget/dt/AMDevIT.Admob.Wrapper.MAUICross)](https://www.nuget.org/packages/AMDevIT.Admob.Wrapper.MAUICross)|
 
 ---
 
@@ -24,7 +25,10 @@ A modern, lightweight AdMob wrapper for **.NET 10 Android**, **.NET 10 iOS**, an
 - .NET 10
 - Android API 33+ (Android 13)
 - iOS 15.0+
-- `Xamarin.GooglePlayServices.Ads` 125.0.0.1
+- Mac Catalyst 15.0+ or Windows 10 version 1809+ for the MAUI fallback UI
+
+`Xamarin.GooglePlayServices.Ads` 125.2.0 is brought in transitively by the
+Android binding package.
 
 ---
 
@@ -33,27 +37,29 @@ A modern, lightweight AdMob wrapper for **.NET 10 Android**, **.NET 10 iOS**, an
 ### Android project
 
 ```xml
-<PackageReference Include="AMDevIT.Admob.Wrapper.Android" Version="1.0.0" />
+<PackageReference Include="AMDevIT.Admob.Wrapper.Droid" Version="0.1.0-preview.1" />
 ```
 
 ### iOS project
 
 ```xml
-<PackageReference Include="AMDevIT.Admob.Wrapper.iOS" Version="1.0.0" />
+<PackageReference Include="AMDevIT.Admob.Wrapper.iOSNative" Version="0.1.0-preview.1" />
 ```
 
 ### Android or iOS project with async/await support
 
 ```xml
-<PackageReference Include="AMDevIT.Admob.Wrapper" Version="1.0.0" />
+<PackageReference Include="AMDevIT.Admob.Wrapper" Version="0.1.0-preview.1" />
 ```
 
 ### MAUI project with async/await support and XAML controls
 
 ```xml
-<PackageReference Include="AMDevIT.Admob.Wrapper" Version="1.0.0" />
-<PackageReference Include="AMDevIT.Admob.Wrapper.MAUICross" Version="1.0.0" />
+<PackageReference Include="AMDevIT.Admob.Wrapper.MAUICross" Version="0.1.0-preview.1" />
 ```
+
+Add `AMDevIT.Admob.Wrapper` as well only when the application uses the
+lower-level native `async/await` extension methods.
 
 ### AndroidManifest.xml
 
@@ -390,7 +396,7 @@ if (!appOpenWrapper.IsShowing)
 Register the handler in `MauiProgram.cs`:
 
 ```csharp
-builder.UseAdMobWrapper();
+builder.UseAMDevITAdMobWrapper();
 ```
 
 ### Banner Ad in XAML
@@ -410,7 +416,15 @@ builder.UseAdMobWrapper();
                         AdUnitId="ca-app-pub-3940256099942544/6300978111"
                         AdSize="Adaptive"
                         AdLoaded="OnBannerLoaded"
-                        AdFailed="OnBannerFailed" />
+                        AdFailed="OnBannerFailed">
+            <admob:BannerAd.FallbackTemplate>
+                <DataTemplate>
+                    <Border Padding="12">
+                        <Label Text="AdMob banner ads aren't supported on this platform." />
+                    </Border>
+                </DataTemplate>
+            </admob:BannerAd.FallbackTemplate>
+        </admob:BannerAd>
 
     </Grid>
 </ContentPage>
@@ -422,11 +436,59 @@ private void OnBannerLoaded(object sender, EventArgs e)
     Console.WriteLine("Banner loaded");
 }
 
-private void OnBannerFailed(object sender, BannerAdFailedEventArgs e)
+private void OnBannerFailed(object sender, AdFailedEventArgs e)
 {
     Console.WriteLine($"Banner failed: [{e.ErrorCode}] {e.ErrorMessage}");
 }
 ```
+
+`FallbackTemplate` is rendered on Windows and Mac Catalyst, where AdMob isn't
+supported. Its content is created lazily by the platform handler. If the
+property isn't set, the default template creates an empty `ContentView`.
+Android and iOS continue to render the native AdMob banner view and don't
+instantiate the fallback template.
+
+Full-screen ad services are available for dependency injection on every
+supported MAUI target. Calling them on Windows or Mac Catalyst throws
+`PlatformNotSupportedException`.
+
+### Full-screen ads
+
+Inject `IInterstitialAdService`, `IAppOpenAdService`, or
+`IShowableRewardedAdService`, then await loading before showing the ad:
+
+```csharp
+public sealed class AdCoordinator(
+    IInterstitialAdService interstitialAdService,
+    IShowableRewardedAdService rewardedAdService)
+{
+    public Task ShowInterstitialAsync(CancellationToken cancellationToken = default)
+    {
+        return interstitialAdService.LoadAndShowAsync(
+            "ca-app-pub-3940256099942544/1033173712",
+            cancellationToken);
+    }
+
+    public async Task ShowRewardedAsync(CancellationToken cancellationToken = default)
+    {
+        rewardedAdService.AdRewardEarned += OnAdRewardEarned;
+
+        await rewardedAdService.LoadAndShowAsync(
+            "ca-app-pub-3940256099942544/5224354917",
+            cancellationToken);
+    }
+
+    private static void OnAdRewardEarned(object? sender, AdReward reward)
+    {
+        Console.WriteLine($"Reward: {reward.Amount} {reward.Type}");
+    }
+}
+```
+
+Each registered service supports one native load operation at a time. A second
+overlapping call throws `InvalidOperationException`. Cancelling the token
+cancels the caller's wait, but it cannot cancel the native SDK operation; wait
+for its load callback before starting another load on the same service.
 
 ### Banner Ad sizes
 
@@ -443,7 +505,9 @@ private void OnBannerFailed(object sender, BannerAdFailedEventArgs e)
 
 ## Error handling
 
-All async methods throw `AdException` on failure:
+The lower-level async extensions throw `AdException` on failure. MAUI
+full-screen loading throws `AdLoadException`; both exceptions expose the native
+error code:
 
 ```csharp
 try
@@ -478,9 +542,9 @@ Use these IDs during development. Never use real Ad Unit IDs on a device you own
 ## Project structure
 
 ```
-AMDevIT.Admob.Wrapper/
-├── native/
-│   ├── android/                                    # Kotlin source (Android Studio)
+AMDevITAdMobWrapper/
+├── sources/
+│   ├── droid/                                      # Kotlin source (Android Studio)
 │   │   └── admob-wrapper/
 │   │       ├── AdMobManager.kt
 │   │       └── ads/
@@ -488,22 +552,23 @@ AMDevIT.Admob.Wrapper/
 │   │           ├── InterstitialAdWrapper.kt
 │   │           ├── RewardedAdWrapper.kt
 │   │           └── AppOpenAdWrapper.kt
-│   └── ios/                                        # Swift source (Xcode)
-│       ├── build_xcframework.sh
-│       └── AdMobWrapper/
-│           ├── AdMobManager.swift
-│           └── Ads/
-│               ├── BannerAdWrapper.swift
-│               ├── InterstitialAdWrapper.swift
-│               ├── RewardedAdWrapper.swift
-│               └── AppOpenAdWrapper.swift
-└── dotnet/
-    ├── AMDevIT.Admob.Wrapper.Android/              # .NET binding project (Android)
-    ├── AMDevIT.Admob.Wrapper.iOSNative/            # .NET binding project (iOS)
-    ├── AMDevIT.Admob.Wrapper/                      # Multi-platform wrapper + async extensions
-    ├── AMDevIT.Admob.Wrapper.MAUICross/            # MAUI controls and handlers (optional)
-    ├── AMDevIT.Admob.Wrapper.DroidTestApp/         # Android test app
-    └── AMDevIT.Admob.Wrapper.iOSTestApp/           # iOS test app
+│   ├── apple/ios/                                  # Swift source (Xcode)
+│   │   ├── build_xcframework.sh
+│   │   └── AdMobWrapper/
+│   │       ├── AdMobManager.swift
+│   │       └── Ads/
+│   │           ├── BannerAdWrapper.swift
+│   │           ├── InterstitialAdWrapper.swift
+│   │           ├── RewardedAdWrapper.swift
+│   │           └── AppOpenAdWrapper.swift
+│   └── dotnet/AMDevIT.Admob.Wrapper/
+│       ├── AMDevIT.Admob.Wrapper.Droid/            # .NET binding project (Android)
+│       ├── AMDevIT.Admob.Wrapper.iOSNative/        # .NET binding project (iOS)
+│       ├── AMDevIT.Admob.Wrapper/                  # Multi-platform wrapper + async extensions
+│       ├── AMDevIT.Admob.Wrapper.MAUICross/        # MAUI controls and services
+│       ├── AMDevIT.Admob.Wrapper.DroidTestApp/     # Android test app
+│       ├── AMDevIT.Admob.Wrapper.AppleTestApp/     # iOS test app
+│       └── AMDevIT.Admob.Wrapper.MAUICross.Tests/  # async lifecycle tests
 ```
 
 ---
@@ -512,17 +577,21 @@ AMDevIT.Admob.Wrapper/
 
 ### Android
 
-The native Android SDK is built as an AAR using Gradle. The binding project references both debug and release flavors — the correct one is selected automatically based on the build configuration. When making changes to the native code, recompile the AAR from Android Studio and update the files in `AMDevIT.Admob.Wrapper.Android/Jars/`.
+The native Android SDK is built as an AAR using Gradle. When making changes to
+the native code, rebuild the release AAR and replace
+`AMDevIT.Admob.Wrapper.Droid/Jars/admob-wrapper-release.aar`.
 
 ### iOS
 
-The native iOS SDK is built as an xcframework using Xcode. A build script is provided at `native/ios/build_xcframework.sh` to automate the process. When making changes to the Swift code, run the script from the `native/ios/` directory:
+The native iOS SDK is built as an xcframework using Xcode. A build script is
+provided at `sources/apple/ios/build_xcframework.sh`. Run it from that directory:
 
 ```bash
 ./build_xcframework.sh
 ```
 
-Then copy the generated `build/AdMobWrapper.xcframework` to `AMDevIT.Admob.Wrapper.iOSNative/native/`.
+Then replace
+`sources/dotnet/AMDevIT.Admob.Wrapper/AMDevIT.Admob.Wrapper.iOSNative/libs/AdMobWrapper.xcframework`.
 
 ---
 
@@ -533,14 +602,14 @@ Contributions are welcome. Please open an issue before submitting a pull request
 When updating the native Android SDK version:
 1. Update `playServicesAdsVersion` in `libs.versions.toml`
 2. Recompile the AAR from Android Studio
-3. Replace the AARs in `AMDevIT.Admob.Wrapper.Android/Jars/`
+3. Replace the release AAR in `AMDevIT.Admob.Wrapper.Droid/Jars/`
 4. Update the `Xamarin.GooglePlayServices.Ads` NuGet version accordingly
 5. Bump the package version and publish
 
 When updating the native iOS SDK version:
 1. Update the SPM dependency version in Xcode
-2. Run `./build_xcframework.sh` from `native/ios/`
-3. Replace the xcframework in `AMDevIT.Admob.Wrapper.iOSNative/native/`
+2. Run `./build_xcframework.sh` from `sources/apple/ios/`
+3. Replace the xcframework in `AMDevIT.Admob.Wrapper.iOSNative/libs/`
 4. Bump the package version and publish
 
 ---

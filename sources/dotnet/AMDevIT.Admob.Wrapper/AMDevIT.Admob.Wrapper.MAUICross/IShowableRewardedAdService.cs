@@ -1,15 +1,11 @@
 ﻿namespace AMDevIT.Admob.Wrapper.MAUICross;
 
-public interface IShowableRewardedAdService 
-    : IFullScreenAdService
+public interface IShowableRewardedAdService
+    : IShowableAdService
 {
-    #region Methods
+    #region Events
 
-    // These methods are useless?
-    // I have to think about it.
-
-    //Task<AdReward> ShowAsync();
-    //void Show(Action<AdReward> onRewardEarned);
+    event EventHandler<AdReward>? AdRewardEarned;
 
     #endregion
 }

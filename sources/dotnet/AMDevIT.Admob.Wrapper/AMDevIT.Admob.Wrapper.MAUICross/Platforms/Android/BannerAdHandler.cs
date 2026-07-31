@@ -2,6 +2,9 @@
 
 using AMDevIT.Admob.Wrapper.Ads;
 using AMDevIT.Admob.Wrapper.Listeners;
+using Android.Content;
+using Android.Views;
+using Android.Widget;
 using Microsoft.Maui.Handlers;
 using AndroidView = Android.Views.View;
 
@@ -14,45 +17,126 @@ public partial class BannerAdHandler
     #region Fields
 
     private BannerAdWrapper? bannerWrapper;
+    private int lastAdaptiveWidth;
 
     #endregion
 
     #region Methods
 
+    public override Size GetDesiredSize(double widthConstraint, double heightConstraint)
+    {
+        if (this.VirtualView.AdSize.TryGetFixedSize(out Size fixedSize))
+            return fixedSize;
+
+        Size desiredSize = base.GetDesiredSize(widthConstraint, heightConstraint);
+        if (desiredSize.Height > 0)
+            return desiredSize;
+
+        double width = double.IsFinite(widthConstraint) ? widthConstraint : 0;
+        return new Size(width, 50);
+    }
+
     protected override AndroidView CreatePlatformView()
     {
         this.bannerWrapper = new BannerAdWrapper(this.Context);
-        var adUnitId = this.VirtualView.AdUnitId ?? string.Empty;
-        var adSize = this.MapAdSizeToNative(this.VirtualView.AdSize);
+        BannerContainer container = new(this.Context, this.OnContainerWidthChanged);
 
-        AndroidView bannerView = this.bannerWrapper.Load(adUnitId,
-                                                         adSize,
-                                                         new BannerLoadListener(this.VirtualView),
-                                                         new BannerEventListener(this.VirtualView));
-        return bannerView;
+        if (this.VirtualView.AdSize != BannerAdSize.Adaptive)
+            this.LoadBanner(container, null);
+
+        return container;
     }
 
     protected override void DisconnectHandler(AndroidView platformView)
     {
         this.bannerWrapper?.Destroy();
+        if (platformView is BannerContainer container)
+        {
+            container.WidthChanged = null;
+            container.RemoveAllViews();
+        }
+
         base.DisconnectHandler(platformView);
     }
 
     partial void UpdateAdUnitId()
     {
-        if (this.PlatformView == null) return;
-        this.bannerWrapper?.Destroy();
-        var adSize = this.MapAdSizeToNative(this.VirtualView.AdSize);
-        this.bannerWrapper?.Load(this.VirtualView.AdUnitId ?? string.Empty,
-                                 adSize,
-                                 new BannerLoadListener(this.VirtualView),
-                                 new BannerEventListener(this.VirtualView));
+        if (this.PlatformView is not BannerContainer container)
+            return;
+
+        this.LoadBanner(container, this.lastAdaptiveWidth);
     }
 
-    // Manager in CreatePlatformView
-    partial void UpdateAdSize() 
-    { 
-    } 
+    partial void UpdateAdSize()
+    {
+        if (this.PlatformView is not BannerContainer container)
+            return;
+
+        this.lastAdaptiveWidth = 0;
+        this.LoadBanner(container, this.GetAvailableWidth(container));
+    }
+
+    private int GetAvailableWidth(BannerContainer container)
+    {
+        if (container.Width <= 0)
+            return 0;
+
+        float density = this.Context.Resources?.DisplayMetrics?.Density ?? 1;
+        return Math.Max(1, (int)Math.Floor(container.Width / density));
+    }
+
+    private void LoadBanner(BannerContainer container, int? adaptiveWidth)
+    {
+        if (this.bannerWrapper == null)
+            return;
+
+        string adUnitId = this.VirtualView.AdUnitId ?? string.Empty;
+        BannerLoadListener loadListener = new(this.VirtualView);
+        BannerEventListener eventListener = new(this.VirtualView);
+        AndroidView bannerView;
+
+        if (this.VirtualView.AdSize == BannerAdSize.Adaptive)
+        {
+            if (adaptiveWidth is not > 0)
+                return;
+
+            this.lastAdaptiveWidth = adaptiveWidth.Value;
+            bannerView = this.bannerWrapper.LoadAdaptive(adUnitId,
+                                                         adaptiveWidth.Value,
+                                                         loadListener,
+                                                         eventListener);
+        }
+        else
+        {
+            BannerAdViewSize adSize = this.MapAdSizeToNative(this.VirtualView.AdSize);
+            this.lastAdaptiveWidth = 0;
+            bannerView = this.bannerWrapper.Load(adUnitId,
+                                                 adSize,
+                                                 loadListener,
+                                                 eventListener);
+        }
+
+        container.RemoveAllViews();
+        FrameLayout.LayoutParams layoutParameters = new(ViewGroup.LayoutParams.WrapContent,
+                                                        ViewGroup.LayoutParams.WrapContent,
+                                                        GravityFlags.Center);
+        container.AddView(bannerView, layoutParameters);
+        container.RequestLayout();
+        this.VirtualView.InvalidateMeasure();
+    }
+
+    private void OnContainerWidthChanged(int width)
+    {
+        if (this.VirtualView.AdSize != BannerAdSize.Adaptive ||
+            this.PlatformView is not BannerContainer container)
+            return;
+
+        int availableWidth = this.GetAvailableWidth(container);
+        if (availableWidth <= 0 || availableWidth == this.lastAdaptiveWidth)
+            return;
+
+        this.LoadBanner(container, availableWidth);
+    }
 
     private BannerAdViewSize MapAdSizeToNative(BannerAdSize size) => size switch
     {   
@@ -116,6 +200,28 @@ public partial class BannerAdHandler
         {
             MainThread.BeginInvokeOnMainThread(() => this.view.RaiseAdFailed(errorCode, errorMessage));
         }
+    }
+
+    private class BannerContainer(Context context, Action<int> widthChanged)
+        : FrameLayout(context)
+    {
+        #region Properties
+
+        internal Action<int>? WidthChanged { get; set; } = widthChanged;
+
+        #endregion
+
+        #region Methods
+
+        protected override void OnSizeChanged(int width, int height, int oldWidth, int oldHeight)
+        {
+            base.OnSizeChanged(width, height, oldWidth, oldHeight);
+
+            if (width > 0 && width != oldWidth)
+                this.WidthChanged?.Invoke(width);
+        }
+
+        #endregion
     }
 
     #endregion

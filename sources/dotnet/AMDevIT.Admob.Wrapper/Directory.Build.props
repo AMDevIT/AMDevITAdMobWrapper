@@ -1,0 +1,47 @@
+<Project>
+    <PropertyGroup>
+        <EnableWindowsTargeting>true</EnableWindowsTargeting>
+    </PropertyGroup>
+
+  <PropertyGroup>
+    <ArtifactsPath>$(MSBuildThisFileDirectory)..\..\..\artifacts</ArtifactsPath>
+    <IsAMDevITAdMobPackage Condition="'$(MSBuildProjectName)' == 'AMDevIT.Admob.Wrapper.Droid' or
+                                      '$(MSBuildProjectName)' == 'AMDevIT.Admob.Wrapper.iOSNative' or
+                                      '$(MSBuildProjectName)' == 'AMDevIT.Admob.Wrapper' or
+                                      '$(MSBuildProjectName)' == 'AMDevIT.Admob.Wrapper.MAUICross'">true</IsAMDevITAdMobPackage>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(IsAMDevITAdMobPackage)' == 'true'">
+    <VersionPrefix>0.1.3</VersionPrefix>
+    <VersionSuffix>preview.1</VersionSuffix>
+    <Authors>Alessandro Morvillo</Authors>
+    <Company>AMDev.IT di Alessandro Morvillo</Company>
+    <Copyright>Alessandro Morvillo, 2026</Copyright>
+    <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
+    <PackageProjectUrl>https://github.com/AMDevIT/AMDevITAdMobWrapper</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/AMDevIT/AMDevITAdMobWrapper</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageIcon>admob_maui_icon_v4_wallet_block.png</PackageIcon>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageReleaseNotes>Fix missing banner sizes for iOS, better management of banner view for Android. Fixed iOS constraints.</PackageReleaseNotes>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    <IsPackable>true</IsPackable>
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <EmbedUntrackedSources>true</EmbedUntrackedSources>
+    <Deterministic>true</Deterministic>
+    <ContinuousIntegrationBuild Condition="'$(CI)' == 'true'">true</ContinuousIntegrationBuild>
+    <EnablePackageValidation>true</EnablePackageValidation>
+  </PropertyGroup>
+
+  <!--<ItemGroup Condition="'$(IsAMDevITAdMobPackage)' == 'true'">
+    <None Include="$(MSBuildThisFileDirectory)..\..\..\assets\icons\png\admob_maui_icon_v4_wallet_block.png"
+          Pack="true"
+          PackagePath="\" />
+    <None Include="$(MSBuildThisFileDirectory)..\..\..\README.md"
+          Pack="true"
+          PackagePath="\" />
+  </ItemGroup>-->
+
+</Project>

@@ -15,11 +15,20 @@ namespace AMDevIT.Admob.Wrapper.MAUICross
 
         #endregion
 
-        #region Depency Properties
+        #region Properties
 
         public static readonly BindableProperty AdUnitIdProperty = BindableProperty.Create(nameof(AdUnitId), typeof(string), typeof(BannerAd), null);
 
         public static readonly BindableProperty AdSizeProperty = BindableProperty.Create(nameof(AdSize), typeof(BannerAdSize), typeof(BannerAd), BannerAdSize.Adaptive);
+
+        /// <summary>
+        /// The static property that identifies <see cref="FallbackTemplate"/>.
+        /// The template is rendered on platforms where AdMob banner ads aren't supported.
+        /// </summary>
+        public static readonly BindableProperty FallbackTemplateProperty = BindableProperty.Create(nameof(FallbackTemplate),
+                                                                                                    typeof(DataTemplate),
+                                                                                                    typeof(BannerAd),
+                                                                                                    defaultValueCreator: CreateDefaultFallbackTemplate);
 
         /// <summary>
         /// The static property that identifies <see cref="AdLoadedCommand"/>. 
@@ -81,10 +90,6 @@ namespace AMDevIT.Admob.Wrapper.MAUICross
         /// </summary>
         public static readonly BindableProperty AdDismissedCommandParameterProperty = BindableProperty.Create(nameof(AdDismissedCommandParameter), typeof(object), typeof(BannerAd), null); 
 
-        #endregion
-
-        #region Properties
-
         public string? AdUnitId
         {
             get => (string?)GetValue(AdUnitIdProperty);
@@ -95,6 +100,16 @@ namespace AMDevIT.Admob.Wrapper.MAUICross
         {
             get => (BannerAdSize)GetValue(AdSizeProperty);
             set => SetValue(AdSizeProperty, value);
+        }
+
+        /// <summary>
+        /// Gets or sets the template rendered on platforms where AdMob banner ads aren't supported.
+        /// The default template creates an empty <see cref="ContentView"/>.
+        /// </summary>
+        public DataTemplate? FallbackTemplate
+        {
+            get => (DataTemplate?)GetValue(FallbackTemplateProperty);
+            set => SetValue(FallbackTemplateProperty, value);
         }
 
         /// <summary>
@@ -228,6 +243,11 @@ namespace AMDevIT.Admob.Wrapper.MAUICross
         {
             if (command?.CanExecute(parameter) == true)
                 command.Execute(parameter);
+        }
+
+        private static object CreateDefaultFallbackTemplate(BindableObject _)
+        {
+            return new DataTemplate(() => new ContentView());
         }
 
         #endregion

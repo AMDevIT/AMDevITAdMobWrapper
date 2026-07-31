@@ -1,7 +1,6 @@
 package it.amdev.admob.wrapper.ads
 
 import android.Manifest
-import android.app.Activity
 import android.content.Context
 import android.view.View
 import androidx.annotation.RequiresPermission
@@ -40,41 +39,49 @@ class BannerAdWrapper(private val context: Context) {
                 BannerAdViewSize.FullBanner -> AdSize.FULL_BANNER
                 BannerAdViewSize.Leaderboard -> AdSize.LEADERBOARD
                 BannerAdViewSize.Adaptive -> {
-                    val activity = context as? Activity
-                        ?: throw IllegalArgumentException("Context must be an Activity for Adaptive banner size")
-                    val windowMetrics = activity.windowManager.currentWindowMetrics
-                    val bounds = windowMetrics.bounds
-                    val density = context.resources.displayMetrics.density
-                    val width = (bounds.width() / density).toInt()
+                    val width = context.resources.configuration.screenWidthDp
 
                     if (maxHeight != null)
                         AdSize.getInlineAdaptiveBannerAdSize(width, maxHeight)
                     else
-                        AdSize.getCurrentOrientationInlineAdaptiveBannerAdSize(context, width)
+                        AdSize.getLargeAnchoredAdaptiveBannerAdSize(context, width)
                 }
             }
 
             setAdSize(nativeAdSize)
-            adListener = object : AdListener() {
-                override fun onAdLoaded() {
-                    loadListener.onAdLoaded()
-                }
-                override fun onAdFailedToLoad(error: LoadAdError) {
-                    loadListener.onAdFailedToLoad(error.code, error.message)
-                }
-                override fun onAdOpened() {
-                    eventListener?.onAdShown()
-                }
-                override fun onAdClosed() {
-                    eventListener?.onAdDismissed()
-                }
-                override fun onAdClicked() {
-                    eventListener?.onAdClicked()
-                }
-                override fun onAdImpression() {
-                    eventListener?.onAdImpression()
-                }
-            }
+            adListener = createAdListener(loadListener, eventListener)
+        }
+
+        adView.loadAd(AdRequest.Builder().build())
+        bannerView = adView
+        return adView
+    }
+
+    @RequiresPermission(Manifest.permission.INTERNET)
+    @JvmOverloads
+    fun loadAdaptive(adUnitId: String,
+                     width: Int,
+                     loadListener: OnAdLoadedListener,
+                     eventListener: OnAdEventListener? = null,
+                     maxHeight: Int? = null)
+        : View
+    {
+        require(width > 0) { "Adaptive banner width must be greater than zero" }
+
+        if (this.bannerView is AdView) {
+            (this.bannerView as AdView).destroy()
+        }
+
+        val adView = AdView(context).apply {
+            this.adUnitId = adUnitId
+
+            val nativeAdSize = if (maxHeight != null)
+                AdSize.getInlineAdaptiveBannerAdSize(width, maxHeight)
+            else
+                AdSize.getLargeAnchoredAdaptiveBannerAdSize(context, width)
+
+            setAdSize(nativeAdSize)
+            adListener = createAdListener(loadListener, eventListener)
         }
 
         adView.loadAd(AdRequest.Builder().build())
@@ -87,5 +94,34 @@ class BannerAdWrapper(private val context: Context) {
             (this.bannerView as AdView).destroy()
         }
         bannerView = null
+    }
+
+    private fun createAdListener(loadListener: OnAdLoadedListener,
+                                 eventListener: OnAdEventListener?): AdListener {
+        return object : AdListener() {
+            override fun onAdLoaded() {
+                loadListener.onAdLoaded()
+            }
+
+            override fun onAdFailedToLoad(error: LoadAdError) {
+                loadListener.onAdFailedToLoad(error.code, error.message)
+            }
+
+            override fun onAdOpened() {
+                eventListener?.onAdShown()
+            }
+
+            override fun onAdClosed() {
+                eventListener?.onAdDismissed()
+            }
+
+            override fun onAdClicked() {
+                eventListener?.onAdClicked()
+            }
+
+            override fun onAdImpression() {
+                eventListener?.onAdImpression()
+            }
+        }
     }
 }

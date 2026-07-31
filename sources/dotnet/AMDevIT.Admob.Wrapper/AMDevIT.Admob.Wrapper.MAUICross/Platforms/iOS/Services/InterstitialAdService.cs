@@ -43,30 +43,11 @@ public partial class InterstitialAdService
 
     public override Task LoadAsync(string adUnitId, CancellationToken cancellationToken = default)
     {
-        ObjectDisposedException.ThrowIf(this.Disposed, this);
-
-        TaskCompletionSource taskCompletionSource = new();
-
-        this.wrapper ??= new InterstitialAdWrapper();
-
-        cancellationToken.Register(() => taskCompletionSource.TrySetCanceled(cancellationToken));
-        cancellationToken.ThrowIfCancellationRequested();
-
-        try
+        return this.StartLoadAsync(adUnitId, () =>
         {
+            this.wrapper ??= new InterstitialAdWrapper();
             this.wrapper.LoadWithAdUnitId(adUnitId, this.onAdLoadedListener, this.onAdEventListener);
-        }
-        catch (OperationCanceledException)
-        {
-            throw;
-        }
-        catch (Exception exc)
-        {
-            this.Logger.LogError(exc, "Failed to load interstitial ad with ad unit id {AdUnitId}", adUnitId);
-            taskCompletionSource.SetException(exc);
-        }
-
-        return taskCompletionSource.Task;
+        }, cancellationToken);
     }
 
     public override void Show()
@@ -131,15 +112,13 @@ public partial class InterstitialAdService
 
     private void OnAdLoadedListener_AdFailedToLoad(object? sender, AdFailedToLoadArgs e)
     {
-        this.IsLoaded = false;
-        this.IsShowing = false;
+        this.CompleteLoadFailure(e.ErrorCode, e.ErrorMessage);
         this.OnAdFailedToLoad(e.ErrorCode, e.ErrorMessage);
     }
 
     private void OnAdLoadedListener_AdLoaded(object? sender, EventArgs e)
     {
-        this.IsLoaded = true;
-        this.IsShowing = false;
+        this.CompleteLoadSuccess();
         this.OnAdLoaded();
     }
 

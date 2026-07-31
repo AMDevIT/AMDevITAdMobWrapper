@@ -1,7 +1,9 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFrameworks>net10.0-android;net10.0-ios;</TargetFrameworks>
+		<IsAMDevITAdMobPackage>true</IsAMDevITAdMobPackage>
+		<TargetFrameworks>net10.0-android;net10.0-ios;net10.0-maccatalyst</TargetFrameworks> 
+		<!-- <TargetFrameworks>net10.0-android;net10.0-ios;net10.0-maccatalyst;net10.0-windows10.0.26100.0</TargetFrameworks> -->
 
 		<UseMaui>true</UseMaui>
 		<SingleProject>true</SingleProject>
@@ -18,41 +20,36 @@
 		<MauiXamlInflator>SourceGen</MauiXamlInflator>
 
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios'">15.0</SupportedOSPlatformVersion>
+		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'maccatalyst'">15.0</SupportedOSPlatformVersion>
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">33.0</SupportedOSPlatformVersion>
 
-		<Version>0.0.1.40-alpha</Version>
-		<Authors>Alessandro Morvillo</Authors>
 		<Description>AdMob library for .NET MAUI, Android and iOS. It uses the native wrappers to expose custom handlers usable in a cross platform MAUI app.</Description>
-		<PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
-		<Title>AMDev.IT AdMob binding library for Android</Title>
-		<Company>AMDev.IT di Alessandro Morvillo</Company>
-		<Copyright>Alessandro Morvillo, 2026</Copyright>
-		<PackageProjectUrl>https://github.com/AMDevIT/AMDevITAdMobWrapper</PackageProjectUrl>
-		<PackageReadmeFile>README.md</PackageReadmeFile>
-		<RepositoryUrl>https://github.com/AMDevIT/AMDevITAdMobWrapper</RepositoryUrl>
+		<Title>AMDev.IT AdMob controls and services for .NET MAUI</Title>
 		<PackageTags>AdMob;Binding;MAUI;Google;Advertising;Monetization;Android;iOS</PackageTags>
-		<PackageReleaseNotes>Added support for new advertising formats. Completely implemented app open and rewarded ads, another fix for banner ads. 
-		Better support for top view controller in iOS. Added IContextResolverService for easy context resolution over platforms.</PackageReleaseNotes>
-		<PackageIcon>admob_maui_icon_v4_wallet_block.png</PackageIcon>
-		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</SupportedOSPlatformVersion>
+		<TargetPlatformMinVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</TargetPlatformMinVersion>
+	</PropertyGroup>
+
+	<PropertyGroup>
+	  <TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks);net10.0-windows10.0.26100.0</TargetFrameworks>
+	  <WindowsPackageType>None</WindowsPackageType>
+	  <PackageIcon>admob_maui_icon_v4_wallet_block.png</PackageIcon>
+	  <PackageReadmeFile>README.md</PackageReadmeFile>
 	</PropertyGroup>
 
 	<ItemGroup>
-	  <None Include="..\..\..\..\assets\icons\png\admob_maui_icon_v4_wallet_block.png">
-	    <Pack>True</Pack>
-	    <PackagePath>\</PackagePath>
-	  </None>
-	  <None Include="..\..\..\..\README.md">
-	    <Pack>True</Pack>
-	    <PackagePath>\</PackagePath>
-	  </None>
-	</ItemGroup>
-
-	<ItemGroup>
-		<PackageReference Include="Microsoft.Maui.Controls" Version="10.0.60" />
+		<PackageReference Include="Microsoft.Maui.Controls" Version="10.0.90" />
 	</ItemGroup>
 
 	<ItemGroup Condition="'$(TargetFramework)' == 'net10.0-android'">
+		<PackageReference Include="Xamarin.AndroidX.Activity.Ktx" Version="1.13.0.1" />
+		<PackageReference Include="Xamarin.AndroidX.Collection.Ktx" Version="1.6.0.1" />
+		<PackageReference Include="Xamarin.AndroidX.Fragment.Ktx" Version="1.8.9.4" />
+		<PackageReference Include="Xamarin.AndroidX.Lifecycle.Process" Version="2.11.0.1" />
+		<PackageReference Include="Xamarin.AndroidX.Lifecycle.Runtime.Ktx" Version="2.11.0.1" />
+		<PackageReference Include="Xamarin.AndroidX.Lifecycle.Runtime.Ktx.Android" Version="2.11.0.1" />
+		<PackageReference Include="Xamarin.AndroidX.Lifecycle.ViewModel.Ktx" Version="2.11.0.1" />
+		<PackageReference Include="Xamarin.AndroidX.SavedState.SavedState.Ktx" Version="1.5.0.1" />
 		<ProjectReference Include="..\AMDevIT.Admob.Wrapper.Droid\AMDevIT.Admob.Wrapper.Droid.csproj">
 			<PrivateAssets>none</PrivateAssets>
 		</ProjectReference>
@@ -66,5 +63,16 @@
 	
 	<ItemGroup>
 	  <Folder Include="Platforms/iOS/Helpers/" />
+	</ItemGroup>
+	
+	<ItemGroup>
+	  <None Include="..\..\..\..\assets\icons\png\admob_maui_icon_v4_wallet_block.png">
+	    <Pack>True</Pack>
+	    <PackagePath>\</PackagePath>
+	  </None>
+	  <None Include="..\..\..\..\README.md">
+	    <Pack>True</Pack>
+	    <PackagePath>\</PackagePath>
+	  </None>
 	</ItemGroup>
 </Project>

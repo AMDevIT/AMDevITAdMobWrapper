@@ -7,12 +7,16 @@
       <Deploy />
     </Project>
     <Project Path="AMDevIT.Admob.Wrapper.MAUITestApp/AMDevIT.Admob.Wrapper.MAUITestApp.csproj" Id="88b0d5ae-b3d1-4f04-925a-0a66d153bec3">
-      <Deploy Solution="Debug|*" />
+      <Deploy />
     </Project>
   </Folder>
   <Folder Name="/Elementi di soluzione/">
     <File Path="../../../LICENSE" />
     <File Path="../../../README.md" />
+    <File Path="Directory.Build.props" />
+  </Folder>
+  <Folder Name="/Tests/">
+    <Project Path="AMDevIT.Admob.Wrapper.MAUICross.Tests/AMDevIT.Admob.Wrapper.MAUICross.Tests.csproj" IsBuildable="false" />
   </Folder>
   <Folder Name="/Libraries/">
     <Project Path="AMDevIT.Admob.Wrapper.Droid/AMDevIT.Admob.Wrapper.Droid.csproj" />

@@ -483,6 +483,392 @@
       },
       {
         "kind": "TypeDecl",
+        "name": "BannerAdViewSize",
+        "printedName": "BannerAdViewSize",
+        "children": [
+          {
+            "kind": "Var",
+            "name": "adaptive",
+            "printedName": "adaptive",
+            "children": [
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "(AdMobWrapper.BannerAdViewSize.Type) -> AdMobWrapper.BannerAdViewSize",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "BannerAdViewSize",
+                    "printedName": "AdMobWrapper.BannerAdViewSize",
+                    "usr": "c:@M@AdMobWrapper@E@BannerAdViewSize"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Metatype",
+                    "printedName": "AdMobWrapper.BannerAdViewSize.Type",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "BannerAdViewSize",
+                        "printedName": "AdMobWrapper.BannerAdViewSize",
+                        "usr": "c:@M@AdMobWrapper@E@BannerAdViewSize"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "declKind": "EnumElement",
+            "usr": "c:@M@AdMobWrapper@E@BannerAdViewSize@BannerAdViewSizeAdaptive",
+            "mangledName": "$s12AdMobWrapper06BannerA8ViewSizeO8adaptiveyA2CmF",
+            "moduleName": "AdMobWrapper",
+            "declAttributes": [
+              "ObjC"
+            ],
+            "fixedbinaryorder": 0
+          },
+          {
+            "kind": "Var",
+            "name": "banner",
+            "printedName": "banner",
+            "children": [
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "(AdMobWrapper.BannerAdViewSize.Type) -> AdMobWrapper.BannerAdViewSize",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "BannerAdViewSize",
+                    "printedName": "AdMobWrapper.BannerAdViewSize",
+                    "usr": "c:@M@AdMobWrapper@E@BannerAdViewSize"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Metatype",
+                    "printedName": "AdMobWrapper.BannerAdViewSize.Type",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "BannerAdViewSize",
+                        "printedName": "AdMobWrapper.BannerAdViewSize",
+                        "usr": "c:@M@AdMobWrapper@E@BannerAdViewSize"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "declKind": "EnumElement",
+            "usr": "c:@M@AdMobWrapper@E@BannerAdViewSize@BannerAdViewSizeBanner",
+            "mangledName": "$s12AdMobWrapper06BannerA8ViewSizeO6banneryA2CmF",
+            "moduleName": "AdMobWrapper",
+            "declAttributes": [
+              "ObjC"
+            ],
+            "fixedbinaryorder": 1
+          },
+          {
+            "kind": "Var",
+            "name": "largeBanner",
+            "printedName": "largeBanner",
+            "children": [
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "(AdMobWrapper.BannerAdViewSize.Type) -> AdMobWrapper.BannerAdViewSize",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "BannerAdViewSize",
+                    "printedName": "AdMobWrapper.BannerAdViewSize",
+                    "usr": "c:@M@AdMobWrapper@E@BannerAdViewSize"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Metatype",
+                    "printedName": "AdMobWrapper.BannerAdViewSize.Type",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "BannerAdViewSize",
+                        "printedName": "AdMobWrapper.BannerAdViewSize",
+                        "usr": "c:@M@AdMobWrapper@E@BannerAdViewSize"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "declKind": "EnumElement",
+            "usr": "c:@M@AdMobWrapper@E@BannerAdViewSize@BannerAdViewSizeLargeBanner",
+            "mangledName": "$s12AdMobWrapper06BannerA8ViewSizeO05largeD0yA2CmF",
+            "moduleName": "AdMobWrapper",
+            "declAttributes": [
+              "ObjC"
+            ],
+            "fixedbinaryorder": 2
+          },
+          {
+            "kind": "Var",
+            "name": "mediumRectangle",
+            "printedName": "mediumRectangle",
+            "children": [
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "(AdMobWrapper.BannerAdViewSize.Type) -> AdMobWrapper.BannerAdViewSize",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "BannerAdViewSize",
+                    "printedName": "AdMobWrapper.BannerAdViewSize",
+                    "usr": "c:@M@AdMobWrapper@E@BannerAdViewSize"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Metatype",
+                    "printedName": "AdMobWrapper.BannerAdViewSize.Type",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "BannerAdViewSize",
+                        "printedName": "AdMobWrapper.BannerAdViewSize",
+                        "usr": "c:@M@AdMobWrapper@E@BannerAdViewSize"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "declKind": "EnumElement",
+            "usr": "c:@M@AdMobWrapper@E@BannerAdViewSize@BannerAdViewSizeMediumRectangle",
+            "mangledName": "$s12AdMobWrapper06BannerA8ViewSizeO15mediumRectangleyA2CmF",
+            "moduleName": "AdMobWrapper",
+            "declAttributes": [
+              "ObjC"
+            ],
+            "fixedbinaryorder": 3
+          },
+          {
+            "kind": "Var",
+            "name": "fullBanner",
+            "printedName": "fullBanner",
+            "children": [
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "(AdMobWrapper.BannerAdViewSize.Type) -> AdMobWrapper.BannerAdViewSize",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "BannerAdViewSize",
+                    "printedName": "AdMobWrapper.BannerAdViewSize",
+                    "usr": "c:@M@AdMobWrapper@E@BannerAdViewSize"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Metatype",
+                    "printedName": "AdMobWrapper.BannerAdViewSize.Type",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "BannerAdViewSize",
+                        "printedName": "AdMobWrapper.BannerAdViewSize",
+                        "usr": "c:@M@AdMobWrapper@E@BannerAdViewSize"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "declKind": "EnumElement",
+            "usr": "c:@M@AdMobWrapper@E@BannerAdViewSize@BannerAdViewSizeFullBanner",
+            "mangledName": "$s12AdMobWrapper06BannerA8ViewSizeO04fullD0yA2CmF",
+            "moduleName": "AdMobWrapper",
+            "declAttributes": [
+              "ObjC"
+            ],
+            "fixedbinaryorder": 4
+          },
+          {
+            "kind": "Var",
+            "name": "leaderboard",
+            "printedName": "leaderboard",
+            "children": [
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "(AdMobWrapper.BannerAdViewSize.Type) -> AdMobWrapper.BannerAdViewSize",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "BannerAdViewSize",
+                    "printedName": "AdMobWrapper.BannerAdViewSize",
+                    "usr": "c:@M@AdMobWrapper@E@BannerAdViewSize"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Metatype",
+                    "printedName": "AdMobWrapper.BannerAdViewSize.Type",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "BannerAdViewSize",
+                        "printedName": "AdMobWrapper.BannerAdViewSize",
+                        "usr": "c:@M@AdMobWrapper@E@BannerAdViewSize"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "declKind": "EnumElement",
+            "usr": "c:@M@AdMobWrapper@E@BannerAdViewSize@BannerAdViewSizeLeaderboard",
+            "mangledName": "$s12AdMobWrapper06BannerA8ViewSizeO11leaderboardyA2CmF",
+            "moduleName": "AdMobWrapper",
+            "declAttributes": [
+              "ObjC"
+            ],
+            "fixedbinaryorder": 5
+          },
+          {
+            "kind": "Constructor",
+            "name": "init",
+            "printedName": "init(rawValue:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "AdMobWrapper.BannerAdViewSize?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "BannerAdViewSize",
+                    "printedName": "AdMobWrapper.BannerAdViewSize",
+                    "usr": "c:@M@AdMobWrapper@E@BannerAdViewSize"
+                  }
+                ],
+                "usr": "s:Sq"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Int",
+                "printedName": "Swift.Int",
+                "usr": "s:Si"
+              }
+            ],
+            "declKind": "Constructor",
+            "usr": "s:12AdMobWrapper06BannerA8ViewSizeO8rawValueACSgSi_tcfc",
+            "mangledName": "$s12AdMobWrapper06BannerA8ViewSizeO8rawValueACSgSi_tcfc",
+            "moduleName": "AdMobWrapper",
+            "implicit": true,
+            "init_kind": "Designated"
+          },
+          {
+            "kind": "Var",
+            "name": "rawValue",
+            "printedName": "rawValue",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Int",
+                "printedName": "Swift.Int",
+                "usr": "s:Si"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:12AdMobWrapper06BannerA8ViewSizeO8rawValueSivp",
+            "mangledName": "$s12AdMobWrapper06BannerA8ViewSizeO8rawValueSivp",
+            "moduleName": "AdMobWrapper",
+            "implicit": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Int",
+                    "printedName": "Swift.Int",
+                    "usr": "s:Si"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:12AdMobWrapper06BannerA8ViewSizeO8rawValueSivg",
+                "mangledName": "$s12AdMobWrapper06BannerA8ViewSizeO8rawValueSivg",
+                "moduleName": "AdMobWrapper",
+                "implicit": true,
+                "accessorKind": "get"
+              }
+            ]
+          }
+        ],
+        "declKind": "Enum",
+        "usr": "c:@M@AdMobWrapper@E@BannerAdViewSize",
+        "mangledName": "$s12AdMobWrapper06BannerA8ViewSizeO",
+        "moduleName": "AdMobWrapper",
+        "declAttributes": [
+          "AccessControl",
+          "ObjC"
+        ],
+        "enumRawTypeName": "Int",
+        "conformances": [
+          {
+            "kind": "Conformance",
+            "name": "Copyable",
+            "printedName": "Copyable",
+            "usr": "s:s8CopyableP",
+            "mangledName": "$ss8CopyableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Equatable",
+            "printedName": "Equatable",
+            "usr": "s:SQ",
+            "mangledName": "$sSQ"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Escapable",
+            "printedName": "Escapable",
+            "usr": "s:s9EscapableP",
+            "mangledName": "$ss9EscapableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Hashable",
+            "printedName": "Hashable",
+            "usr": "s:SH",
+            "mangledName": "$sSH"
+          },
+          {
+            "kind": "Conformance",
+            "name": "RawRepresentable",
+            "printedName": "RawRepresentable",
+            "children": [
+              {
+                "kind": "TypeWitness",
+                "name": "RawValue",
+                "printedName": "RawValue",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Int",
+                    "printedName": "Swift.Int",
+                    "usr": "s:Si"
+                  }
+                ]
+              }
+            ],
+            "usr": "s:SY",
+            "mangledName": "$sSY"
+          }
+        ]
+      },
+      {
+        "kind": "TypeDecl",
         "name": "BannerAdWrapper",
         "printedName": "BannerAdWrapper",
         "children": [
@@ -561,6 +947,73 @@
             "mangledName": "$s12AdMobWrapper06BanneraC0C4load8adUnitId14viewController0E8Listener05eventK0So6UIViewCSS_So0mJ0CAA02Ona6LoadedK0_pAA0na5EventK0_pSgtF",
             "moduleName": "AdMobWrapper",
             "objc_name": "loadWithAdUnitId:viewController:loadListener:eventListener:",
+            "declAttributes": [
+              "AccessControl",
+              "ObjC"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "load",
+            "printedName": "load(adUnitId:viewController:adSize:adWidth:loadListener:eventListener:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "UIView",
+                "printedName": "UIKit.UIView",
+                "usr": "c:objc(cs)UIView"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "UIViewController",
+                "printedName": "UIKit.UIViewController",
+                "usr": "c:objc(cs)UIViewController"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "BannerAdViewSize",
+                "printedName": "AdMobWrapper.BannerAdViewSize",
+                "usr": "c:@M@AdMobWrapper@E@BannerAdViewSize"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "CGFloat",
+                "printedName": "CoreGraphics.CGFloat",
+                "usr": "s:14CoreFoundation7CGFloatV"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "OnAdLoadedListener",
+                "printedName": "any AdMobWrapper.OnAdLoadedListener",
+                "usr": "c:@M@AdMobWrapper@objc(pl)OnAdLoadedListener"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "(any AdMobWrapper.OnAdEventListener)?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "OnAdEventListener",
+                    "printedName": "any AdMobWrapper.OnAdEventListener",
+                    "usr": "c:@M@AdMobWrapper@objc(pl)OnAdEventListener"
+                  }
+                ],
+                "usr": "s:Sq"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@AdMobWrapper@objc(cs)BannerAdWrapper(im)loadWithAdUnitId:viewController:adSize:adWidth:loadListener:eventListener:",
+            "mangledName": "$s12AdMobWrapper06BanneraC0C4load8adUnitId14viewController0F4Size0F5Width0E8Listener05eventM0So6UIViewCSS_So0oJ0CAA0da4ViewK0O12CoreGraphics7CGFloatVAA02Ona6LoadedM0_pAA0ta5EventM0_pSgtF",
+            "moduleName": "AdMobWrapper",
+            "objc_name": "loadWithAdUnitId:viewController:adSize:adWidth:loadListener:eventListener:",
             "declAttributes": [
               "AccessControl",
               "ObjC"
@@ -2410,6 +2863,41 @@
       "offset": 284,
       "length": 5,
       "value": "false"
+    },
+    {
+      "filePath": "\/Volumes\/Dati\/Git\/Personali\/AMDevITAdMobWrapper\/sources\/apple\/ios\/AdMobWrapper\/Ads\/BannerAdWrapper.swift",
+      "kind": "IntegerLiteral",
+      "offset": 225,
+      "length": 6,
+      "value": "1"
+    },
+    {
+      "filePath": "\/Volumes\/Dati\/Git\/Personali\/AMDevITAdMobWrapper\/sources\/apple\/ios\/AdMobWrapper\/Ads\/BannerAdWrapper.swift",
+      "kind": "IntegerLiteral",
+      "offset": 241,
+      "length": 11,
+      "value": "2"
+    },
+    {
+      "filePath": "\/Volumes\/Dati\/Git\/Personali\/AMDevITAdMobWrapper\/sources\/apple\/ios\/AdMobWrapper\/Ads\/BannerAdWrapper.swift",
+      "kind": "IntegerLiteral",
+      "offset": 262,
+      "length": 15,
+      "value": "3"
+    },
+    {
+      "filePath": "\/Volumes\/Dati\/Git\/Personali\/AMDevITAdMobWrapper\/sources\/apple\/ios\/AdMobWrapper\/Ads\/BannerAdWrapper.swift",
+      "kind": "IntegerLiteral",
+      "offset": 287,
+      "length": 10,
+      "value": "4"
+    },
+    {
+      "filePath": "\/Volumes\/Dati\/Git\/Personali\/AMDevITAdMobWrapper\/sources\/apple\/ios\/AdMobWrapper\/Ads\/BannerAdWrapper.swift",
+      "kind": "IntegerLiteral",
+      "offset": 307,
+      "length": 11,
+      "value": "5"
     },
     {
       "filePath": "\/Volumes\/Dati\/Git\/Personali\/AMDevITAdMobWrapper\/sources\/apple\/ios\/AdMobWrapper\/AdMobManager.swift",
