@@ -6,51 +6,51 @@
 	<dict>
 		<key>Headers/AdMobWrapper.h</key>
 		<data>
-		u8eZO83L9tvdDCHWt0xyzykpgTk=
+		MPQqP0U7ofvvaqYl28XES5PIW1g=
 		</data>
 		<key>Info.plist</key>
 		<data>
-		ksYTzHatwDxtWsjCQhtOZxzhyw8=
+		r6u6V1zZqeAqMp1Ty+DSpm0W8wI=
 		</data>
 		<key>Modules/AdMobWrapper.swiftmodule/arm64-apple-ios-simulator.abi.json</key>
 		<data>
-		VHm4dEyCv+2KC8bqOJRa8+O62F4=
+		IVItTRTTKXmoqEgm1MzMePSR1QI=
 		</data>
 		<key>Modules/AdMobWrapper.swiftmodule/arm64-apple-ios-simulator.private.swiftinterface</key>
 		<data>
-		sry+mrcN4nGyXOI0fFnLGe3DngU=
+		gKh6ilNdHv9Lt1e1VClJaQNwnJs=
 		</data>
 		<key>Modules/AdMobWrapper.swiftmodule/arm64-apple-ios-simulator.swiftdoc</key>
 		<data>
-		ZrPrALHR1DAVgEz+CPC/EzbxgFo=
+		evkd/xqUu8vueZH80VV7rdCwaDw=
 		</data>
 		<key>Modules/AdMobWrapper.swiftmodule/arm64-apple-ios-simulator.swiftinterface</key>
 		<data>
-		sry+mrcN4nGyXOI0fFnLGe3DngU=
+		gKh6ilNdHv9Lt1e1VClJaQNwnJs=
 		</data>
 		<key>Modules/AdMobWrapper.swiftmodule/arm64-apple-ios-simulator.swiftmodule</key>
 		<data>
-		SyN8kHrp3urAy68tsP4TgibVK/I=
+		NabG+UlmRJwfTgR0A3n4PDvqnSc=
 		</data>
 		<key>Modules/AdMobWrapper.swiftmodule/x86_64-apple-ios-simulator.abi.json</key>
 		<data>
-		VHm4dEyCv+2KC8bqOJRa8+O62F4=
+		IVItTRTTKXmoqEgm1MzMePSR1QI=
 		</data>
 		<key>Modules/AdMobWrapper.swiftmodule/x86_64-apple-ios-simulator.private.swiftinterface</key>
 		<data>
-		UfAPFrz5kz27yh+aLiEOZE2QyFE=
+		8lERStEqFzoiAKG2dZ1+4m8F748=
 		</data>
 		<key>Modules/AdMobWrapper.swiftmodule/x86_64-apple-ios-simulator.swiftdoc</key>
 		<data>
-		3xFLKiIPjHezAi1VhchPQHk0k7A=
+		06CwEMhnsBadGvVGkM3ig9U6vgU=
 		</data>
 		<key>Modules/AdMobWrapper.swiftmodule/x86_64-apple-ios-simulator.swiftinterface</key>
 		<data>
-		UfAPFrz5kz27yh+aLiEOZE2QyFE=
+		8lERStEqFzoiAKG2dZ1+4m8F748=
 		</data>
 		<key>Modules/AdMobWrapper.swiftmodule/x86_64-apple-ios-simulator.swiftmodule</key>
 		<data>
-		vrg0FJ8ImskGGI+P2K8QOlRxDdA=
+		w9WiGuTe3A6HqpHWwGky/X0+KqI=
 		</data>
 	</dict>
 	<key>files2</key>
@@ -59,77 +59,77 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			5vakRLzH5HVYPvdqKT4XyaI7sja+3rl0ax9lt1UzG3I=
+			8JynBO/3RScQd9GSXCygmG4M4CccufgbVwE16O+ItIs=
 			</data>
 		</dict>
 		<key>Modules/AdMobWrapper.swiftmodule/arm64-apple-ios-simulator.abi.json</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			GmiRvhfhSX75raSP0RLtPh3E76VADdPdnaNif5InVF8=
+			O0YKalYc5vWwiy7RO/FJFnpYgaSPfAfze5R/zcAPfAw=
 			</data>
 		</dict>
 		<key>Modules/AdMobWrapper.swiftmodule/arm64-apple-ios-simulator.private.swiftinterface</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			wpVRJs+akIAYJdC95iNi6VZO4rOBqEgqvEH0kxk9zmE=
+			7BBHkUSZMxuaO8OWvJLRAlKQHSyGx0LRDj28I2mHiBw=
 			</data>
 		</dict>
 		<key>Modules/AdMobWrapper.swiftmodule/arm64-apple-ios-simulator.swiftdoc</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			AoALcn/e22DXHHmT01UG3uq4j3xu18f6I5XndWf3kqU=
+			Jcyhq3r2KzJbwz9yqGHEiqE+m3AC7rOFx3ldHnA722c=
 			</data>
 		</dict>
 		<key>Modules/AdMobWrapper.swiftmodule/arm64-apple-ios-simulator.swiftinterface</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			wpVRJs+akIAYJdC95iNi6VZO4rOBqEgqvEH0kxk9zmE=
+			7BBHkUSZMxuaO8OWvJLRAlKQHSyGx0LRDj28I2mHiBw=
 			</data>
 		</dict>
 		<key>Modules/AdMobWrapper.swiftmodule/arm64-apple-ios-simulator.swiftmodule</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			8ZFXqhLsPw+lmI1hg21cqmbs6kxHprZBxVqlQXrEWDU=
+			ciLKMa4OXaiHAyWkpzP6GEbxANu2UT5xakDRbdWLYVo=
 			</data>
 		</dict>
 		<key>Modules/AdMobWrapper.swiftmodule/x86_64-apple-ios-simulator.abi.json</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			GmiRvhfhSX75raSP0RLtPh3E76VADdPdnaNif5InVF8=
+			O0YKalYc5vWwiy7RO/FJFnpYgaSPfAfze5R/zcAPfAw=
 			</data>
 		</dict>
 		<key>Modules/AdMobWrapper.swiftmodule/x86_64-apple-ios-simulator.private.swiftinterface</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			ifhzaAd+xRCvqrPuDi+FQmvtBnTfKOCP1SG/I8N/QAI=
+			TSg2kkomKJUusjwnaeNfsqAFa1iarmekCQdwfKG04Ms=
 			</data>
 		</dict>
 		<key>Modules/AdMobWrapper.swiftmodule/x86_64-apple-ios-simulator.swiftdoc</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			fvfuHnzhzz80qxcSoCkFW2WUFPI/gOvqbFc3OoVCXBg=
+			pv5hSUk9qBKF4rBhYLcBv7DEwt+wUcrsON36oQs5GT8=
 			</data>
 		</dict>
 		<key>Modules/AdMobWrapper.swiftmodule/x86_64-apple-ios-simulator.swiftinterface</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			ifhzaAd+xRCvqrPuDi+FQmvtBnTfKOCP1SG/I8N/QAI=
+			TSg2kkomKJUusjwnaeNfsqAFa1iarmekCQdwfKG04Ms=
 			</data>
 		</dict>
 		<key>Modules/AdMobWrapper.swiftmodule/x86_64-apple-ios-simulator.swiftmodule</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			a3RdC903lNhmNH7lBGdA8bQmCI9L981lLs2gGx9geec=
+			lJGWbM4Heasxx7V+8AbWJqfabK8FDima4EqGgGU+nd4=
 			</data>
 		</dict>
 	</dict>

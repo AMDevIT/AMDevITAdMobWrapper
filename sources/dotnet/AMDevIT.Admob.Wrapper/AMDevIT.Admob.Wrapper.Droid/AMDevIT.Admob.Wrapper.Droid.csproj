@@ -30,7 +30,7 @@
 	</ItemGroup>-->
 
   <ItemGroup>
-	  <PackageReference Include="Xamarin.GooglePlayServices.Ads" Version="125.2.0">
+	  <PackageReference Include="Xamarin.GooglePlayServices.Ads" Version="125.4.0.2">
 		  <PrivateAssets>none</PrivateAssets>
 	  </PackageReference>
   </ItemGroup>
