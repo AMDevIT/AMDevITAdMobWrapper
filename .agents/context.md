@@ -47,3 +47,11 @@
 - Affected files: Android Kotlin wrapper/AAR/binding metadata, Swift banner wrapper, iOS binding API and enum, shared banner-size helpers, Android/iOS MAUI handlers, and `.agents/2026-07-31-banner-sizing.md`.
 - Checks performed and results: Gradle release AAR build succeeded; targeted Android and iOS builds succeeded; required restore succeeded; complete serial solution build succeeded with zero warnings/errors; all seven existing tests passed through the MTP executable; `diff --check` passed apart from line-ending notices.
 - Open issues and recommended next step: regenerate and replace the iOS xcframework on macOS, then physically verify every device-appropriate fixed size, adaptive rotation/resizing, padded layouts, and runtime size changes on Android and iOS.
+
+## 2026-07-31 — Manual CI and Windows-only tests
+
+- Objective and status: prevented the Windows-only MAUICross test project from participating in aggregate cross-platform solution builds and changed GitHub Actions to manual execution only; completed.
+- Decisions made: retained the test project in the `.slnx` with `IsBuildable="false"`, preserved its explicit Windows execution in CI, and removed `push`/`pull_request` triggers in favor of `workflow_dispatch` only.
+- Affected files: `.github/workflows/ci.yml`, `AMDevIT.Admob.Wrapper.slnx`, `.agents/2026-07-31-manual-ci-windows-tests.md`, and `.agents/context.md`.
+- Checks performed and results: the solution list and `ValidateSolutionConfiguration` parsed successfully; direct execution passed all seven tests; the full aggregate build exceeded the local six-minute limit while processing Android sample apps, and an attempted aggregate `Compile` target was not applicable to MAUI/binding projects.
+- Open issues and recommended next step: launch the workflow manually on GitHub and inspect the hosted build and uploaded NuGet artifacts.

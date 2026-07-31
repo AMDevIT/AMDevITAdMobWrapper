@@ -16,7 +16,7 @@
     <File Path="Directory.Build.props" />
   </Folder>
   <Folder Name="/Tests/">
-    <Project Path="AMDevIT.Admob.Wrapper.MAUICross.Tests/AMDevIT.Admob.Wrapper.MAUICross.Tests.csproj" />
+    <Project Path="AMDevIT.Admob.Wrapper.MAUICross.Tests/AMDevIT.Admob.Wrapper.MAUICross.Tests.csproj" IsBuildable="false" />
   </Folder>
   <Folder Name="/Libraries/">
     <Project Path="AMDevIT.Admob.Wrapper.Droid/AMDevIT.Admob.Wrapper.Droid.csproj" />

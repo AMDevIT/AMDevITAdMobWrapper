@@ -1,11 +1,6 @@
 name: CI
 
 on:
-  push:
-    branches:
-      - main
-      - "Task-*"
-  pull_request:
   workflow_dispatch:
 
 permissions:
