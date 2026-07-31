@@ -12,7 +12,7 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(IsAMDevITAdMobPackage)' == 'true'">
-    <VersionPrefix>0.1.0</VersionPrefix>
+    <VersionPrefix>0.1.3</VersionPrefix>
     <VersionSuffix>preview.1</VersionSuffix>
     <Authors>Alessandro Morvillo</Authors>
     <Company>AMDev.IT di Alessandro Morvillo</Company>
@@ -23,7 +23,7 @@
     <RepositoryType>git</RepositoryType>
     <PackageIcon>admob_maui_icon_v4_wallet_block.png</PackageIcon>
     <PackageReadmeFile>README.md</PackageReadmeFile>
-    <PackageReleaseNotes>Preview of the 0.1 API with deterministic full-screen async loading, MAUI desktop fallbacks, and .NET 10 support.</PackageReleaseNotes>
+    <PackageReleaseNotes>Fix missing banner sizes for iOS, better management of banner view for Android. Fixed iOS constraints.</PackageReleaseNotes>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <IsPackable>true</IsPackable>
     <IncludeSymbols>true</IncludeSymbols>
