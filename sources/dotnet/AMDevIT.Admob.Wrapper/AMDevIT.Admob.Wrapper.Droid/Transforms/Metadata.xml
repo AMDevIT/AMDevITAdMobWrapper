@@ -1,6 +1,7 @@
 ﻿<metadata>
 	<remove-node path="/api/package[@name='it.amdev.admob.wrapper']/class[@name='AdMobManager.Companion']" />
 	<remove-node path="/api/package[@name='it.amdev.admob.wrapper']/class[@name='AdMobManager']/field[@name='Companion']" />
+	<remove-node path="/api/package[@name='it.amdev.admob.wrapper.ads']/class[@name='BannerAdWrapper.WhenMappings']" />
 
 
 	<attr path="/api/package[@name='it.amdev.admob.wrapper.ads']/class[@name='BannerAdViewSize']/field[@name='Banner']"

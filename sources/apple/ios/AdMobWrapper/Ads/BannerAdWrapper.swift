@@ -9,6 +9,15 @@ import Foundation
 import GoogleMobileAds
 import UIKit
 
+@objc public enum BannerAdViewSize: Int {
+    case adaptive
+    case banner
+    case largeBanner
+    case mediumRectangle
+    case fullBanner
+    case leaderboard
+}
+
 @objc public class BannerAdWrapper: NSObject {
     
     private var bannerView: BannerView?
@@ -23,11 +32,26 @@ import UIKit
                            viewController: UIViewController,
                            loadListener: OnAdLoadedListener,
                            eventListener: OnAdEventListener?) -> UIView {
+        return self.load(adUnitId: adUnitId,
+                         viewController: viewController,
+                         adSize: .banner,
+                         adWidth: 320,
+                         loadListener: loadListener,
+                         eventListener: eventListener)
+    }
+
+    @objc public func load(adUnitId: String,
+                           viewController: UIViewController,
+                           adSize: BannerAdViewSize,
+                           adWidth: CGFloat,
+                           loadListener: OnAdLoadedListener,
+                           eventListener: OnAdEventListener?) -> UIView {
         self.bannerView?.removeFromSuperview()
         self.loadListener = loadListener
         self.eventListener = eventListener
         
-        let banner = BannerView(adSize: AdSizeBanner)
+        let banner = BannerView(adSize: self.nativeAdSize(for: adSize,
+                                                          availableWidth: adWidth))
         banner.adUnitID = adUnitId
         banner.rootViewController = viewController
         banner.delegate = self
@@ -42,6 +66,24 @@ import UIKit
         self.bannerView = nil
         self.loadListener = nil
         self.eventListener = nil
+    }
+
+    private func nativeAdSize(for adSize: BannerAdViewSize,
+                              availableWidth: CGFloat) -> AdSize {
+        switch adSize {
+        case .adaptive:
+            return largeAnchoredAdaptiveBanner(width: max(1, availableWidth))
+        case .banner:
+            return AdSizeBanner
+        case .largeBanner:
+            return AdSizeLargeBanner
+        case .mediumRectangle:
+            return AdSizeMediumRectangle
+        case .fullBanner:
+            return AdSizeFullBanner
+        case .leaderboard:
+            return AdSizeLeaderboard
+        }
     }
 }
 
