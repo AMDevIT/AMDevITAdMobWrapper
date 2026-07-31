@@ -14,6 +14,8 @@
       To learn more, see: https://learn.microsoft.com/dotnet/core/deploying/trimming/prepare-libraries-for-trimming
     -->
     <IsTrimmable>true</IsTrimmable>
+    <PackageIcon>admob_maui_icon_v4_wallet_block.png</PackageIcon>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>
 
 	<ItemGroup>
@@ -21,6 +23,17 @@
 			<Kind>Framework</Kind>
 			<Frameworks>Foundation UIKit</Frameworks>
 		</NativeReference>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Include="..\..\..\..\assets\icons\png\admob_maui_icon_v4_wallet_block.png">
+	    <Pack>True</Pack>
+	    <PackagePath>\</PackagePath>
+	  </None>
+	  <None Include="..\..\..\..\README.md">
+	    <Pack>True</Pack>
+	    <PackagePath>\</PackagePath>
+	  </None>
 	</ItemGroup>
 
   <ItemGroup>

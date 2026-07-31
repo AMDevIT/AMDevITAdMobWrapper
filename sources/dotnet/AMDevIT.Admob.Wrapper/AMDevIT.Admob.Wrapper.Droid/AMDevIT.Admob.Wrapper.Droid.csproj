@@ -13,6 +13,8 @@
     <IsTrimmable>true</IsTrimmable>
     <Title>AMDev.IT AdMob binding library for Android</Title>
     <PackageTags>AdMob;Binding;MAUI;Google;Advertising;Monetization;Android</PackageTags>
+    <PackageIcon>admob_maui_icon_v4_wallet_block.png</PackageIcon>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>
 
 	<ItemGroup>
@@ -34,5 +36,15 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Jars\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\..\..\assets\icons\png\admob_maui_icon_v4_wallet_block.png">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+    <None Include="..\..\..\..\README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
   </ItemGroup>
 </Project>

@@ -32,6 +32,8 @@
 	<PropertyGroup>
 	  <TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks);net10.0-windows10.0.26100.0</TargetFrameworks>
 	  <WindowsPackageType>None</WindowsPackageType>
+	  <PackageIcon>admob_maui_icon_v4_wallet_block.png</PackageIcon>
+	  <PackageReadmeFile>README.md</PackageReadmeFile>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -60,5 +62,16 @@
 	
 	<ItemGroup>
 	  <Folder Include="Platforms/iOS/Helpers/" />
+	</ItemGroup>
+	
+	<ItemGroup>
+	  <None Include="..\..\..\..\assets\icons\png\admob_maui_icon_v4_wallet_block.png">
+	    <Pack>True</Pack>
+	    <PackagePath>\</PackagePath>
+	  </None>
+	  <None Include="..\..\..\..\README.md">
+	    <Pack>True</Pack>
+	    <PackagePath>\</PackagePath>
+	  </None>
 	</ItemGroup>
 </Project>

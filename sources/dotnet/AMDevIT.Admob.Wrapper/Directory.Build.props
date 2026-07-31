@@ -32,13 +32,13 @@
     <EnablePackageValidation>true</EnablePackageValidation>
   </PropertyGroup>
 
-  <ItemGroup Condition="'$(IsAMDevITAdMobPackage)' == 'true'">
+  <!--<ItemGroup Condition="'$(IsAMDevITAdMobPackage)' == 'true'">
     <None Include="$(MSBuildThisFileDirectory)..\..\..\assets\icons\png\admob_maui_icon_v4_wallet_block.png"
           Pack="true"
           PackagePath="\" />
     <None Include="$(MSBuildThisFileDirectory)..\..\..\README.md"
           Pack="true"
           PackagePath="\" />
-  </ItemGroup>
+  </ItemGroup>-->
 
 </Project>
