@@ -1,29 +1,19 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
+    <IsAMDevITAdMobPackage>true</IsAMDevITAdMobPackage>
     <TargetFramework>net10.0-ios</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>true</ImplicitUsings>
 	<ValidateXcodeVersion>False</ValidateXcodeVersion>
     <IsBindingProject>true</IsBindingProject>
-	  <Version>0.0.1.1-alpha</Version>
-	  <Authors>Alessandro Morvillo</Authors>
 	  <Description>AdMob binding library for iOS. It allows to use the AdMob library directly from a dotnet iOS application project. Or can be used to implement a custom handler in MAUI.</Description>
-	  <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
 	  <Title>AMDev.IT AdMob binding library for iOS</Title>
-	  <Company>AMDev.IT di Alessandro Morvillo</Company>
-	  <Copyright>Alessandro Morvillo, 2026</Copyright>
-	  <PackageProjectUrl>https://github.com/AMDevIT/AMDevITAdMobWrapper</PackageProjectUrl>
-	  <PackageReadmeFile>README.md</PackageReadmeFile>
-	  <RepositoryUrl>https://github.com/AMDevIT/AMDevITAdMobWrapper</RepositoryUrl>
 	  <PackageTags>AdMob;Binding;MAUI;Google;Advertising;Monetization;iOS</PackageTags>
-	  <PackageReleaseNotes>First working version</PackageReleaseNotes>
-	  <PackageIcon>admob_maui_icon_v4_wallet_block.png</PackageIcon>
 	  <!--
       Enable trim analyzers for class libraries.
       To learn more, see: https://learn.microsoft.com/dotnet/core/deploying/trimming/prepare-libraries-for-trimming
     -->
     <IsTrimmable>true</IsTrimmable>
-    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
   </PropertyGroup>
 
 	<ItemGroup>
@@ -31,17 +21,6 @@
 			<Kind>Framework</Kind>
 			<Frameworks>Foundation UIKit</Frameworks>
 		</NativeReference>
-	</ItemGroup>
-
-	<ItemGroup>
-	  <None Include="..\..\..\..\assets\icons\png\admob_maui_icon_v4_wallet_block.png">
-	    <Pack>True</Pack>
-	    <PackagePath>\</PackagePath>
-	  </None>
-	  <None Include="..\..\..\..\README.md">
-	    <Pack>True</Pack>
-	    <PackagePath>\</PackagePath>
-	  </None>
 	</ItemGroup>
 
   <ItemGroup>

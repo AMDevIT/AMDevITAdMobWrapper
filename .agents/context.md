@@ -31,3 +31,11 @@
 - Affected files: `AMDevIT.Admob.Wrapper.MAUICross.csproj`, `.agents/2026-07-27-maui-desktop-fallback.md`, `.agents/context.md`.
 - Checks performed and results: the Windows MAUI wrapper build succeeded with zero errors; only the existing eight `NU1608` AndroidX dependency warnings remain.
 - Open issues and recommended next step: validate the generated Release NuGet package before publishing.
+
+## 2026-07-31 — NuGet 0.1 preview readiness
+
+- Objective and status: prepared `0.1.0-preview.1` release candidates for all four public packages and defined the promotion gate to stable `0.1.0`; automated local gates are complete, while publication and physical-device checks remain manual.
+- Decisions made: centralized package version/metadata; fixed full-screen task completion, cancellation isolation, disposal, and rewarded-service API exposure; pinned compatible AndroidX packages; added tests, CI, package verification, symbols, release documentation, and short repository-level artifact paths; kept NuGet publishing out of CI.
+- Affected files: `README.md`, `RELEASING.md`, `.github/workflows/ci.yml`, `eng/verify-packages.ps1`, `Directory.Build.props`, the four package projects, MAUICross full-screen services/interfaces, the new test project, the solution file, and `.agents/2026-07-31-nuget-preview-readiness.md`.
+- Checks performed and results: four package projects built with zero warnings/errors; full Release solution built with zero errors and six demo-app-only `XA4301` warnings; all seven lifecycle tests passed; four `.nupkg` and four `.snupkg` files passed package validation; a temporary local-package MAUI consumer built Android and Windows with zero warnings/errors; `git diff --check` passed apart from line-ending notices.
+- Open issues and recommended next step: run physical Android/iOS ad flows and the existing real consumer against the exact local packages, run GitHub CI, investigate the demo-app duplicate-native-library warnings, then manually publish/tag the preview. Promote to `0.1.0` only after preview soak, warning resolution, and a complete gate rerun.

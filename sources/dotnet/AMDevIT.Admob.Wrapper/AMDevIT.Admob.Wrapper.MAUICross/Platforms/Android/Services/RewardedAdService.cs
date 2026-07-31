@@ -53,31 +53,16 @@ public partial class RewardedAdService
 
     public override Task LoadAsync(string adUnitId, CancellationToken cancellationToken)
     {
-        ObjectDisposedException.ThrowIf(this.Disposed, this);
-
-        TaskCompletionSource taskCompletionSource = new();
-        Context context = this.ContextResolverService.GetContext() ?? throw new InvalidOperationException("Context cannot be null");
-
-        this.wrapper ??= new RewardedAdWrapper(context);
-
-        cancellationToken.Register(() => taskCompletionSource.TrySetCanceled(cancellationToken));
-        cancellationToken.ThrowIfCancellationRequested();
-
-        try
+        return this.StartLoadAsync(adUnitId, () =>
         {
+            Context context = this.ContextResolverService.GetContext()
+                ?? throw new InvalidOperationException("Context cannot be null");
+
+            this.wrapper ??= new RewardedAdWrapper(context);
             this.wrapper.Load(adUnitId,
                               this.onAdLoadedListener,
                               this.onAdEventListener);
-        }
-        catch (OperationCanceledException)
-        {
-            throw;
-        }
-        catch (Exception exc)
-        {
-            taskCompletionSource.SetException(exc);
-        }
-        return taskCompletionSource.Task;
+        }, cancellationToken);
     }
 
     public override void Show()
@@ -158,17 +143,13 @@ public partial class RewardedAdService
 
     private void OnAdLoadedListener_AdFailedToLoad(object? sender, AdFailedToLoadEventArgs e)
     {
-        this.IsLoaded = false;
-        this.IsShowing = false;
-
+        this.CompleteLoadFailure(e.ErrorCode, e.ErrorMessage);
         this.OnAdFailedToLoad(e.ErrorCode, e.ErrorMessage);
     }
 
     private void OnAdLoadedListener_AdLoaded(object? sender, EventArgs e)
     {
-        this.IsLoaded = true;
-        this.IsShowing = false;
-
+        this.CompleteLoadSuccess();
         this.OnAdLoaded();
     }
 
