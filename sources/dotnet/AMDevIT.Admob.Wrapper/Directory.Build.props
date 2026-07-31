@@ -13,7 +13,7 @@
 
   <PropertyGroup Condition="'$(IsAMDevITAdMobPackage)' == 'true'">
     <VersionPrefix>0.1.3</VersionPrefix>
-    <VersionSuffix>preview.1</VersionSuffix>
+    <VersionSuffix></VersionSuffix>
     <Authors>Alessandro Morvillo</Authors>
     <Company>AMDev.IT di Alessandro Morvillo</Company>
     <Copyright>Alessandro Morvillo, 2026</Copyright>
