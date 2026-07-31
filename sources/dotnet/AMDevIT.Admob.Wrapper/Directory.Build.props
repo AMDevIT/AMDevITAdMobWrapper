@@ -1,4 +1,7 @@
 <Project>
+    <PropertyGroup>
+        <EnableWindowsTargeting>true</EnableWindowsTargeting>
+    </PropertyGroup>
 
   <PropertyGroup>
     <ArtifactsPath>$(MSBuildThisFileDirectory)..\..\..\artifacts</ArtifactsPath>
