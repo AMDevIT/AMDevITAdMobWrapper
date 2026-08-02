@@ -1,5 +1,6 @@
 package it.amdev.admob.wrapper.diagnostics
 
+@Suppress("unused")
 interface IDroidLogger {
     fun isEnabled(level: LogLevel): Boolean
 

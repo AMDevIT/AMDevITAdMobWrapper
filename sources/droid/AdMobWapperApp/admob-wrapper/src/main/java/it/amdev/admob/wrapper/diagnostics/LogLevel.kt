@@ -2,7 +2,7 @@ package it.amdev.admob.wrapper.diagnostics
 
 // Represents the severity level of a log message.
 // It's based on the Microsoft.Extensions.Logging.LogLevel enumeration, which is commonly used in .NET applications for logging purposes.
-// This equivalence allows cross platform developers to create dotNet wrappers for Android application with similar logging behavior and severity levels.
+// This equivalence allows cross-platform developers to create dotNet wrappers for Android application with similar logging behavior and severity levels.
 enum class LogLevel(private val value: Int) {
     // Logs that contain the most detailed messages. These messages may contain sensitive application data.
     // These messages are disabled by default and should never be enabled in a production environment.
@@ -30,6 +30,7 @@ enum class LogLevel(private val value: Int) {
     // Not used for writing log messages. Specifies that a logging category should not write any messages.
     None(value = 6);
 
+    @Suppress("unused")
     companion object {
         fun fromInt(value: Int): LogLevel {
             return when (value) {

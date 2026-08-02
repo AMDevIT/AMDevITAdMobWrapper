@@ -180,7 +180,7 @@ class AdMobManager(private val logger: IDroidLogger? = null) {
 
     fun canRequestAds(): Boolean {
         val result = consentInformation?.canRequestAds() ?: false
-        return result;
+        return result
     }
 
     fun gatherConsent(activity: Activity,
