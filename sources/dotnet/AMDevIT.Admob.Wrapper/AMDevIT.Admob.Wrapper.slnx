@@ -1,13 +1,15 @@
 <Solution>
   <Folder Name="/Apps/">
     <Project Path="AMDevIT.Admob.Wrapper.AppleTestApp/AMDevIT.Admob.Wrapper.AppleTestApp.csproj" Id="e5e6deee-6209-4265-9adf-896d5c159145">
+      <Build Project="false" />
       <Deploy />
     </Project>
     <Project Path="AMDevIT.Admob.Wrapper.DroidTestApp/AMDevIT.Admob.Wrapper.DroidTestApp.csproj">
+      <Build Project="false" />
       <Deploy />
     </Project>
     <Project Path="AMDevIT.Admob.Wrapper.MAUITestApp/AMDevIT.Admob.Wrapper.MAUITestApp.csproj" Id="88b0d5ae-b3d1-4f04-925a-0a66d153bec3">
-      <Deploy />
+      <Build Project="false" />
     </Project>
   </Folder>
   <Folder Name="/Elementi di soluzione/">
@@ -16,7 +18,9 @@
     <File Path="Directory.Build.props" />
   </Folder>
   <Folder Name="/Tests/">
-    <Project Path="AMDevIT.Admob.Wrapper.MAUICross.Tests/AMDevIT.Admob.Wrapper.MAUICross.Tests.csproj" IsBuildable="false" />
+    <Project Path="AMDevIT.Admob.Wrapper.MAUICross.Tests/AMDevIT.Admob.Wrapper.MAUICross.Tests.csproj" IsBuildable="false">
+      <Build Project="false" />
+    </Project>
   </Folder>
   <Folder Name="/Libraries/">
     <Project Path="AMDevIT.Admob.Wrapper.Droid/AMDevIT.Admob.Wrapper.Droid.csproj" />
