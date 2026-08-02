@@ -13,6 +13,7 @@ import it.amdev.admob.wrapper.listeners.OnAdEventListener
 import it.amdev.admob.wrapper.listeners.OnAdLoadedListener
 import it.amdev.admob.wrapper.utils.ErrorsObjectsExtensions.Companion.toInt
 
+@Suppress("unused")
 class InterstitialAdWrapper(private val logger: IDroidLogger? = null) {
 
     private var interstitialAd: InterstitialAd? = null

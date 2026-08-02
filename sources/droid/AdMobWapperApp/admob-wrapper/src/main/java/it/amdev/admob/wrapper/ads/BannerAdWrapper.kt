@@ -80,6 +80,10 @@ class BannerAdWrapper(private val context: Context,
 
                         override fun onAdPaid(value: AdValue) {
                             super.onAdPaid(value)
+                            logger?.logDebug(tag = LOG_TAG,
+                                             message = "onAdPaid: value = ${value.valueMicros}, " +
+                                                       "currencyCode = ${value.currencyCode}, " +
+                                                       "precision = ${value.precisionType}")
                         }
 
                         override fun onAdShowedFullScreenContent() {
@@ -99,10 +103,12 @@ class BannerAdWrapper(private val context: Context,
                     ad.bannerAdRefreshCallback = object : BannerAdRefreshCallback {
                         override fun onAdRefreshed() {
                             super.onAdRefreshed()
+                            logger?.logDebug(tag = LOG_TAG, message = "Ad refreshed")
                         }
 
                         override fun onAdFailedToRefresh(adError: LoadAdError) {
                             super.onAdFailedToRefresh(adError)
+                            logger?.logError(tag = LOG_TAG, message = "Ad failed to refresh: ${adError.message}")
                         }
                     }
                 }
@@ -189,10 +195,12 @@ class BannerAdWrapper(private val context: Context,
                     ad.bannerAdRefreshCallback = object : BannerAdRefreshCallback {
                         override fun onAdRefreshed() {
                             super.onAdRefreshed()
+                            logger?.logDebug(tag = LOG_TAG, message = "Ad refreshed")
                         }
 
                         override fun onAdFailedToRefresh(adError: LoadAdError) {
                             super.onAdFailedToRefresh(adError)
+                            logger?.logError(tag = LOG_TAG, message = "Ad failed to refresh: ${adError.message}")
                         }
                     }
                 }
