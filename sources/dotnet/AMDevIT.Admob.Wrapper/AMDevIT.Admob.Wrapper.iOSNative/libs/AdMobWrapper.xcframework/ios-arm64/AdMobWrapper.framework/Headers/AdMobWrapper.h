@@ -371,16 +371,32 @@ extern "C" {
 
 #if defined(__OBJC__)
 
+@protocol IAppleLogger;
 @class UIViewController;
 @protocol OnInitializedListener;
+@protocol OnConsentInformationRequestListener;
+@class ConsentInformationRequestDebugParameters;
+@class ConsentStatusData;
+@protocol OnConsentFormEventListener;
+@protocol OnConsentGatheringListener;
 SWIFT_CLASS("_TtC12AdMobWrapper12AdMobManager")
 @interface AdMobManager : NSObject
 SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) AdMobManager * _Nonnull instance;)
 + (AdMobManager * _Nonnull)instance SWIFT_WARN_UNUSED_RESULT;
 - (nonnull instancetype)init SWIFT_UNAVAILABLE;
 + (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
+- (nonnull instancetype)initWithLogger:(id <IAppleLogger> _Nullable)logger;
 - (void)initializeWithViewController:(UIViewController * _Nonnull)viewController listener:(id <OnInitializedListener> _Nonnull)listener;
 - (BOOL)isInitialized SWIFT_WARN_UNUSED_RESULT;
+- (void)updateCurrentConsentInformationWithViewController:(UIViewController * _Nonnull)viewController tagForUnderAgeOfConsent:(BOOL)tagForUnderAgeOfConsent listener:(id <OnConsentInformationRequestListener> _Nonnull)listener;
+- (void)updateCurrentConsentInformationWithViewController:(UIViewController * _Nonnull)viewController tagForUnderAgeOfConsent:(BOOL)tagForUnderAgeOfConsent listener:(id <OnConsentInformationRequestListener> _Nonnull)listener requestDebugParameters:(ConsentInformationRequestDebugParameters * _Nullable)requestDebugParameters;
+- (ConsentStatusData * _Nullable)currentConsentInformation SWIFT_WARN_UNUSED_RESULT;
+- (void)showPrivacyOptionsFormWithViewController:(UIViewController * _Nonnull)viewController listener:(id <OnConsentFormEventListener> _Nonnull)listener;
+- (void)loadAndShowConsentFormIfRequiredWithViewController:(UIViewController * _Nonnull)viewController listener:(id <OnConsentFormEventListener> _Nonnull)listener;
+- (BOOL)canRequestAds SWIFT_WARN_UNUSED_RESULT;
+- (void)gatherConsentWithViewController:(UIViewController * _Nonnull)viewController tagForUnderAgeOfConsent:(BOOL)tagForUnderAgeOfConsent listener:(id <OnConsentGatheringListener> _Nonnull)listener;
+- (void)gatherConsentWithViewController:(UIViewController * _Nonnull)viewController tagForUnderAgeOfConsent:(BOOL)tagForUnderAgeOfConsent listener:(id <OnConsentGatheringListener> _Nonnull)listener requestDebugParameters:(ConsentInformationRequestDebugParameters * _Nullable)requestDebugParameters;
+- (void)resetConsentForTesting;
 @end
 
 @class NSString;
@@ -389,6 +405,7 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) AdMobManager
 SWIFT_CLASS("_TtC12AdMobWrapper16AppOpenAdWrapper")
 @interface AppOpenAdWrapper : NSObject
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
+- (nonnull instancetype)initWithLogger:(id <IAppleLogger> _Nullable)logger OBJC_DESIGNATED_INITIALIZER;
 - (void)loadWithAdUnitId:(NSString * _Nonnull)adUnitId loadListener:(id <OnAdLoadedListener> _Nonnull)loadListener eventListener:(id <OnAdEventListener> _Nullable)eventListener;
 - (void)showWithViewController:(UIViewController * _Nonnull)viewController;
 - (BOOL)isLoaded SWIFT_WARN_UNUSED_RESULT;
@@ -418,6 +435,7 @@ typedef SWIFT_ENUM(NSInteger, BannerAdViewSize, open) {
 SWIFT_CLASS("_TtC12AdMobWrapper15BannerAdWrapper")
 @interface BannerAdWrapper : NSObject
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
+- (nonnull instancetype)initWithLogger:(id <IAppleLogger> _Nullable)logger OBJC_DESIGNATED_INITIALIZER;
 - (UIView * _Nonnull)loadWithAdUnitId:(NSString * _Nonnull)adUnitId viewController:(UIViewController * _Nonnull)viewController loadListener:(id <OnAdLoadedListener> _Nonnull)loadListener eventListener:(id <OnAdEventListener> _Nullable)eventListener SWIFT_WARN_UNUSED_RESULT;
 - (UIView * _Nonnull)loadWithAdUnitId:(NSString * _Nonnull)adUnitId viewController:(UIViewController * _Nonnull)viewController adSize:(enum BannerAdViewSize)adSize adWidth:(CGFloat)adWidth loadListener:(id <OnAdLoadedListener> _Nonnull)loadListener eventListener:(id <OnAdEventListener> _Nullable)eventListener SWIFT_WARN_UNUSED_RESULT;
 - (void)destroy;
@@ -431,11 +449,46 @@ SWIFT_CLASS("_TtC12AdMobWrapper15BannerAdWrapper")
 - (void)bannerViewDidRecordClick:(GADBannerView * _Nonnull)bannerView;
 - (void)bannerViewWillPresentScreen:(GADBannerView * _Nonnull)bannerView;
 - (void)bannerViewWillDismissScreen:(GADBannerView * _Nonnull)bannerView;
+- (void)bannerViewDidDismissScreen:(GADBannerView * _Nonnull)bannerView;
+@end
+
+@class NSNumber;
+SWIFT_CLASS("_TtC12AdMobWrapper40ConsentInformationRequestDebugParameters")
+@interface ConsentInformationRequestDebugParameters : NSObject
+@property (nonatomic, readonly, strong) NSNumber * _Nullable debugGeography;
+@property (nonatomic, readonly, copy) NSString * _Nullable testDeviceHashedId;
+- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
+- (nonnull instancetype)initWithDebugGeography:(NSNumber * _Nullable)debugGeography testDeviceHashedId:(NSString * _Nullable)testDeviceHashedId OBJC_DESIGNATED_INITIALIZER;
+@property (nonatomic, readonly, copy) NSString * _Nonnull description;
+@end
+
+SWIFT_CLASS("_TtC12AdMobWrapper17ConsentStatusData")
+@interface ConsentStatusData : NSObject
+@property (nonatomic, readonly) int64_t lastRefreshTimestampMilliseconds;
+@property (nonatomic, readonly) NSInteger consentStatus;
+@property (nonatomic, readonly) NSInteger privacyOptionsRequirementStatus;
+- (nonnull instancetype)initWithLastRefreshTimestampMilliseconds:(int64_t)lastRefreshTimestampMilliseconds consentStatus:(NSInteger)consentStatus privacyOptionsRequirementStatus:(NSInteger)privacyOptionsRequirementStatus OBJC_DESIGNATED_INITIALIZER;
+@property (nonatomic, readonly, copy) NSString * _Nonnull description;
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
+@end
+
+SWIFT_ENUM_FWD_DECL(NSInteger, LogLevel)
+SWIFT_PROTOCOL("_TtP12AdMobWrapper12IAppleLogger_")
+@protocol IAppleLogger
+- (BOOL)isEnabledWithLevel:(enum LogLevel)level SWIFT_WARN_UNUSED_RESULT;
+- (void)logTraceWithMessage:(NSString * _Nonnull)message tag:(NSString * _Nullable)tag;
+- (void)logDebugWithMessage:(NSString * _Nonnull)message tag:(NSString * _Nullable)tag;
+- (void)logInfoWithMessage:(NSString * _Nonnull)message tag:(NSString * _Nullable)tag;
+- (void)logWarningWithMessage:(NSString * _Nonnull)message tag:(NSString * _Nullable)tag;
+- (void)logErrorWithMessage:(NSString * _Nonnull)message tag:(NSString * _Nullable)tag;
+- (void)logCriticalWithMessage:(NSString * _Nonnull)message tag:(NSString * _Nullable)tag;
 @end
 
 SWIFT_CLASS("_TtC12AdMobWrapper21InterstitialAdWrapper")
 @interface InterstitialAdWrapper : NSObject
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
+- (nonnull instancetype)initWithLogger:(id <IAppleLogger> _Nullable)logger OBJC_DESIGNATED_INITIALIZER;
 - (void)loadWithAdUnitId:(NSString * _Nonnull)adUnitId loadListener:(id <OnAdLoadedListener> _Nonnull)loadListener eventListener:(id <OnAdEventListener> _Nullable)eventListener;
 - (void)showWithViewController:(UIViewController * _Nonnull)viewController;
 - (BOOL)isLoaded SWIFT_WARN_UNUSED_RESULT;
@@ -449,6 +502,16 @@ SWIFT_CLASS("_TtC12AdMobWrapper21InterstitialAdWrapper")
 - (void)ad:(id <GADFullScreenPresentingAd> _Nonnull)ad didFailToPresentFullScreenContentWithError:(NSError * _Nonnull)error;
 - (void)adDidDismissFullScreenContent:(id <GADFullScreenPresentingAd> _Nonnull)ad;
 @end
+
+typedef SWIFT_ENUM(NSInteger, LogLevel, open) {
+  LogLevelTrace = 0,
+  LogLevelDebug = 1,
+  LogLevelInformation = 2,
+  LogLevelWarning = 3,
+  LogLevelError = 4,
+  LogLevelCritical = 5,
+  LogLevelNone = 6,
+};
 
 SWIFT_PROTOCOL("_TtP12AdMobWrapper17OnAdEventListener_")
 @protocol OnAdEventListener
@@ -465,6 +528,24 @@ SWIFT_PROTOCOL("_TtP12AdMobWrapper18OnAdLoadedListener_")
 - (void)onAdFailedToLoadWithErrorCode:(NSInteger)errorCode errorMessage:(NSString * _Nonnull)errorMessage;
 @end
 
+SWIFT_PROTOCOL("_TtP12AdMobWrapper26OnConsentFormEventListener_")
+@protocol OnConsentFormEventListener
+- (void)onDismissed;
+- (void)onDismissedWithErrorWithErrorCode:(NSInteger)errorCode errorMessage:(NSString * _Nullable)errorMessage;
+@end
+
+SWIFT_PROTOCOL("_TtP12AdMobWrapper26OnConsentGatheringListener_")
+@protocol OnConsentGatheringListener
+- (void)onCompletedWithCanRequestAds:(BOOL)canRequestAds privacyOptionsRequired:(BOOL)privacyOptionsRequired;
+- (void)onCompletedWithErrorWithErrorCode:(NSInteger)errorCode errorMessage:(NSString * _Nonnull)errorMessage canRequestAds:(BOOL)canRequestAds privacyOptionsRequired:(BOOL)privacyOptionsRequired;
+@end
+
+SWIFT_PROTOCOL("_TtP12AdMobWrapper35OnConsentInformationRequestListener_")
+@protocol OnConsentInformationRequestListener
+- (void)onConsentInformationRequestSuccess;
+- (void)onConsentInformationRequestFailureWithErrorCode:(NSInteger)errorCode errorMessage:(NSString * _Nonnull)errorMessage;
+@end
+
 SWIFT_PROTOCOL("_TtP12AdMobWrapper21OnInitializedListener_")
 @protocol OnInitializedListener
 - (void)onInitialized;
@@ -479,6 +560,7 @@ SWIFT_PROTOCOL("_TtP12AdMobWrapper22OnRewardEarnedListener_")
 SWIFT_CLASS("_TtC12AdMobWrapper17RewardedAdWrapper")
 @interface RewardedAdWrapper : NSObject
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
+- (nonnull instancetype)initWithLogger:(id <IAppleLogger> _Nullable)logger OBJC_DESIGNATED_INITIALIZER;
 - (void)loadWithAdUnitId:(NSString * _Nonnull)adUnitId loadListener:(id <OnAdLoadedListener> _Nonnull)loadListener eventListener:(id <OnAdEventListener> _Nullable)eventListener;
 - (void)showWithViewController:(UIViewController * _Nonnull)viewController rewardListener:(id <OnRewardEarnedListener> _Nonnull)rewardListener;
 - (BOOL)isLoaded SWIFT_WARN_UNUSED_RESULT;
