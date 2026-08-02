@@ -14,9 +14,11 @@
     <Title>AMDev.IT AdMob binding library for Android</Title>
     <PackageTags>AdMob;Binding;MAUI;Google;Advertising;Monetization;Android</PackageTags>
     <PackageIcon>admob_maui_icon_v4_wallet_block.png</PackageIcon>
-    <PackageReadmeFile>README.md</PackageReadmeFile>
-	<!-- The only official AdsServices binding is prerelease and is also used by Google's stable Next-Gen dependency graph. -->
-	<NoWarn>$(NoWarn);NU5104</NoWarn>
+    <PackageReadmeFile>README.md</PackageReadmeFile>	
+	 <!--<VersionPrefix>0.1.10</VersionPrefix>
+	 <VersionSuffix></VersionSuffix>-->
+
+	  <NoWarn>$(NoWarn);NU5104</NoWarn>
   </PropertyGroup>
 
 	<ItemGroup>
