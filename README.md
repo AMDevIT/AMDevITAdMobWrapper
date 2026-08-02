@@ -268,6 +268,32 @@ if (appOpenWrapper.IsLoaded && !appOpenWrapper.IsShowing)
 
 ## Usage — iOS
 
+### Consent and initialization
+
+Gather consent before initializing the SDK and loading ads:
+
+```csharp
+AdMobManager manager = AdMobManager.Instance;
+
+try
+{
+    ConsentGatheringResult consent = await manager.GatherConsentAsync(this);
+    if (!consent.CanRequestAds)
+        return;
+}
+catch (ConsentException exception) when (exception.CanRequestAds == true)
+{
+    // UMP failed, but a previous consent state still allows ad requests.
+}
+
+await manager.InitializeAsync(this);
+```
+
+The iOS async API also exposes `UpdateCurrentConsentInformationAsync`,
+`ShowPrivacyOptionsFormAsync`, `LoadAndShowConsentFormIfRequiredAsync`, and
+`GetCurrentConsentInformation`. The native manager exposes `CanRequestAds()`
+and the test-only `ResetConsentForTesting()` operation.
+
 ### Initialization
 
 #### Callback style
@@ -434,8 +460,8 @@ public sealed class AdMobStartup(IAdMobConsentService consentService)
 
 `IAdMobConsentService` also exposes the current consent snapshot, privacy
 options form, required consent form, `CanRequestAds`, and the test-only reset
-operation. It is currently registered only for Android; the .NET iOS binding
-will be added after the updated XCFramework is generated.
+operation. It is currently registered only for Android. On iOS, use the async
+extensions on the native `AdMobManager` directly.
 
 ### Banner Ad in XAML
 

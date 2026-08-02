@@ -13,23 +13,47 @@ namespace AMDevIT.Admob.Wrapper.iOSNative
         Leaderboard
     }
 
-    public partial interface IOnInitializedListener
+    [Native]
+    public enum AppleLogLevel : long
     {
+        Trace,
+        Debug,
+        Information,
+        Warning,
+        Error,
+        Critical,
+        None
+    }
 
+    public partial interface IAppleLogger
+    {
     }
 
     public partial interface IOnAdEventListener
     {
-        
-    }
-
-    public partial interface IOnRewardEarnedListener
-    {
-
     }
 
     public partial interface IOnAdLoadedListener
     {
-        
+    }
+
+    public partial interface IOnConsentFormEventListener
+    {
+    }
+
+    public partial interface IOnConsentGatheringListener
+    {
+    }
+
+    public partial interface IOnConsentInformationRequestListener
+    {
+    }
+
+    public partial interface IOnInitializedListener
+    {
+    }
+
+    public partial interface IOnRewardEarnedListener
+    {
     }
 }
