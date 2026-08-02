@@ -9,8 +9,12 @@ import com.google.android.ump.ConsentInformation
 import com.google.android.ump.ConsentRequestParameters
 import com.google.android.ump.UserMessagingPlatform
 import it.amdev.admob.wrapper.diagnostics.IDroidLogger
+import it.amdev.admob.wrapper.listeners.OnConsentFormEventListener
+import it.amdev.admob.wrapper.listeners.OnConsentInformationRequestListener
 import it.amdev.admob.wrapper.listeners.OnInitializedListener
 import it.amdev.admob.wrapper.privacy.ConsentInformationRequestDebugParameters
+import it.amdev.admob.wrapper.privacy.ConsentStatusData
+import java.time.Instant
 
 @Suppress("unused")
 class AdMobManager(private val logger: IDroidLogger? = null) {
@@ -19,6 +23,8 @@ class AdMobManager(private val logger: IDroidLogger? = null) {
     private var consentInformation: ConsentInformation? = null
 
     companion object {
+        private const val LOG_TAG = "AdMobManager"
+
         @JvmStatic
         val instance: AdMobManager by lazy { AdMobManager() }
     }
@@ -48,6 +54,7 @@ class AdMobManager(private val logger: IDroidLogger? = null) {
 
     fun updateCurrentConsentInformation(activity: Activity,
                                         tagForUnderAgeOfConsent: Boolean,
+                                        listener: OnConsentInformationRequestListener,
                                         requestDebugParameters: ConsentInformationRequestDebugParameters? = null) {
         if (this.consentInformation == null) {
             this.consentInformation = UserMessagingPlatform.getConsentInformation(activity)
@@ -77,15 +84,84 @@ class AdMobManager(private val logger: IDroidLogger? = null) {
             this.consentInformation?.requestConsentInfoUpdate(activity,
                 consentRequestParameters,
                 {
-
+                    listener.onConsentInformationRequestSuccess()
                 },
-                {
-
+                { formError ->
+                    // Handle the error
+                    listener.onConsentInformationRequestFailure(errorCode = formError.errorCode,
+                                                                errorMessage = formError.message ?: "Unknown error")
                 })
         }
     }
 
-    fun currentConsentInformation() {
+    fun currentConsentInformation()
+        : ConsentStatusData? {
+        if (this.consentInformation == null)
+            return null
 
+        val currentConsentStatus = this.consentInformation?.consentStatus ?: ConsentInformation.ConsentStatus.UNKNOWN
+        val currentPrivacyOptionRequirements = this.consentInformation?.privacyOptionsRequirementStatus ?: ConsentInformation.PrivacyOptionsRequirementStatus.UNKNOWN
+
+        val consentStatusValue = when(currentConsentStatus) {
+            ConsentInformation.ConsentStatus.UNKNOWN -> 0
+            ConsentInformation.ConsentStatus.NOT_REQUIRED -> 1
+            ConsentInformation.ConsentStatus.REQUIRED -> 2
+            ConsentInformation.ConsentStatus.OBTAINED -> 3
+            else -> 0
+        }
+
+        val privacyOptionRequirementsValue = when(currentPrivacyOptionRequirements) {
+            ConsentInformation.PrivacyOptionsRequirementStatus.UNKNOWN -> 0
+            ConsentInformation.PrivacyOptionsRequirementStatus.REQUIRED -> 1
+            ConsentInformation.PrivacyOptionsRequirementStatus.NOT_REQUIRED -> 2
+        }
+
+        val epochTimestamp = Instant.now().toEpochMilli()
+        val consentStatusData = ConsentStatusData(lastRefreshTimestampMilliseconds = epochTimestamp,
+                                                  consentStatus = consentStatusValue,
+                                                  privacyOptionsRequirementStatus = privacyOptionRequirementsValue)
+
+        return consentStatusData
+    }
+
+    fun showPrivacyOptionsForm(activity: Activity,
+                               listener: OnConsentFormEventListener) {
+        UserMessagingPlatform.showPrivacyOptionsForm(activity) { formError ->
+            if (formError != null) {
+                logger?.logError(tag = LOG_TAG,
+                                 message = "Error showing privacy options form: ${formError.message}")
+                listener.onDismissedWithError(errorCode = formError.errorCode,
+                                              errorMessage = formError.message)
+            } else {
+                logger?.logDebug(tag = LOG_TAG,
+                                 message = "Privacy options form dismissed successfully")
+                listener.onDismissed()
+            }
+        }
+    }
+
+    fun loadAndShowConsentFormIfRequired(activity: Activity,
+                                         listener: OnConsentFormEventListener) {
+        UserMessagingPlatform.loadAndShowConsentFormIfRequired(activity)
+        { formError ->
+            if (formError != null) {
+                logger?.logError(tag = LOG_TAG,
+                    message = "Error showing privacy options form: ${formError.message}")
+                listener.onDismissedWithError(errorCode = formError.errorCode,
+                    errorMessage = formError.message)
+            } else {
+                logger?.logDebug(tag = LOG_TAG,
+                    message = "Privacy options form dismissed successfully")
+                listener.onDismissed()
+            }
+        }
+    }
+
+    fun canRequestAds(): Boolean? {
+        if (this.consentInformation == null)
+            return null
+
+        val canRequest = this.consentInformation?.canRequestAds()
+        return canRequest
     }
 }
