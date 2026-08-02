@@ -1,6 +1,7 @@
 ﻿#if IOS
 
 using AMDevIT.Admob.Wrapper.iOSNative;
+using AMDevIT.Admob.Wrapper.MAUICross.Platforms.iOS.Diagnostics;
 using AMDevIT.Admob.Wrapper.MAUICross.Platforms.iOS.Listeners;
 using Microsoft.Extensions.Logging;
 using UIKit;
@@ -12,19 +13,20 @@ public partial class RewardedAdService
     #region Fields
 
     private RewardedAdWrapper? wrapper;
+    private readonly AppleLoggerAdapter loggerAdapter;
     private readonly AppleRewardListener onAdRewardListener;
     private readonly AppleOnAdEventListener onAdEventListener;
     private readonly AppleOnAdLoadedListener onAdLoadedListener;
-
 
     #endregion
 
     #region .ctor
 
-    public RewardedAdService(ILogger<AppOpenAdService> logger,
+    public RewardedAdService(ILogger<RewardedAdService> logger,
                              IContextResolverService contextResolverService)
         : base(logger, contextResolverService)
     {
+        this.loggerAdapter = new AppleLoggerAdapter(logger);
         this.onAdRewardListener = new();
         this.onAdRewardListener.RewardEarned += OnAdRewardListener_RewardEarned;
 
@@ -50,7 +52,7 @@ public partial class RewardedAdService
     {
         return this.StartLoadAsync(adUnitId, () =>
         {
-            this.wrapper ??= new RewardedAdWrapper();
+            this.wrapper ??= new RewardedAdWrapper(this.loggerAdapter);
             this.wrapper.LoadWithAdUnitId(adUnitId, this.onAdLoadedListener, this.onAdEventListener);
         }, cancellationToken);
     }
@@ -104,29 +106,24 @@ public partial class RewardedAdService
         try
         {
             this.wrapper?.Dispose();
+            this.wrapper = null;
         }
         catch (Exception)
         {
 
         }
-    }
 
+        this.loggerAdapter.Dispose();
+    }
 
     #endregion
 
-
-    #region Event Handlers
-
-    #region Ad Reward Listener
+    #region Event handlers
 
     private void OnAdRewardListener_RewardEarned(object? sender, AdReward e)
     {
         this.OnAdRewardEarned(e);
     }
-
-    #endregion
-
-    #region Ad Loaded Listener
 
     private void OnAdLoadedListener_AdFailedToLoad(object? sender, AdFailedToLoadArgs e)
     {
@@ -139,10 +136,6 @@ public partial class RewardedAdService
         this.CompleteLoadSuccess();
         this.OnAdLoaded();
     }
-
-    #endregion
-
-    #region Ad Event Listener
 
     private void OnAdEventListener_AdFailedToShow(object? sender, AdFailedToShowArgs e)
     {
@@ -175,8 +168,6 @@ public partial class RewardedAdService
     {
         this.OnAdClicked();
     }
-
-    #endregion
 
     #endregion
 }

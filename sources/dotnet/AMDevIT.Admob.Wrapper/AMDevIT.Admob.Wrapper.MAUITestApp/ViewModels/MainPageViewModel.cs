@@ -8,19 +8,15 @@ namespace AMDevIT.Admob.Wrapper.MAUITestApp.ViewModels;
 public class MainPageViewModel(ILogger<MainPageViewModel> logger,
                                IInterstitialAdService interstitialAdService,
                                IAdUnitProviderService adUnitProviderService,
-#if ANDROID
                                IAdMobConsentService adMobConsentService,
-#endif
                                IDispatcherService dispatcherService)
     : ViewModelBase(logger)
 {
-#if ANDROID
     #region Const
 
     private const string AndroidApplicationId = "ca-app-pub-3940256099942544~3347511713";
 
     #endregion
-#endif
 
     #region Fields
 
@@ -35,9 +31,7 @@ public class MainPageViewModel(ILogger<MainPageViewModel> logger,
     protected IInterstitialAdService InterstitialAdService => interstitialAdService;
     protected IAdUnitProviderService AdUnitProviderService => adUnitProviderService;
 
-#if ANDROID
     protected IAdMobConsentService AdMobConsentService => adMobConsentService;
-#endif
 
     protected IDispatcherService DispatcherService => dispatcherService;
 
@@ -86,9 +80,7 @@ public class MainPageViewModel(ILogger<MainPageViewModel> logger,
 
     private async Task ShowInterstitialAd(CancellationToken cancellationToken = default)
     {
-#if ANDROID
-        await this.EnsureAndroidAdMobReadyAsync(cancellationToken);
-#endif
+        await this.EnsureAdMobReadyAsync(cancellationToken);
 
         string interstitialAdUnitId = this.AdUnitProviderService.GetInterstitialAdUnitId();
 
@@ -99,9 +91,15 @@ public class MainPageViewModel(ILogger<MainPageViewModel> logger,
         this.InterstitialAdService.Show();
     }
 
-#if ANDROID
-    private async Task EnsureAndroidAdMobReadyAsync(CancellationToken cancellationToken)
+    private async Task EnsureAdMobReadyAsync(CancellationToken cancellationToken)
     {
+        if (!this.AdMobConsentService.IsSupported)
+        {
+            this.Logger.LogInformation(
+                "AdMob consent is not available on this platform. Skipping the consent flow.");
+            return;
+        }
+
         if (this.AdMobConsentService.IsInitialized)
             return;
 
@@ -123,9 +121,9 @@ public class MainPageViewModel(ILogger<MainPageViewModel> logger,
         if (!canRequestAds)
             throw new InvalidOperationException("The current consent state does not allow ad requests.");
 
-        await this.AdMobConsentService.InitializeAsync(AndroidApplicationId, cancellationToken);
+        string applicationId = OperatingSystem.IsAndroid() ? AndroidApplicationId : string.Empty;
+        await this.AdMobConsentService.InitializeAsync(applicationId, cancellationToken);
     }
-#endif
 
     #endregion
 

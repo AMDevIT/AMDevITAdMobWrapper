@@ -1,7 +1,10 @@
 ﻿#if IOS
 
 using AMDevIT.Admob.Wrapper.iOSNative;
+using AMDevIT.Admob.Wrapper.MAUICross.Platforms.iOS.Diagnostics;
 using Foundation;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using Microsoft.Maui.Handlers;
 using UIKit;
 using NativeBannerAdViewSize = AMDevIT.Admob.Wrapper.iOSNative.BannerAdViewSize;
@@ -14,6 +17,7 @@ public partial class BannerAdHandler
     #region Fields
 
     private BannerAdWrapper? bannerWrapper;
+    private AppleLoggerAdapter? loggerAdapter;
 
     private BannerLoadListener? loadListener;
     private BannerEventListener? eventListener;
@@ -54,24 +58,28 @@ public partial class BannerAdHandler
 
     protected override UIView CreatePlatformView()
     {
-        UIView view;
+        ILoggerFactory loggerFactory = this.MauiContext?.Services.GetRequiredService<ILoggerFactory>()
+            ?? throw new InvalidOperationException("The MAUI service provider is not available.");
+        this.loggerAdapter = new AppleLoggerAdapter(loggerFactory.CreateLogger<BannerAdHandler>());
+        this.bannerWrapper = new BannerAdWrapper(this.loggerAdapter);
 
-        view = new BannerView(this.InitializeAdView)
+        return new BannerView(this.InitializeAdView)
         {
             BackgroundColor = UIColor.Clear
         };
-
-        return view;
-    }
-
-    protected override void ConnectHandler(UIView platformView)
-    {
-        base.ConnectHandler(platformView);
     }
 
     protected override void DisconnectHandler(UIView platformView)
     {
         this.bannerWrapper?.Destroy();
+        this.bannerWrapper?.Dispose();
+        this.bannerWrapper = null;
+        this.loggerAdapter?.Dispose();
+        this.loggerAdapter = null;
+        this.loadListener?.Dispose();
+        this.loadListener = null;
+        this.eventListener?.Dispose();
+        this.eventListener = null;
         this.currentAdView?.RemoveFromSuperview();
         this.currentAdView?.Dispose();
         this.currentAdView = null;
@@ -109,7 +117,8 @@ public partial class BannerAdHandler
         this.loadListener ??= new(this.VirtualView);
         this.eventListener ??= new(this.VirtualView);
 
-        this.bannerWrapper ??= new();
+        if (this.bannerWrapper == null)
+            return;
 
         NativeBannerAdViewSize adSize = this.MapAdSizeToNative(this.VirtualView.AdSize);
         this.currentAdView = this.bannerWrapper.LoadWithAdUnitId(this.VirtualView.AdUnitId ?? string.Empty,
@@ -164,10 +173,6 @@ public partial class BannerAdHandler
 
     #endregion
 
-    #region Nested classes
-
-    #region Listeners
-
     private class BannerLoadListener(BannerAd view)
         : NSObject, IOnAdLoadedListener
     {
@@ -216,14 +221,28 @@ public partial class BannerAdHandler
         #endregion
     }
 
-    #endregion
-
-    #region Views 
-
     private class BannerView : UIView
     {
+        #region Fields
+
         private readonly Action onReadyAction;
-        private bool loaded = false;
+        private bool loaded;
+
+        #endregion
+
+        #region Properties
+
+        public override CoreGraphics.CGSize IntrinsicContentSize
+        {
+            get
+            {
+                if (this.Subviews.Length > 0)
+                    return this.Subviews[0].IntrinsicContentSize;
+                return base.IntrinsicContentSize;
+            }
+        }
+
+        #endregion
 
         #region .ctor
 
@@ -240,6 +259,8 @@ public partial class BannerAdHandler
         }
 
         #endregion
+
+        #region Methods
 
         public override void MovedToWindow()
         {
@@ -259,20 +280,8 @@ public partial class BannerAdHandler
             return base.SizeThatFits(size);
         }
 
-        public override CoreGraphics.CGSize IntrinsicContentSize
-        {
-            get
-            {
-                if (this.Subviews.Length > 0)
-                    return this.Subviews[0].IntrinsicContentSize;
-                return base.IntrinsicContentSize;
-            }
-        }
+        #endregion
     }
-
-    #endregion
-
-    #endregion
 }
 
 #endif

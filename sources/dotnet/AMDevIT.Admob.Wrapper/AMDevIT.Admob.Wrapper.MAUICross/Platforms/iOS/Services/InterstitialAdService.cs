@@ -1,6 +1,7 @@
 ﻿#if IOS
 
 using AMDevIT.Admob.Wrapper.iOSNative;
+using AMDevIT.Admob.Wrapper.MAUICross.Platforms.iOS.Diagnostics;
 using AMDevIT.Admob.Wrapper.MAUICross.Platforms.iOS.Listeners;
 using Microsoft.Extensions.Logging;
 using UIKit;
@@ -13,9 +14,9 @@ public partial class InterstitialAdService
     #region Fields
 
     private InterstitialAdWrapper? wrapper;
-
-    private AppleOnAdEventListener onAdEventListener;
-    private AppleOnAdLoadedListener onAdLoadedListener;
+    private readonly AppleLoggerAdapter loggerAdapter;
+    private readonly AppleOnAdEventListener onAdEventListener;
+    private readonly AppleOnAdLoadedListener onAdLoadedListener;
 
     #endregion 
 
@@ -25,6 +26,7 @@ public partial class InterstitialAdService
                                  IContextResolverService contextResolverService)
         : base(logger, contextResolverService)
     {
+        this.loggerAdapter = new AppleLoggerAdapter(logger);
         this.onAdLoadedListener = new();
         this.onAdLoadedListener.AdLoaded += OnAdLoadedListener_AdLoaded;
         this.onAdLoadedListener.AdFailedToLoad += OnAdLoadedListener_AdFailedToLoad;
@@ -45,7 +47,7 @@ public partial class InterstitialAdService
     {
         return this.StartLoadAsync(adUnitId, () =>
         {
-            this.wrapper ??= new InterstitialAdWrapper();
+            this.wrapper ??= new InterstitialAdWrapper(this.loggerAdapter);
             this.wrapper.LoadWithAdUnitId(adUnitId, this.onAdLoadedListener, this.onAdEventListener);
         }, cancellationToken);
     }
@@ -99,16 +101,19 @@ public partial class InterstitialAdService
         try
         {
             this.wrapper?.Dispose();
+            this.wrapper = null;
         }
-        catch(Exception)
+        catch (Exception)
         {
 
         }
+
+        this.loggerAdapter.Dispose();
     }
 
     #endregion
 
-    #region Event Handlers
+    #region Event handlers
 
     private void OnAdLoadedListener_AdFailedToLoad(object? sender, AdFailedToLoadArgs e)
     {

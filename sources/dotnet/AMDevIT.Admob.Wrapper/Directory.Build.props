@@ -23,7 +23,7 @@
     <RepositoryType>git</RepositoryType>
     <PackageIcon>admob_maui_icon_v4_wallet_block.png</PackageIcon>
     <PackageReadmeFile>README.md</PackageReadmeFile>
-    <PackageReleaseNotes>Update the Android binding to AdMob Mobile Ads SDK Next-Gen 1.3.1 and add UMP consent support.</PackageReleaseNotes>
+    <PackageReleaseNotes>Update Android to AdMob Mobile Ads SDK Next-Gen 1.3.1 and add cross-platform UMP consent support with safe desktop fallbacks.</PackageReleaseNotes>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <IsPackable>true</IsPackable>
     <IncludeSymbols>true</IncludeSymbols>

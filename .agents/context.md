@@ -79,3 +79,19 @@
 - Affected files: `README.md`, iOSNative `ApiDefinition.cs` and `StructsAndEnums.cs`, shared iOS `AdMobManagerExtensions.iOSNative.cs`, `.agents/2026-08-02-dotnet-ios-admob-ump.md`, and this file. The supplied XCFramework was inspected and packaged but not modified.
 - Checks performed and results: iOSNative, shared iOS wrapper, MAUICross iOS, and Apple test app built; required restore succeeded; aggregate build succeeded for all library targets with zero warnings/errors after explicitly selecting Android Studio's JDK; all 7 tests passed; both `0.1.10` Release packages were created and inspected, including both XCFramework slices in the iOS binding resource archive.
 - Open issues and recommended next step: physically test iOS UMP, logging, all ad formats, banner sizing/rotation, and dismissal timing before publishing. MAUI consent DI remains intentionally Android-only; iOS uses the shared async manager extensions directly.
+
+## 2026-08-02 — MAUICross iOS UMP and native logging alignment
+
+- Objective and status: extended MAUICross to expose the updated AdMob and UMP flow through `IAdMobConsentService` on both Android and iOS; completed.
+- Decisions made: added an iOS consent service and `IAppleLogger` adapter; injected native logging into the iOS manager and every ad wrapper; preserved the existing initialization signature, with the application ID required only by Android; retained direct iOSNative and shared-wrapper references because both are required at compile/package time; left desktop fallback targets unchanged.
+- Affected files: `README.md`, `Directory.Build.props`, MAUICross project/DI/consent interface, new iOS consent and diagnostics files, iOS banner/full-screen implementations, `.agents/2026-08-02-mauicross-ios-ump.md`, and this file.
+- Checks performed and results: all four MAUICross targets built with zero warnings/errors; required restore and aggregate build succeeded; all 7 tests passed with only the existing external Windows PRI resource warning; the `0.1.10` MAUICross package was created and its iOS dependency group contains both the native binding and shared wrapper. The final pack retained the two documented Android binding warnings for Kotlin synthetic `$` members.
+- Open issues and recommended next step: physically test Android/iOS consent, privacy-options, error fallback, logging, and every ad format before publishing; keep debug consent settings out of production.
+
+## 2026-08-02 — MAUICross desktop consent no-op
+
+- Objective and status: made `IAdMobConsentService` available on every MAUICross target with explicit availability detection and safe no-op behavior on Windows and Mac Catalyst; completed.
+- Decisions made: added `IsSupported`; retained real UMP on Android/iOS; registered consent DI everywhere; made desktop initialization/gathering/forms/reset non-throwing with neutral `NotRequired` state, `CanRequestAds == true`, warning-on-creation, and debug logs per skipped operation; added a neutral `net10.0` shared-wrapper target.
+- Affected files: shared and MAUICross project files, consent interface and all platform implementations, MAUI DI and test-app flow, MAUICross tests, README/release notes, `.agents/2026-08-02-mauicross-desktop-consent-noop.md`, and this file.
+- Checks performed and results: required restore succeeded; final aggregate build and Android/iOS sample builds succeeded with zero warnings/errors; all 9 Windows tests passed with only the existing MSTest `PRI263` resource warning; both Release packages were created and inspected, confirming the shared `net10.0` assembly and shared-wrapper dependencies in Windows/Mac Catalyst groups; known Android binding `$` warnings remain during Release pack.
+- Open issues and recommended next step: smoke-test desktop log output and skip behavior, then complete physical Android/iOS UMP and ad-flow checks before publishing `0.1.10`.

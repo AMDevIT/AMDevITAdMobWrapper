@@ -1,9 +1,10 @@
-#if ANDROID
+#if IOS
 
-using AMDevIT.Admob.Wrapper.Extensions.Droid;
-using AMDevIT.Admob.Wrapper.MAUICross.Platforms.Android.Diagnostics;
-using Android.App;
+using AMDevIT.Admob.Wrapper.Extensions.iOSNative;
+using AMDevIT.Admob.Wrapper.iOSNative;
+using AMDevIT.Admob.Wrapper.MAUICross.Platforms.iOS.Diagnostics;
 using Microsoft.Extensions.Logging;
+using UIKit;
 
 namespace AMDevIT.Admob.Wrapper.MAUICross.Services;
 
@@ -12,7 +13,7 @@ public sealed class AdMobConsentService : IAdMobConsentService
     #region Fields
 
     private readonly IContextResolverService contextResolverService;
-    private readonly DroidLoggerAdapter loggerAdapter;
+    private readonly AppleLoggerAdapter loggerAdapter;
     private readonly AdMobManager manager;
 
     #endregion
@@ -36,7 +37,7 @@ public sealed class AdMobConsentService : IAdMobConsentService
                                IContextResolverService contextResolverService)
     {
         this.contextResolverService = contextResolverService;
-        this.loggerAdapter = new DroidLoggerAdapter(logger);
+        this.loggerAdapter = new AppleLoggerAdapter(logger);
         this.manager = new AdMobManager(this.loggerAdapter);
     }
 
@@ -44,37 +45,38 @@ public sealed class AdMobConsentService : IAdMobConsentService
 
     #region Methods
 
-    public Task InitializeAsync(string applicationId, CancellationToken cancellationToken = default)
+    public Task InitializeAsync(string applicationId,
+                                CancellationToken cancellationToken = default)
     {
-        Activity activity = this.GetActivity();
-        return this.manager.InitializeAsync(activity.ApplicationContext!,
-                                            applicationId,
-                                            cancellationToken);
+        _ = applicationId;
+        return this.manager.InitializeAsync(this.GetViewController(), cancellationToken);
     }
 
     public Task<ConsentInformationSnapshot> UpdateCurrentConsentInformationAsync(
         ConsentRequestOptions? options = null,
         CancellationToken cancellationToken = default) =>
-        this.manager.UpdateCurrentConsentInformationAsync(this.GetActivity(),
+        this.manager.UpdateCurrentConsentInformationAsync(this.GetViewController(),
                                                           options,
                                                           cancellationToken);
 
     public Task<ConsentGatheringResult> GatherConsentAsync(
         ConsentRequestOptions? options = null,
         CancellationToken cancellationToken = default) =>
-        this.manager.GatherConsentAsync(this.GetActivity(), options, cancellationToken);
+        this.manager.GatherConsentAsync(this.GetViewController(), options, cancellationToken);
 
     public Task ShowPrivacyOptionsFormAsync(CancellationToken cancellationToken = default) =>
-        this.manager.ShowPrivacyOptionsFormAsync(this.GetActivity(), cancellationToken);
+        this.manager.ShowPrivacyOptionsFormAsync(this.GetViewController(), cancellationToken);
 
-    public Task LoadAndShowConsentFormIfRequiredAsync(CancellationToken cancellationToken = default) =>
-        this.manager.LoadAndShowConsentFormIfRequiredAsync(this.GetActivity(), cancellationToken);
+    public Task LoadAndShowConsentFormIfRequiredAsync(
+        CancellationToken cancellationToken = default) =>
+        this.manager.LoadAndShowConsentFormIfRequiredAsync(this.GetViewController(),
+                                                           cancellationToken);
 
     public void ResetConsentForTesting() => this.manager.ResetConsentForTesting();
 
-    private Activity GetActivity() =>
-        this.contextResolverService.GetContext() as Activity
-        ?? throw new InvalidOperationException("The current Android activity is not available.");
+    private UIViewController GetViewController() =>
+        this.contextResolverService.GetViewController()
+        ?? throw new InvalidOperationException("The current iOS view controller is not available.");
 
     #endregion
 }

@@ -437,31 +437,56 @@ Register the handler in `MauiProgram.cs`:
 builder.UseAMDevITAdMobWrapper();
 ```
 
-On Android, inject `IAdMobConsentService` and complete consent before
-initializing or loading ads:
+Inject `IAdMobConsentService`, check whether the platform supports UMP, and
+complete consent before initializing or loading ads:
 
 ```csharp
 public sealed class AdMobStartup(IAdMobConsentService consentService)
 {
     public async Task InitializeAsync(CancellationToken cancellationToken = default)
     {
-        ConsentGatheringResult consent = await consentService.GatherConsentAsync(
-            cancellationToken: cancellationToken);
+        if (!consentService.IsSupported)
+            return;
 
-        if (consent.CanRequestAds)
+        bool canRequestAds;
+
+        try
         {
-            await consentService.InitializeAsync(
-                "ca-app-pub-3940256099942544~3347511713",
-                cancellationToken);
+            ConsentGatheringResult consent = await consentService.GatherConsentAsync(
+                cancellationToken: cancellationToken);
+            canRequestAds = consent.CanRequestAds;
         }
+        catch (ConsentException exception) when (exception.CanRequestAds == true)
+        {
+            // UMP failed, but a previous consent state still allows ad requests.
+            canRequestAds = true;
+        }
+
+        if (!canRequestAds)
+            return;
+
+        string applicationId = OperatingSystem.IsAndroid()
+            ? "ca-app-pub-3940256099942544~3347511713"
+            : string.Empty;
+        await consentService.InitializeAsync(applicationId, cancellationToken);
     }
 }
 ```
 
 `IAdMobConsentService` also exposes the current consent snapshot, privacy
 options form, required consent form, `CanRequestAds`, and the test-only reset
-operation. It is currently registered only for Android. On iOS, use the async
-extensions on the native `AdMobManager` directly.
+operation. It is registered on every MAUI target. Android and iOS report
+`IsSupported == true`; Windows and Mac Catalyst receive a safe no-op service
+that reports `IsSupported == false`, logs skipped operations, and returns a
+neutral not-required consent state without throwing. The application ID
+argument is required on Android; iOS ignores it and reads
+`GADApplicationIdentifier` from `Info.plist`.
+
+Call the privacy-options form from the app's privacy settings when required:
+
+```csharp
+await consentService.ShowPrivacyOptionsFormAsync(cancellationToken);
+```
 
 ### Banner Ad in XAML
 

@@ -1,6 +1,7 @@
 ﻿#if IOS
 
 using AMDevIT.Admob.Wrapper.iOSNative;
+using AMDevIT.Admob.Wrapper.MAUICross.Platforms.iOS.Diagnostics;
 using AMDevIT.Admob.Wrapper.MAUICross.Platforms.iOS.Listeners;
 using Microsoft.Extensions.Logging;
 using UIKit;
@@ -13,12 +14,9 @@ public partial class AppOpenAdService
     #region Fields
 
     private AppOpenAdWrapper? wrapper;
-    private AppleOnAdEventListener onAdEventListener;
-    private AppleOnAdLoadedListener onAdLoadedListener;
-
-    #endregion
-
-    #region Properties
+    private readonly AppleLoggerAdapter loggerAdapter;
+    private readonly AppleOnAdEventListener onAdEventListener;
+    private readonly AppleOnAdLoadedListener onAdLoadedListener;
 
     #endregion
 
@@ -28,6 +26,7 @@ public partial class AppOpenAdService
                             IContextResolverService contextResolverService)
         : base(logger, contextResolverService)
     {
+        this.loggerAdapter = new AppleLoggerAdapter(logger);
         this.onAdLoadedListener = new();
         this.onAdLoadedListener.AdLoaded += OnAdLoadedListener_AdLoaded;
         this.onAdLoadedListener.AdFailedToLoad += OnAdLoadedListener_AdFailedToLoad;
@@ -48,7 +47,7 @@ public partial class AppOpenAdService
     {
         return this.StartLoadAsync(adUnitId, () =>
         {
-            this.wrapper ??= new AppOpenAdWrapper();
+            this.wrapper ??= new AppOpenAdWrapper(this.loggerAdapter);
             this.wrapper.LoadWithAdUnitId(adUnitId,
                                           this.onAdLoadedListener,
                                           this.onAdEventListener);
@@ -74,7 +73,6 @@ public partial class AppOpenAdService
             throw new InvalidOperationException("Cannot show App Open ad because it is not loaded.");
         }
 
-        // viewController = ViewControllerHelper.GetTopViewController();
         viewController = this.ContextResolverService.GetViewController();
         if (viewController == null)
         {
@@ -109,16 +107,19 @@ public partial class AppOpenAdService
         try
         {
             this.wrapper?.Dispose();
+            this.wrapper = null;
         }
         catch (Exception)
         {
 
         }
+
+        this.loggerAdapter.Dispose();
     }
 
     #endregion
 
-    #region Event Handlers
+    #region Event handlers
 
     private void OnAdLoadedListener_AdFailedToLoad(object? sender, AdFailedToLoadArgs e)
     {

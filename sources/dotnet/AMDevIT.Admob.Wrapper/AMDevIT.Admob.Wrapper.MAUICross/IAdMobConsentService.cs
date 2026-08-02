@@ -1,10 +1,10 @@
-#if ANDROID
-
 namespace AMDevIT.Admob.Wrapper.MAUICross;
 
 public interface IAdMobConsentService
 {
     #region Properties
+
+    bool IsSupported { get; }
 
     bool CanRequestAds { get; }
 
@@ -34,5 +34,3 @@ public interface IAdMobConsentService
 
     #endregion
 }
-
-#endif
