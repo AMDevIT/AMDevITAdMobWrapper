@@ -1,16 +1,20 @@
 package it.amdev.admob.wrapper.ads
 
 import android.app.Activity
-import android.content.Context
-import com.google.android.gms.ads.AdError
-import com.google.android.gms.ads.AdRequest
-import com.google.android.gms.ads.FullScreenContentCallback
-import com.google.android.gms.ads.LoadAdError
-import com.google.android.gms.ads.appopen.AppOpenAd
+import com.google.android.libraries.ads.mobile.sdk.appopen.AppOpenAd
+import com.google.android.libraries.ads.mobile.sdk.appopen.AppOpenAdEventCallback
+import com.google.android.libraries.ads.mobile.sdk.common.AdLoadCallback
+import com.google.android.libraries.ads.mobile.sdk.common.AdRequest
+import com.google.android.libraries.ads.mobile.sdk.common.AdValue
+import com.google.android.libraries.ads.mobile.sdk.common.FullScreenContentError
+import com.google.android.libraries.ads.mobile.sdk.common.LoadAdError
+import it.amdev.admob.wrapper.diagnostics.IDroidLogger
 import it.amdev.admob.wrapper.listeners.OnAdEventListener
 import it.amdev.admob.wrapper.listeners.OnAdLoadedListener
+import it.amdev.admob.wrapper.utils.ErrorsObjectsExtensions.Companion.toInt
 
-class AppOpenAdWrapper(private val context: Context) {
+@Suppress("unused")
+class AppOpenAdWrapper(private val logger: IDroidLogger? = null) {
 
     private var appOpenAd: AppOpenAd? = null
     private var isShowingAd = false
@@ -20,23 +24,30 @@ class AppOpenAdWrapper(private val context: Context) {
              loadListener: OnAdLoadedListener,
              eventListener: OnAdEventListener? = null)
     {
-        val adRequest = AdRequest.Builder().build()
+        val adRequest = AdRequest.Builder(adUnitId = adUnitId).build()
 
-        AppOpenAd.load(context,
-                       adUnitId,
-                       adRequest,
-            object : AppOpenAd.AppOpenAdLoadCallback() {
+        AppOpenAd.load(adRequest = adRequest,
+                       adLoadCallback = object : AdLoadCallback<AppOpenAd> {
                 override fun onAdLoaded(ad: AppOpenAd) {
                     appOpenAd = ad
-                    appOpenAd?.fullScreenContentCallback = object : FullScreenContentCallback() {
-                        override fun onAdShowedFullScreenContent() {
-                            isShowingAd = true
-                            eventListener?.onAdShown()
-                        }
+                    appOpenAd?.adEventCallback = object : AppOpenAdEventCallback {
                         override fun onAdDismissedFullScreenContent() {
                             isShowingAd = false
                             appOpenAd = null
                             eventListener?.onAdDismissed()
+                        }
+
+                        override fun onAdFailedToShowFullScreenContent(fullScreenContentError: FullScreenContentError) {
+                            isShowingAd = false
+                            appOpenAd = null
+                            val errorCode = fullScreenContentError.code.toInt()
+                            eventListener?.onAdFailedToShow(errorCode = errorCode,
+                                                            errorMessage = fullScreenContentError.message)
+                        }
+
+                        override fun onAdShowedFullScreenContent() {
+                            isShowingAd = true
+                            eventListener?.onAdShown()
                         }
                         override fun onAdClicked() {
                             eventListener?.onAdClicked()
@@ -44,18 +55,21 @@ class AppOpenAdWrapper(private val context: Context) {
                         override fun onAdImpression() {
                             eventListener?.onAdImpression()
                         }
-                        override fun onAdFailedToShowFullScreenContent(error: AdError) {
-                            isShowingAd = false
-                            appOpenAd = null
-                            eventListener?.onAdFailedToShow(error.code, error.message)
+
+                        override fun onAdPaid(value: AdValue) {
+                            super.onAdPaid(value)
+                            logger?.logDebug(tag = LOG_TAG,
+                                             message = "Ad paid: ${value.valueMicros} ${value.currencyCode}")
                         }
                     }
                     loadListener.onAdLoaded()
                 }
 
-                override fun onAdFailedToLoad(error: LoadAdError) {
+                override fun onAdFailedToLoad(adError: LoadAdError) {
                     appOpenAd = null
-                    loadListener.onAdFailedToLoad(error.code, error.message)
+                    val errorCode = adError.code.toInt()
+                    loadListener.onAdFailedToLoad(errorCode =  errorCode,
+                                                  errorMessage =  adError.message)
                 }
             }
         )
@@ -73,4 +87,8 @@ class AppOpenAdWrapper(private val context: Context) {
 
     fun isLoaded(): Boolean = appOpenAd != null
     fun isShowing(): Boolean = isShowingAd
+
+    companion object {
+        private const val LOG_TAG = "AppOpenAdWrapper"
+    }
 }

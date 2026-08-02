@@ -2,7 +2,7 @@
 
 namespace AMDevIT.Admob.Wrapper.MAUICross
 {
-    public class BannerAd
+    public partial class BannerAd
         : View
     {
         #region Events

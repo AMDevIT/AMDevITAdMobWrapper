@@ -1,9 +1,11 @@
 package it.amdev.admob.wrapper
 
 import android.content.Context
-import com.google.android.gms.ads.MobileAds
+import com.google.android.libraries.ads.mobile.sdk.MobileAds
+import com.google.android.libraries.ads.mobile.sdk.initialization.InitializationConfig
 import it.amdev.admob.wrapper.listeners.OnInitializedListener
 
+@Suppress("unused")
 class AdMobManager private constructor() {
     private var initialized = false
 
@@ -12,14 +14,18 @@ class AdMobManager private constructor() {
         val instance: AdMobManager by lazy { AdMobManager() }
     }
 
-    fun initialize(context: Context, listener: OnInitializedListener) {
+    fun initialize(context: Context,
+                   applicationId: String,
+                   listener: OnInitializedListener) {
         if (initialized) {
             listener.onInitialized()
             return
         }
         Thread {
             try {
-                MobileAds.initialize(context) {
+                val initializationConfig = InitializationConfig.Builder(applicationId = applicationId)
+                                                               .build()
+                MobileAds.initialize(context, initializationConfig) {
                     initialized = true
                     listener.onInitialized()
                 }
