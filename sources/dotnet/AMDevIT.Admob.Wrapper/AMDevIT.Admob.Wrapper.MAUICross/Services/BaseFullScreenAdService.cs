@@ -56,7 +56,10 @@ public abstract class BaseFullScreenAdService(ILogger logger,
         cancellationToken.ThrowIfCancellationRequested();
 
         if (!this.IsLoaded)
+        {            
+            this.Logger.LogError("Cannot show {AdTypeName} because it is not loaded.", this.AdTypeName);
             throw new InvalidOperationException($"Cannot show {this.AdTypeName} because it is not loaded.");
+        }
 
         this.Show();
     }
