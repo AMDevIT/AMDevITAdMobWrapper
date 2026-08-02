@@ -103,3 +103,11 @@
 - Affected files: Apple test project/startup/controller/plist and new console logger; MAUI test project/page/startup/view model; `.agents/2026-08-02-test-app-platform-alignment.md`; and this file.
 - Checks performed and results: required restore succeeded; AppleTestApp and all four MAUITestApp targets built with zero warnings/errors; final aggregate build succeeded with zero warnings/errors; all 9 tests passed; the Android retry required build-server cleanup after the known local timeout, and Mac Catalyst/iOS execution still requires Apple hardware/tooling.
 - Open issues and recommended next step: physically exercise Apple UMP/privacy/logging/ads and verify Windows/Mac Catalyst placeholder and no-op logs before publishing `0.1.10`.
+
+## 2026-08-02 — README and wiki first version
+
+- Objective and status: updated the README for the current AdMob Next-Gen, UMP, logging, MAUI, test-app, and desktop behavior and created the first usage-oriented GitHub wiki; completed.
+- Decisions made: kept documentation in English; used the README as a concise feature and platform overview; split detailed guidance across getting-started, privacy, MAUI, Android, iOS, ad-format, logging, desktop, and troubleshooting wiki pages; corrected obsolete low-level iOS async examples to the callback APIs actually exposed by the binding; edited the wiki on its local `master` branch without committing or pushing.
+- Affected files: `README.md`, eleven Markdown files in `AMDevITAdMobWrapper.wiki`, `.agents/2026-08-02-readme-wiki-first-version.md`, and this file.
+- Checks performed and results: package/SDK versions and public APIs were cross-checked against project sources; wiki page targets, balanced code fences, trailing whitespace, and tracked diff whitespace checks passed; no build was run because only documentation changed.
+- Open issues and recommended next step: review the rendered wiki after publication; commit the wiki repository first and then the parent repository's resulting submodule pointer. No commit or push was performed.

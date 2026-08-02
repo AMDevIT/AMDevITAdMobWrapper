@@ -9,6 +9,48 @@ layers and exposes them to .NET with both callback and `async/await` APIs.
 
 ---
 
+## Highlights
+
+- Google Mobile Ads SDK **Next-Gen** on Android.
+- Native Swift XCFramework built with Google's official Mobile Ads Swift
+  package on iOS.
+- Google User Messaging Platform (UMP) consent flow on Android and iOS,
+  including privacy options, current status, test reset, under-age settings,
+  debug geography, and test-device configuration.
+- Native and managed logging through `IDroidLogger`, `IAppleLogger`, and
+  `Microsoft.Extensions.Logging` adapters in MAUI.
+- Banner, interstitial, rewarded, and app-open ads with callback and
+  `async/await` APIs.
+- Adaptive and fixed banner sizes on Android and iOS.
+- MAUI dependency-injection services and XAML banner control.
+- Safe MAUI desktop behavior: configurable banner fallback and no-op consent
+  service on Windows and Mac Catalyst.
+
+## Platform support
+
+| Capability | Android | iOS | Windows | Mac Catalyst |
+|---|---:|---:|---:|---:|
+| Native AdMob ads | Yes | Yes | No | No |
+| UMP consent | Yes | Yes | No-op | No-op |
+| `IAdMobConsentService.IsSupported` | `true` | `true` | `false` | `false` |
+| MAUI banner | Native | Native | `FallbackTemplate` | `FallbackTemplate` |
+| MAUI full-screen ads | Yes | Yes | Not supported | Not supported |
+| Native logging bridge | Yes | Yes | Not applicable | Not applicable |
+
+The Windows and Mac Catalyst consent implementation never throws. It reports a
+neutral `NotRequired` state so a cross-platform application can skip UMP and
+continue its non-advertising or fallback UI. Full-screen advertising services
+remain mobile-only and throw `PlatformNotSupportedException` if called on a
+desktop target.
+
+## Documentation
+
+The [project wiki](https://github.com/AMDevIT/AMDevITAdMobWrapper/wiki)
+contains the complete getting-started guide, platform-specific setup, UMP
+privacy workflow, MAUI examples, logging, desktop fallbacks, and troubleshooting.
+
+---
+
 ## Packages
 
 | Package | Description | NuGet | Downloads |
@@ -30,6 +72,10 @@ layers and exposes them to .NET with both callback and `async/await` APIs.
 The Android binding embeds Google Mobile Ads SDK Next-Gen `1.3.1` and brings
 Google UMP `4.0.0` through the official .NET Android bindings. Do not add the
 legacy `Xamarin.GooglePlayServices.Ads` package.
+
+The iOS XCFramework is built from Google's official
+`swift-package-manager-google-mobile-ads` package (`13.7.0`). UMP is supplied
+transitively by that package; do not add a second UMP Swift package.
 
 ---
 
@@ -343,13 +389,8 @@ private class MyBannerLoadListener : NSObject, IOnAdLoadedListener
 }
 ```
 
-#### Async style
-
-```csharp
-var bannerWrapper = new BannerAdWrapper();
-var adView = await bannerWrapper.LoadAsync("ca-app-pub-3940256099942544/6300978111", this);
-bannerContainer.AddSubview(adView);
-```
+The low-level iOS ad wrappers use listener callbacks. MAUI consumers can use
+the XAML banner events/commands and asynchronous full-screen services.
 
 ### Interstitial Ad
 
@@ -365,14 +406,6 @@ interstitialWrapper.LoadWithAdUnitId(
 
 if (interstitialWrapper.IsLoaded)
     interstitialWrapper.ShowWithViewController(this);
-```
-
-#### Async style
-
-```csharp
-var interstitialWrapper = new InterstitialAdWrapper();
-await interstitialWrapper.LoadAsync("ca-app-pub-3940256099942544/1033173712");
-interstitialWrapper.ShowWithViewController(this);
 ```
 
 ### Rewarded Ad
@@ -391,15 +424,6 @@ if (rewardedWrapper.IsLoaded)
     rewardedWrapper.ShowWithViewController(this, new MyRewardListener());
 ```
 
-#### Async style
-
-```csharp
-var rewardedWrapper = new RewardedAdWrapper();
-await rewardedWrapper.LoadAsync("ca-app-pub-3940256099942544/5224354917");
-var (type, amount) = await rewardedWrapper.ShowAsync(this);
-Console.WriteLine($"Reward earned: {amount} {type}");
-```
-
 ### App Open Ad
 
 #### Callback style
@@ -413,15 +437,6 @@ appOpenWrapper.LoadWithAdUnitId(
 );
 
 if (appOpenWrapper.IsLoaded && !appOpenWrapper.IsShowing)
-    appOpenWrapper.ShowWithViewController(this);
-```
-
-#### Async style
-
-```csharp
-var appOpenWrapper = new AppOpenAdWrapper();
-await appOpenWrapper.LoadAsync("ca-app-pub-3940256099942544/9257395921");
-if (!appOpenWrapper.IsShowing)
     appOpenWrapper.ShowWithViewController(this);
 ```
 
@@ -481,6 +496,11 @@ that reports `IsSupported == false`, logs skipped operations, and returns a
 neutral not-required consent state without throwing. The application ID
 argument is required on Android; iOS ignores it and reads
 `GADApplicationIdentifier` from `Info.plist`.
+
+Run this workflow before making a banner visible or calling a full-screen load
+method. Request updated consent information on every app launch, initialize
+AdMob only when ads may be requested, and expose a persistent privacy-options
+entry point whenever `PrivacyOptionsRequirementStatus.Required` is reported.
 
 Call the privacy-options form from the app's privacy settings when required:
 
@@ -590,6 +610,23 @@ for its load callback before starting another load on the same service.
 | `FullBanner` | 468x60 |
 | `Leaderboard` | 728x90 |
 
+### Logging and diagnostics
+
+MAUICross automatically bridges native Android and iOS wrapper messages to the
+configured `Microsoft.Extensions.Logging` providers. Register the wrapper and
+the desired providers normally:
+
+```csharp
+builder.Logging.AddDebug();
+builder.UseAMDevITAdMobWrapper();
+```
+
+Low-level native consumers can implement `IDroidLogger` or `IAppleLogger` and
+pass the logger to `AdMobManager` and the individual ad-wrapper constructors.
+Trace, debug, information, warning, error, and critical levels are supported.
+Ad dismissal is raised only from the native `didDismiss` callback; the earlier
+`willDismiss` callback is diagnostic-only.
+
 ---
 
 ## Error handling
@@ -638,6 +675,21 @@ Use these IDs during development. Never use real Ad Unit IDs on a device you own
 
 ---
 
+## Test applications
+
+- `AMDevIT.Admob.Wrapper.DroidTestApp` exercises Android UMP, initialization,
+  banners, interstitial, rewarded, and app-open ads.
+- `AMDevIT.Admob.Wrapper.AppleTestApp` exercises iOS UMP, privacy options,
+  native logging, adaptive banners, and every supported full-screen format.
+- `AMDevIT.Admob.Wrapper.MAUITestApp` targets Android, iOS, Windows, and Mac
+  Catalyst. It delays mobile ad materialization until consent succeeds and
+  demonstrates the desktop no-op consent and banner fallback behavior.
+
+Always use Google's test IDs while developing and perform final consent/ad-flow
+checks on physical Android and iOS devices before publishing.
+
+---
+
 ## Project structure
 
 ```
@@ -667,6 +719,7 @@ AMDevITAdMobWrapper/
 │       ├── AMDevIT.Admob.Wrapper.MAUICross/        # MAUI controls and services
 │       ├── AMDevIT.Admob.Wrapper.DroidTestApp/     # Android test app
 │       ├── AMDevIT.Admob.Wrapper.AppleTestApp/     # iOS test app
+│       ├── AMDevIT.Admob.Wrapper.MAUITestApp/      # Android/iOS/desktop MAUI test app
 │       └── AMDevIT.Admob.Wrapper.MAUICross.Tests/  # async lifecycle tests
 ```
 
