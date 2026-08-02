@@ -2,9 +2,9 @@
 
 using AMDevIT.Admob.Wrapper.Ads;
 using AMDevIT.Admob.Wrapper.Listeners;
+using AMDevIT.Admob.Wrapper.MAUICross.Platforms.Android.Diagnostics;
 using AMDevIT.Admob.Wrapper.MAUICross.Platforms.Android.Listeners;
 using Android.App;
-using Android.Content;
 using Microsoft.Extensions.Logging;
 
 namespace AMDevIT.Admob.Wrapper.MAUICross.Services;
@@ -15,12 +15,9 @@ public partial class AppOpenAdService
     #region Fields
 
     private AppOpenAdWrapper? wrapper;
+    private readonly DroidLoggerAdapter loggerAdapter;
     private readonly DroidOnAdLoadedListener onAdLoadedListener;
     private readonly DroidOnAdEventListener onAdEventListener;
-
-    #endregion
-
-    #region Properties  
 
     #endregion
 
@@ -30,6 +27,7 @@ public partial class AppOpenAdService
                             IContextResolverService contextResolverService)
         : base(logger, contextResolverService)
     {
+        this.loggerAdapter = new DroidLoggerAdapter(logger);
         this.onAdLoadedListener = new();
 
         this.onAdLoadedListener.AdLoaded += OnAdLoadedListener_AdLoaded;
@@ -52,10 +50,7 @@ public partial class AppOpenAdService
     {
         return this.StartLoadAsync(adUnitId, () =>
         {
-            Context context = this.ContextResolverService.GetContext()
-                ?? throw new InvalidOperationException("Context cannot be null");
-
-            this.wrapper ??= new AppOpenAdWrapper(context);
+            this.wrapper ??= new AppOpenAdWrapper(this.loggerAdapter);
             this.wrapper.Load(adUnitId,
                               this.onAdLoadedListener,
                               this.onAdEventListener);
@@ -108,13 +103,14 @@ public partial class AppOpenAdService
         this.onAdEventListener.AdImpression -= OnAdEventListener_AdImpression;
         this.onAdEventListener.AdDismissed -= OnAdEventListener_AdDismissed;
         this.onAdEventListener.AdFailedToShow -= OnAdEventListener_AdFailedToShow;
+        this.wrapper?.Dispose();
+        this.wrapper = null;
+        this.loggerAdapter.Dispose();
     }
 
     #endregion
 
-    #region Event Handlers
-
-    #region Ad Loaded Listener
+    #region Event handlers
 
     private void OnAdLoadedListener_AdFailedToLoad(object? sender, AdFailedToLoadEventArgs e)
     {
@@ -127,10 +123,6 @@ public partial class AppOpenAdService
         this.CompleteLoadSuccess();
         this.OnAdLoaded();
     }
-
-    #endregion
-
-    #region Ad Event Listener
 
     private void OnAdEventListener_AdFailedToShow(object? sender, AdFailedToShowEventArgs e)
     {
@@ -163,8 +155,6 @@ public partial class AppOpenAdService
     {
         this.OnAdClicked();
     }
-
-    #endregion
 
     #endregion
 }
