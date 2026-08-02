@@ -55,3 +55,11 @@
 - Affected files: `.github/workflows/ci.yml`, `AMDevIT.Admob.Wrapper.slnx`, `.agents/2026-07-31-manual-ci-windows-tests.md`, and `.agents/context.md`.
 - Checks performed and results: the solution list and `ValidateSolutionConfiguration` parsed successfully; direct execution passed all seven tests; the full aggregate build exceeded the local six-minute limit while processing Android sample apps, and an attempted aggregate `Compile` target was not applicable to MAUI/binding projects.
 - Open issues and recommended next step: launch the workflow manually on GitHub and inspect the hosted build and uploaded NuGet artifacts.
+
+## 2026-08-02 — Native AdMob Next-Gen and iOS UMP alignment
+
+- Objective and status: verified Android AdMob Next-Gen and UMP, then ported the missing consent, diagnostics, and dismissal behavior to the native Swift framework; native source work is complete, while the macOS Xcode build and XCFramework regeneration remain pending with the user.
+- Decisions made: retained Android Next-Gen `1.3.1` with transitively supplied UMP `4.0.0`; retained only Google's official Mobile Ads Swift package, raised it to `13.7.0`, and relied on its transitive UMP `3.1.0`; added Objective-C-visible Apple logging and consent APIs; moved `onAdDismissed` exclusively to `didDismiss`; aligned the iOS framework version to Android `0.1.10`; made the XCFramework script propagate piped build failures.
+- Affected files: the native iOS Xcode project, `AdMobManager.swift`, all four Swift ad wrappers, new Diagnostics/Privacy/consent-listener Swift files, `build_xcframework.sh`, and `.agents/2026-08-02-native-admob-ump-ios.md`. No Android source, AAR, XCFramework, or .NET project was modified.
+- Checks performed and results: Android release assembly succeeded; Gradle dependency insight confirmed UMP `4.0.0` only through Mobile Ads Next-Gen `1.3.1`; package URL/version, lifecycle callbacks, source structure, and scoped diffs passed static checks. Swift/Xcode compilation is unavailable on this Windows host; .NET checks were intentionally omitted by scope.
+- Open issues and recommended next step: build and regenerate the XCFramework on the Mac Air with the required Xcode version, smoke-test UMP and ad dismissal callbacks, then handle the binary and .NET bindings in a later explicitly authorized step.

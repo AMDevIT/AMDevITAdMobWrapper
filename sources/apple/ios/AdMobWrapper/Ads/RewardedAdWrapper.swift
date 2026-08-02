@@ -10,13 +10,22 @@ import GoogleMobileAds
 import UIKit
 
 @objc public class RewardedAdWrapper: NSObject {
+
+    private static let logTag = "RewardedAdWrapper"
     
     private var rewardedAd: RewardedAd?
     private var loadListener: OnAdLoadedListener?
     private var eventListener: OnAdEventListener?
     private var rewardListener: OnRewardEarnedListener?
+    private var logger: IAppleLogger?
     
     @objc public override init() {
+        self.logger = nil
+        super.init()
+    }
+
+    @objc public init(logger: IAppleLogger?) {
+        self.logger = logger
         super.init()
     }
     
@@ -80,7 +89,8 @@ extension RewardedAdWrapper: FullScreenContentDelegate {
     }
     
     public func adWillDismissFullScreenContent(_ ad: FullScreenPresentingAd) {
-        self.eventListener?.onAdDismissed()
+        self.logger?.logDebug(message: "Ad will dismiss full screen content",
+                              tag: Self.logTag)
     }
     
     public func adDidDismissFullScreenContent(_ ad: FullScreenPresentingAd) {

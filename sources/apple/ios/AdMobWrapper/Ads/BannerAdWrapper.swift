@@ -19,12 +19,21 @@ import UIKit
 }
 
 @objc public class BannerAdWrapper: NSObject {
+
+    private static let logTag = "BannerAdWrapper"
     
     private var bannerView: BannerView?
     private var loadListener: OnAdLoadedListener?
     private var eventListener: OnAdEventListener?
+    private var logger: IAppleLogger?
     
     @objc public override init() {
+        self.logger = nil
+        super.init()
+    }
+
+    @objc public init(logger: IAppleLogger?) {
+        self.logger = logger
         super.init()
     }
     
@@ -114,6 +123,11 @@ extension BannerAdWrapper: BannerViewDelegate {
     }
     
     public func bannerViewWillDismissScreen(_ bannerView: BannerView) {
+        self.logger?.logDebug(message: "Banner will dismiss screen",
+                              tag: Self.logTag)
+    }
+
+    public func bannerViewDidDismissScreen(_ bannerView: BannerView) {
         self.eventListener?.onAdDismissed()
     }
 }

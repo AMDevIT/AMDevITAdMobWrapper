@@ -10,12 +10,21 @@ import GoogleMobileAds
 import UIKit
 
 @objc public class InterstitialAdWrapper: NSObject {
+
+    private static let logTag = "InterstitialAdWrapper"
     
     internal var interstitialAd: InterstitialAd?
     internal var loadListener: OnAdLoadedListener?
     internal var eventListener: OnAdEventListener?
+    private var logger: IAppleLogger?
     
     @objc public override init() {
+        self.logger = nil
+        super.init()
+    }
+
+    @objc public init(logger: IAppleLogger?) {
+        self.logger = logger
         super.init()
     }
     
@@ -71,7 +80,8 @@ extension InterstitialAdWrapper: FullScreenContentDelegate {
     }
     
     public func adWillDismissFullScreenContent(_ ad: FullScreenPresentingAd) {
-        self.eventListener?.onAdDismissed()
+        self.logger?.logDebug(message: "Ad will dismiss full screen content",
+                              tag: Self.logTag)
     }
     
     public func ad(_ ad: FullScreenPresentingAd,
