@@ -1,5 +1,4 @@
 ﻿using AMDevIT.Admob.Wrapper.MAUICross;
-using AMDevIT.Admob.Wrapper.MAUICross.Services;
 using AMDevIT.Admob.Wrapper.MAUITestApp.Services;
 using AMDevIT.Admob.Wrapper.MAUITestApp.ViewModels;
 using CommunityToolkit.Maui;
@@ -9,6 +8,8 @@ namespace AMDevIT.Admob.Wrapper.MAUITestApp;
 
 public static class MauiProgram
 {
+    #region Methods
+
     public static MauiApp CreateMauiApp()
     {
         var builder = MauiApp.CreateBuilder();
@@ -28,8 +29,9 @@ public static class MauiProgram
         builder.Services.AddSingleton<IDispatcherService, DispatcherService>();
         builder.Services.AddSingleton<IAdUnitProviderService, AdUnitProviderService>();
         builder.Services.AddTransientWithShellRoute<MainPage, MainPageViewModel>("main");
-        builder.Services.AddTransient<IInterstitialAdService, InterstitialAdService>();
 
         return builder.Build();
     }
+
+    #endregion
 }

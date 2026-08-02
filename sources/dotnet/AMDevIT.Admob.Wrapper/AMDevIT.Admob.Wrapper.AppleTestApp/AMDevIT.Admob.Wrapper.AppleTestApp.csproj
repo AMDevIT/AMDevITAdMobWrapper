@@ -15,5 +15,6 @@
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\AMDevIT.Admob.Wrapper.iOSNative\AMDevIT.Admob.Wrapper.iOSNative.csproj" />
+    <ProjectReference Include="..\AMDevIT.Admob.Wrapper\AMDevIT.Admob.Wrapper.csproj" />
   </ItemGroup>
 </Project>

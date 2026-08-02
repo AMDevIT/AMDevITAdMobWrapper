@@ -95,3 +95,11 @@
 - Affected files: shared and MAUICross project files, consent interface and all platform implementations, MAUI DI and test-app flow, MAUICross tests, README/release notes, `.agents/2026-08-02-mauicross-desktop-consent-noop.md`, and this file.
 - Checks performed and results: required restore succeeded; final aggregate build and Android/iOS sample builds succeeded with zero warnings/errors; all 9 Windows tests passed with only the existing MSTest `PRI263` resource warning; both Release packages were created and inspected, confirming the shared `net10.0` assembly and shared-wrapper dependencies in Windows/Mac Catalyst groups; known Android binding `$` warnings remain during Release pack.
 - Open issues and recommended next step: smoke-test desktop log output and skip behavior, then complete physical Android/iOS UMP and ad-flow checks before publishing `0.1.10`.
+
+## 2026-08-02 — Test application platform and consent alignment
+
+- Objective and status: aligned `AppleTestApp` with the current iOS UMP/logging/ad surface and restored Windows and Mac Catalyst targets in `MAUITestApp`; completed.
+- Decisions made: made the real Apple ad controller the scene root; added async consent-before-initialization, privacy-options UI, `IAppleLogger`, adaptive banner and all full-screen formats; restored desktop MAUI TFMs and Windows 10 1809 minimum; gated MAUI ad materialization on consent while letting desktop no-op consent proceed to the banner placeholder without invoking unsupported full-screen services; removed duplicate interstitial DI registration.
+- Affected files: Apple test project/startup/controller/plist and new console logger; MAUI test project/page/startup/view model; `.agents/2026-08-02-test-app-platform-alignment.md`; and this file.
+- Checks performed and results: required restore succeeded; AppleTestApp and all four MAUITestApp targets built with zero warnings/errors; final aggregate build succeeded with zero warnings/errors; all 9 tests passed; the Android retry required build-server cleanup after the known local timeout, and Mac Catalyst/iOS execution still requires Apple hardware/tooling.
+- Open issues and recommended next step: physically exercise Apple UMP/privacy/logging/ads and verify Windows/Mac Catalyst placeholder and no-op logs before publishing `0.1.10`.
