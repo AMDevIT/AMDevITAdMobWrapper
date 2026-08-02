@@ -5,7 +5,7 @@
 	<key>CFBundleDisplayName</key>
 	<string>AMDevIT.Admob.Wrapper.AppleTestApp</string>
 	<key>CFBundleIdentifier</key>
-	<string>it.amdev.admob.wrapper.testapp</string>
+	<string>it.amdev.pocs.admob.wrapper.testapp</string>
 	<key>CFBundleShortVersionString</key>
 	<string>1.0</string>
 	<key>CFBundleVersion</key>

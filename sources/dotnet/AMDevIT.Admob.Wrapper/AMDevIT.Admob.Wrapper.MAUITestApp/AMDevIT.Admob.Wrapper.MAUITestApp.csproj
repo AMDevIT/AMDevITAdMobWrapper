@@ -30,7 +30,7 @@
 		<ApplicationTitle>AMDevIT.Admob.Wrapper.MAUITestApp</ApplicationTitle>
 
 		<!-- App Identifier -->
-		<ApplicationId>it.amdev.admob.wrapper.mauitestapp</ApplicationId>
+		<ApplicationId>iit.amdev.pocs.admob.wrapper.mauitestapp</ApplicationId>
 
 		<!-- Versions -->
 		<ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>
