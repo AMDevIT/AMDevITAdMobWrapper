@@ -6,11 +6,13 @@ import Foundation
 import GoogleMobileAds
 import Swift
 import UIKit
+import UserMessagingPlatform
 import _Concurrency
 import _StringProcessing
 import _SwiftConcurrencyShims
 @_inheritsConvenienceInitializers @objc public class AppOpenAdWrapper : ObjectiveC.NSObject {
   @objc override dynamic public init()
+  @objc public init(logger: (any AdMobWrapper.IAppleLogger)?)
   @objc public func load(adUnitId: Swift.String, loadListener: any AdMobWrapper.OnAdLoadedListener, eventListener: (any AdMobWrapper.OnAdEventListener)?)
   @objc public func show(viewController: UIKit.UIViewController)
   @objc public func isLoaded() -> Swift.Bool
@@ -40,6 +42,7 @@ extension AdMobWrapper.AppOpenAdWrapper : GoogleMobileAds.FullScreenContentDeleg
 }
 @_inheritsConvenienceInitializers @objc public class BannerAdWrapper : ObjectiveC.NSObject {
   @objc override dynamic public init()
+  @objc public init(logger: (any AdMobWrapper.IAppleLogger)?)
   @objc public func load(adUnitId: Swift.String, viewController: UIKit.UIViewController, loadListener: any AdMobWrapper.OnAdLoadedListener, eventListener: (any AdMobWrapper.OnAdEventListener)?) -> UIKit.UIView
   @objc public func load(adUnitId: Swift.String, viewController: UIKit.UIViewController, adSize: AdMobWrapper.BannerAdViewSize, adWidth: CoreFoundation.CGFloat, loadListener: any AdMobWrapper.OnAdLoadedListener, eventListener: (any AdMobWrapper.OnAdEventListener)?) -> UIKit.UIView
   @objc public func destroy()
@@ -52,9 +55,11 @@ extension AdMobWrapper.BannerAdWrapper : GoogleMobileAds.BannerViewDelegate {
   @_Concurrency.MainActor @preconcurrency @objc dynamic public func bannerViewDidRecordClick(_ bannerView: GoogleMobileAds.BannerView)
   @_Concurrency.MainActor @preconcurrency @objc dynamic public func bannerViewWillPresentScreen(_ bannerView: GoogleMobileAds.BannerView)
   @_Concurrency.MainActor @preconcurrency @objc dynamic public func bannerViewWillDismissScreen(_ bannerView: GoogleMobileAds.BannerView)
+  @_Concurrency.MainActor @preconcurrency @objc dynamic public func bannerViewDidDismissScreen(_ bannerView: GoogleMobileAds.BannerView)
 }
 @_inheritsConvenienceInitializers @objc public class InterstitialAdWrapper : ObjectiveC.NSObject {
   @objc override dynamic public init()
+  @objc public init(logger: (any AdMobWrapper.IAppleLogger)?)
   @objc public func load(adUnitId: Swift.String, loadListener: any AdMobWrapper.OnAdLoadedListener, eventListener: (any AdMobWrapper.OnAdEventListener)?)
   @objc public func show(viewController: UIKit.UIViewController)
   @objc public func isLoaded() -> Swift.Bool
@@ -70,6 +75,7 @@ extension AdMobWrapper.InterstitialAdWrapper : GoogleMobileAds.FullScreenContent
 }
 @_inheritsConvenienceInitializers @objc public class RewardedAdWrapper : ObjectiveC.NSObject {
   @objc override dynamic public init()
+  @objc public init(logger: (any AdMobWrapper.IAppleLogger)?)
   @objc public func load(adUnitId: Swift.String, loadListener: any AdMobWrapper.OnAdLoadedListener, eventListener: (any AdMobWrapper.OnAdEventListener)?)
   @objc public func show(viewController: UIKit.UIViewController, rewardListener: any AdMobWrapper.OnRewardEarnedListener)
   @objc public func isLoaded() -> Swift.Bool
@@ -83,6 +89,29 @@ extension AdMobWrapper.RewardedAdWrapper : GoogleMobileAds.FullScreenContentDele
   @_Concurrency.MainActor @preconcurrency @objc dynamic public func adDidDismissFullScreenContent(_ ad: any GoogleMobileAds.FullScreenPresentingAd)
   @_Concurrency.MainActor @preconcurrency @objc dynamic public func ad(_ ad: any GoogleMobileAds.FullScreenPresentingAd, didFailToPresentFullScreenContentWithError error: any Swift.Error)
 }
+@objc public protocol IAppleLogger {
+  @objc func isEnabled(level: AdMobWrapper.LogLevel) -> Swift.Bool
+  @objc func logTrace(message: Swift.String, tag: Swift.String?)
+  @objc func logDebug(message: Swift.String, tag: Swift.String?)
+  @objc func logInfo(message: Swift.String, tag: Swift.String?)
+  @objc func logWarning(message: Swift.String, tag: Swift.String?)
+  @objc func logError(message: Swift.String, tag: Swift.String?)
+  @objc func logCritical(message: Swift.String, tag: Swift.String?)
+}
+@objc public enum LogLevel : Swift.Int {
+  case trace = 0
+  case debug = 1
+  case information = 2
+  case warning = 3
+  case error = 4
+  case critical = 5
+  case none = 6
+  public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+}
 @objc public protocol OnAdEventListener {
   @objc func onAdShown()
   @objc func onAdDismissed()
@@ -94,6 +123,18 @@ extension AdMobWrapper.RewardedAdWrapper : GoogleMobileAds.FullScreenContentDele
   @objc func onAdLoaded()
   @objc func onAdFailedToLoad(errorCode: Swift.Int, errorMessage: Swift.String)
 }
+@objc public protocol OnConsentFormEventListener {
+  @objc func onDismissed()
+  @objc func onDismissedWithError(errorCode: Swift.Int, errorMessage: Swift.String?)
+}
+@objc public protocol OnConsentGatheringListener {
+  @objc func onCompleted(canRequestAds: Swift.Bool, privacyOptionsRequired: Swift.Bool)
+  @objc func onCompletedWithError(errorCode: Swift.Int, errorMessage: Swift.String, canRequestAds: Swift.Bool, privacyOptionsRequired: Swift.Bool)
+}
+@objc public protocol OnConsentInformationRequestListener {
+  @objc func onConsentInformationRequestSuccess()
+  @objc func onConsentInformationRequestFailure(errorCode: Swift.Int, errorMessage: Swift.String)
+}
 @objc public protocol OnInitializedListener {
   @objc func onInitialized()
   @objc func onInitializationFailed(error: Swift.String)
@@ -101,12 +142,45 @@ extension AdMobWrapper.RewardedAdWrapper : GoogleMobileAds.FullScreenContentDele
 @objc public protocol OnRewardEarnedListener {
   @objc func onRewardEarned(type: Swift.String, amount: Swift.Int)
 }
+@_inheritsConvenienceInitializers @objc public class ConsentInformationRequestDebugParameters : ObjectiveC.NSObject {
+  @objc final public let debugGeography: Foundation.NSNumber?
+  @objc final public let testDeviceHashedId: Swift.String?
+  @objc override dynamic public init()
+  @objc public init(debugGeography: Foundation.NSNumber?, testDeviceHashedId: Swift.String?)
+  @objc override dynamic public var description: Swift.String {
+    @objc get
+  }
+  @objc deinit
+}
+@objc public class ConsentStatusData : ObjectiveC.NSObject {
+  @objc final public let lastRefreshTimestampMilliseconds: Swift.Int64
+  @objc final public let consentStatus: Swift.Int
+  @objc final public let privacyOptionsRequirementStatus: Swift.Int
+  @objc public init(lastRefreshTimestampMilliseconds: Swift.Int64, consentStatus: Swift.Int, privacyOptionsRequirementStatus: Swift.Int)
+  @objc override dynamic public var description: Swift.String {
+    @objc get
+  }
+  @objc deinit
+}
 @_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers @objc public class AdMobManager : ObjectiveC.NSObject {
   @objc public static let instance: AdMobWrapper.AdMobManager
+  @objc convenience public init(logger: (any AdMobWrapper.IAppleLogger)?)
   @objc public func initialize(viewController: UIKit.UIViewController, listener: any AdMobWrapper.OnInitializedListener)
   @objc public func isInitialized() -> Swift.Bool
+  @objc public func updateCurrentConsentInformation(viewController: UIKit.UIViewController, tagForUnderAgeOfConsent: Swift.Bool, listener: any AdMobWrapper.OnConsentInformationRequestListener)
+  @objc public func updateCurrentConsentInformation(viewController: UIKit.UIViewController, tagForUnderAgeOfConsent: Swift.Bool, listener: any AdMobWrapper.OnConsentInformationRequestListener, requestDebugParameters: AdMobWrapper.ConsentInformationRequestDebugParameters?)
+  @objc public func currentConsentInformation() -> AdMobWrapper.ConsentStatusData?
+  @objc public func showPrivacyOptionsForm(viewController: UIKit.UIViewController, listener: any AdMobWrapper.OnConsentFormEventListener)
+  @objc public func loadAndShowConsentFormIfRequired(viewController: UIKit.UIViewController, listener: any AdMobWrapper.OnConsentFormEventListener)
+  @objc public func canRequestAds() -> Swift.Bool
+  @objc public func gatherConsent(viewController: UIKit.UIViewController, tagForUnderAgeOfConsent: Swift.Bool, listener: any AdMobWrapper.OnConsentGatheringListener)
+  @objc public func gatherConsent(viewController: UIKit.UIViewController, tagForUnderAgeOfConsent: Swift.Bool, listener: any AdMobWrapper.OnConsentGatheringListener, requestDebugParameters: AdMobWrapper.ConsentInformationRequestDebugParameters?)
+  @objc public func resetConsentForTesting()
   @objc deinit
 }
 extension AdMobWrapper.BannerAdViewSize : Swift.Equatable {}
 extension AdMobWrapper.BannerAdViewSize : Swift.Hashable {}
 extension AdMobWrapper.BannerAdViewSize : Swift.RawRepresentable {}
+extension AdMobWrapper.LogLevel : Swift.Equatable {}
+extension AdMobWrapper.LogLevel : Swift.Hashable {}
+extension AdMobWrapper.LogLevel : Swift.RawRepresentable {}

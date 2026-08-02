@@ -1,18 +1,21 @@
 package it.amdev.admob.wrapper.ads
 
 import android.app.Activity
-import android.content.Context
-import com.google.android.gms.ads.AdError
-import com.google.android.gms.ads.AdRequest
-import com.google.android.gms.ads.FullScreenContentCallback
-import com.google.android.gms.ads.LoadAdError
-import com.google.android.gms.ads.rewarded.RewardedAd
-import com.google.android.gms.ads.rewarded.RewardedAdLoadCallback
+import com.google.android.libraries.ads.mobile.sdk.common.AdLoadCallback
+import com.google.android.libraries.ads.mobile.sdk.common.LoadAdError
+import com.google.android.libraries.ads.mobile.sdk.common.AdRequest
+import com.google.android.libraries.ads.mobile.sdk.common.AdValue
+import com.google.android.libraries.ads.mobile.sdk.common.FullScreenContentError
+import com.google.android.libraries.ads.mobile.sdk.rewarded.RewardedAd
+import com.google.android.libraries.ads.mobile.sdk.rewarded.RewardedAdEventCallback
+import it.amdev.admob.wrapper.diagnostics.IDroidLogger
 import it.amdev.admob.wrapper.listeners.OnAdEventListener
 import it.amdev.admob.wrapper.listeners.OnAdLoadedListener
 import it.amdev.admob.wrapper.listeners.OnRewardEarnedListener
+import it.amdev.admob.wrapper.utils.ErrorsObjectsExtensions.Companion.toInt
 
-class RewardedAdWrapper(private val context: Context) {
+@Suppress("unused")
+class RewardedAdWrapper(private val logger: IDroidLogger? = null) {
 
     private var rewardedAd: RewardedAd? = null
 
@@ -21,15 +24,14 @@ class RewardedAdWrapper(private val context: Context) {
              loadListener: OnAdLoadedListener,
              eventListener: OnAdEventListener? = null)
     {
-        val adRequest = AdRequest.Builder().build()
+        val adRequest = AdRequest.Builder(adUnitId =  adUnitId)
+                                 .build()
 
-        RewardedAd.load(context,
-                        adUnitId,
-                        adRequest,
-            object : RewardedAdLoadCallback() {
+        RewardedAd.load(adRequest,
+            object : AdLoadCallback<RewardedAd> {
                 override fun onAdLoaded(ad: RewardedAd) {
                     rewardedAd = ad
-                    rewardedAd?.fullScreenContentCallback = object : FullScreenContentCallback() {
+                    rewardedAd?.adEventCallback = object : RewardedAdEventCallback {
                         override fun onAdShowedFullScreenContent() {
                             eventListener?.onAdShown()
                         }
@@ -43,17 +45,37 @@ class RewardedAdWrapper(private val context: Context) {
                         override fun onAdImpression() {
                             eventListener?.onAdImpression()
                         }
-                        override fun onAdFailedToShowFullScreenContent(error: AdError) {
+
+                        override fun onAdPaid(value: AdValue) {
+                            super.onAdPaid(value)
+                            logger?.logDebug(tag = LOG_TAG,
+                                             message = "Ad paid: ${value.valueMicros} ${value.currencyCode}")
+                        }
+
+                        override fun onAdMetadataChanged() {
+                            super.onAdMetadataChanged()
+                            logger?.logDebug(tag = LOG_TAG,
+                                             message = "Ad metadata changed")
+                        }
+
+                        override fun onAdFailedToShowFullScreenContent(fullScreenContentError: FullScreenContentError) {
                             rewardedAd = null
-                            eventListener?.onAdFailedToShow(error.code, error.message)
+
+                            val errorCode = fullScreenContentError.code.toInt()
+                            eventListener?.onAdFailedToShow(errorCode = errorCode,
+                                                            errorMessage = fullScreenContentError.message)
                         }
                     }
+
                     loadListener.onAdLoaded()
                 }
 
-                override fun onAdFailedToLoad(error: LoadAdError) {
+                override fun onAdFailedToLoad(adError: LoadAdError) {
                     rewardedAd = null
-                    loadListener.onAdFailedToLoad(error.code, error.message)
+
+                    val errorCode = adError.code.toInt()
+                    loadListener.onAdFailedToLoad(errorCode = errorCode,
+                                                  errorMessage = adError.message)
                 }
             }
         )
@@ -73,4 +95,8 @@ class RewardedAdWrapper(private val context: Context) {
     }
 
     fun isLoaded(): Boolean = rewardedAd != null
+
+    companion object {
+        private const val LOG_TAG = "RewardedAdWrapper"
+    }
 }

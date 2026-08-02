@@ -60,6 +60,43 @@
             "init_kind": "Designated"
           },
           {
+            "kind": "Constructor",
+            "name": "init",
+            "printedName": "init(logger:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "AppOpenAdWrapper",
+                "printedName": "AdMobWrapper.AppOpenAdWrapper",
+                "usr": "c:@M@AdMobWrapper@objc(cs)AppOpenAdWrapper"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "(any AdMobWrapper.IAppleLogger)?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "IAppleLogger",
+                    "printedName": "any AdMobWrapper.IAppleLogger",
+                    "usr": "c:@M@AdMobWrapper@objc(pl)IAppleLogger"
+                  }
+                ],
+                "usr": "s:Sq"
+              }
+            ],
+            "declKind": "Constructor",
+            "usr": "c:@M@AdMobWrapper@objc(cs)AppOpenAdWrapper(im)initWithLogger:",
+            "mangledName": "$s12AdMobWrapper07AppOpenaC0C6loggerAcA12IAppleLogger_pSg_tcfc",
+            "moduleName": "AdMobWrapper",
+            "objc_name": "initWithLogger:",
+            "declAttributes": [
+              "AccessControl",
+              "ObjC"
+            ],
+            "init_kind": "Designated"
+          },
+          {
             "kind": "Function",
             "name": "load",
             "printedName": "load(adUnitId:loadListener:eventListener:)",
@@ -899,6 +936,43 @@
             "init_kind": "Designated"
           },
           {
+            "kind": "Constructor",
+            "name": "init",
+            "printedName": "init(logger:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "BannerAdWrapper",
+                "printedName": "AdMobWrapper.BannerAdWrapper",
+                "usr": "c:@M@AdMobWrapper@objc(cs)BannerAdWrapper"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "(any AdMobWrapper.IAppleLogger)?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "IAppleLogger",
+                    "printedName": "any AdMobWrapper.IAppleLogger",
+                    "usr": "c:@M@AdMobWrapper@objc(pl)IAppleLogger"
+                  }
+                ],
+                "usr": "s:Sq"
+              }
+            ],
+            "declKind": "Constructor",
+            "usr": "c:@M@AdMobWrapper@objc(cs)BannerAdWrapper(im)initWithLogger:",
+            "mangledName": "$s12AdMobWrapper06BanneraC0C6loggerAcA12IAppleLogger_pSg_tcfc",
+            "moduleName": "AdMobWrapper",
+            "objc_name": "initWithLogger:",
+            "declAttributes": [
+              "AccessControl",
+              "ObjC"
+            ],
+            "init_kind": "Designated"
+          },
+          {
             "kind": "Function",
             "name": "load",
             "printedName": "load(adUnitId:viewController:loadListener:eventListener:)",
@@ -1238,6 +1312,38 @@
             ],
             "isFromExtension": true,
             "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "bannerViewDidDismissScreen",
+            "printedName": "bannerViewDidDismissScreen(_:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "BannerView",
+                "printedName": "GoogleMobileAds.BannerView",
+                "usr": "c:objc(cs)GADBannerView"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@CM@AdMobWrapper@objc(cs)BannerAdWrapper(im)bannerViewDidDismissScreen:",
+            "mangledName": "$s12AdMobWrapper06BanneraC0C26bannerViewDidDismissScreenyySo09GADBannerF0CF",
+            "moduleName": "AdMobWrapper",
+            "objc_name": "bannerViewDidDismissScreen:",
+            "declAttributes": [
+              "Dynamic",
+              "ObjC",
+              "Preconcurrency",
+              "Custom",
+              "AccessControl"
+            ],
+            "isFromExtension": true,
+            "funcSelfKind": "NonMutating"
           }
         ],
         "declKind": "Class",
@@ -1371,6 +1477,43 @@
               "ObjC",
               "Override",
               "AccessControl"
+            ],
+            "init_kind": "Designated"
+          },
+          {
+            "kind": "Constructor",
+            "name": "init",
+            "printedName": "init(logger:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "InterstitialAdWrapper",
+                "printedName": "AdMobWrapper.InterstitialAdWrapper",
+                "usr": "c:@M@AdMobWrapper@objc(cs)InterstitialAdWrapper"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "(any AdMobWrapper.IAppleLogger)?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "IAppleLogger",
+                    "printedName": "any AdMobWrapper.IAppleLogger",
+                    "usr": "c:@M@AdMobWrapper@objc(pl)IAppleLogger"
+                  }
+                ],
+                "usr": "s:Sq"
+              }
+            ],
+            "declKind": "Constructor",
+            "usr": "c:@M@AdMobWrapper@objc(cs)InterstitialAdWrapper(im)initWithLogger:",
+            "mangledName": "$s12AdMobWrapper012InterstitialaC0C6loggerAcA12IAppleLogger_pSg_tcfc",
+            "moduleName": "AdMobWrapper",
+            "objc_name": "initWithLogger:",
+            "declAttributes": [
+              "AccessControl",
+              "ObjC"
             ],
             "init_kind": "Designated"
           },
@@ -1806,6 +1949,43 @@
             "init_kind": "Designated"
           },
           {
+            "kind": "Constructor",
+            "name": "init",
+            "printedName": "init(logger:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "RewardedAdWrapper",
+                "printedName": "AdMobWrapper.RewardedAdWrapper",
+                "usr": "c:@M@AdMobWrapper@objc(cs)RewardedAdWrapper"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "(any AdMobWrapper.IAppleLogger)?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "IAppleLogger",
+                    "printedName": "any AdMobWrapper.IAppleLogger",
+                    "usr": "c:@M@AdMobWrapper@objc(pl)IAppleLogger"
+                  }
+                ],
+                "usr": "s:Sq"
+              }
+            ],
+            "declKind": "Constructor",
+            "usr": "c:@M@AdMobWrapper@objc(cs)RewardedAdWrapper(im)initWithLogger:",
+            "mangledName": "$s12AdMobWrapper08RewardedaC0C6loggerAcA12IAppleLogger_pSg_tcfc",
+            "moduleName": "AdMobWrapper",
+            "objc_name": "initWithLogger:",
+            "declAttributes": [
+              "AccessControl",
+              "ObjC"
+            ],
+            "init_kind": "Designated"
+          },
+          {
             "kind": "Function",
             "name": "load",
             "printedName": "load(adUnitId:loadListener:eventListener:)",
@@ -2199,6 +2379,781 @@
       },
       {
         "kind": "TypeDecl",
+        "name": "IAppleLogger",
+        "printedName": "IAppleLogger",
+        "children": [
+          {
+            "kind": "Function",
+            "name": "isEnabled",
+            "printedName": "isEnabled(level:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Bool",
+                "printedName": "Swift.Bool",
+                "usr": "s:Sb"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "LogLevel",
+                "printedName": "AdMobWrapper.LogLevel",
+                "usr": "c:@M@AdMobWrapper@E@LogLevel"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@AdMobWrapper@objc(pl)IAppleLogger(im)isEnabledWithLevel:",
+            "mangledName": "$s12AdMobWrapper12IAppleLoggerP9isEnabled5levelSbAA8LogLevelO_tF",
+            "moduleName": "AdMobWrapper",
+            "genericSig": "<τ_0_0 where τ_0_0 : AdMobWrapper.IAppleLogger>",
+            "sugared_genericSig": "<Self where Self : AdMobWrapper.IAppleLogger>",
+            "protocolReq": true,
+            "declAttributes": [
+              "ObjC"
+            ],
+            "reqNewWitnessTableEntry": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "logTrace",
+            "printedName": "logTrace(message:tag:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "Swift.String?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "usr": "s:Sq"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@AdMobWrapper@objc(pl)IAppleLogger(im)logTraceWithMessage:tag:",
+            "mangledName": "$s12AdMobWrapper12IAppleLoggerP8logTrace7message3tagySS_SSSgtF",
+            "moduleName": "AdMobWrapper",
+            "genericSig": "<τ_0_0 where τ_0_0 : AdMobWrapper.IAppleLogger>",
+            "sugared_genericSig": "<Self where Self : AdMobWrapper.IAppleLogger>",
+            "protocolReq": true,
+            "declAttributes": [
+              "ObjC"
+            ],
+            "reqNewWitnessTableEntry": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "logDebug",
+            "printedName": "logDebug(message:tag:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "Swift.String?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "usr": "s:Sq"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@AdMobWrapper@objc(pl)IAppleLogger(im)logDebugWithMessage:tag:",
+            "mangledName": "$s12AdMobWrapper12IAppleLoggerP8logDebug7message3tagySS_SSSgtF",
+            "moduleName": "AdMobWrapper",
+            "genericSig": "<τ_0_0 where τ_0_0 : AdMobWrapper.IAppleLogger>",
+            "sugared_genericSig": "<Self where Self : AdMobWrapper.IAppleLogger>",
+            "protocolReq": true,
+            "declAttributes": [
+              "ObjC"
+            ],
+            "reqNewWitnessTableEntry": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "logInfo",
+            "printedName": "logInfo(message:tag:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "Swift.String?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "usr": "s:Sq"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@AdMobWrapper@objc(pl)IAppleLogger(im)logInfoWithMessage:tag:",
+            "mangledName": "$s12AdMobWrapper12IAppleLoggerP7logInfo7message3tagySS_SSSgtF",
+            "moduleName": "AdMobWrapper",
+            "genericSig": "<τ_0_0 where τ_0_0 : AdMobWrapper.IAppleLogger>",
+            "sugared_genericSig": "<Self where Self : AdMobWrapper.IAppleLogger>",
+            "protocolReq": true,
+            "declAttributes": [
+              "ObjC"
+            ],
+            "reqNewWitnessTableEntry": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "logWarning",
+            "printedName": "logWarning(message:tag:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "Swift.String?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "usr": "s:Sq"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@AdMobWrapper@objc(pl)IAppleLogger(im)logWarningWithMessage:tag:",
+            "mangledName": "$s12AdMobWrapper12IAppleLoggerP10logWarning7message3tagySS_SSSgtF",
+            "moduleName": "AdMobWrapper",
+            "genericSig": "<τ_0_0 where τ_0_0 : AdMobWrapper.IAppleLogger>",
+            "sugared_genericSig": "<Self where Self : AdMobWrapper.IAppleLogger>",
+            "protocolReq": true,
+            "declAttributes": [
+              "ObjC"
+            ],
+            "reqNewWitnessTableEntry": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "logError",
+            "printedName": "logError(message:tag:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "Swift.String?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "usr": "s:Sq"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@AdMobWrapper@objc(pl)IAppleLogger(im)logErrorWithMessage:tag:",
+            "mangledName": "$s12AdMobWrapper12IAppleLoggerP8logError7message3tagySS_SSSgtF",
+            "moduleName": "AdMobWrapper",
+            "genericSig": "<τ_0_0 where τ_0_0 : AdMobWrapper.IAppleLogger>",
+            "sugared_genericSig": "<Self where Self : AdMobWrapper.IAppleLogger>",
+            "protocolReq": true,
+            "declAttributes": [
+              "ObjC"
+            ],
+            "reqNewWitnessTableEntry": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "logCritical",
+            "printedName": "logCritical(message:tag:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "Swift.String?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "usr": "s:Sq"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@AdMobWrapper@objc(pl)IAppleLogger(im)logCriticalWithMessage:tag:",
+            "mangledName": "$s12AdMobWrapper12IAppleLoggerP11logCritical7message3tagySS_SSSgtF",
+            "moduleName": "AdMobWrapper",
+            "genericSig": "<τ_0_0 where τ_0_0 : AdMobWrapper.IAppleLogger>",
+            "sugared_genericSig": "<Self where Self : AdMobWrapper.IAppleLogger>",
+            "protocolReq": true,
+            "declAttributes": [
+              "ObjC"
+            ],
+            "reqNewWitnessTableEntry": true,
+            "funcSelfKind": "NonMutating"
+          }
+        ],
+        "declKind": "Protocol",
+        "usr": "c:@M@AdMobWrapper@objc(pl)IAppleLogger",
+        "mangledName": "$s12AdMobWrapper12IAppleLoggerP",
+        "moduleName": "AdMobWrapper",
+        "genericSig": "<τ_0_0 : AnyObject>",
+        "sugared_genericSig": "<Self : AnyObject>",
+        "declAttributes": [
+          "AccessControl",
+          "ObjC"
+        ],
+        "conformances": [
+          {
+            "kind": "Conformance",
+            "name": "Escapable",
+            "printedName": "Escapable",
+            "usr": "s:s9EscapableP",
+            "mangledName": "$ss9EscapableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Copyable",
+            "printedName": "Copyable",
+            "usr": "s:s8CopyableP",
+            "mangledName": "$ss8CopyableP"
+          }
+        ]
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "AdMobWrapper",
+        "declAttributes": [
+          "RawDocComment"
+        ]
+      },
+      {
+        "kind": "TypeDecl",
+        "name": "LogLevel",
+        "printedName": "LogLevel",
+        "children": [
+          {
+            "kind": "Var",
+            "name": "trace",
+            "printedName": "trace",
+            "children": [
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "(AdMobWrapper.LogLevel.Type) -> AdMobWrapper.LogLevel",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "LogLevel",
+                    "printedName": "AdMobWrapper.LogLevel",
+                    "usr": "c:@M@AdMobWrapper@E@LogLevel"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Metatype",
+                    "printedName": "AdMobWrapper.LogLevel.Type",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "LogLevel",
+                        "printedName": "AdMobWrapper.LogLevel",
+                        "usr": "c:@M@AdMobWrapper@E@LogLevel"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "declKind": "EnumElement",
+            "usr": "c:@M@AdMobWrapper@E@LogLevel@LogLevelTrace",
+            "mangledName": "$s12AdMobWrapper8LogLevelO5traceyA2CmF",
+            "moduleName": "AdMobWrapper",
+            "declAttributes": [
+              "ObjC"
+            ],
+            "fixedbinaryorder": 0
+          },
+          {
+            "kind": "Var",
+            "name": "debug",
+            "printedName": "debug",
+            "children": [
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "(AdMobWrapper.LogLevel.Type) -> AdMobWrapper.LogLevel",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "LogLevel",
+                    "printedName": "AdMobWrapper.LogLevel",
+                    "usr": "c:@M@AdMobWrapper@E@LogLevel"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Metatype",
+                    "printedName": "AdMobWrapper.LogLevel.Type",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "LogLevel",
+                        "printedName": "AdMobWrapper.LogLevel",
+                        "usr": "c:@M@AdMobWrapper@E@LogLevel"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "declKind": "EnumElement",
+            "usr": "c:@M@AdMobWrapper@E@LogLevel@LogLevelDebug",
+            "mangledName": "$s12AdMobWrapper8LogLevelO5debugyA2CmF",
+            "moduleName": "AdMobWrapper",
+            "declAttributes": [
+              "ObjC"
+            ],
+            "fixedbinaryorder": 1
+          },
+          {
+            "kind": "Var",
+            "name": "information",
+            "printedName": "information",
+            "children": [
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "(AdMobWrapper.LogLevel.Type) -> AdMobWrapper.LogLevel",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "LogLevel",
+                    "printedName": "AdMobWrapper.LogLevel",
+                    "usr": "c:@M@AdMobWrapper@E@LogLevel"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Metatype",
+                    "printedName": "AdMobWrapper.LogLevel.Type",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "LogLevel",
+                        "printedName": "AdMobWrapper.LogLevel",
+                        "usr": "c:@M@AdMobWrapper@E@LogLevel"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "declKind": "EnumElement",
+            "usr": "c:@M@AdMobWrapper@E@LogLevel@LogLevelInformation",
+            "mangledName": "$s12AdMobWrapper8LogLevelO11informationyA2CmF",
+            "moduleName": "AdMobWrapper",
+            "declAttributes": [
+              "ObjC"
+            ],
+            "fixedbinaryorder": 2
+          },
+          {
+            "kind": "Var",
+            "name": "warning",
+            "printedName": "warning",
+            "children": [
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "(AdMobWrapper.LogLevel.Type) -> AdMobWrapper.LogLevel",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "LogLevel",
+                    "printedName": "AdMobWrapper.LogLevel",
+                    "usr": "c:@M@AdMobWrapper@E@LogLevel"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Metatype",
+                    "printedName": "AdMobWrapper.LogLevel.Type",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "LogLevel",
+                        "printedName": "AdMobWrapper.LogLevel",
+                        "usr": "c:@M@AdMobWrapper@E@LogLevel"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "declKind": "EnumElement",
+            "usr": "c:@M@AdMobWrapper@E@LogLevel@LogLevelWarning",
+            "mangledName": "$s12AdMobWrapper8LogLevelO7warningyA2CmF",
+            "moduleName": "AdMobWrapper",
+            "declAttributes": [
+              "ObjC"
+            ],
+            "fixedbinaryorder": 3
+          },
+          {
+            "kind": "Var",
+            "name": "error",
+            "printedName": "error",
+            "children": [
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "(AdMobWrapper.LogLevel.Type) -> AdMobWrapper.LogLevel",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "LogLevel",
+                    "printedName": "AdMobWrapper.LogLevel",
+                    "usr": "c:@M@AdMobWrapper@E@LogLevel"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Metatype",
+                    "printedName": "AdMobWrapper.LogLevel.Type",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "LogLevel",
+                        "printedName": "AdMobWrapper.LogLevel",
+                        "usr": "c:@M@AdMobWrapper@E@LogLevel"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "declKind": "EnumElement",
+            "usr": "c:@M@AdMobWrapper@E@LogLevel@LogLevelError",
+            "mangledName": "$s12AdMobWrapper8LogLevelO5erroryA2CmF",
+            "moduleName": "AdMobWrapper",
+            "declAttributes": [
+              "ObjC"
+            ],
+            "fixedbinaryorder": 4
+          },
+          {
+            "kind": "Var",
+            "name": "critical",
+            "printedName": "critical",
+            "children": [
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "(AdMobWrapper.LogLevel.Type) -> AdMobWrapper.LogLevel",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "LogLevel",
+                    "printedName": "AdMobWrapper.LogLevel",
+                    "usr": "c:@M@AdMobWrapper@E@LogLevel"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Metatype",
+                    "printedName": "AdMobWrapper.LogLevel.Type",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "LogLevel",
+                        "printedName": "AdMobWrapper.LogLevel",
+                        "usr": "c:@M@AdMobWrapper@E@LogLevel"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "declKind": "EnumElement",
+            "usr": "c:@M@AdMobWrapper@E@LogLevel@LogLevelCritical",
+            "mangledName": "$s12AdMobWrapper8LogLevelO8criticalyA2CmF",
+            "moduleName": "AdMobWrapper",
+            "declAttributes": [
+              "ObjC"
+            ],
+            "fixedbinaryorder": 5
+          },
+          {
+            "kind": "Var",
+            "name": "none",
+            "printedName": "none",
+            "children": [
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "(AdMobWrapper.LogLevel.Type) -> AdMobWrapper.LogLevel",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "LogLevel",
+                    "printedName": "AdMobWrapper.LogLevel",
+                    "usr": "c:@M@AdMobWrapper@E@LogLevel"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Metatype",
+                    "printedName": "AdMobWrapper.LogLevel.Type",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "LogLevel",
+                        "printedName": "AdMobWrapper.LogLevel",
+                        "usr": "c:@M@AdMobWrapper@E@LogLevel"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "declKind": "EnumElement",
+            "usr": "c:@M@AdMobWrapper@E@LogLevel@LogLevelNone",
+            "mangledName": "$s12AdMobWrapper8LogLevelO4noneyA2CmF",
+            "moduleName": "AdMobWrapper",
+            "declAttributes": [
+              "ObjC"
+            ],
+            "fixedbinaryorder": 6
+          },
+          {
+            "kind": "Constructor",
+            "name": "init",
+            "printedName": "init(rawValue:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "AdMobWrapper.LogLevel?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "LogLevel",
+                    "printedName": "AdMobWrapper.LogLevel",
+                    "usr": "c:@M@AdMobWrapper@E@LogLevel"
+                  }
+                ],
+                "usr": "s:Sq"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Int",
+                "printedName": "Swift.Int",
+                "usr": "s:Si"
+              }
+            ],
+            "declKind": "Constructor",
+            "usr": "s:12AdMobWrapper8LogLevelO8rawValueACSgSi_tcfc",
+            "mangledName": "$s12AdMobWrapper8LogLevelO8rawValueACSgSi_tcfc",
+            "moduleName": "AdMobWrapper",
+            "implicit": true,
+            "init_kind": "Designated"
+          },
+          {
+            "kind": "Var",
+            "name": "rawValue",
+            "printedName": "rawValue",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Int",
+                "printedName": "Swift.Int",
+                "usr": "s:Si"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:12AdMobWrapper8LogLevelO8rawValueSivp",
+            "mangledName": "$s12AdMobWrapper8LogLevelO8rawValueSivp",
+            "moduleName": "AdMobWrapper",
+            "implicit": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Int",
+                    "printedName": "Swift.Int",
+                    "usr": "s:Si"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:12AdMobWrapper8LogLevelO8rawValueSivg",
+                "mangledName": "$s12AdMobWrapper8LogLevelO8rawValueSivg",
+                "moduleName": "AdMobWrapper",
+                "implicit": true,
+                "accessorKind": "get"
+              }
+            ]
+          }
+        ],
+        "declKind": "Enum",
+        "usr": "c:@M@AdMobWrapper@E@LogLevel",
+        "mangledName": "$s12AdMobWrapper8LogLevelO",
+        "moduleName": "AdMobWrapper",
+        "declAttributes": [
+          "AccessControl",
+          "ObjC"
+        ],
+        "enumRawTypeName": "Int",
+        "conformances": [
+          {
+            "kind": "Conformance",
+            "name": "Copyable",
+            "printedName": "Copyable",
+            "usr": "s:s8CopyableP",
+            "mangledName": "$ss8CopyableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Equatable",
+            "printedName": "Equatable",
+            "usr": "s:SQ",
+            "mangledName": "$sSQ"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Escapable",
+            "printedName": "Escapable",
+            "usr": "s:s9EscapableP",
+            "mangledName": "$ss9EscapableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Hashable",
+            "printedName": "Hashable",
+            "usr": "s:SH",
+            "mangledName": "$sSH"
+          },
+          {
+            "kind": "Conformance",
+            "name": "RawRepresentable",
+            "printedName": "RawRepresentable",
+            "children": [
+              {
+                "kind": "TypeWitness",
+                "name": "RawValue",
+                "printedName": "RawValue",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Int",
+                    "printedName": "Swift.Int",
+                    "usr": "s:Si"
+                  }
+                ]
+              }
+            ],
+            "usr": "s:SY",
+            "mangledName": "$sSY"
+          }
+        ]
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "AdMobWrapper",
+        "declAttributes": [
+          "RawDocComment"
+        ]
+      },
+      {
+        "kind": "TypeDecl",
         "name": "OnAdEventListener",
         "printedName": "OnAdEventListener",
         "children": [
@@ -2477,6 +3432,347 @@
       },
       {
         "kind": "TypeDecl",
+        "name": "OnConsentFormEventListener",
+        "printedName": "OnConsentFormEventListener",
+        "children": [
+          {
+            "kind": "Function",
+            "name": "onDismissed",
+            "printedName": "onDismissed()",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@AdMobWrapper@objc(pl)OnConsentFormEventListener(im)onDismissed",
+            "mangledName": "$s12AdMobWrapper26OnConsentFormEventListenerP11onDismissedyyF",
+            "moduleName": "AdMobWrapper",
+            "genericSig": "<τ_0_0 where τ_0_0 : AdMobWrapper.OnConsentFormEventListener>",
+            "sugared_genericSig": "<Self where Self : AdMobWrapper.OnConsentFormEventListener>",
+            "protocolReq": true,
+            "declAttributes": [
+              "ObjC"
+            ],
+            "reqNewWitnessTableEntry": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "onDismissedWithError",
+            "printedName": "onDismissedWithError(errorCode:errorMessage:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Int",
+                "printedName": "Swift.Int",
+                "usr": "s:Si"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "Swift.String?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "usr": "s:Sq"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@AdMobWrapper@objc(pl)OnConsentFormEventListener(im)onDismissedWithErrorWithErrorCode:errorMessage:",
+            "mangledName": "$s12AdMobWrapper26OnConsentFormEventListenerP20onDismissedWithError9errorCode0M7MessageySi_SSSgtF",
+            "moduleName": "AdMobWrapper",
+            "genericSig": "<τ_0_0 where τ_0_0 : AdMobWrapper.OnConsentFormEventListener>",
+            "sugared_genericSig": "<Self where Self : AdMobWrapper.OnConsentFormEventListener>",
+            "protocolReq": true,
+            "declAttributes": [
+              "ObjC"
+            ],
+            "reqNewWitnessTableEntry": true,
+            "funcSelfKind": "NonMutating"
+          }
+        ],
+        "declKind": "Protocol",
+        "usr": "c:@M@AdMobWrapper@objc(pl)OnConsentFormEventListener",
+        "mangledName": "$s12AdMobWrapper26OnConsentFormEventListenerP",
+        "moduleName": "AdMobWrapper",
+        "genericSig": "<τ_0_0 : AnyObject>",
+        "sugared_genericSig": "<Self : AnyObject>",
+        "declAttributes": [
+          "AccessControl",
+          "ObjC"
+        ],
+        "conformances": [
+          {
+            "kind": "Conformance",
+            "name": "Escapable",
+            "printedName": "Escapable",
+            "usr": "s:s9EscapableP",
+            "mangledName": "$ss9EscapableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Copyable",
+            "printedName": "Copyable",
+            "usr": "s:s8CopyableP",
+            "mangledName": "$ss8CopyableP"
+          }
+        ]
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "AdMobWrapper",
+        "declAttributes": [
+          "RawDocComment"
+        ]
+      },
+      {
+        "kind": "TypeDecl",
+        "name": "OnConsentGatheringListener",
+        "printedName": "OnConsentGatheringListener",
+        "children": [
+          {
+            "kind": "Function",
+            "name": "onCompleted",
+            "printedName": "onCompleted(canRequestAds:privacyOptionsRequired:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Bool",
+                "printedName": "Swift.Bool",
+                "usr": "s:Sb"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Bool",
+                "printedName": "Swift.Bool",
+                "usr": "s:Sb"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@AdMobWrapper@objc(pl)OnConsentGatheringListener(im)onCompletedWithCanRequestAds:privacyOptionsRequired:",
+            "mangledName": "$s12AdMobWrapper26OnConsentGatheringListenerP11onCompleted13canRequestAds22privacyOptionsRequiredySb_SbtF",
+            "moduleName": "AdMobWrapper",
+            "genericSig": "<τ_0_0 where τ_0_0 : AdMobWrapper.OnConsentGatheringListener>",
+            "sugared_genericSig": "<Self where Self : AdMobWrapper.OnConsentGatheringListener>",
+            "protocolReq": true,
+            "declAttributes": [
+              "ObjC"
+            ],
+            "reqNewWitnessTableEntry": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "onCompletedWithError",
+            "printedName": "onCompletedWithError(errorCode:errorMessage:canRequestAds:privacyOptionsRequired:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Int",
+                "printedName": "Swift.Int",
+                "usr": "s:Si"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Bool",
+                "printedName": "Swift.Bool",
+                "usr": "s:Sb"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Bool",
+                "printedName": "Swift.Bool",
+                "usr": "s:Sb"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@AdMobWrapper@objc(pl)OnConsentGatheringListener(im)onCompletedWithErrorWithErrorCode:errorMessage:canRequestAds:privacyOptionsRequired:",
+            "mangledName": "$s12AdMobWrapper26OnConsentGatheringListenerP20onCompletedWithError9errorCode0L7Message13canRequestAds22privacyOptionsRequiredySi_SSS2btF",
+            "moduleName": "AdMobWrapper",
+            "genericSig": "<τ_0_0 where τ_0_0 : AdMobWrapper.OnConsentGatheringListener>",
+            "sugared_genericSig": "<Self where Self : AdMobWrapper.OnConsentGatheringListener>",
+            "protocolReq": true,
+            "declAttributes": [
+              "ObjC"
+            ],
+            "reqNewWitnessTableEntry": true,
+            "funcSelfKind": "NonMutating"
+          }
+        ],
+        "declKind": "Protocol",
+        "usr": "c:@M@AdMobWrapper@objc(pl)OnConsentGatheringListener",
+        "mangledName": "$s12AdMobWrapper26OnConsentGatheringListenerP",
+        "moduleName": "AdMobWrapper",
+        "genericSig": "<τ_0_0 : AnyObject>",
+        "sugared_genericSig": "<Self : AnyObject>",
+        "declAttributes": [
+          "AccessControl",
+          "ObjC"
+        ],
+        "conformances": [
+          {
+            "kind": "Conformance",
+            "name": "Escapable",
+            "printedName": "Escapable",
+            "usr": "s:s9EscapableP",
+            "mangledName": "$ss9EscapableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Copyable",
+            "printedName": "Copyable",
+            "usr": "s:s8CopyableP",
+            "mangledName": "$ss8CopyableP"
+          }
+        ]
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "AdMobWrapper",
+        "declAttributes": [
+          "RawDocComment"
+        ]
+      },
+      {
+        "kind": "TypeDecl",
+        "name": "OnConsentInformationRequestListener",
+        "printedName": "OnConsentInformationRequestListener",
+        "children": [
+          {
+            "kind": "Function",
+            "name": "onConsentInformationRequestSuccess",
+            "printedName": "onConsentInformationRequestSuccess()",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@AdMobWrapper@objc(pl)OnConsentInformationRequestListener(im)onConsentInformationRequestSuccess",
+            "mangledName": "$s12AdMobWrapper35OnConsentInformationRequestListenerP02onefG7SuccessyyF",
+            "moduleName": "AdMobWrapper",
+            "genericSig": "<τ_0_0 where τ_0_0 : AdMobWrapper.OnConsentInformationRequestListener>",
+            "sugared_genericSig": "<Self where Self : AdMobWrapper.OnConsentInformationRequestListener>",
+            "protocolReq": true,
+            "declAttributes": [
+              "ObjC"
+            ],
+            "reqNewWitnessTableEntry": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "onConsentInformationRequestFailure",
+            "printedName": "onConsentInformationRequestFailure(errorCode:errorMessage:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Int",
+                "printedName": "Swift.Int",
+                "usr": "s:Si"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@AdMobWrapper@objc(pl)OnConsentInformationRequestListener(im)onConsentInformationRequestFailureWithErrorCode:errorMessage:",
+            "mangledName": "$s12AdMobWrapper35OnConsentInformationRequestListenerP02onefG7Failure9errorCode0K7MessageySi_SStF",
+            "moduleName": "AdMobWrapper",
+            "genericSig": "<τ_0_0 where τ_0_0 : AdMobWrapper.OnConsentInformationRequestListener>",
+            "sugared_genericSig": "<Self where Self : AdMobWrapper.OnConsentInformationRequestListener>",
+            "protocolReq": true,
+            "declAttributes": [
+              "ObjC"
+            ],
+            "reqNewWitnessTableEntry": true,
+            "funcSelfKind": "NonMutating"
+          }
+        ],
+        "declKind": "Protocol",
+        "usr": "c:@M@AdMobWrapper@objc(pl)OnConsentInformationRequestListener",
+        "mangledName": "$s12AdMobWrapper35OnConsentInformationRequestListenerP",
+        "moduleName": "AdMobWrapper",
+        "genericSig": "<τ_0_0 : AnyObject>",
+        "sugared_genericSig": "<Self : AnyObject>",
+        "declAttributes": [
+          "AccessControl",
+          "ObjC"
+        ],
+        "conformances": [
+          {
+            "kind": "Conformance",
+            "name": "Escapable",
+            "printedName": "Escapable",
+            "usr": "s:s9EscapableP",
+            "mangledName": "$ss9EscapableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Copyable",
+            "printedName": "Copyable",
+            "usr": "s:s8CopyableP",
+            "mangledName": "$ss8CopyableP"
+          }
+        ]
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "AdMobWrapper",
+        "declAttributes": [
+          "RawDocComment"
+        ]
+      },
+      {
+        "kind": "TypeDecl",
         "name": "OnInitializedListener",
         "printedName": "OnInitializedListener",
         "children": [
@@ -2652,9 +3948,740 @@
         ]
       },
       {
+        "kind": "TypeDecl",
+        "name": "ConsentInformationRequestDebugParameters",
+        "printedName": "ConsentInformationRequestDebugParameters",
+        "children": [
+          {
+            "kind": "Var",
+            "name": "debugGeography",
+            "printedName": "debugGeography",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "Foundation.NSNumber?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "NSNumber",
+                    "printedName": "Foundation.NSNumber",
+                    "usr": "c:objc(cs)NSNumber"
+                  }
+                ],
+                "usr": "s:Sq"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "c:@M@AdMobWrapper@objc(cs)ConsentInformationRequestDebugParameters(py)debugGeography",
+            "mangledName": "$s12AdMobWrapper40ConsentInformationRequestDebugParametersC14debugGeographySo8NSNumberCSgvp",
+            "moduleName": "AdMobWrapper",
+            "declAttributes": [
+              "Final",
+              "HasStorage",
+              "AccessControl",
+              "ObjC"
+            ],
+            "isLet": true,
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Optional",
+                    "printedName": "Foundation.NSNumber?",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "NSNumber",
+                        "printedName": "Foundation.NSNumber",
+                        "usr": "c:objc(cs)NSNumber"
+                      }
+                    ],
+                    "usr": "s:Sq"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "c:@M@AdMobWrapper@objc(cs)ConsentInformationRequestDebugParameters(im)debugGeography",
+                "mangledName": "$s12AdMobWrapper40ConsentInformationRequestDebugParametersC14debugGeographySo8NSNumberCSgvg",
+                "moduleName": "AdMobWrapper",
+                "implicit": true,
+                "declAttributes": [
+                  "Final",
+                  "ObjC"
+                ],
+                "accessorKind": "get"
+              }
+            ]
+          },
+          {
+            "kind": "Var",
+            "name": "testDeviceHashedId",
+            "printedName": "testDeviceHashedId",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "Swift.String?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "usr": "s:Sq"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "c:@M@AdMobWrapper@objc(cs)ConsentInformationRequestDebugParameters(py)testDeviceHashedId",
+            "mangledName": "$s12AdMobWrapper40ConsentInformationRequestDebugParametersC18testDeviceHashedIdSSSgvp",
+            "moduleName": "AdMobWrapper",
+            "declAttributes": [
+              "Final",
+              "HasStorage",
+              "AccessControl",
+              "ObjC"
+            ],
+            "isLet": true,
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Optional",
+                    "printedName": "Swift.String?",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "String",
+                        "printedName": "Swift.String",
+                        "usr": "s:SS"
+                      }
+                    ],
+                    "usr": "s:Sq"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "c:@M@AdMobWrapper@objc(cs)ConsentInformationRequestDebugParameters(im)testDeviceHashedId",
+                "mangledName": "$s12AdMobWrapper40ConsentInformationRequestDebugParametersC18testDeviceHashedIdSSSgvg",
+                "moduleName": "AdMobWrapper",
+                "implicit": true,
+                "declAttributes": [
+                  "Final",
+                  "ObjC"
+                ],
+                "accessorKind": "get"
+              }
+            ]
+          },
+          {
+            "kind": "Constructor",
+            "name": "init",
+            "printedName": "init()",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "ConsentInformationRequestDebugParameters",
+                "printedName": "AdMobWrapper.ConsentInformationRequestDebugParameters",
+                "usr": "c:@M@AdMobWrapper@objc(cs)ConsentInformationRequestDebugParameters"
+              }
+            ],
+            "declKind": "Constructor",
+            "usr": "c:@M@AdMobWrapper@objc(cs)ConsentInformationRequestDebugParameters(im)init",
+            "mangledName": "$s12AdMobWrapper40ConsentInformationRequestDebugParametersCACycfc",
+            "moduleName": "AdMobWrapper",
+            "overriding": true,
+            "objc_name": "init",
+            "declAttributes": [
+              "Dynamic",
+              "ObjC",
+              "Override",
+              "AccessControl"
+            ],
+            "init_kind": "Designated"
+          },
+          {
+            "kind": "Constructor",
+            "name": "init",
+            "printedName": "init(debugGeography:testDeviceHashedId:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "ConsentInformationRequestDebugParameters",
+                "printedName": "AdMobWrapper.ConsentInformationRequestDebugParameters",
+                "usr": "c:@M@AdMobWrapper@objc(cs)ConsentInformationRequestDebugParameters"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "Foundation.NSNumber?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "NSNumber",
+                    "printedName": "Foundation.NSNumber",
+                    "usr": "c:objc(cs)NSNumber"
+                  }
+                ],
+                "usr": "s:Sq"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "Swift.String?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "usr": "s:Sq"
+              }
+            ],
+            "declKind": "Constructor",
+            "usr": "c:@M@AdMobWrapper@objc(cs)ConsentInformationRequestDebugParameters(im)initWithDebugGeography:testDeviceHashedId:",
+            "mangledName": "$s12AdMobWrapper40ConsentInformationRequestDebugParametersC14debugGeography18testDeviceHashedIdACSo8NSNumberCSg_SSSgtcfc",
+            "moduleName": "AdMobWrapper",
+            "objc_name": "initWithDebugGeography:testDeviceHashedId:",
+            "declAttributes": [
+              "AccessControl",
+              "ObjC"
+            ],
+            "init_kind": "Designated"
+          },
+          {
+            "kind": "Var",
+            "name": "description",
+            "printedName": "description",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "c:@M@AdMobWrapper@objc(cs)ConsentInformationRequestDebugParameters(py)description",
+            "mangledName": "$s12AdMobWrapper40ConsentInformationRequestDebugParametersC11descriptionSSvp",
+            "moduleName": "AdMobWrapper",
+            "overriding": true,
+            "objc_name": "description",
+            "declAttributes": [
+              "Dynamic",
+              "ObjC",
+              "Override",
+              "AccessControl"
+            ],
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "c:@M@AdMobWrapper@objc(cs)ConsentInformationRequestDebugParameters(im)description",
+                "mangledName": "$s12AdMobWrapper40ConsentInformationRequestDebugParametersC11descriptionSSvg",
+                "moduleName": "AdMobWrapper",
+                "overriding": true,
+                "objc_name": "description",
+                "declAttributes": [
+                  "Dynamic",
+                  "ObjC"
+                ],
+                "accessorKind": "get"
+              }
+            ]
+          }
+        ],
+        "declKind": "Class",
+        "usr": "c:@M@AdMobWrapper@objc(cs)ConsentInformationRequestDebugParameters",
+        "mangledName": "$s12AdMobWrapper40ConsentInformationRequestDebugParametersC",
+        "moduleName": "AdMobWrapper",
+        "declAttributes": [
+          "AccessControl",
+          "ObjC"
+        ],
+        "superclassUsr": "c:objc(cs)NSObject",
+        "inheritsConvenienceInitializers": true,
+        "superclassNames": [
+          "ObjectiveC.NSObject"
+        ],
+        "conformances": [
+          {
+            "kind": "Conformance",
+            "name": "_KeyValueCodingAndObserving",
+            "printedName": "_KeyValueCodingAndObserving",
+            "usr": "s:10Foundation27_KeyValueCodingAndObservingP",
+            "mangledName": "$s10Foundation27_KeyValueCodingAndObservingP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "_KeyValueCodingAndObservingPublishing",
+            "printedName": "_KeyValueCodingAndObservingPublishing",
+            "usr": "s:10Foundation37_KeyValueCodingAndObservingPublishingP",
+            "mangledName": "$s10Foundation37_KeyValueCodingAndObservingPublishingP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CVarArg",
+            "printedName": "CVarArg",
+            "usr": "s:s7CVarArgP",
+            "mangledName": "$ss7CVarArgP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Copyable",
+            "printedName": "Copyable",
+            "usr": "s:s8CopyableP",
+            "mangledName": "$ss8CopyableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CustomDebugStringConvertible",
+            "printedName": "CustomDebugStringConvertible",
+            "usr": "s:s28CustomDebugStringConvertibleP",
+            "mangledName": "$ss28CustomDebugStringConvertibleP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CustomStringConvertible",
+            "printedName": "CustomStringConvertible",
+            "usr": "s:s23CustomStringConvertibleP",
+            "mangledName": "$ss23CustomStringConvertibleP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Equatable",
+            "printedName": "Equatable",
+            "usr": "s:SQ",
+            "mangledName": "$sSQ"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Escapable",
+            "printedName": "Escapable",
+            "usr": "s:s9EscapableP",
+            "mangledName": "$ss9EscapableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Hashable",
+            "printedName": "Hashable",
+            "usr": "s:SH",
+            "mangledName": "$sSH"
+          }
+        ]
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "AdMobWrapper",
+        "declAttributes": [
+          "RawDocComment"
+        ]
+      },
+      {
+        "kind": "TypeDecl",
+        "name": "ConsentStatusData",
+        "printedName": "ConsentStatusData",
+        "children": [
+          {
+            "kind": "Var",
+            "name": "lastRefreshTimestampMilliseconds",
+            "printedName": "lastRefreshTimestampMilliseconds",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Int64",
+                "printedName": "Swift.Int64",
+                "usr": "s:s5Int64V"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "c:@M@AdMobWrapper@objc(cs)ConsentStatusData(py)lastRefreshTimestampMilliseconds",
+            "mangledName": "$s12AdMobWrapper17ConsentStatusDataC32lastRefreshTimestampMillisecondss5Int64Vvp",
+            "moduleName": "AdMobWrapper",
+            "declAttributes": [
+              "Final",
+              "HasStorage",
+              "AccessControl",
+              "ObjC"
+            ],
+            "isLet": true,
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Int64",
+                    "printedName": "Swift.Int64",
+                    "usr": "s:s5Int64V"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "c:@M@AdMobWrapper@objc(cs)ConsentStatusData(im)lastRefreshTimestampMilliseconds",
+                "mangledName": "$s12AdMobWrapper17ConsentStatusDataC32lastRefreshTimestampMillisecondss5Int64Vvg",
+                "moduleName": "AdMobWrapper",
+                "implicit": true,
+                "declAttributes": [
+                  "Final",
+                  "ObjC"
+                ],
+                "accessorKind": "get"
+              }
+            ]
+          },
+          {
+            "kind": "Var",
+            "name": "consentStatus",
+            "printedName": "consentStatus",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Int",
+                "printedName": "Swift.Int",
+                "usr": "s:Si"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "c:@M@AdMobWrapper@objc(cs)ConsentStatusData(py)consentStatus",
+            "mangledName": "$s12AdMobWrapper17ConsentStatusDataC07consentE0Sivp",
+            "moduleName": "AdMobWrapper",
+            "declAttributes": [
+              "Final",
+              "HasStorage",
+              "AccessControl",
+              "ObjC"
+            ],
+            "isLet": true,
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Int",
+                    "printedName": "Swift.Int",
+                    "usr": "s:Si"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "c:@M@AdMobWrapper@objc(cs)ConsentStatusData(im)consentStatus",
+                "mangledName": "$s12AdMobWrapper17ConsentStatusDataC07consentE0Sivg",
+                "moduleName": "AdMobWrapper",
+                "implicit": true,
+                "declAttributes": [
+                  "Final",
+                  "ObjC"
+                ],
+                "accessorKind": "get"
+              }
+            ]
+          },
+          {
+            "kind": "Var",
+            "name": "privacyOptionsRequirementStatus",
+            "printedName": "privacyOptionsRequirementStatus",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Int",
+                "printedName": "Swift.Int",
+                "usr": "s:Si"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "c:@M@AdMobWrapper@objc(cs)ConsentStatusData(py)privacyOptionsRequirementStatus",
+            "mangledName": "$s12AdMobWrapper17ConsentStatusDataC025privacyOptionsRequirementE0Sivp",
+            "moduleName": "AdMobWrapper",
+            "declAttributes": [
+              "Final",
+              "HasStorage",
+              "AccessControl",
+              "ObjC"
+            ],
+            "isLet": true,
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Int",
+                    "printedName": "Swift.Int",
+                    "usr": "s:Si"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "c:@M@AdMobWrapper@objc(cs)ConsentStatusData(im)privacyOptionsRequirementStatus",
+                "mangledName": "$s12AdMobWrapper17ConsentStatusDataC025privacyOptionsRequirementE0Sivg",
+                "moduleName": "AdMobWrapper",
+                "implicit": true,
+                "declAttributes": [
+                  "Final",
+                  "ObjC"
+                ],
+                "accessorKind": "get"
+              }
+            ]
+          },
+          {
+            "kind": "Constructor",
+            "name": "init",
+            "printedName": "init(lastRefreshTimestampMilliseconds:consentStatus:privacyOptionsRequirementStatus:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "ConsentStatusData",
+                "printedName": "AdMobWrapper.ConsentStatusData",
+                "usr": "c:@M@AdMobWrapper@objc(cs)ConsentStatusData"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Int64",
+                "printedName": "Swift.Int64",
+                "usr": "s:s5Int64V"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Int",
+                "printedName": "Swift.Int",
+                "usr": "s:Si"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Int",
+                "printedName": "Swift.Int",
+                "usr": "s:Si"
+              }
+            ],
+            "declKind": "Constructor",
+            "usr": "c:@M@AdMobWrapper@objc(cs)ConsentStatusData(im)initWithLastRefreshTimestampMilliseconds:consentStatus:privacyOptionsRequirementStatus:",
+            "mangledName": "$s12AdMobWrapper17ConsentStatusDataC32lastRefreshTimestampMilliseconds07consentE0025privacyOptionsRequirementE0ACs5Int64V_S2itcfc",
+            "moduleName": "AdMobWrapper",
+            "objc_name": "initWithLastRefreshTimestampMilliseconds:consentStatus:privacyOptionsRequirementStatus:",
+            "declAttributes": [
+              "AccessControl",
+              "ObjC"
+            ],
+            "init_kind": "Designated"
+          },
+          {
+            "kind": "Var",
+            "name": "description",
+            "printedName": "description",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "c:@M@AdMobWrapper@objc(cs)ConsentStatusData(py)description",
+            "mangledName": "$s12AdMobWrapper17ConsentStatusDataC11descriptionSSvp",
+            "moduleName": "AdMobWrapper",
+            "overriding": true,
+            "objc_name": "description",
+            "declAttributes": [
+              "Dynamic",
+              "ObjC",
+              "Override",
+              "AccessControl"
+            ],
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "c:@M@AdMobWrapper@objc(cs)ConsentStatusData(im)description",
+                "mangledName": "$s12AdMobWrapper17ConsentStatusDataC11descriptionSSvg",
+                "moduleName": "AdMobWrapper",
+                "overriding": true,
+                "objc_name": "description",
+                "declAttributes": [
+                  "Dynamic",
+                  "ObjC"
+                ],
+                "accessorKind": "get"
+              }
+            ]
+          },
+          {
+            "kind": "Constructor",
+            "name": "init",
+            "printedName": "init()",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "ConsentStatusData",
+                "printedName": "AdMobWrapper.ConsentStatusData",
+                "usr": "c:@M@AdMobWrapper@objc(cs)ConsentStatusData"
+              }
+            ],
+            "declKind": "Constructor",
+            "usr": "c:@M@AdMobWrapper@objc(cs)ConsentStatusData(im)init",
+            "mangledName": "$s12AdMobWrapper17ConsentStatusDataCACycfc",
+            "moduleName": "AdMobWrapper",
+            "overriding": true,
+            "implicit": true,
+            "objc_name": "init",
+            "declAttributes": [
+              "Dynamic",
+              "ObjC",
+              "Override"
+            ],
+            "init_kind": "Designated"
+          }
+        ],
+        "declKind": "Class",
+        "usr": "c:@M@AdMobWrapper@objc(cs)ConsentStatusData",
+        "mangledName": "$s12AdMobWrapper17ConsentStatusDataC",
+        "moduleName": "AdMobWrapper",
+        "declAttributes": [
+          "AccessControl",
+          "ObjC"
+        ],
+        "superclassUsr": "c:objc(cs)NSObject",
+        "superclassNames": [
+          "ObjectiveC.NSObject"
+        ],
+        "conformances": [
+          {
+            "kind": "Conformance",
+            "name": "_KeyValueCodingAndObserving",
+            "printedName": "_KeyValueCodingAndObserving",
+            "usr": "s:10Foundation27_KeyValueCodingAndObservingP",
+            "mangledName": "$s10Foundation27_KeyValueCodingAndObservingP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "_KeyValueCodingAndObservingPublishing",
+            "printedName": "_KeyValueCodingAndObservingPublishing",
+            "usr": "s:10Foundation37_KeyValueCodingAndObservingPublishingP",
+            "mangledName": "$s10Foundation37_KeyValueCodingAndObservingPublishingP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CVarArg",
+            "printedName": "CVarArg",
+            "usr": "s:s7CVarArgP",
+            "mangledName": "$ss7CVarArgP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Copyable",
+            "printedName": "Copyable",
+            "usr": "s:s8CopyableP",
+            "mangledName": "$ss8CopyableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CustomDebugStringConvertible",
+            "printedName": "CustomDebugStringConvertible",
+            "usr": "s:s28CustomDebugStringConvertibleP",
+            "mangledName": "$ss28CustomDebugStringConvertibleP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CustomStringConvertible",
+            "printedName": "CustomStringConvertible",
+            "usr": "s:s23CustomStringConvertibleP",
+            "mangledName": "$ss23CustomStringConvertibleP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Equatable",
+            "printedName": "Equatable",
+            "usr": "s:SQ",
+            "mangledName": "$sSQ"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Escapable",
+            "printedName": "Escapable",
+            "usr": "s:s9EscapableP",
+            "mangledName": "$ss9EscapableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Hashable",
+            "printedName": "Hashable",
+            "usr": "s:SH",
+            "mangledName": "$sSH"
+          }
+        ]
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "AdMobWrapper",
+        "declAttributes": [
+          "RawDocComment"
+        ]
+      },
+      {
         "kind": "Import",
         "name": "GoogleMobileAds",
         "printedName": "GoogleMobileAds",
+        "declKind": "Import",
+        "moduleName": "AdMobWrapper"
+      },
+      {
+        "kind": "Import",
+        "name": "UIKit",
+        "printedName": "UIKit",
+        "declKind": "Import",
+        "moduleName": "AdMobWrapper"
+      },
+      {
+        "kind": "Import",
+        "name": "UserMessagingPlatform",
+        "printedName": "UserMessagingPlatform",
         "declKind": "Import",
         "moduleName": "AdMobWrapper"
       },
@@ -2717,6 +4744,44 @@
             ]
           },
           {
+            "kind": "Constructor",
+            "name": "init",
+            "printedName": "init(logger:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "AdMobManager",
+                "printedName": "AdMobWrapper.AdMobManager",
+                "usr": "c:@M@AdMobWrapper@objc(cs)AdMobManager"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "(any AdMobWrapper.IAppleLogger)?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "IAppleLogger",
+                    "printedName": "any AdMobWrapper.IAppleLogger",
+                    "usr": "c:@M@AdMobWrapper@objc(pl)IAppleLogger"
+                  }
+                ],
+                "usr": "s:Sq"
+              }
+            ],
+            "declKind": "Constructor",
+            "usr": "c:@M@AdMobWrapper@objc(cs)AdMobManager(im)initWithLogger:",
+            "mangledName": "$s12AdMobWrapper0aB7ManagerC6loggerAcA12IAppleLogger_pSg_tcfc",
+            "moduleName": "AdMobWrapper",
+            "objc_name": "initWithLogger:",
+            "declAttributes": [
+              "Convenience",
+              "AccessControl",
+              "ObjC"
+            ],
+            "init_kind": "Convenience"
+          },
+          {
             "kind": "Function",
             "name": "initialize",
             "printedName": "initialize(viewController:listener:)",
@@ -2765,6 +4830,335 @@
             "declKind": "Func",
             "usr": "c:@M@AdMobWrapper@objc(cs)AdMobManager(im)isInitialized",
             "mangledName": "$s12AdMobWrapper0aB7ManagerC13isInitializedSbyF",
+            "moduleName": "AdMobWrapper",
+            "declAttributes": [
+              "AccessControl",
+              "ObjC"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "updateCurrentConsentInformation",
+            "printedName": "updateCurrentConsentInformation(viewController:tagForUnderAgeOfConsent:listener:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "UIViewController",
+                "printedName": "UIKit.UIViewController",
+                "usr": "c:objc(cs)UIViewController"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Bool",
+                "printedName": "Swift.Bool",
+                "usr": "s:Sb"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "OnConsentInformationRequestListener",
+                "printedName": "any AdMobWrapper.OnConsentInformationRequestListener",
+                "usr": "c:@M@AdMobWrapper@objc(pl)OnConsentInformationRequestListener"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@AdMobWrapper@objc(cs)AdMobManager(im)updateCurrentConsentInformationWithViewController:tagForUnderAgeOfConsent:listener:",
+            "mangledName": "$s12AdMobWrapper0aB7ManagerC31updateCurrentConsentInformation14viewController016tagForUnderAgeOfG08listenerySo06UIViewJ0C_SbAA02OngH15RequestListener_ptF",
+            "moduleName": "AdMobWrapper",
+            "objc_name": "updateCurrentConsentInformationWithViewController:tagForUnderAgeOfConsent:listener:",
+            "declAttributes": [
+              "AccessControl",
+              "ObjC"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "updateCurrentConsentInformation",
+            "printedName": "updateCurrentConsentInformation(viewController:tagForUnderAgeOfConsent:listener:requestDebugParameters:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "UIViewController",
+                "printedName": "UIKit.UIViewController",
+                "usr": "c:objc(cs)UIViewController"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Bool",
+                "printedName": "Swift.Bool",
+                "usr": "s:Sb"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "OnConsentInformationRequestListener",
+                "printedName": "any AdMobWrapper.OnConsentInformationRequestListener",
+                "usr": "c:@M@AdMobWrapper@objc(pl)OnConsentInformationRequestListener"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "AdMobWrapper.ConsentInformationRequestDebugParameters?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "ConsentInformationRequestDebugParameters",
+                    "printedName": "AdMobWrapper.ConsentInformationRequestDebugParameters",
+                    "usr": "c:@M@AdMobWrapper@objc(cs)ConsentInformationRequestDebugParameters"
+                  }
+                ],
+                "usr": "s:Sq"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@AdMobWrapper@objc(cs)AdMobManager(im)updateCurrentConsentInformationWithViewController:tagForUnderAgeOfConsent:listener:requestDebugParameters:",
+            "mangledName": "$s12AdMobWrapper0aB7ManagerC31updateCurrentConsentInformation14viewController016tagForUnderAgeOfG08listener22requestDebugParametersySo06UIViewJ0C_SbAA02OngH15RequestListener_pAA0ghvrS0CSgtF",
+            "moduleName": "AdMobWrapper",
+            "objc_name": "updateCurrentConsentInformationWithViewController:tagForUnderAgeOfConsent:listener:requestDebugParameters:",
+            "declAttributes": [
+              "AccessControl",
+              "ObjC"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "currentConsentInformation",
+            "printedName": "currentConsentInformation()",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "AdMobWrapper.ConsentStatusData?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "ConsentStatusData",
+                    "printedName": "AdMobWrapper.ConsentStatusData",
+                    "usr": "c:@M@AdMobWrapper@objc(cs)ConsentStatusData"
+                  }
+                ],
+                "usr": "s:Sq"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@AdMobWrapper@objc(cs)AdMobManager(im)currentConsentInformation",
+            "mangledName": "$s12AdMobWrapper0aB7ManagerC25currentConsentInformationAA0F10StatusDataCSgyF",
+            "moduleName": "AdMobWrapper",
+            "declAttributes": [
+              "AccessControl",
+              "ObjC"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "showPrivacyOptionsForm",
+            "printedName": "showPrivacyOptionsForm(viewController:listener:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "UIViewController",
+                "printedName": "UIKit.UIViewController",
+                "usr": "c:objc(cs)UIViewController"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "OnConsentFormEventListener",
+                "printedName": "any AdMobWrapper.OnConsentFormEventListener",
+                "usr": "c:@M@AdMobWrapper@objc(pl)OnConsentFormEventListener"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@AdMobWrapper@objc(cs)AdMobManager(im)showPrivacyOptionsFormWithViewController:listener:",
+            "mangledName": "$s12AdMobWrapper0aB7ManagerC22showPrivacyOptionsForm14viewController8listenerySo06UIViewJ0C_AA09OnConsentH13EventListener_ptF",
+            "moduleName": "AdMobWrapper",
+            "objc_name": "showPrivacyOptionsFormWithViewController:listener:",
+            "declAttributes": [
+              "AccessControl",
+              "ObjC"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "loadAndShowConsentFormIfRequired",
+            "printedName": "loadAndShowConsentFormIfRequired(viewController:listener:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "UIViewController",
+                "printedName": "UIKit.UIViewController",
+                "usr": "c:objc(cs)UIViewController"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "OnConsentFormEventListener",
+                "printedName": "any AdMobWrapper.OnConsentFormEventListener",
+                "usr": "c:@M@AdMobWrapper@objc(pl)OnConsentFormEventListener"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@AdMobWrapper@objc(cs)AdMobManager(im)loadAndShowConsentFormIfRequiredWithViewController:listener:",
+            "mangledName": "$s12AdMobWrapper0aB7ManagerC32loadAndShowConsentFormIfRequired14viewController8listenerySo06UIViewM0C_AA02OnhI13EventListener_ptF",
+            "moduleName": "AdMobWrapper",
+            "objc_name": "loadAndShowConsentFormIfRequiredWithViewController:listener:",
+            "declAttributes": [
+              "AccessControl",
+              "ObjC"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "canRequestAds",
+            "printedName": "canRequestAds()",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Bool",
+                "printedName": "Swift.Bool",
+                "usr": "s:Sb"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@AdMobWrapper@objc(cs)AdMobManager(im)canRequestAds",
+            "mangledName": "$s12AdMobWrapper0aB7ManagerC13canRequestAdsSbyF",
+            "moduleName": "AdMobWrapper",
+            "declAttributes": [
+              "AccessControl",
+              "ObjC"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "gatherConsent",
+            "printedName": "gatherConsent(viewController:tagForUnderAgeOfConsent:listener:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "UIViewController",
+                "printedName": "UIKit.UIViewController",
+                "usr": "c:objc(cs)UIViewController"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Bool",
+                "printedName": "Swift.Bool",
+                "usr": "s:Sb"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "OnConsentGatheringListener",
+                "printedName": "any AdMobWrapper.OnConsentGatheringListener",
+                "usr": "c:@M@AdMobWrapper@objc(pl)OnConsentGatheringListener"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@AdMobWrapper@objc(cs)AdMobManager(im)gatherConsentWithViewController:tagForUnderAgeOfConsent:listener:",
+            "mangledName": "$s12AdMobWrapper0aB7ManagerC13gatherConsent14viewController016tagForUnderAgeOfF08listenerySo06UIViewH0C_SbAA02OnF17GatheringListener_ptF",
+            "moduleName": "AdMobWrapper",
+            "objc_name": "gatherConsentWithViewController:tagForUnderAgeOfConsent:listener:",
+            "declAttributes": [
+              "AccessControl",
+              "ObjC"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "gatherConsent",
+            "printedName": "gatherConsent(viewController:tagForUnderAgeOfConsent:listener:requestDebugParameters:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "UIViewController",
+                "printedName": "UIKit.UIViewController",
+                "usr": "c:objc(cs)UIViewController"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Bool",
+                "printedName": "Swift.Bool",
+                "usr": "s:Sb"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "OnConsentGatheringListener",
+                "printedName": "any AdMobWrapper.OnConsentGatheringListener",
+                "usr": "c:@M@AdMobWrapper@objc(pl)OnConsentGatheringListener"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "AdMobWrapper.ConsentInformationRequestDebugParameters?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "ConsentInformationRequestDebugParameters",
+                    "printedName": "AdMobWrapper.ConsentInformationRequestDebugParameters",
+                    "usr": "c:@M@AdMobWrapper@objc(cs)ConsentInformationRequestDebugParameters"
+                  }
+                ],
+                "usr": "s:Sq"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@AdMobWrapper@objc(cs)AdMobManager(im)gatherConsentWithViewController:tagForUnderAgeOfConsent:listener:requestDebugParameters:",
+            "mangledName": "$s12AdMobWrapper0aB7ManagerC13gatherConsent14viewController016tagForUnderAgeOfF08listener22requestDebugParametersySo06UIViewH0C_SbAA02OnF17GatheringListener_pAA0f18InformationRequestpQ0CSgtF",
+            "moduleName": "AdMobWrapper",
+            "objc_name": "gatherConsentWithViewController:tagForUnderAgeOfConsent:listener:requestDebugParameters:",
+            "declAttributes": [
+              "AccessControl",
+              "ObjC"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "resetConsentForTesting",
+            "printedName": "resetConsentForTesting()",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@AdMobWrapper@objc(cs)AdMobManager(im)resetConsentForTesting",
+            "mangledName": "$s12AdMobWrapper0aB7ManagerC22resetConsentForTestingyyF",
             "moduleName": "AdMobWrapper",
             "declAttributes": [
               "AccessControl",
@@ -2859,8 +5253,15 @@
   "ConstValues": [
     {
       "filePath": "\/Volumes\/Dati\/Git\/Personali\/AMDevITAdMobWrapper\/sources\/apple\/ios\/AdMobWrapper\/Ads\/AppOpenAdWrapper.swift",
+      "kind": "StringLiteral",
+      "offset": 238,
+      "length": 18,
+      "value": "\"AppOpenAdWrapper\""
+    },
+    {
+      "filePath": "\/Volumes\/Dati\/Git\/Personali\/AMDevITAdMobWrapper\/sources\/apple\/ios\/AdMobWrapper\/Ads\/AppOpenAdWrapper.swift",
       "kind": "BooleanLiteral",
-      "offset": 284,
+      "offset": 336,
       "length": 5,
       "value": "false"
     },
@@ -2900,9 +5301,163 @@
       "value": "5"
     },
     {
+      "filePath": "\/Volumes\/Dati\/Git\/Personali\/AMDevITAdMobWrapper\/sources\/apple\/ios\/AdMobWrapper\/Ads\/BannerAdWrapper.swift",
+      "kind": "StringLiteral",
+      "offset": 402,
+      "length": 17,
+      "value": "\"BannerAdWrapper\""
+    },
+    {
+      "filePath": "\/Volumes\/Dati\/Git\/Personali\/AMDevITAdMobWrapper\/sources\/apple\/ios\/AdMobWrapper\/Ads\/InterstitialAdWrapper.swift",
+      "kind": "StringLiteral",
+      "offset": 248,
+      "length": 23,
+      "value": "\"InterstitialAdWrapper\""
+    },
+    {
+      "filePath": "\/Volumes\/Dati\/Git\/Personali\/AMDevITAdMobWrapper\/sources\/apple\/ios\/AdMobWrapper\/Ads\/RewardedAdWrapper.swift",
+      "kind": "StringLiteral",
+      "offset": 240,
+      "length": 19,
+      "value": "\"RewardedAdWrapper\""
+    },
+    {
+      "filePath": "\/Volumes\/Dati\/Git\/Personali\/AMDevITAdMobWrapper\/sources\/apple\/ios\/AdMobWrapper\/Diagnostics\/LogLevel.swift",
+      "kind": "IntegerLiteral",
+      "offset": 113,
+      "length": 1,
+      "value": "0"
+    },
+    {
+      "filePath": "\/Volumes\/Dati\/Git\/Personali\/AMDevITAdMobWrapper\/sources\/apple\/ios\/AdMobWrapper\/Diagnostics\/LogLevel.swift",
+      "kind": "IntegerLiteral",
+      "offset": 132,
+      "length": 1,
+      "value": "1"
+    },
+    {
+      "filePath": "\/Volumes\/Dati\/Git\/Personali\/AMDevITAdMobWrapper\/sources\/apple\/ios\/AdMobWrapper\/Diagnostics\/LogLevel.swift",
+      "kind": "IntegerLiteral",
+      "offset": 157,
+      "length": 1,
+      "value": "2"
+    },
+    {
+      "filePath": "\/Volumes\/Dati\/Git\/Personali\/AMDevITAdMobWrapper\/sources\/apple\/ios\/AdMobWrapper\/Diagnostics\/LogLevel.swift",
+      "kind": "IntegerLiteral",
+      "offset": 178,
+      "length": 1,
+      "value": "3"
+    },
+    {
+      "filePath": "\/Volumes\/Dati\/Git\/Personali\/AMDevITAdMobWrapper\/sources\/apple\/ios\/AdMobWrapper\/Diagnostics\/LogLevel.swift",
+      "kind": "IntegerLiteral",
+      "offset": 197,
+      "length": 1,
+      "value": "4"
+    },
+    {
+      "filePath": "\/Volumes\/Dati\/Git\/Personali\/AMDevITAdMobWrapper\/sources\/apple\/ios\/AdMobWrapper\/Diagnostics\/LogLevel.swift",
+      "kind": "IntegerLiteral",
+      "offset": 219,
+      "length": 1,
+      "value": "5"
+    },
+    {
+      "filePath": "\/Volumes\/Dati\/Git\/Personali\/AMDevITAdMobWrapper\/sources\/apple\/ios\/AdMobWrapper\/Diagnostics\/LogLevel.swift",
+      "kind": "IntegerLiteral",
+      "offset": 237,
+      "length": 1,
+      "value": "6"
+    },
+    {
+      "filePath": "\/Volumes\/Dati\/Git\/Personali\/AMDevITAdMobWrapper\/sources\/apple\/ios\/AdMobWrapper\/Privacy\/ConsentInformationRequestDebugParameters.swift",
+      "kind": "StringLiteral",
+      "offset": 693,
+      "length": 102,
+      "value": "\"ConsentInformationRequestDebugParameters(debugGeography=\""
+    },
+    {
+      "filePath": "\/Volumes\/Dati\/Git\/Personali\/AMDevITAdMobWrapper\/sources\/apple\/ios\/AdMobWrapper\/Privacy\/ConsentInformationRequestDebugParameters.swift",
+      "kind": "StringLiteral",
+      "offset": 792,
+      "length": 1,
+      "value": "\", \""
+    },
+    {
+      "filePath": "\/Volumes\/Dati\/Git\/Personali\/AMDevITAdMobWrapper\/sources\/apple\/ios\/AdMobWrapper\/Privacy\/ConsentInformationRequestDebugParameters.swift",
+      "kind": "StringLiteral",
+      "offset": 813,
+      "length": 68,
+      "value": "\"testDeviceHashedId=\""
+    },
+    {
+      "filePath": "\/Volumes\/Dati\/Git\/Personali\/AMDevITAdMobWrapper\/sources\/apple\/ios\/AdMobWrapper\/Privacy\/ConsentInformationRequestDebugParameters.swift",
+      "kind": "StringLiteral",
+      "offset": 879,
+      "length": 1,
+      "value": "\")\""
+    },
+    {
+      "filePath": "\/Volumes\/Dati\/Git\/Personali\/AMDevITAdMobWrapper\/sources\/apple\/ios\/AdMobWrapper\/Privacy\/ConsentStatusData.swift",
+      "kind": "StringLiteral",
+      "offset": 745,
+      "length": 83,
+      "value": "\"ConsentStatusData(lastRefreshTimestamp=\""
+    },
+    {
+      "filePath": "\/Volumes\/Dati\/Git\/Personali\/AMDevITAdMobWrapper\/sources\/apple\/ios\/AdMobWrapper\/Privacy\/ConsentStatusData.swift",
+      "kind": "StringLiteral",
+      "offset": 825,
+      "length": 1,
+      "value": "\", \""
+    },
+    {
+      "filePath": "\/Volumes\/Dati\/Git\/Personali\/AMDevITAdMobWrapper\/sources\/apple\/ios\/AdMobWrapper\/Privacy\/ConsentStatusData.swift",
+      "kind": "StringLiteral",
+      "offset": 846,
+      "length": 39,
+      "value": "\"consentStatus=\""
+    },
+    {
+      "filePath": "\/Volumes\/Dati\/Git\/Personali\/AMDevITAdMobWrapper\/sources\/apple\/ios\/AdMobWrapper\/Privacy\/ConsentStatusData.swift",
+      "kind": "StringLiteral",
+      "offset": 882,
+      "length": 1,
+      "value": "\", \""
+    },
+    {
+      "filePath": "\/Volumes\/Dati\/Git\/Personali\/AMDevITAdMobWrapper\/sources\/apple\/ios\/AdMobWrapper\/Privacy\/ConsentStatusData.swift",
+      "kind": "StringLiteral",
+      "offset": 903,
+      "length": 74,
+      "value": "\"privacyOptionsRequirementStatus=\""
+    },
+    {
+      "filePath": "\/Volumes\/Dati\/Git\/Personali\/AMDevITAdMobWrapper\/sources\/apple\/ios\/AdMobWrapper\/Privacy\/ConsentStatusData.swift",
+      "kind": "StringLiteral",
+      "offset": 975,
+      "length": 1,
+      "value": "\")\""
+    },
+    {
+      "filePath": "\/Volumes\/Dati\/Git\/Personali\/AMDevITAdMobWrapper\/sources\/apple\/ios\/AdMobWrapper\/AdMobManager.swift",
+      "kind": "StringLiteral",
+      "offset": 259,
+      "length": 14,
+      "value": "\"AdMobManager\""
+    },
+    {
       "filePath": "\/Volumes\/Dati\/Git\/Personali\/AMDevITAdMobWrapper\/sources\/apple\/ios\/AdMobWrapper\/AdMobManager.swift",
       "kind": "BooleanLiteral",
-      "offset": 278,
+      "offset": 360,
+      "length": 5,
+      "value": "false"
+    },
+    {
+      "filePath": "\/Volumes\/Dati\/Git\/Personali\/AMDevITAdMobWrapper\/sources\/apple\/ios\/AdMobWrapper\/AdMobManager.swift",
+      "kind": "BooleanLiteral",
+      "offset": 412,
       "length": 5,
       "value": "false"
     }

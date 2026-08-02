@@ -3,7 +3,7 @@
 # build_xcframework.sh
 # Compiles iOS archives and creates the AdMobWrapper xcframework
 
-set -e
+set -euo pipefail
 
 SCHEME="AdMobWrapper"
 PROJECT_PATH="AdMobWrapper.xcodeproj"
@@ -31,7 +31,7 @@ xcodebuild archive \
     BUILD_LIBRARY_FOR_DISTRIBUTION=YES \
     SWIFT_INSTALL_OBJC_HEADER=YES \
     SWIFT_OBJC_INTERFACE_HEADER_NAME="$XCFRAMEWORK_NAME.h" \
-    | xcpretty || true
+    | xcpretty
 
 echo "🖥️ Building archive for simulator (arm64 + x86_64)..."
 xcodebuild archive \
@@ -43,7 +43,7 @@ xcodebuild archive \
     BUILD_LIBRARY_FOR_DISTRIBUTION=YES \
     SWIFT_INSTALL_OBJC_HEADER=YES \
     SWIFT_OBJC_INTERFACE_HEADER_NAME="$XCFRAMEWORK_NAME.h" \
-    | xcpretty || true
+    | xcpretty
 
 echo "📦 Creating xcframework..."
 xcodebuild -create-xcframework \

@@ -2,13 +2,10 @@
 
 using AMDevIT.Admob.Wrapper.Ads;
 using AMDevIT.Admob.Wrapper.Listeners;
+using AMDevIT.Admob.Wrapper.MAUICross.Platforms.Android.Diagnostics;
 using AMDevIT.Admob.Wrapper.MAUICross.Platforms.Android.Listeners;
 using Android.App;
-using Android.Content;
 using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace AMDevIT.Admob.Wrapper.MAUICross.Services;
 
@@ -17,7 +14,8 @@ public partial class RewardedAdService
 {
     #region Fields
 
-    RewardedAdWrapper? wrapper;
+    private RewardedAdWrapper? wrapper;
+    private readonly DroidLoggerAdapter loggerAdapter;
     private readonly DroidRewardListener onAdRewardListener;
     private readonly DroidOnAdLoadedListener onAdLoadedListener;
     private readonly DroidOnAdEventListener onAdEventListener;
@@ -26,10 +24,11 @@ public partial class RewardedAdService
 
     #region .ctor
 
-    public RewardedAdService(ILogger<AppOpenAdService> logger,
+    public RewardedAdService(ILogger<RewardedAdService> logger,
                              IContextResolverService contextResolverService)
         : base(logger, contextResolverService)
     {
+        this.loggerAdapter = new DroidLoggerAdapter(logger);
         this.onAdRewardListener = new();
         this.onAdRewardListener.RewardEarned += OnAdRewardListener_RewardEarned;
 
@@ -55,10 +54,7 @@ public partial class RewardedAdService
     {
         return this.StartLoadAsync(adUnitId, () =>
         {
-            Context context = this.ContextResolverService.GetContext()
-                ?? throw new InvalidOperationException("Context cannot be null");
-
-            this.wrapper ??= new RewardedAdWrapper(context);
+            this.wrapper ??= new RewardedAdWrapper(this.loggerAdapter);
             this.wrapper.Load(adUnitId,
                               this.onAdLoadedListener,
                               this.onAdEventListener);
@@ -124,22 +120,19 @@ public partial class RewardedAdService
         this.onAdEventListener.AdImpression -= OnAdEventListener_AdImpression;
         this.onAdEventListener.AdDismissed -= OnAdEventListener_AdDismissed;
         this.onAdEventListener.AdFailedToShow -= OnAdEventListener_AdFailedToShow;
+        this.wrapper?.Dispose();
+        this.wrapper = null;
+        this.loggerAdapter.Dispose();
     }
 
     #endregion
 
-    #region Event Handlers
-
-    #region Ad Reward Listener
+    #region Event handlers
 
     private void OnAdRewardListener_RewardEarned(object? sender, AdReward e)
     {
         this.OnAdRewardEarned(e);
     }
-
-    #endregion
-
-    #region Ad Loaded Listener
 
     private void OnAdLoadedListener_AdFailedToLoad(object? sender, AdFailedToLoadEventArgs e)
     {
@@ -152,10 +145,6 @@ public partial class RewardedAdService
         this.CompleteLoadSuccess();
         this.OnAdLoaded();
     }
-
-    #endregion
-
-    #region Ad Event Listener
 
     private void OnAdEventListener_AdFailedToShow(object? sender, AdFailedToShowEventArgs e)
     {
@@ -188,8 +177,6 @@ public partial class RewardedAdService
     {
         this.OnAdClicked();
     }   
-
-    #endregion
 
     #endregion
 }

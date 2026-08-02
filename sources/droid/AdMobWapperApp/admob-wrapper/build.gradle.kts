@@ -12,7 +12,7 @@ android {
 
     defaultConfig {
         minSdk = 33
-        version = "0.0.1"
+        version = "0.1.10"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
     }
@@ -32,11 +32,16 @@ android {
     }
 }
 
+configurations.configureEach {
+    exclude(group = "com.google.android.gms", module = "play-services-ads")
+    exclude(group = "com.google.android.gms", module = "play-services-ads-lite")
+}
+
 dependencies {
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
-    implementation(libs.play.services.ads)
+    implementation(libs.google.mobile.ads.next.gen)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

@@ -1,7 +1,18 @@
 ﻿<metadata>
 	<remove-node path="/api/package[@name='it.amdev.admob.wrapper']/class[@name='AdMobManager.Companion']" />
 	<remove-node path="/api/package[@name='it.amdev.admob.wrapper']/class[@name='AdMobManager']/field[@name='Companion']" />
+	<remove-node path="/api/package[@name='it.amdev.admob.wrapper']/class[@name='AdMobManager.WhenMappings']" />
+	<remove-node path="/api/package[@name='it.amdev.admob.wrapper.ads']/class[@name='AppOpenAdWrapper.Companion']" />
+	<remove-node path="/api/package[@name='it.amdev.admob.wrapper.ads']/class[@name='AppOpenAdWrapper']/field[@name='Companion']" />
+	<remove-node path="/api/package[@name='it.amdev.admob.wrapper.ads']/class[@name='BannerAdWrapper.Companion']" />
+	<remove-node path="/api/package[@name='it.amdev.admob.wrapper.ads']/class[@name='BannerAdWrapper']/field[@name='Companion']" />
 	<remove-node path="/api/package[@name='it.amdev.admob.wrapper.ads']/class[@name='BannerAdWrapper.WhenMappings']" />
+	<remove-node path="/api/package[@name='it.amdev.admob.wrapper.ads']/class[@name='InterstitialAdWrapper.Companion']" />
+	<remove-node path="/api/package[@name='it.amdev.admob.wrapper.ads']/class[@name='InterstitialAdWrapper']/field[@name='Companion']" />
+	<remove-node path="/api/package[@name='it.amdev.admob.wrapper.ads']/class[@name='RewardedAdWrapper.Companion']" />
+	<remove-node path="/api/package[@name='it.amdev.admob.wrapper.ads']/class[@name='RewardedAdWrapper']/field[@name='Companion']" />
+	<remove-node path="/api/package[@name='it.amdev.admob.wrapper.diagnostics']/class[@name='LogLevel.Companion']" />
+	<remove-node path="/api/package[@name='it.amdev.admob.wrapper.diagnostics']/class[@name='LogLevel']/field[@name='Companion']" />
 
 
 	<attr path="/api/package[@name='it.amdev.admob.wrapper.ads']/class[@name='BannerAdViewSize']/field[@name='Banner']"

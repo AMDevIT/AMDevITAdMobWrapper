@@ -2,7 +2,8 @@
 
 namespace AMDevIT.Admob.Wrapper.MAUICross.Services;
 
-public abstract class BaseFullScreenAdService : IDisposable
+public abstract class BaseFullScreenAdService(ILogger logger,
+                                              IContextResolverService contextResolverService) : IDisposable
 {
     #region Events
 
@@ -18,7 +19,7 @@ public abstract class BaseFullScreenAdService : IDisposable
 
     #region Fields
 
-    private readonly object loadSyncRoot = new();
+    private readonly Lock loadSyncRoot = new();
     private volatile bool disposedValue;
     private TaskCompletionSource? loadCompletionSource;
     private CancellationTokenRegistration loadCancellationRegistration;
@@ -27,8 +28,8 @@ public abstract class BaseFullScreenAdService : IDisposable
 
     #region Properties
 
-    protected ILogger Logger { get; }
-    protected IContextResolverService ContextResolverService { get; }
+    protected ILogger Logger { get; } = logger;
+    protected IContextResolverService ContextResolverService { get; } = contextResolverService;
 
     public bool Disposed => this.disposedValue;
 
@@ -40,13 +41,6 @@ public abstract class BaseFullScreenAdService : IDisposable
     #endregion
 
     #region .ctor
-
-    public BaseFullScreenAdService(ILogger logger,
-                                   IContextResolverService contextResolverService)
-    {
-        this.Logger = logger;
-        this.ContextResolverService = contextResolverService;
-    }
 
     #endregion
 
@@ -62,7 +56,10 @@ public abstract class BaseFullScreenAdService : IDisposable
         cancellationToken.ThrowIfCancellationRequested();
 
         if (!this.IsLoaded)
+        {            
+            this.Logger.LogError("Cannot show {AdTypeName} because it is not loaded.", this.AdTypeName);
             throw new InvalidOperationException($"Cannot show {this.AdTypeName} because it is not loaded.");
+        }
 
         this.Show();
     }

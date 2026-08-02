@@ -12,8 +12,14 @@
       To learn more, see: https://learn.microsoft.com/dotnet/core/deploying/trimming/trimming-options#trimming-granularity
     -->
     <TrimMode Condition="'$(Configuration)' == 'Release'">full</TrimMode>
+    <ApplicationId>it.amdev.pocs.admob.wrapper.testapp</ApplicationId>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ProvisioningType>automatic</ProvisioningType>
+    <CodesignKey>Apple Development</CodesignKey>
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\AMDevIT.Admob.Wrapper.iOSNative\AMDevIT.Admob.Wrapper.iOSNative.csproj" />
+    <ProjectReference Include="..\AMDevIT.Admob.Wrapper\AMDevIT.Admob.Wrapper.csproj" />
   </ItemGroup>
 </Project>

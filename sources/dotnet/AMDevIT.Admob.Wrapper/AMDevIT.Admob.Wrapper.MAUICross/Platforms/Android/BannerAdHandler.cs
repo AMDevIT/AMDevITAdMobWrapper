@@ -2,9 +2,12 @@
 
 using AMDevIT.Admob.Wrapper.Ads;
 using AMDevIT.Admob.Wrapper.Listeners;
+using AMDevIT.Admob.Wrapper.MAUICross.Platforms.Android.Diagnostics;
 using Android.Content;
 using Android.Views;
 using Android.Widget;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using Microsoft.Maui.Handlers;
 using AndroidView = Android.Views.View;
 
@@ -17,6 +20,7 @@ public partial class BannerAdHandler
     #region Fields
 
     private BannerAdWrapper? bannerWrapper;
+    private DroidLoggerAdapter? loggerAdapter;
     private int lastAdaptiveWidth;
 
     #endregion
@@ -38,7 +42,10 @@ public partial class BannerAdHandler
 
     protected override AndroidView CreatePlatformView()
     {
-        this.bannerWrapper = new BannerAdWrapper(this.Context);
+        ILoggerFactory loggerFactory = this.MauiContext?.Services.GetRequiredService<ILoggerFactory>()
+            ?? throw new InvalidOperationException("The MAUI service provider is not available.");
+        this.loggerAdapter = new DroidLoggerAdapter(loggerFactory.CreateLogger<BannerAdHandler>());
+        this.bannerWrapper = new BannerAdWrapper(this.Context, this.loggerAdapter);
         BannerContainer container = new(this.Context, this.OnContainerWidthChanged);
 
         if (this.VirtualView.AdSize != BannerAdSize.Adaptive)
@@ -50,6 +57,10 @@ public partial class BannerAdHandler
     protected override void DisconnectHandler(AndroidView platformView)
     {
         this.bannerWrapper?.Destroy();
+        this.bannerWrapper?.Dispose();
+        this.bannerWrapper = null;
+        this.loggerAdapter?.Dispose();
+        this.loggerAdapter = null;
         if (platformView is BannerContainer container)
         {
             container.WidthChanged = null;
@@ -149,8 +160,6 @@ public partial class BannerAdHandler
         _ => BannerAdViewSize.Banner
     };
 
-    #region Nested classes
-
     private class BannerLoadListener(BannerAd view)
                 : Java.Lang.Object, IOnAdLoadedListener
     {
@@ -223,8 +232,6 @@ public partial class BannerAdHandler
 
         #endregion
     }
-
-    #endregion
 
     #endregion
 }

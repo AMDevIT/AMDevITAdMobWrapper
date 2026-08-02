@@ -12,7 +12,7 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(IsAMDevITAdMobPackage)' == 'true'">
-    <VersionPrefix>0.1.3</VersionPrefix>
+    <VersionPrefix>0.1.10</VersionPrefix>
     <VersionSuffix></VersionSuffix>
     <Authors>Alessandro Morvillo</Authors>
     <Company>AMDev.IT di Alessandro Morvillo</Company>
@@ -23,7 +23,7 @@
     <RepositoryType>git</RepositoryType>
     <PackageIcon>admob_maui_icon_v4_wallet_block.png</PackageIcon>
     <PackageReadmeFile>README.md</PackageReadmeFile>
-    <PackageReleaseNotes>Fix missing banner sizes for iOS, better management of banner view for Android. Fixed iOS constraints.</PackageReleaseNotes>
+    <PackageReleaseNotes>Update Android to AdMob Mobile Ads SDK Next-Gen 1.3.1 and add cross-platform UMP consent support with safe desktop fallbacks.</PackageReleaseNotes>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <IsPackable>true</IsPackable>
     <IncludeSymbols>true</IncludeSymbols>

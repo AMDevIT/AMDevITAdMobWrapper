@@ -1,200 +1,313 @@
 using Foundation;
 using ObjCRuntime;
 using UIKit;
- 
+
 namespace AMDevIT.Admob.Wrapper.iOSNative
 {
-		// @protocol OnAdEventListener
-	/*
-  Check whether adding [Model] to this declaration is appropriate.
-  [Model] is used to generate a C# class that implements this protocol,
-  and might be useful for protocols that consumers are supposed to implement,
-  since consumers can subclass the generated class instead of implementing
-  the generated interface. If consumers are not supposed to implement this
-  protocol, then [Model] is redundant and will generate code that will never
-  be used.
-*/[Protocol (Name = "_TtP12AdMobWrapper17OnAdEventListener_")]
-[Model(Name="OnAdEventListener")]
-[BaseType(typeof(NSObject))]
-	public interface OnAdEventListener
-	{
-		// @required -(void)onAdShown;
-		[Export ("onAdShown")]
-		void OnAdShown ();
+    [BaseType(typeof(NSObject), Name = "_TtC12AdMobWrapper12AdMobManager")]
+    [DisableDefaultCtor]
+    interface AdMobManager
+    {
+        [Static]
+        [Export("instance", ArgumentSemantic.Strong)]
+        AdMobManager Instance { get; }
 
-		// @required -(void)onAdDismissed;
-		[Export ("onAdDismissed")]
-		void OnAdDismissed ();
+        [Export("initWithLogger:")]
+        NativeHandle Constructor([NullAllowed] IAppleLogger logger);
 
-		// @required -(void)onAdClicked;
-		[Export ("onAdClicked")]
-		void OnAdClicked ();
+        [Export("initializeWithViewController:listener:")]
+        void InitializeWithViewController(UIViewController viewController,
+                                          IOnInitializedListener listener);
 
-		// @required -(void)onAdImpression;
-		[Export ("onAdImpression")]
-		void OnAdImpression ();
+        [Export("isInitialized")]
+        bool IsInitialized { get; }
 
-		// @required -(void)onAdFailedToShowWithErrorCode:(NSInteger)errorCode errorMessage:(NSString * _Nonnull)errorMessage;
-		[Export ("onAdFailedToShowWithErrorCode:errorMessage:")]
-		void OnAdFailedToShowWithErrorCode (nint errorCode, string errorMessage);
-	}
+        [Export("updateCurrentConsentInformationWithViewController:tagForUnderAgeOfConsent:listener:")]
+        void UpdateCurrentConsentInformationWithViewController(
+            UIViewController viewController,
+            bool tagForUnderAgeOfConsent,
+            IOnConsentInformationRequestListener listener);
 
-	// @protocol OnAdLoadedListener
-	/*
-  Check whether adding [Model] to this declaration is appropriate.
-  [Model] is used to generate a C# class that implements this protocol,
-  and might be useful for protocols that consumers are supposed to implement,
-  since consumers can subclass the generated class instead of implementing
-  the generated interface. If consumers are not supposed to implement this
-  protocol, then [Model] is redundant and will generate code that will never
-  be used.
-*/[Protocol (Name = "_TtP12AdMobWrapper18OnAdLoadedListener_")]
-[Model(Name="OnAdLoadedListener")]
-[BaseType(typeof(NSObject))]
-	public interface OnAdLoadedListener
-	{
-		// @required -(void)onAdLoaded;
-		[Export ("onAdLoaded")]
-		void OnAdLoaded ();
+        [Export("updateCurrentConsentInformationWithViewController:tagForUnderAgeOfConsent:listener:requestDebugParameters:")]
+        void UpdateCurrentConsentInformationWithViewController(
+            UIViewController viewController,
+            bool tagForUnderAgeOfConsent,
+            IOnConsentInformationRequestListener listener,
+            [NullAllowed] ConsentInformationRequestDebugParameters requestDebugParameters);
 
-		// @required -(void)onAdFailedToLoadWithErrorCode:(NSInteger)errorCode errorMessage:(NSString * _Nonnull)errorMessage;
-		[Export ("onAdFailedToLoadWithErrorCode:errorMessage:")]
-		void OnAdFailedToLoadWithErrorCode (nint errorCode, string errorMessage);
-	}
+        [return: NullAllowed]
+        [Export("currentConsentInformation")]
+        ConsentStatusData CurrentConsentInformation();
 
-	// @protocol OnInitializedListener
-	/*
-  Check whether adding [Model] to this declaration is appropriate.
-  [Model] is used to generate a C# class that implements this protocol,
-  and might be useful for protocols that consumers are supposed to implement,
-  since consumers can subclass the generated class instead of implementing
-  the generated interface. If consumers are not supposed to implement this
-  protocol, then [Model] is redundant and will generate code that will never
-  be used.
-*/[Protocol (Name = "_TtP12AdMobWrapper21OnInitializedListener_")]
-[Model(Name="OnInitializedListener")]
-[BaseType(typeof(NSObject))]
-	public interface OnInitializedListener
-	{
-		// @required -(void)onInitialized;
-		
-		[Export ("onInitialized")]
-		void OnInitialized ();
+        [Export("showPrivacyOptionsFormWithViewController:listener:")]
+        void ShowPrivacyOptionsFormWithViewController(UIViewController viewController,
+                                                      IOnConsentFormEventListener listener);
 
-		// @required -(void)onInitializationFailedWithError:(NSString * _Nonnull)error;
-		
-		[Export ("onInitializationFailedWithError:")]
-		void OnInitializationFailedWithError (string error);
-	}
+        [Export("loadAndShowConsentFormIfRequiredWithViewController:listener:")]
+        void LoadAndShowConsentFormIfRequiredWithViewController(
+            UIViewController viewController,
+            IOnConsentFormEventListener listener);
 
-	// @protocol OnRewardEarnedListener
-	/*
-  Check whether adding [Model] to this declaration is appropriate.
-  [Model] is used to generate a C# class that implements this protocol,
-  and might be useful for protocols that consumers are supposed to implement,
-  since consumers can subclass the generated class instead of implementing
-  the generated interface. If consumers are not supposed to implement this
-  protocol, then [Model] is redundant and will generate code that will never
-  be used.
-*/
-	[Protocol (Name = "_TtP12AdMobWrapper22OnRewardEarnedListener_")]
-	[Model(Name="OnRewardEarnedListener")]
-[BaseType(typeof(NSObject))]
-	public interface OnRewardEarnedListener
-	{
-		// @required -(void)onRewardEarnedWithType:(NSString * _Nonnull)type amount:(NSInteger)amount;
-		[Export ("onRewardEarnedWithType:amount:")]
-		void OnRewardEarnedWithType (string type, nint amount);
-	}
+        [Export("canRequestAds")]
+        bool CanRequestAds();
 
-	// @interface AdMobManager : NSObject
-	[BaseType (typeof(NSObject), Name = "_TtC12AdMobWrapper12AdMobManager")]
-	[DisableDefaultCtor]
-	public interface AdMobManager
-	{
-		// @property (readonly, nonatomic, strong, class) AdMobManager * _Nonnull instance;
-		[Static]
-		[Export ("instance", ArgumentSemantic.Strong)]
-		AdMobManager Instance { get; }
+        [Export("gatherConsentWithViewController:tagForUnderAgeOfConsent:listener:")]
+        void GatherConsentWithViewController(UIViewController viewController,
+                                             bool tagForUnderAgeOfConsent,
+                                             IOnConsentGatheringListener listener);
 
-		// -(void)initializeWithViewController:(UIViewController * _Nonnull)viewController listener:(id<OnInitializedListener> _Nonnull)listener;
-		[Export ("initializeWithViewController:listener:")]
-		void InitializeWithViewController (UIViewController viewController, IOnInitializedListener listener);
+        [Export("gatherConsentWithViewController:tagForUnderAgeOfConsent:listener:requestDebugParameters:")]
+        void GatherConsentWithViewController(
+            UIViewController viewController,
+            bool tagForUnderAgeOfConsent,
+            IOnConsentGatheringListener listener,
+            [NullAllowed] ConsentInformationRequestDebugParameters requestDebugParameters);
 
-		// -(BOOL)isInitialized __attribute__((warn_unused_result("")));
-		[Export ("isInitialized")]
-		bool IsInitialized { get; }
-	}
+        [Export("resetConsentForTesting")]
+        void ResetConsentForTesting();
+    }
 
-	// @interface AppOpenAdWrapper : NSObject
-	[BaseType (typeof(NSObject), Name = "_TtC12AdMobWrapper16AppOpenAdWrapper")]
-	public interface AppOpenAdWrapper
-	{
-		// -(void)loadWithAdUnitId:(NSString * _Nonnull)adUnitId loadListener:(id<OnAdLoadedListener> _Nonnull)loadListener eventListener:(id<OnAdEventListener> _Nullable)eventListener;
-		[Export ("loadWithAdUnitId:loadListener:eventListener:")]
-		void LoadWithAdUnitId (string adUnitId, IOnAdLoadedListener loadListener, [NullAllowed] IOnAdEventListener eventListener);
+    [BaseType(typeof(NSObject), Name = "_TtC12AdMobWrapper16AppOpenAdWrapper")]
+    interface AppOpenAdWrapper
+    {
+        [Export("initWithLogger:")]
+        NativeHandle Constructor([NullAllowed] IAppleLogger logger);
 
-		// -(void)showWithViewController:(UIViewController * _Nonnull)viewController;
-		[Export ("showWithViewController:")]
-		void ShowWithViewController (UIViewController viewController);
+        [Export("loadWithAdUnitId:loadListener:eventListener:")]
+        void LoadWithAdUnitId(string adUnitId,
+                              IOnAdLoadedListener loadListener,
+                              [NullAllowed] IOnAdEventListener eventListener);
 
-		// -(BOOL)isLoaded __attribute__((warn_unused_result("")));
-		[Export ("isLoaded")]
-		bool IsLoaded { get; }
+        [Export("showWithViewController:")]
+        void ShowWithViewController(UIViewController viewController);
 
-		// -(BOOL)isShowing __attribute__((warn_unused_result("")));
-		[Export ("isShowing")]
-		bool IsShowing { get; }
-	}	
+        [Export("isLoaded")]
+        bool IsLoaded { get; }
 
-	// @interface BannerAdWrapper : NSObject
-	[BaseType (typeof(NSObject), Name = "_TtC12AdMobWrapper15BannerAdWrapper")]
-	public interface BannerAdWrapper
-	{
-		// -(UIView * _Nonnull)loadWithAdUnitId:(NSString * _Nonnull)adUnitId viewController:(UIViewController * _Nonnull)viewController loadListener:(id<OnAdLoadedListener> _Nonnull)loadListener eventListener:(id<OnAdEventListener> _Nullable)eventListener __attribute__((warn_unused_result("")));
-		[Export ("loadWithAdUnitId:viewController:loadListener:eventListener:")]
-		UIView LoadWithAdUnitId (string adUnitId, UIViewController viewController, IOnAdLoadedListener loadListener, [NullAllowed] IOnAdEventListener eventListener);
+        [Export("isShowing")]
+        bool IsShowing { get; }
+    }
 
-		// -(UIView * _Nonnull)loadWithAdUnitId:(NSString * _Nonnull)adUnitId viewController:(UIViewController * _Nonnull)viewController adSize:(enum BannerAdViewSize)adSize adWidth:(CGFloat)adWidth loadListener:(id<OnAdLoadedListener> _Nonnull)loadListener eventListener:(id<OnAdEventListener> _Nullable)eventListener __attribute__((warn_unused_result("")));
-		[Export ("loadWithAdUnitId:viewController:adSize:adWidth:loadListener:eventListener:")]
-		UIView LoadWithAdUnitId (string adUnitId, UIViewController viewController, BannerAdViewSize adSize, nfloat adWidth, IOnAdLoadedListener loadListener, [NullAllowed] IOnAdEventListener eventListener);
+    [BaseType(typeof(NSObject), Name = "_TtC12AdMobWrapper15BannerAdWrapper")]
+    interface BannerAdWrapper
+    {
+        [Export("initWithLogger:")]
+        NativeHandle Constructor([NullAllowed] IAppleLogger logger);
 
-		// -(void)destroy;
-		[Export ("destroy")]
-		void Destroy ();
-	}	
+        [Export("loadWithAdUnitId:viewController:loadListener:eventListener:")]
+        UIView LoadWithAdUnitId(string adUnitId,
+                                UIViewController viewController,
+                                IOnAdLoadedListener loadListener,
+                                [NullAllowed] IOnAdEventListener eventListener);
 
-	// @interface InterstitialAdWrapper : NSObject
-	[BaseType (typeof(NSObject), Name = "_TtC12AdMobWrapper21InterstitialAdWrapper")]
-	public interface InterstitialAdWrapper
-	{
-		// -(void)loadWithAdUnitId:(NSString * _Nonnull)adUnitId loadListener:(id<OnAdLoadedListener> _Nonnull)loadListener eventListener:(id<OnAdEventListener> _Nullable)eventListener;
-		[Export ("loadWithAdUnitId:loadListener:eventListener:")]
-		void LoadWithAdUnitId (string adUnitId, IOnAdLoadedListener loadListener, [NullAllowed] IOnAdEventListener eventListener);
+        [Export("loadWithAdUnitId:viewController:adSize:adWidth:loadListener:eventListener:")]
+        UIView LoadWithAdUnitId(string adUnitId,
+                                UIViewController viewController,
+                                BannerAdViewSize adSize,
+                                nfloat adWidth,
+                                IOnAdLoadedListener loadListener,
+                                [NullAllowed] IOnAdEventListener eventListener);
 
-		// -(void)showWithViewController:(UIViewController * _Nonnull)viewController;
-		[Export ("showWithViewController:")]
-		void ShowWithViewController (UIViewController viewController);
+        [Export("destroy")]
+        void Destroy();
+    }
 
-		// -(BOOL)isLoaded __attribute__((warn_unused_result("")));
-		[Export ("isLoaded")]
-		bool IsLoaded { get; }
-	}
+    [BaseType(typeof(NSObject), Name = "_TtC12AdMobWrapper40ConsentInformationRequestDebugParameters")]
+    interface ConsentInformationRequestDebugParameters
+    {
+        [NullAllowed]
+        [Export("debugGeography", ArgumentSemantic.Strong)]
+        NSNumber DebugGeography { get; }
 
-	// @interface RewardedAdWrapper : NSObject
-	[BaseType (typeof(NSObject), Name = "_TtC12AdMobWrapper17RewardedAdWrapper")]
-	public interface RewardedAdWrapper
-	{
-		// -(void)loadWithAdUnitId:(NSString * _Nonnull)adUnitId loadListener:(id<OnAdLoadedListener> _Nonnull)loadListener eventListener:(id<OnAdEventListener> _Nullable)eventListener;
-		[Export ("loadWithAdUnitId:loadListener:eventListener:")]
-		void LoadWithAdUnitId (string adUnitId, IOnAdLoadedListener loadListener, [NullAllowed] IOnAdEventListener eventListener);
+        [NullAllowed]
+        [Export("testDeviceHashedId")]
+        string TestDeviceHashedId { get; }
 
-		// -(void)showWithViewController:(UIViewController * _Nonnull)viewController rewardListener:(id<OnRewardEarnedListener> _Nonnull)rewardListener;
-		[Export ("showWithViewController:rewardListener:")]
-		void ShowWithViewController (UIViewController viewController, IOnRewardEarnedListener rewardListener);
+        [Export("initWithDebugGeography:testDeviceHashedId:")]
+        NativeHandle Constructor([NullAllowed] NSNumber debugGeography,
+                                 [NullAllowed] string testDeviceHashedId);
+    }
 
-		// -(BOOL)isLoaded __attribute__((warn_unused_result("")));
-		[Export ("isLoaded")]
-		bool IsLoaded { get; }
-	}
+    [BaseType(typeof(NSObject), Name = "_TtC12AdMobWrapper17ConsentStatusData")]
+    [DisableDefaultCtor]
+    interface ConsentStatusData
+    {
+        [Export("lastRefreshTimestampMilliseconds")]
+        long LastRefreshTimestampMilliseconds { get; }
+
+        [Export("consentStatus")]
+        nint ConsentStatus { get; }
+
+        [Export("privacyOptionsRequirementStatus")]
+        nint PrivacyOptionsRequirementStatus { get; }
+
+        [Export("initWithLastRefreshTimestampMilliseconds:consentStatus:privacyOptionsRequirementStatus:")]
+        NativeHandle Constructor(long lastRefreshTimestampMilliseconds,
+                                 nint consentStatus,
+                                 nint privacyOptionsRequirementStatus);
+    }
+
+    [BaseType(typeof(NSObject), Name = "_TtC12AdMobWrapper21InterstitialAdWrapper")]
+    interface InterstitialAdWrapper
+    {
+        [Export("initWithLogger:")]
+        NativeHandle Constructor([NullAllowed] IAppleLogger logger);
+
+        [Export("loadWithAdUnitId:loadListener:eventListener:")]
+        void LoadWithAdUnitId(string adUnitId,
+                              IOnAdLoadedListener loadListener,
+                              [NullAllowed] IOnAdEventListener eventListener);
+
+        [Export("showWithViewController:")]
+        void ShowWithViewController(UIViewController viewController);
+
+        [Export("isLoaded")]
+        bool IsLoaded { get; }
+    }
+
+    [BaseType(typeof(NSObject), Name = "_TtC12AdMobWrapper17RewardedAdWrapper")]
+    interface RewardedAdWrapper
+    {
+        [Export("initWithLogger:")]
+        NativeHandle Constructor([NullAllowed] IAppleLogger logger);
+
+        [Export("loadWithAdUnitId:loadListener:eventListener:")]
+        void LoadWithAdUnitId(string adUnitId,
+                              IOnAdLoadedListener loadListener,
+                              [NullAllowed] IOnAdEventListener eventListener);
+
+        [Export("showWithViewController:rewardListener:")]
+        void ShowWithViewController(UIViewController viewController,
+                                    IOnRewardEarnedListener rewardListener);
+
+        [Export("isLoaded")]
+        bool IsLoaded { get; }
+    }
+
+    [Protocol(Name = "_TtP12AdMobWrapper12IAppleLogger_")]
+    interface AppleLogger
+    {
+        [Abstract]
+        [Export("isEnabledWithLevel:")]
+        bool IsEnabled(AppleLogLevel level);
+
+        [Abstract]
+        [Export("logTraceWithMessage:tag:")]
+        void LogTrace(string message, [NullAllowed] string tag);
+
+        [Abstract]
+        [Export("logDebugWithMessage:tag:")]
+        void LogDebug(string message, [NullAllowed] string tag);
+
+        [Abstract]
+        [Export("logInfoWithMessage:tag:")]
+        void LogInfo(string message, [NullAllowed] string tag);
+
+        [Abstract]
+        [Export("logWarningWithMessage:tag:")]
+        void LogWarning(string message, [NullAllowed] string tag);
+
+        [Abstract]
+        [Export("logErrorWithMessage:tag:")]
+        void LogError(string message, [NullAllowed] string tag);
+
+        [Abstract]
+        [Export("logCriticalWithMessage:tag:")]
+        void LogCritical(string message, [NullAllowed] string tag);
+    }
+
+    [Protocol(Name = "_TtP12AdMobWrapper17OnAdEventListener_")]
+    interface OnAdEventListener
+    {
+        [Abstract]
+        [Export("onAdShown")]
+        void OnAdShown();
+
+        [Abstract]
+        [Export("onAdDismissed")]
+        void OnAdDismissed();
+
+        [Abstract]
+        [Export("onAdClicked")]
+        void OnAdClicked();
+
+        [Abstract]
+        [Export("onAdImpression")]
+        void OnAdImpression();
+
+        [Abstract]
+        [Export("onAdFailedToShowWithErrorCode:errorMessage:")]
+        void OnAdFailedToShowWithErrorCode(nint errorCode, string errorMessage);
+    }
+
+    [Protocol(Name = "_TtP12AdMobWrapper18OnAdLoadedListener_")]
+    interface OnAdLoadedListener
+    {
+        [Abstract]
+        [Export("onAdLoaded")]
+        void OnAdLoaded();
+
+        [Abstract]
+        [Export("onAdFailedToLoadWithErrorCode:errorMessage:")]
+        void OnAdFailedToLoadWithErrorCode(nint errorCode, string errorMessage);
+    }
+
+    [Protocol(Name = "_TtP12AdMobWrapper26OnConsentFormEventListener_")]
+    interface OnConsentFormEventListener
+    {
+        [Abstract]
+        [Export("onDismissed")]
+        void OnDismissed();
+
+        [Abstract]
+        [Export("onDismissedWithErrorWithErrorCode:errorMessage:")]
+        void OnDismissedWithError(nint errorCode, [NullAllowed] string errorMessage);
+    }
+
+    [Protocol(Name = "_TtP12AdMobWrapper26OnConsentGatheringListener_")]
+    interface OnConsentGatheringListener
+    {
+        [Abstract]
+        [Export("onCompletedWithCanRequestAds:privacyOptionsRequired:")]
+        void OnCompleted(bool canRequestAds, bool privacyOptionsRequired);
+
+        [Abstract]
+        [Export("onCompletedWithErrorWithErrorCode:errorMessage:canRequestAds:privacyOptionsRequired:")]
+        void OnCompletedWithError(nint errorCode,
+                                  string errorMessage,
+                                  bool canRequestAds,
+                                  bool privacyOptionsRequired);
+    }
+
+    [Protocol(Name = "_TtP12AdMobWrapper35OnConsentInformationRequestListener_")]
+    interface OnConsentInformationRequestListener
+    {
+        [Abstract]
+        [Export("onConsentInformationRequestSuccess")]
+        void OnConsentInformationRequestSuccess();
+
+        [Abstract]
+        [Export("onConsentInformationRequestFailureWithErrorCode:errorMessage:")]
+        void OnConsentInformationRequestFailure(nint errorCode, string errorMessage);
+    }
+
+    [Protocol(Name = "_TtP12AdMobWrapper21OnInitializedListener_")]
+    interface OnInitializedListener
+    {
+        [Abstract]
+        [Export("onInitialized")]
+        void OnInitialized();
+
+        [Abstract]
+        [Export("onInitializationFailedWithError:")]
+        void OnInitializationFailedWithError(string error);
+    }
+
+    [Protocol(Name = "_TtP12AdMobWrapper22OnRewardEarnedListener_")]
+    interface OnRewardEarnedListener
+    {
+        [Abstract]
+        [Export("onRewardEarnedWithType:amount:")]
+        void Amount(string type, nint amount);
+    }
 }

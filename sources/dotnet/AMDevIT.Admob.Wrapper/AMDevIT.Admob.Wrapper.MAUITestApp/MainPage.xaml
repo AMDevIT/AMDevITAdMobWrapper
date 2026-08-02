@@ -8,20 +8,26 @@
              x:DataType="viewModels:MainPageViewModel">
 
     <ScrollView>
-        <Grid RowDefinitions="*, *, *, Auto">            
-            <Label Grid.Row="0" Text="Hello AdMob on MAUI!" />
+        <Grid Padding="16"
+              RowDefinitions="Auto, Auto, Auto, Auto"
+              RowSpacing="12">
+            <Label Grid.Row="0"
+                   Text="Hello AdMob on MAUI!" />
             <Label Grid.Row="1" 
                    Text="{Binding StatusMessage}" 
                    IsVisible="{Binding ShowStatusMessage}" />            
             
-            <Button Text="Show interstitial banner" 
+            <Button Grid.Row="2"
+                    Text="Show interstitial ad"
                     Command="{Binding ShowInterstitialAdCommand}"
+                    IsEnabled="{Binding CanLoadAds}"
                     IsVisible="{OnPlatform True, WinUI=False, MacCatalyst=False}" />
             
-            <admob:BannerAd Grid.Row="1"
+            <admob:BannerAd Grid.Row="3"
                             AdUnitId="ca-app-pub-3940256099942544/6300978111"
                             AdLoaded="BannerAd_AdLoaded"
-                            AdFailed="BannerAd_AdFailed">
+                            AdFailed="BannerAd_AdFailed"
+                            IsVisible="{Binding CanLoadAds}">
                 <admob:BannerAd.FallbackTemplate>
                     <DataTemplate>
                         <Border Padding="12"

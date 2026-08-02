@@ -19,6 +19,8 @@ namespace AMDevIT.Admob.Wrapper.MAUITestApp
 
         #endregion
 
+        #region .ctor
+
         public MainPage(ILogger<MainPage> logger,
                         MainPageViewModel viewModel)
         {
@@ -29,13 +31,16 @@ namespace AMDevIT.Admob.Wrapper.MAUITestApp
             this.BindingContext = this.MainPageViewModel;           
         }
 
+        #endregion
+
         #region Methods
 
-        protected override void OnNavigatedTo(NavigatedToEventArgs args)
+        protected override async void OnNavigatedTo(NavigatedToEventArgs args)
         {
             base.OnNavigatedTo(args);
 
             this.MainPageViewModel.RegisterEvents();
+            await this.MainPageViewModel.InitializeAsync();
         }
 
         protected override void OnNavigatingFrom(NavigatingFromEventArgs args)
@@ -47,7 +52,7 @@ namespace AMDevIT.Admob.Wrapper.MAUITestApp
 
         #endregion
 
-        #region Event Handlers
+        #region Event handlers
 
         private void BannerAd_AdLoaded(object? sender, EventArgs e)
         {

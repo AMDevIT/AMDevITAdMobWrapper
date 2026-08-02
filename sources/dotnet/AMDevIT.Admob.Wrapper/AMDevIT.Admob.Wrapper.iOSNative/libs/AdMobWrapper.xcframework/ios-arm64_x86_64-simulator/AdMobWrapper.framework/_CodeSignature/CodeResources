@@ -6,19 +6,19 @@
 	<dict>
 		<key>Headers/AdMobWrapper.h</key>
 		<data>
-		MPQqP0U7ofvvaqYl28XES5PIW1g=
+		aWsL0Ksxch+CB6a7U0fjvIwdZLU=
 		</data>
 		<key>Info.plist</key>
 		<data>
-		r6u6V1zZqeAqMp1Ty+DSpm0W8wI=
+		VqLfdiTguFs1AVw02zmggPpFy4E=
 		</data>
 		<key>Modules/AdMobWrapper.swiftmodule/arm64-apple-ios-simulator.abi.json</key>
 		<data>
-		IVItTRTTKXmoqEgm1MzMePSR1QI=
+		FAt0buOatYC7mEG4DCf9q3t6ehA=
 		</data>
 		<key>Modules/AdMobWrapper.swiftmodule/arm64-apple-ios-simulator.private.swiftinterface</key>
 		<data>
-		gKh6ilNdHv9Lt1e1VClJaQNwnJs=
+		/bq59kgu38r0/zVsfEIuka4jKWk=
 		</data>
 		<key>Modules/AdMobWrapper.swiftmodule/arm64-apple-ios-simulator.swiftdoc</key>
 		<data>
@@ -26,19 +26,19 @@
 		</data>
 		<key>Modules/AdMobWrapper.swiftmodule/arm64-apple-ios-simulator.swiftinterface</key>
 		<data>
-		gKh6ilNdHv9Lt1e1VClJaQNwnJs=
+		/bq59kgu38r0/zVsfEIuka4jKWk=
 		</data>
 		<key>Modules/AdMobWrapper.swiftmodule/arm64-apple-ios-simulator.swiftmodule</key>
 		<data>
-		NabG+UlmRJwfTgR0A3n4PDvqnSc=
+		I5vWaJ2kKfRcRkPDHj3q9NeH1FE=
 		</data>
 		<key>Modules/AdMobWrapper.swiftmodule/x86_64-apple-ios-simulator.abi.json</key>
 		<data>
-		IVItTRTTKXmoqEgm1MzMePSR1QI=
+		FAt0buOatYC7mEG4DCf9q3t6ehA=
 		</data>
 		<key>Modules/AdMobWrapper.swiftmodule/x86_64-apple-ios-simulator.private.swiftinterface</key>
 		<data>
-		8lERStEqFzoiAKG2dZ1+4m8F748=
+		QmlAjwdWKZTXgIwPFD6x+yGp2xg=
 		</data>
 		<key>Modules/AdMobWrapper.swiftmodule/x86_64-apple-ios-simulator.swiftdoc</key>
 		<data>
@@ -46,11 +46,11 @@
 		</data>
 		<key>Modules/AdMobWrapper.swiftmodule/x86_64-apple-ios-simulator.swiftinterface</key>
 		<data>
-		8lERStEqFzoiAKG2dZ1+4m8F748=
+		QmlAjwdWKZTXgIwPFD6x+yGp2xg=
 		</data>
 		<key>Modules/AdMobWrapper.swiftmodule/x86_64-apple-ios-simulator.swiftmodule</key>
 		<data>
-		w9WiGuTe3A6HqpHWwGky/X0+KqI=
+		Eyy+RjFhLfObgRdIlSn9+l7wipg=
 		</data>
 	</dict>
 	<key>files2</key>
@@ -59,21 +59,21 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			8JynBO/3RScQd9GSXCygmG4M4CccufgbVwE16O+ItIs=
+			PwB3OFvmNOuw0upGdbWakluKRe0k3DFcWcqDGCjyNAc=
 			</data>
 		</dict>
 		<key>Modules/AdMobWrapper.swiftmodule/arm64-apple-ios-simulator.abi.json</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			O0YKalYc5vWwiy7RO/FJFnpYgaSPfAfze5R/zcAPfAw=
+			S6R76A7HzhQKuFKXMicTlira5QDON/vNAEd+tffDZBA=
 			</data>
 		</dict>
 		<key>Modules/AdMobWrapper.swiftmodule/arm64-apple-ios-simulator.private.swiftinterface</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			7BBHkUSZMxuaO8OWvJLRAlKQHSyGx0LRDj28I2mHiBw=
+			g1t2UkA1kx28TNs8iXcimGKnBkPhpShvJ8P//+dnKCo=
 			</data>
 		</dict>
 		<key>Modules/AdMobWrapper.swiftmodule/arm64-apple-ios-simulator.swiftdoc</key>
@@ -87,28 +87,28 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			7BBHkUSZMxuaO8OWvJLRAlKQHSyGx0LRDj28I2mHiBw=
+			g1t2UkA1kx28TNs8iXcimGKnBkPhpShvJ8P//+dnKCo=
 			</data>
 		</dict>
 		<key>Modules/AdMobWrapper.swiftmodule/arm64-apple-ios-simulator.swiftmodule</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			ciLKMa4OXaiHAyWkpzP6GEbxANu2UT5xakDRbdWLYVo=
+			AmZ21wuHOSYr3QD0i5mh83D9EjMbn9/ovsisc4lw8ys=
 			</data>
 		</dict>
 		<key>Modules/AdMobWrapper.swiftmodule/x86_64-apple-ios-simulator.abi.json</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			O0YKalYc5vWwiy7RO/FJFnpYgaSPfAfze5R/zcAPfAw=
+			S6R76A7HzhQKuFKXMicTlira5QDON/vNAEd+tffDZBA=
 			</data>
 		</dict>
 		<key>Modules/AdMobWrapper.swiftmodule/x86_64-apple-ios-simulator.private.swiftinterface</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			TSg2kkomKJUusjwnaeNfsqAFa1iarmekCQdwfKG04Ms=
+			jH965NuO3ArXeLW+w2AKnuIidhZhoDn6TpiN4xnLzRA=
 			</data>
 		</dict>
 		<key>Modules/AdMobWrapper.swiftmodule/x86_64-apple-ios-simulator.swiftdoc</key>
@@ -122,14 +122,14 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			TSg2kkomKJUusjwnaeNfsqAFa1iarmekCQdwfKG04Ms=
+			jH965NuO3ArXeLW+w2AKnuIidhZhoDn6TpiN4xnLzRA=
 			</data>
 		</dict>
 		<key>Modules/AdMobWrapper.swiftmodule/x86_64-apple-ios-simulator.swiftmodule</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			lJGWbM4Heasxx7V+8AbWJqfabK8FDima4EqGgGU+nd4=
+			u0DTr2T5r6JMBjtDjOGKJnDhqdgZi3Fq2Qh6Sca6sq0=
 			</data>
 		</dict>
 	</dict>

@@ -4,16 +4,24 @@ import android.Manifest
 import android.content.Context
 import android.view.View
 import androidx.annotation.RequiresPermission
-import com.google.android.gms.ads.AdListener
-import com.google.android.gms.ads.AdRequest
-import com.google.android.gms.ads.AdSize
-import com.google.android.gms.ads.AdView
-import com.google.android.gms.ads.LoadAdError
+import com.google.android.libraries.ads.mobile.sdk.banner.AdSize
+import com.google.android.libraries.ads.mobile.sdk.banner.AdView
+import com.google.android.libraries.ads.mobile.sdk.banner.BannerAd
+import com.google.android.libraries.ads.mobile.sdk.banner.BannerAdEventCallback
+import com.google.android.libraries.ads.mobile.sdk.banner.BannerAdRefreshCallback
+import com.google.android.libraries.ads.mobile.sdk.banner.BannerAdRequest
+import com.google.android.libraries.ads.mobile.sdk.common.AdLoadCallback
+import com.google.android.libraries.ads.mobile.sdk.common.AdValue
+import com.google.android.libraries.ads.mobile.sdk.common.FullScreenContentError
+import com.google.android.libraries.ads.mobile.sdk.common.LoadAdError
+import it.amdev.admob.wrapper.diagnostics.IDroidLogger
 import it.amdev.admob.wrapper.listeners.OnAdEventListener
 import it.amdev.admob.wrapper.listeners.OnAdLoadedListener
+import it.amdev.admob.wrapper.utils.ErrorsObjectsExtensions.Companion.toInt
 
 @Suppress("unused")
-class BannerAdWrapper(private val context: Context) {
+class BannerAdWrapper(private val context: Context,
+                      private val logger: IDroidLogger? = null) {
 
     private var bannerView: View? = null
 
@@ -29,30 +37,88 @@ class BannerAdWrapper(private val context: Context) {
         if (this.bannerView is AdView) {
             (this.bannerView as AdView).destroy()
         }
-        val adView = AdView(context).apply {
-            this.adUnitId = adUnitId
 
-            val nativeAdSize = when(adSize) {
-                BannerAdViewSize.Banner -> AdSize.BANNER
-                BannerAdViewSize.LargeBanner -> AdSize.LARGE_BANNER
-                BannerAdViewSize.MediumRectangle -> AdSize.MEDIUM_RECTANGLE
-                BannerAdViewSize.FullBanner -> AdSize.FULL_BANNER
-                BannerAdViewSize.Leaderboard -> AdSize.LEADERBOARD
-                BannerAdViewSize.Adaptive -> {
-                    val width = context.resources.configuration.screenWidthDp
+        val nativeAdSize = when(adSize) {
+            BannerAdViewSize.Banner -> AdSize.BANNER
+            BannerAdViewSize.LargeBanner -> AdSize.LARGE_BANNER
+            BannerAdViewSize.MediumRectangle -> AdSize.MEDIUM_RECTANGLE
+            BannerAdViewSize.FullBanner -> AdSize.FULL_BANNER
+            BannerAdViewSize.Leaderboard -> AdSize.LEADERBOARD
+            BannerAdViewSize.Adaptive -> {
+                val width = context.resources.configuration.screenWidthDp
 
-                    if (maxHeight != null)
-                        AdSize.getInlineAdaptiveBannerAdSize(width, maxHeight)
-                    else
-                        AdSize.getLargeAnchoredAdaptiveBannerAdSize(context, width)
-                }
+                if (maxHeight != null)
+                    AdSize.getInlineAdaptiveBannerAdSize(width, maxHeight)
+                else
+                    AdSize.getLargeAnchoredAdaptiveBannerAdSize(context, width)
             }
-
-            setAdSize(nativeAdSize)
-            adListener = createAdListener(loadListener, eventListener)
         }
 
-        adView.loadAd(AdRequest.Builder().build())
+        val adView = AdView(context).apply {
+            // Nothing to apply right now
+        }
+
+        val adRequest = BannerAdRequest.Builder(adUnitId = adUnitId,
+                                                adSize = nativeAdSize)
+                                       .build()
+        adView.loadAd(adRequest = adRequest,
+            object : AdLoadCallback<BannerAd> {
+                override fun onAdLoaded(ad: BannerAd) {
+                    loadListener.onAdLoaded()
+                    ad.adEventCallback = object : BannerAdEventCallback {
+                        override fun onAdClicked() {
+                            eventListener?.onAdClicked()
+                        }
+
+                        override fun onAdImpression() {
+                            eventListener?.onAdImpression()
+                        }
+
+                        override fun onAdDismissedFullScreenContent() {
+                            eventListener?.onAdDismissed()
+                        }
+
+                        override fun onAdPaid(value: AdValue) {
+                            super.onAdPaid(value)
+                            logger?.logDebug(tag = LOG_TAG,
+                                             message = "onAdPaid: value = ${value.valueMicros}, " +
+                                                       "currencyCode = ${value.currencyCode}, " +
+                                                       "precision = ${value.precisionType}")
+                        }
+
+                        override fun onAdShowedFullScreenContent() {
+                            eventListener?.onAdShown()
+                        }
+
+                        override fun onAdFailedToShowFullScreenContent(fullScreenContentError: FullScreenContentError) {
+                            val errorCode = fullScreenContentError.code.toInt()
+                            eventListener?.onAdFailedToShow(errorCode = errorCode, errorMessage = fullScreenContentError.message)
+                        }
+
+                        override fun onAppEvent(name: String, data: String?) {
+                            super.onAppEvent(name, data)
+                        }
+                    }
+
+                    ad.bannerAdRefreshCallback = object : BannerAdRefreshCallback {
+                        override fun onAdRefreshed() {
+                            super.onAdRefreshed()
+                            logger?.logDebug(tag = LOG_TAG, message = "Ad refreshed")
+                        }
+
+                        override fun onAdFailedToRefresh(adError: LoadAdError) {
+                            super.onAdFailedToRefresh(adError)
+                            logger?.logError(tag = LOG_TAG, message = "Ad failed to refresh: ${adError.message}")
+                        }
+                    }
+                }
+
+                override fun onAdFailedToLoad(adError: LoadAdError) {
+                    val errorCode = adError.code.toInt()
+                    loadListener.onAdFailedToLoad(errorCode = errorCode,
+                                                  errorMessage = adError.message)
+                }
+            })
         bannerView = adView
         return adView
     }
@@ -72,19 +138,79 @@ class BannerAdWrapper(private val context: Context) {
             (this.bannerView as AdView).destroy()
         }
 
+        val nativeAdSize = if (maxHeight != null)
+            AdSize.getInlineAdaptiveBannerAdSize(width, maxHeight)
+        else
+            AdSize.getLargeAnchoredAdaptiveBannerAdSize(context, width)
+
         val adView = AdView(context).apply {
-            this.adUnitId = adUnitId
-
-            val nativeAdSize = if (maxHeight != null)
-                AdSize.getInlineAdaptiveBannerAdSize(width, maxHeight)
-            else
-                AdSize.getLargeAnchoredAdaptiveBannerAdSize(context, width)
-
-            setAdSize(nativeAdSize)
-            adListener = createAdListener(loadListener, eventListener)
         }
 
-        adView.loadAd(AdRequest.Builder().build())
+        val adRequest = BannerAdRequest.Builder(adUnitId = adUnitId,
+                                                adSize = nativeAdSize)
+                                       .build()
+        adView.loadAd(adRequest = adRequest,
+            object : AdLoadCallback<BannerAd> {
+                override fun onAdLoaded(ad: BannerAd) {
+                    loadListener.onAdLoaded()
+                    ad.adEventCallback = object : BannerAdEventCallback {
+                        override fun onAdClicked() {
+                            eventListener?.onAdClicked()
+                        }
+
+                        override fun onAdImpression() {
+                            eventListener?.onAdImpression()
+                        }
+
+                        override fun onAdDismissedFullScreenContent() {
+                            eventListener?.onAdDismissed()
+                        }
+
+                        override fun onAdPaid(value: AdValue) {
+                            super.onAdPaid(value)
+
+                            logger?.logDebug(tag = LOG_TAG,
+                                             message = "onAdPaid: value = ${value.valueMicros}, " +
+                                                       "currencyCode = ${value.currencyCode}, " +
+                                                       "precision = ${value.precisionType}")
+                        }
+
+                        override fun onAdShowedFullScreenContent() {
+                            eventListener?.onAdShown()
+                        }
+
+                        override fun onAdFailedToShowFullScreenContent(fullScreenContentError: FullScreenContentError) {
+                            val errorCode = fullScreenContentError.code.toInt()
+                            eventListener?.onAdFailedToShow(errorCode = errorCode, errorMessage = fullScreenContentError.message)
+                        }
+
+                        override fun onAppEvent(name: String, data: String?) {
+                            super.onAppEvent(name, data)
+
+                            logger?.logDebug(tag = LOG_TAG,
+                                             message = "onAppEvent: name = $name, data = $data")
+                        }
+                    }
+
+                    ad.bannerAdRefreshCallback = object : BannerAdRefreshCallback {
+                        override fun onAdRefreshed() {
+                            super.onAdRefreshed()
+                            logger?.logDebug(tag = LOG_TAG, message = "Ad refreshed")
+                        }
+
+                        override fun onAdFailedToRefresh(adError: LoadAdError) {
+                            super.onAdFailedToRefresh(adError)
+                            logger?.logError(tag = LOG_TAG, message = "Ad failed to refresh: ${adError.message}")
+                        }
+                    }
+                }
+
+                override fun onAdFailedToLoad(adError: LoadAdError) {
+                    val errorCode = adError.code.toInt()
+                    loadListener.onAdFailedToLoad(errorCode = errorCode,
+                        errorMessage = adError.message)
+                }
+            })
         bannerView = adView
         return adView
     }
@@ -96,32 +222,36 @@ class BannerAdWrapper(private val context: Context) {
         bannerView = null
     }
 
-    private fun createAdListener(loadListener: OnAdLoadedListener,
-                                 eventListener: OnAdEventListener?): AdListener {
-        return object : AdListener() {
-            override fun onAdLoaded() {
-                loadListener.onAdLoaded()
-            }
-
-            override fun onAdFailedToLoad(error: LoadAdError) {
-                loadListener.onAdFailedToLoad(error.code, error.message)
-            }
-
-            override fun onAdOpened() {
-                eventListener?.onAdShown()
-            }
-
-            override fun onAdClosed() {
-                eventListener?.onAdDismissed()
-            }
-
-            override fun onAdClicked() {
-                eventListener?.onAdClicked()
-            }
-
-            override fun onAdImpression() {
-                eventListener?.onAdImpression()
-            }
-        }
+    companion object {
+        private const val LOG_TAG = "BannerAdWrapper"
     }
+
+//    private fun createAdListener(loadListener: OnAdLoadedListener,
+//                                 eventListener: OnAdEventListener?): AdListener {
+//        return object : AdListener() {
+//            override fun onAdLoaded() {
+//                loadListener.onAdLoaded()
+//            }
+//
+//            override fun onAdFailedToLoad(error: LoadAdError) {
+//                loadListener.onAdFailedToLoad(error.code, error.message)
+//            }
+//
+//            override fun onAdOpened() {
+//                eventListener?.onAdShown()
+//            }
+//
+//            override fun onAdClosed() {
+//                eventListener?.onAdDismissed()
+//            }
+//
+//            override fun onAdClicked() {
+//                eventListener?.onAdClicked()
+//            }
+//
+//            override fun onAdImpression() {
+//                eventListener?.onAdImpression()
+//            }
+//        }
+//    }
 }

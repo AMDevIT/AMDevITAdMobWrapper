@@ -15,6 +15,7 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.Maui.Controls" Version="10.0.90" />
     <ProjectReference Include="..\AMDevIT.Admob.Wrapper.MAUICross\AMDevIT.Admob.Wrapper.MAUICross.csproj" />
+    <ProjectReference Include="..\AMDevIT.Admob.Wrapper\AMDevIT.Admob.Wrapper.csproj" />
   </ItemGroup>
 
 </Project>

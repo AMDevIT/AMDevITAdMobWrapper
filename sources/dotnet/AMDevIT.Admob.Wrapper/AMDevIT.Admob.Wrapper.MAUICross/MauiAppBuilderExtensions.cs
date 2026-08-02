@@ -4,6 +4,8 @@ namespace AMDevIT.Admob.Wrapper.MAUICross;
 
 public static class MauiAppBuilderExtensions
 {
+    #region Methods
+
     public static MauiAppBuilder UseAMDevITAdMobWrapper(this MauiAppBuilder builder)
     {
         builder.ConfigureMauiHandlers(handlers =>
@@ -15,8 +17,10 @@ public static class MauiAppBuilderExtensions
         builder.Services.AddSingleton<IAppOpenAdService, AppOpenAdService>();
         builder.Services.AddSingleton<IShowableRewardedAdService, RewardedAdService>();
         builder.Services.AddSingleton<IContextResolverService, ContextResolverService>();
-
+        builder.Services.AddSingleton<IAdMobConsentService, AdMobConsentService>();
 
         return builder;
     }
+
+    #endregion
 }

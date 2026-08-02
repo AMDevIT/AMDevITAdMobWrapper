@@ -8,13 +8,23 @@ namespace AMDevIT.Admob.Wrapper.MAUITestApp.ViewModels;
 public class MainPageViewModel(ILogger<MainPageViewModel> logger,
                                IInterstitialAdService interstitialAdService,
                                IAdUnitProviderService adUnitProviderService,
+                               IAdMobConsentService adMobConsentService,
                                IDispatcherService dispatcherService)
     : ViewModelBase(logger)
 {
+    #region Const
+
+    private const string AndroidApplicationId = "ca-app-pub-3940256099942544~3347511713";
+
+    #endregion
+
     #region Fields
 
+    private bool canLoadAds;
+    private bool isInitializing;
     private bool showStatusMessage = false;
     private string? statusMessage = null;
+    private AsyncRelayCommand? showInterstitialAdCommand;
 
     #endregion
 
@@ -23,7 +33,21 @@ public class MainPageViewModel(ILogger<MainPageViewModel> logger,
     protected IInterstitialAdService InterstitialAdService => interstitialAdService;
     protected IAdUnitProviderService AdUnitProviderService => adUnitProviderService;
 
+    protected IAdMobConsentService AdMobConsentService => adMobConsentService;
+
     protected IDispatcherService DispatcherService => dispatcherService;
+
+    public bool CanLoadAds
+    {
+        get => this.canLoadAds;
+        private set
+        {
+            if (!this.SetProperty(ref this.canLoadAds, value))
+                return;
+
+            this.showInterstitialAdCommand?.NotifyCanExecuteChanged();
+        }
+    }
 
     public string? StatusMessage
     {
@@ -37,13 +61,9 @@ public class MainPageViewModel(ILogger<MainPageViewModel> logger,
         set => this.SetProperty(ref this.showStatusMessage, value);
     }
 
-    #endregion
-
-    #region Commands
-
-    private AsyncRelayCommand? showInterstitialAdCommand;
-
-    public AsyncRelayCommand ShowInterstitialAdCommand => this.showInterstitialAdCommand ??= new AsyncRelayCommand(this.ShowInterstitialAd);
+    public AsyncRelayCommand ShowInterstitialAdCommand =>
+        this.showInterstitialAdCommand ??=
+            new AsyncRelayCommand(this.ShowInterstitialAd, () => this.CanLoadAds);
 
     #endregion
 
@@ -74,8 +94,90 @@ public class MainPageViewModel(ILogger<MainPageViewModel> logger,
         this.InterstitialAdService.AdFailedToShow -= InterstitialAdService_AdFailedToShow;
     }
 
+    public async Task InitializeAsync(CancellationToken cancellationToken = default)
+    {
+        if (this.CanLoadAds || this.isInitializing)
+            return;
+
+        this.isInitializing = true;
+
+        try
+        {
+            if (!this.AdMobConsentService.IsSupported)
+            {
+                this.Logger.LogInformation(
+                    "AdMob consent is not available on this platform. Continuing with desktop placeholders.");
+                this.SetStatus("Consent is unavailable; desktop placeholders are active.");
+                this.CanLoadAds = true;
+                return;
+            }
+
+            if (this.AdMobConsentService.IsInitialized)
+            {
+                this.CanLoadAds = true;
+                return;
+            }
+
+            this.SetStatus("Gathering privacy consent...");
+            bool canRequestAds;
+
+            try
+            {
+                ConsentGatheringResult result = await this.AdMobConsentService.GatherConsentAsync(
+                    cancellationToken: cancellationToken);
+                canRequestAds = result.CanRequestAds;
+            }
+            catch (ConsentException exception) when (exception.CanRequestAds == true)
+            {
+                this.Logger.LogWarning(
+                    exception,
+                    "Consent gathering failed, but the previous consent state allows ads.");
+                canRequestAds = true;
+            }
+
+            if (!canRequestAds)
+            {
+                this.SetStatus("The current consent state does not allow ad requests.");
+                return;
+            }
+
+            string applicationId = OperatingSystem.IsAndroid()
+                ? AndroidApplicationId
+                : string.Empty;
+            await this.AdMobConsentService.InitializeAsync(applicationId, cancellationToken);
+
+            this.CanLoadAds = true;
+            this.SetStatus("AdMob initialized.");
+        }
+        catch (OperationCanceledException)
+        {
+            this.SetStatus("AdMob initialization was cancelled.");
+        }
+        catch (Exception exception)
+        {
+            this.Logger.LogError(exception, "Unable to initialize AdMob and its consent flow.");
+            this.SetStatus($"AdMob initialization failed: {exception.Message}");
+        }
+        finally
+        {
+            this.isInitializing = false;
+        }
+    }
+
     private async Task ShowInterstitialAd(CancellationToken cancellationToken = default)
     {
+        if (!this.CanLoadAds)
+            await this.InitializeAsync(cancellationToken);
+
+        if (!this.CanLoadAds)
+            return;
+
+        if (!OperatingSystem.IsAndroid() && !OperatingSystem.IsIOS())
+        {
+            this.SetStatus("Interstitial ads are not available on this platform.");
+            return;
+        }
+
         string interstitialAdUnitId = this.AdUnitProviderService.GetInterstitialAdUnitId();
 
         if (this.Logger.IsEnabled(LogLevel.Debug))
@@ -85,9 +187,18 @@ public class MainPageViewModel(ILogger<MainPageViewModel> logger,
         this.InterstitialAdService.Show();
     }
 
+    private void SetStatus(string message)
+    {
+        this.DispatcherService.TryEnqueue(() =>
+        {
+            this.StatusMessage = message;
+            this.ShowStatusMessage = true;
+        });
+    }
+
     #endregion
 
-    #region Event Handlers
+    #region Event handlers
 
     private void InterstitialAdService_AdFailedToShow(object? sender, AdFailedEventArgs e)
     {
