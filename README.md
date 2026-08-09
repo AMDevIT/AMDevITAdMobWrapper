@@ -84,25 +84,25 @@ transitively by that package; do not add a second UMP Swift package.
 ### Android project
 
 ```xml
-<PackageReference Include="AMDevIT.Admob.Wrapper.Droid" Version="0.1.10" />
+<PackageReference Include="AMDevIT.Admob.Wrapper.Droid" Version="0.1.11" />
 ```
 
 ### iOS project
 
 ```xml
-<PackageReference Include="AMDevIT.Admob.Wrapper.iOSNative" Version="0.1.10" />
+<PackageReference Include="AMDevIT.Admob.Wrapper.iOSNative" Version="0.1.11" />
 ```
 
 ### Android or iOS project with async/await support
 
 ```xml
-<PackageReference Include="AMDevIT.Admob.Wrapper" Version="0.1.10" />
+<PackageReference Include="AMDevIT.Admob.Wrapper" Version="0.1.11" />
 ```
 
 ### MAUI project with async/await support and XAML controls
 
 ```xml
-<PackageReference Include="AMDevIT.Admob.Wrapper.MAUICross" Version="0.1.10" />
+<PackageReference Include="AMDevIT.Admob.Wrapper.MAUICross" Version="0.1.11" />
 ```
 
 Add `AMDevIT.Admob.Wrapper` as well only when the application uses the

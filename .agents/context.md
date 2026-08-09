@@ -111,3 +111,30 @@
 - Affected files: `README.md`, eleven Markdown files in `AMDevITAdMobWrapper.wiki`, `.agents/2026-08-02-readme-wiki-first-version.md`, and this file.
 - Checks performed and results: package/SDK versions and public APIs were cross-checked against project sources; wiki page targets, balanced code fences, trailing whitespace, and tracked diff whitespace checks passed; no build was run because only documentation changed.
 - Open issues and recommended next step: review the rendered wiki after publication; commit the wiki repository first and then the parent repository's resulting submodule pointer. No commit or push was performed.
+
+## 2026-08-09 — iOS banner lifecycle crash hardening
+
+- Objective and status: analyzed two MyCurrencyConverter TestFlight crashes
+  with matching dSYMs and implemented reusable iOS banner lifecycle hardening;
+  source work is complete, while restore/build/tests, XCFramework regeneration,
+  and device verification remain pending.
+- Decisions made: retained the public API; serialized and deduplicated banner
+  initialization on the main thread; tracked and explicitly deactivated Auto
+  Layout constraints; invalidated callback generations before teardown;
+  detached native delegates and controller references; ignored callbacks from
+  replaced banners; made disconnect idempotent; advanced coordinated versions
+  to `0.1.11`.
+- Affected files: native Swift `BannerAdWrapper`, the MAUICross iOS
+  `BannerAdHandler`, Xcode and NuGet version metadata, README package examples,
+  `.agents/2026-08-09-ios-banner-lifecycle-crashes.md`, and this file.
+  MyCurrencyConverter was inspected read-only and was not modified.
+- Checks performed and results: all supplied UUIDs matched; the first crash
+  symbolicated to MAUI `PlatformGraphicsView` disposal and the second to Mono's
+  unhandled-exception hook with Google's signal handler only reporting it;
+  Swift/C# brace checks and targeted lifecycle/version checks passed. Scoped
+  whitespace validation passed. Restore, build, and tests await separate user
+  authorization.
+- Open issues and recommended next step: authorize .NET restore/build/tests,
+  then rebuild the native XCFramework and dSYM on macOS before packing 0.1.11;
+  physically stress banner refresh, resize, unload, consent changes, and late
+  callbacks on iOS 16 and iOS 26.
