@@ -57,10 +57,6 @@ Group each applicable category in a `#region`/`#endregion` block, using exactly 
 
 Do not create empty regions when a class does not contain members belonging to the corresponding category.
 
-## Indentation
-
-Always indent code correctly, following the style already used in the source files.
-
 ## Variable Declarations
 
 Whenever possible, and especially when this does not interfere with `using` and `await using` directives, try to declare local variables at the beginning of their enclosing scope. This applies to C#, while for Swift and Kotlin doesn't apply becausae of peculiar languages syntax like, for example, guard blocks or let blocks. For these two languages, follow the best practice allocation syntax.
@@ -133,12 +129,11 @@ builder.Services.AddTransient<IMyInterface>(services =>
 ## Build and Verification
 
 If a build and verification is needed always ask first before use tokens in an unwanted manner.
-If confirmation to build and verify is given, from the repository root, restore the solution packages using `dotnet restore` and build each solution using `dotnet`:
+If confirmation to build and verify is given, from the C# solution root, restore the solution packages using `dotnet restore` and build each solution using `dotnet`:
 
 ```powershell
 dotnet restore sources\dotnet\AMDevIT.Admob.Wrapper
 dotnet build sources\dotnet\AMDevIT.Admob.Wrapper
 ```
 
-If a check cannot be performed, briefly record the reason in the progressive
-context and in the final summary.
+If, after you got the consent, a check cannot be performed, briefly record the reason in the progressive context and in the final summary.
