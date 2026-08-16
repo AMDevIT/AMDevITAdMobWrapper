@@ -26,6 +26,7 @@ import UIKit
     private var loadListener: OnAdLoadedListener?
     private var eventListener: OnAdEventListener?
     private var logger: IAppleLogger?
+    private var isDestroyed = false
     
     @objc public override init() {
         self.logger = nil
@@ -55,7 +56,19 @@ import UIKit
                            adWidth: CGFloat,
                            loadListener: OnAdLoadedListener,
                            eventListener: OnAdEventListener?) -> UIView {
-        self.bannerView?.removeFromSuperview()
+        if !Thread.isMainThread {
+            return DispatchQueue.main.sync {
+                self.load(adUnitId: adUnitId,
+                          viewController: viewController,
+                          adSize: adSize,
+                          adWidth: adWidth,
+                          loadListener: loadListener,
+                          eventListener: eventListener)
+            }
+        }
+
+        self.clearCurrentBanner()
+        self.isDestroyed = false
         self.loadListener = loadListener
         self.eventListener = eventListener
         
@@ -64,17 +77,37 @@ import UIKit
         banner.adUnitID = adUnitId
         banner.rootViewController = viewController
         banner.delegate = self
-        banner.load(Request())
-        
         self.bannerView = banner
+        banner.load(Request())
+
         return banner
     }
     
     @objc public func destroy() {
-        self.bannerView?.removeFromSuperview()
+        if !Thread.isMainThread {
+            DispatchQueue.main.sync {
+                self.destroy()
+            }
+            return
+        }
+
+        guard !self.isDestroyed || self.bannerView != nil else {
+            return
+        }
+
+        self.isDestroyed = true
+        self.clearCurrentBanner()
+    }
+
+    private func clearCurrentBanner() {
+        let banner = self.bannerView
+
         self.bannerView = nil
         self.loadListener = nil
         self.eventListener = nil
+        banner?.delegate = nil
+        banner?.rootViewController = nil
+        banner?.removeFromSuperview()
     }
 
     private func nativeAdSize(for adSize: BannerAdViewSize,
@@ -100,35 +133,67 @@ import UIKit
 extension BannerAdWrapper: BannerViewDelegate {
     
     public func bannerViewDidReceiveAd(_ bannerView: BannerView) {
+        guard self.isCurrent(bannerView) else {
+            return
+        }
+
         self.loadListener?.onAdLoaded()
     }
     
     public func bannerView(_ bannerView: BannerView,
                            didFailToReceiveAdWithError error: Error) {
+        guard self.isCurrent(bannerView) else {
+            return
+        }
+
         let nsError = error as NSError
         self.loadListener?.onAdFailedToLoad(errorCode: nsError.code,
                                             errorMessage: nsError.localizedDescription)
     }
     
     public func bannerViewDidRecordImpression(_ bannerView: BannerView) {
+        guard self.isCurrent(bannerView) else {
+            return
+        }
+
         self.eventListener?.onAdImpression()
     }
     
     public func bannerViewDidRecordClick(_ bannerView: BannerView) {
+        guard self.isCurrent(bannerView) else {
+            return
+        }
+
         self.eventListener?.onAdClicked()
     }
     
     public func bannerViewWillPresentScreen(_ bannerView: BannerView) {
+        guard self.isCurrent(bannerView) else {
+            return
+        }
+
         self.eventListener?.onAdShown()
     }
     
     public func bannerViewWillDismissScreen(_ bannerView: BannerView) {
+        guard self.isCurrent(bannerView) else {
+            return
+        }
+
         self.logger?.logDebug(message: "Banner will dismiss screen",
                               tag: Self.logTag)
     }
 
     public func bannerViewDidDismissScreen(_ bannerView: BannerView) {
+        guard self.isCurrent(bannerView) else {
+            return
+        }
+
         self.eventListener?.onAdDismissed()
+    }
+
+    private func isCurrent(_ bannerView: BannerView) -> Bool {
+        return !self.isDestroyed && bannerView === self.bannerView
     }
 }
 
