@@ -5308,6 +5308,13 @@
       "value": "\"BannerAdWrapper\""
     },
     {
+      "filePath": "\/Volumes\/Dati\/Git\/Personali\/AMDevITAdMobWrapper\/sources\/apple\/ios\/AdMobWrapper\/Ads\/BannerAdWrapper.swift",
+      "kind": "BooleanLiteral",
+      "offset": 633,
+      "length": 5,
+      "value": "false"
+    },
+    {
       "filePath": "\/Volumes\/Dati\/Git\/Personali\/AMDevITAdMobWrapper\/sources\/apple\/ios\/AdMobWrapper\/Ads\/InterstitialAdWrapper.swift",
       "kind": "StringLiteral",
       "offset": 248,
