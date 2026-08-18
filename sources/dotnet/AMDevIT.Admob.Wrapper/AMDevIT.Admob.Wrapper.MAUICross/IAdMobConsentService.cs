@@ -18,6 +18,10 @@ public interface IAdMobConsentService
 
     Task InitializeAsync(string applicationId, CancellationToken cancellationToken = default);
 
+    Task InitializeAsync(string applicationId,
+                         AdMobAgeTreatment ageTreatment,
+                         CancellationToken cancellationToken = default);
+
     Task<ConsentInformationSnapshot> UpdateCurrentConsentInformationAsync(
         ConsentRequestOptions? options = null,
         CancellationToken cancellationToken = default);

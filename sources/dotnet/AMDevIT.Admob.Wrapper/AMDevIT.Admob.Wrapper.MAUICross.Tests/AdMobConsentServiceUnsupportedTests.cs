@@ -28,6 +28,14 @@ public sealed class AdMobConsentServiceUnsupportedTests
     }
 
     [TestMethod]
+    public void AgeTreatment_UsesGoogleTFATValues()
+    {
+        Assert.AreEqual(0, (int)AdMobAgeTreatment.Unspecified);
+        Assert.AreEqual(1, (int)AdMobAgeTreatment.Child);
+        Assert.AreEqual(2, (int)AdMobAgeTreatment.Teen);
+    }
+
+    [TestMethod]
     public async Task Operations_ReturnNeutralResultsWithoutThrowing()
     {
         TestLogger<AdMobConsentService> logger = new();
@@ -36,6 +44,9 @@ public sealed class AdMobConsentServiceUnsupportedTests
         cancellationTokenSource.Cancel();
 
         await service.InitializeAsync("unused", cancellationTokenSource.Token);
+        await service.InitializeAsync("unused",
+                                      AdMobAgeTreatment.Teen,
+                                      cancellationTokenSource.Token);
         ConsentInformationSnapshot snapshot = await service.UpdateCurrentConsentInformationAsync(
             cancellationToken: cancellationTokenSource.Token);
         ConsentGatheringResult gatheringResult = await service.GatherConsentAsync(
@@ -50,7 +61,7 @@ public sealed class AdMobConsentServiceUnsupportedTests
             snapshot.PrivacyOptionsRequirementStatus);
         Assert.IsTrue(gatheringResult.CanRequestAds);
         Assert.IsFalse(gatheringResult.PrivacyOptionsRequired);
-        Assert.IsTrue(logger.Entries.Count(entry => entry.Level == LogLevel.Debug) >= 6);
+        Assert.IsTrue(logger.Entries.Count(entry => entry.Level == LogLevel.Debug) >= 7);
     }
 
     #endregion

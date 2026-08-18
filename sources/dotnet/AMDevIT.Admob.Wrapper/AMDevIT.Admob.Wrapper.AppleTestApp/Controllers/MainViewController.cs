@@ -1,6 +1,7 @@
 using AMDevIT.Admob.Wrapper.AppleTestApp.Diagnostics;
 using AMDevIT.Admob.Wrapper.Extensions.iOSNative;
 using AMDevIT.Admob.Wrapper.iOSNative;
+using ManagedAdMobAgeTreatment = AMDevIT.Admob.Wrapper.AdMobAgeTreatment;
 
 namespace AMDevIT.Admob.Wrapper.AppleTestApp.Controllers;
 
@@ -165,7 +166,7 @@ public class MainViewController : UIViewController
 
         try
         {
-            await this.manager.InitializeAsync(this);
+            await this.manager.InitializeAsync(this, ManagedAdMobAgeTreatment.Teen);
             this.OnAdMobInitialized();
         }
         catch (Exception exception)

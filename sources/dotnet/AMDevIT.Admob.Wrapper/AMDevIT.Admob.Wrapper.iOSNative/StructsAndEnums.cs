@@ -3,6 +3,14 @@ using ObjCRuntime;
 namespace AMDevIT.Admob.Wrapper.iOSNative
 {
     [Native]
+    public enum AdMobAgeTreatment : long
+    {
+        Unspecified,
+        Child,
+        Teen
+    }
+
+    [Native]
     public enum BannerAdViewSize : long
     {
         Adaptive,

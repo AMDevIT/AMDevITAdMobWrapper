@@ -144,7 +144,9 @@ public class MainPageViewModel(ILogger<MainPageViewModel> logger,
             string applicationId = OperatingSystem.IsAndroid()
                 ? AndroidApplicationId
                 : string.Empty;
-            await this.AdMobConsentService.InitializeAsync(applicationId, cancellationToken);
+            await this.AdMobConsentService.InitializeAsync(applicationId,
+                                                           AdMobAgeTreatment.Teen,
+                                                           cancellationToken);
 
             this.CanLoadAds = true;
             this.SetStatus("AdMob initialized.");

@@ -27,4 +27,11 @@
 		  name="not-null">true</attr>
 	<attr path="/api/package[@name='it.amdev.admob.wrapper.ads']/class[@name='BannerAdViewSize']/field[@name='Adaptive']"
 		  name="not-null">true</attr>
+
+	<attr path="/api/package[@name='it.amdev.admob.wrapper.privacy']/class[@name='AdMobAgeTreatment']/field[@name='Unspecified']"
+		  name="not-null">true</attr>
+	<attr path="/api/package[@name='it.amdev.admob.wrapper.privacy']/class[@name='AdMobAgeTreatment']/field[@name='Child']"
+		  name="not-null">true</attr>
+	<attr path="/api/package[@name='it.amdev.admob.wrapper.privacy']/class[@name='AdMobAgeTreatment']/field[@name='Teen']"
+		  name="not-null">true</attr>
 </metadata>

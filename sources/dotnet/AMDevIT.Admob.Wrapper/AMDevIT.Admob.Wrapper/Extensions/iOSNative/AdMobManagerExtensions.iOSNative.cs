@@ -2,6 +2,8 @@
 
 using AMDevIT.Admob.Wrapper.iOSNative;
 using Foundation;
+using ManagedAdMobAgeTreatment = AMDevIT.Admob.Wrapper.AdMobAgeTreatment;
+using NativeAdMobAgeTreatment = AMDevIT.Admob.Wrapper.iOSNative.AdMobAgeTreatment;
 using NativeConsentDebugParameters = AMDevIT.Admob.Wrapper.iOSNative.ConsentInformationRequestDebugParameters;
 using NativeConsentStatusData = AMDevIT.Admob.Wrapper.iOSNative.ConsentStatusData;
 
@@ -23,6 +25,29 @@ public static class AdMobManagerExtensions
             new(TaskCreationOptions.RunContinuationsAsynchronously);
         InitListener listener = new(completionSource, cancellationToken);
         manager.InitializeWithViewController(viewController, listener);
+        return completionSource.Task;
+    }
+
+    public static Task InitializeAsync(this AdMobManager manager,
+                                       UIViewController viewController,
+                                       ManagedAdMobAgeTreatment ageTreatment,
+                                       CancellationToken cancellationToken = default)
+    {
+        ArgumentNullException.ThrowIfNull(manager);
+        ArgumentNullException.ThrowIfNull(viewController);
+        cancellationToken.ThrowIfCancellationRequested();
+
+        NativeAdMobAgeTreatment nativeAgeTreatment = ageTreatment switch
+        {
+            ManagedAdMobAgeTreatment.Unspecified => NativeAdMobAgeTreatment.Unspecified,
+            ManagedAdMobAgeTreatment.Child => NativeAdMobAgeTreatment.Child,
+            ManagedAdMobAgeTreatment.Teen => NativeAdMobAgeTreatment.Teen,
+            _ => throw new ArgumentOutOfRangeException(nameof(ageTreatment), ageTreatment, null)
+        };
+        TaskCompletionSource completionSource =
+            new(TaskCreationOptions.RunContinuationsAsynchronously);
+        InitListener listener = new(completionSource, cancellationToken);
+        manager.InitializeWithViewController(viewController, nativeAgeTreatment, listener);
         return completionSource.Task;
     }
 

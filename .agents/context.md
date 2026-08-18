@@ -138,3 +138,28 @@
   then rebuild the native XCFramework and dSYM on macOS before packing 0.1.11;
   physically stress banner refresh, resize, unload, consent changes, and late
   callbacks on iOS 16 and iOS 26.
+
+## 2026-08-18 — Cross-platform TFAT age treatment
+
+- Objective and status: added source-level TFAT support for unspecified,
+  child, and teen treatment across Android, iOS, shared .NET, MAUICross,
+  samples, README, and the separately hosted GitHub wiki; source and static
+  documentation work is complete, while native binary regeneration and builds
+  remain pending authorization.
+- Decisions made: kept UMP's under-age consent flag independent from TFAT;
+  preserved existing initialization signatures; added explicit age-treatment
+  overloads; configured Android Next-Gen through `InitializationConfig` and iOS
+  through the global request configuration before SDK startup; documented one
+  initialization before any ad load rather than initialization per ad.
+- Affected files: native managers and new native enums, Android binding
+  metadata, iOS binding definitions, shared enum/extensions, MAUICross consent
+  services/tests, all mobile samples, `README.md`, six wiki pages,
+  `.agents/2026-08-18-tfat-age-treatment.md`, and this file.
+- Checks performed and results: official SDK APIs and TFAT values were
+  verified; native/managed mappings and backward-compatible overloads were
+  reviewed; main and wiki `diff --check` passed with only Windows line-ending
+  notices. No build or test was run without the required authorization.
+- Open issues and recommended next step: authorize Gradle and .NET checks,
+  replace the Android AAR, regenerate the iOS XCFramework on macOS, then verify
+  TFAT Teen on physical devices before release. The wiki remains a separate
+  uncommitted repository and no push was performed.

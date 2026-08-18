@@ -3,6 +3,8 @@
 using AMDevIT.Admob.Wrapper.Listeners;
 using Android.App;
 using Android.Content;
+using ManagedAdMobAgeTreatment = AMDevIT.Admob.Wrapper.AdMobAgeTreatment;
+using NativeAdMobAgeTreatment = AMDevIT.Admob.Wrapper.Privacy.AdMobAgeTreatment;
 using NativeConsentDebugParameters = AMDevIT.Admob.Wrapper.Privacy.ConsentInformationRequestDebugParameters;
 using NativeConsentStatusData = AMDevIT.Admob.Wrapper.Privacy.ConsentStatusData;
 
@@ -25,6 +27,30 @@ public static partial class AdMobManagerExtensions
         TaskCompletionSource completionSource = new(TaskCreationOptions.RunContinuationsAsynchronously);
         InitListener listener = new(completionSource, cancellationToken);
         manager.Initialize(context, applicationId, listener);
+        return completionSource.Task;
+    }
+
+    public static Task InitializeAsync(this AdMobManager manager,
+                                       Context context,
+                                       string applicationId,
+                                       ManagedAdMobAgeTreatment ageTreatment,
+                                       CancellationToken cancellationToken = default)
+    {
+        ArgumentNullException.ThrowIfNull(manager);
+        ArgumentNullException.ThrowIfNull(context);
+        ArgumentException.ThrowIfNullOrWhiteSpace(applicationId);
+        cancellationToken.ThrowIfCancellationRequested();
+
+        NativeAdMobAgeTreatment nativeAgeTreatment = ageTreatment switch
+        {
+            ManagedAdMobAgeTreatment.Unspecified => NativeAdMobAgeTreatment.Unspecified,
+            ManagedAdMobAgeTreatment.Child => NativeAdMobAgeTreatment.Child,
+            ManagedAdMobAgeTreatment.Teen => NativeAdMobAgeTreatment.Teen,
+            _ => throw new ArgumentOutOfRangeException(nameof(ageTreatment), ageTreatment, null)
+        };
+        TaskCompletionSource completionSource = new(TaskCreationOptions.RunContinuationsAsynchronously);
+        InitListener listener = new(completionSource, cancellationToken);
+        manager.Initialize(context, applicationId, nativeAgeTreatment, listener);
         return completionSource.Task;
     }
 
