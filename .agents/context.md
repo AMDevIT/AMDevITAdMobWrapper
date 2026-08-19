@@ -163,3 +163,26 @@
   replace the Android AAR, regenerate the iOS XCFramework on macOS, then verify
   TFAT Teen on physical devices before release. The wiki remains a separate
   uncommitted repository and no push was performed.
+
+## 2026-08-19 — TFAT native binding review
+
+- Objective and status: compared the newly regenerated XCFramework and Sharpie
+  output with the curated .NET iOS binding and audited TFAT Teen across native,
+  shared, and MAUICross layers. The iOS artifact and binding passed; Android is
+  not yet complete because the checked-in AAR predates the Kotlin TFAT changes.
+- Decisions made: retained the curated iOS binding because every functional
+  selector matches; kept the intentional omission of the two NSObject
+  `description` properties; considered the raw Sharpie protocol-to-`I...`
+  binding spelling difference correct; required binary verification rather
+  than treating Android source support alone as complete.
+- Affected files: `.agents/2026-08-19-tfat-native-binding-review.md` and this
+  context file. No product or generated binding source required correction.
+- Checks performed and results: TFAT enum values and initialization overload
+  are present in Sharpie output, both XCFramework headers, all three public
+  Swift interfaces, and the curated .NET binding; all managed and MAUICross
+  paths reference the shared age treatment; nested AAR inspection found no
+  `AdMobAgeTreatment` class. No build, restore, or tests were run without the
+  required authorization.
+- Open issues and recommended next step: authorize the Android release build
+  and .NET restore/build/tests, replace and re-inspect the AAR, then perform
+  physical TFAT Teen validation on Android and iOS before release.
