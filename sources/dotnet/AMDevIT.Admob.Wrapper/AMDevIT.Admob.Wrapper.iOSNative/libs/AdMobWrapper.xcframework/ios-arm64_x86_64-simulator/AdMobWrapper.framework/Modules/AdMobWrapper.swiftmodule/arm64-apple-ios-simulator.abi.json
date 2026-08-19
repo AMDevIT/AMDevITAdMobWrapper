@@ -3949,6 +3949,279 @@
       },
       {
         "kind": "TypeDecl",
+        "name": "AdMobAgeTreatment",
+        "printedName": "AdMobAgeTreatment",
+        "children": [
+          {
+            "kind": "Var",
+            "name": "unspecified",
+            "printedName": "unspecified",
+            "children": [
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "(AdMobWrapper.AdMobAgeTreatment.Type) -> AdMobWrapper.AdMobAgeTreatment",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "AdMobAgeTreatment",
+                    "printedName": "AdMobWrapper.AdMobAgeTreatment",
+                    "usr": "c:@M@AdMobWrapper@E@AdMobAgeTreatment"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Metatype",
+                    "printedName": "AdMobWrapper.AdMobAgeTreatment.Type",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "AdMobAgeTreatment",
+                        "printedName": "AdMobWrapper.AdMobAgeTreatment",
+                        "usr": "c:@M@AdMobWrapper@E@AdMobAgeTreatment"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "declKind": "EnumElement",
+            "usr": "c:@M@AdMobWrapper@E@AdMobAgeTreatment@AdMobAgeTreatmentUnspecified",
+            "mangledName": "$s12AdMobWrapper0aB12AgeTreatmentO11unspecifiedyA2CmF",
+            "moduleName": "AdMobWrapper",
+            "declAttributes": [
+              "ObjC"
+            ],
+            "fixedbinaryorder": 0
+          },
+          {
+            "kind": "Var",
+            "name": "child",
+            "printedName": "child",
+            "children": [
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "(AdMobWrapper.AdMobAgeTreatment.Type) -> AdMobWrapper.AdMobAgeTreatment",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "AdMobAgeTreatment",
+                    "printedName": "AdMobWrapper.AdMobAgeTreatment",
+                    "usr": "c:@M@AdMobWrapper@E@AdMobAgeTreatment"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Metatype",
+                    "printedName": "AdMobWrapper.AdMobAgeTreatment.Type",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "AdMobAgeTreatment",
+                        "printedName": "AdMobWrapper.AdMobAgeTreatment",
+                        "usr": "c:@M@AdMobWrapper@E@AdMobAgeTreatment"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "declKind": "EnumElement",
+            "usr": "c:@M@AdMobWrapper@E@AdMobAgeTreatment@AdMobAgeTreatmentChild",
+            "mangledName": "$s12AdMobWrapper0aB12AgeTreatmentO5childyA2CmF",
+            "moduleName": "AdMobWrapper",
+            "declAttributes": [
+              "ObjC"
+            ],
+            "fixedbinaryorder": 1
+          },
+          {
+            "kind": "Var",
+            "name": "teen",
+            "printedName": "teen",
+            "children": [
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "(AdMobWrapper.AdMobAgeTreatment.Type) -> AdMobWrapper.AdMobAgeTreatment",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "AdMobAgeTreatment",
+                    "printedName": "AdMobWrapper.AdMobAgeTreatment",
+                    "usr": "c:@M@AdMobWrapper@E@AdMobAgeTreatment"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Metatype",
+                    "printedName": "AdMobWrapper.AdMobAgeTreatment.Type",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "AdMobAgeTreatment",
+                        "printedName": "AdMobWrapper.AdMobAgeTreatment",
+                        "usr": "c:@M@AdMobWrapper@E@AdMobAgeTreatment"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "declKind": "EnumElement",
+            "usr": "c:@M@AdMobWrapper@E@AdMobAgeTreatment@AdMobAgeTreatmentTeen",
+            "mangledName": "$s12AdMobWrapper0aB12AgeTreatmentO4teenyA2CmF",
+            "moduleName": "AdMobWrapper",
+            "declAttributes": [
+              "ObjC"
+            ],
+            "fixedbinaryorder": 2
+          },
+          {
+            "kind": "Constructor",
+            "name": "init",
+            "printedName": "init(rawValue:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "AdMobWrapper.AdMobAgeTreatment?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "AdMobAgeTreatment",
+                    "printedName": "AdMobWrapper.AdMobAgeTreatment",
+                    "usr": "c:@M@AdMobWrapper@E@AdMobAgeTreatment"
+                  }
+                ],
+                "usr": "s:Sq"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Int",
+                "printedName": "Swift.Int",
+                "usr": "s:Si"
+              }
+            ],
+            "declKind": "Constructor",
+            "usr": "s:12AdMobWrapper0aB12AgeTreatmentO8rawValueACSgSi_tcfc",
+            "mangledName": "$s12AdMobWrapper0aB12AgeTreatmentO8rawValueACSgSi_tcfc",
+            "moduleName": "AdMobWrapper",
+            "implicit": true,
+            "init_kind": "Designated"
+          },
+          {
+            "kind": "Var",
+            "name": "rawValue",
+            "printedName": "rawValue",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Int",
+                "printedName": "Swift.Int",
+                "usr": "s:Si"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:12AdMobWrapper0aB12AgeTreatmentO8rawValueSivp",
+            "mangledName": "$s12AdMobWrapper0aB12AgeTreatmentO8rawValueSivp",
+            "moduleName": "AdMobWrapper",
+            "implicit": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Int",
+                    "printedName": "Swift.Int",
+                    "usr": "s:Si"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:12AdMobWrapper0aB12AgeTreatmentO8rawValueSivg",
+                "mangledName": "$s12AdMobWrapper0aB12AgeTreatmentO8rawValueSivg",
+                "moduleName": "AdMobWrapper",
+                "implicit": true,
+                "accessorKind": "get"
+              }
+            ]
+          }
+        ],
+        "declKind": "Enum",
+        "usr": "c:@M@AdMobWrapper@E@AdMobAgeTreatment",
+        "mangledName": "$s12AdMobWrapper0aB12AgeTreatmentO",
+        "moduleName": "AdMobWrapper",
+        "declAttributes": [
+          "AccessControl",
+          "ObjC"
+        ],
+        "enumRawTypeName": "Int",
+        "conformances": [
+          {
+            "kind": "Conformance",
+            "name": "Copyable",
+            "printedName": "Copyable",
+            "usr": "s:s8CopyableP",
+            "mangledName": "$ss8CopyableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Equatable",
+            "printedName": "Equatable",
+            "usr": "s:SQ",
+            "mangledName": "$sSQ"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Escapable",
+            "printedName": "Escapable",
+            "usr": "s:s9EscapableP",
+            "mangledName": "$ss9EscapableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Hashable",
+            "printedName": "Hashable",
+            "usr": "s:SH",
+            "mangledName": "$sSH"
+          },
+          {
+            "kind": "Conformance",
+            "name": "RawRepresentable",
+            "printedName": "RawRepresentable",
+            "children": [
+              {
+                "kind": "TypeWitness",
+                "name": "RawValue",
+                "printedName": "RawValue",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Int",
+                    "printedName": "Swift.Int",
+                    "usr": "s:Si"
+                  }
+                ]
+              }
+            ],
+            "usr": "s:SY",
+            "mangledName": "$sSY"
+          }
+        ]
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "AdMobWrapper",
+        "declAttributes": [
+          "RawDocComment"
+        ]
+      },
+      {
+        "kind": "TypeDecl",
         "name": "ConsentInformationRequestDebugParameters",
         "printedName": "ConsentInformationRequestDebugParameters",
         "children": [
@@ -4817,6 +5090,46 @@
           },
           {
             "kind": "Function",
+            "name": "initialize",
+            "printedName": "initialize(viewController:ageTreatment:listener:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "UIViewController",
+                "printedName": "UIKit.UIViewController",
+                "usr": "c:objc(cs)UIViewController"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "AdMobAgeTreatment",
+                "printedName": "AdMobWrapper.AdMobAgeTreatment",
+                "usr": "c:@M@AdMobWrapper@E@AdMobAgeTreatment"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "OnInitializedListener",
+                "printedName": "any AdMobWrapper.OnInitializedListener",
+                "usr": "c:@M@AdMobWrapper@objc(pl)OnInitializedListener"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@AdMobWrapper@objc(cs)AdMobManager(im)initializeWithViewController:ageTreatment:listener:",
+            "mangledName": "$s12AdMobWrapper0aB7ManagerC10initialize14viewController12ageTreatment8listenerySo06UIViewG0C_AA0ab3AgeI0OAA21OnInitializedListener_ptF",
+            "moduleName": "AdMobWrapper",
+            "objc_name": "initializeWithViewController:ageTreatment:listener:",
+            "declAttributes": [
+              "AccessControl",
+              "ObjC"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
             "name": "isInitialized",
             "printedName": "isInitialized()",
             "children": [
@@ -5376,6 +5689,27 @@
       "offset": 237,
       "length": 1,
       "value": "6"
+    },
+    {
+      "filePath": "\/Volumes\/Dati\/Git\/Personali\/AMDevITAdMobWrapper\/sources\/apple\/ios\/AdMobWrapper\/Privacy\/AdMobAgeTreatment.swift",
+      "kind": "IntegerLiteral",
+      "offset": 137,
+      "length": 1,
+      "value": "0"
+    },
+    {
+      "filePath": "\/Volumes\/Dati\/Git\/Personali\/AMDevITAdMobWrapper\/sources\/apple\/ios\/AdMobWrapper\/Privacy\/AdMobAgeTreatment.swift",
+      "kind": "IntegerLiteral",
+      "offset": 156,
+      "length": 1,
+      "value": "1"
+    },
+    {
+      "filePath": "\/Volumes\/Dati\/Git\/Personali\/AMDevITAdMobWrapper\/sources\/apple\/ios\/AdMobWrapper\/Privacy\/AdMobAgeTreatment.swift",
+      "kind": "IntegerLiteral",
+      "offset": 174,
+      "length": 1,
+      "value": "2"
     },
     {
       "filePath": "\/Volumes\/Dati\/Git\/Personali\/AMDevITAdMobWrapper\/sources\/apple\/ios\/AdMobWrapper\/Privacy\/ConsentInformationRequestDebugParameters.swift",

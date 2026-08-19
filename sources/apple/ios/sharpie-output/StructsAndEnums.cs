@@ -73842,6 +73842,13 @@ namespace AMDevIT.Admob.Wrapper {
 	}
 
 	[Native]
+	public enum AdMobAgeTreatment : long {
+		Unspecified = 0,
+		Child = 1,
+		Teen = 2
+	}
+
+	[Native]
 	public enum BannerAdViewSize : long {
 		Adaptive = 0,
 		Banner = 1,

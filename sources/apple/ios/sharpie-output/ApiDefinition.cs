@@ -115328,6 +115328,10 @@ namespace AMDevIT.Admob.Wrapper {
 		[Export ("initializeWithViewController:listener:")]
 		void InitializeWithViewController (UIViewController viewController, OnInitializedListener listener);
 
+		// -(void)initializeWithViewController:(UIViewController * _Nonnull)viewController ageTreatment:(enum AdMobAgeTreatment)ageTreatment listener:(id<OnInitializedListener> _Nonnull)listener;
+		[Export ("initializeWithViewController:ageTreatment:listener:")]
+		void InitializeWithViewController (UIViewController viewController, AdMobAgeTreatment ageTreatment, OnInitializedListener listener);
+
 		// -(BOOL)isInitialized __attribute__((warn_unused_result("")));
 		[Export ("isInitialized")]
 		[Verify (MethodToProperty)]
@@ -115399,10 +115403,10 @@ namespace AMDevIT.Admob.Wrapper {
 		bool IsShowing { get; }
 	}
 
-	// @interface AdMobWrapper_Swift_416 (AppOpenAdWrapper) <GADFullScreenContentDelegate>
+	// @interface AdMobWrapper_Swift_423 (AppOpenAdWrapper) <GADFullScreenContentDelegate>
 	[Category]
 	[BaseType (typeof (AppOpenAdWrapper))]
-	interface AppOpenAdWrapper_AdMobWrapper_Swift_416 : IGADFullScreenContentDelegate {
+	interface AppOpenAdWrapper_AdMobWrapper_Swift_423 : IGADFullScreenContentDelegate {
 		// -(void)adDidRecordImpression:(id<GADFullScreenPresentingAd> _Nonnull)ad __attribute__((swift_attr("@MainActor")));
 		[Export ("adDidRecordImpression:")]
 		void AdDidRecordImpression (GADFullScreenPresentingAd ad);
@@ -115449,10 +115453,10 @@ namespace AMDevIT.Admob.Wrapper {
 		void Destroy ();
 	}
 
-	// @interface AdMobWrapper_Swift_445 (BannerAdWrapper) <GADBannerViewDelegate>
+	// @interface AdMobWrapper_Swift_452 (BannerAdWrapper) <GADBannerViewDelegate>
 	[Category]
 	[BaseType (typeof (BannerAdWrapper))]
-	interface BannerAdWrapper_AdMobWrapper_Swift_445 : IGADBannerViewDelegate {
+	interface BannerAdWrapper_AdMobWrapper_Swift_452 : IGADBannerViewDelegate {
 		// -(void)bannerViewDidReceiveAd:(GADBannerView * _Nonnull)bannerView __attribute__((swift_attr("@MainActor")));
 		[Export ("bannerViewDidReceiveAd:")]
 		void BannerViewDidReceiveAd (GADBannerView bannerView);
@@ -115599,10 +115603,10 @@ namespace AMDevIT.Admob.Wrapper {
 		bool IsLoaded { get; }
 	}
 
-	// @interface AdMobWrapper_Swift_497 (InterstitialAdWrapper) <GADFullScreenContentDelegate>
+	// @interface AdMobWrapper_Swift_504 (InterstitialAdWrapper) <GADFullScreenContentDelegate>
 	[Category]
 	[BaseType (typeof (InterstitialAdWrapper))]
-	interface InterstitialAdWrapper_AdMobWrapper_Swift_497 : IGADFullScreenContentDelegate {
+	interface InterstitialAdWrapper_AdMobWrapper_Swift_504 : IGADFullScreenContentDelegate {
 		// -(void)adDidRecordImpression:(id<GADFullScreenPresentingAd> _Nonnull)ad __attribute__((swift_attr("@MainActor")));
 		[Export ("adDidRecordImpression:")]
 		void AdDidRecordImpression (GADFullScreenPresentingAd ad);
@@ -115821,10 +115825,10 @@ namespace AMDevIT.Admob.Wrapper {
 		bool IsLoaded { get; }
 	}
 
-	// @interface AdMobWrapper_Swift_569 (RewardedAdWrapper) <GADFullScreenContentDelegate>
+	// @interface AdMobWrapper_Swift_576 (RewardedAdWrapper) <GADFullScreenContentDelegate>
 	[Category]
 	[BaseType (typeof (RewardedAdWrapper))]
-	interface RewardedAdWrapper_AdMobWrapper_Swift_569 : IGADFullScreenContentDelegate {
+	interface RewardedAdWrapper_AdMobWrapper_Swift_576 : IGADFullScreenContentDelegate {
 		// -(void)adDidRecordImpression:(id<GADFullScreenPresentingAd> _Nonnull)ad __attribute__((swift_attr("@MainActor")));
 		[Export ("adDidRecordImpression:")]
 		void AdDidRecordImpression (GADFullScreenPresentingAd ad);
