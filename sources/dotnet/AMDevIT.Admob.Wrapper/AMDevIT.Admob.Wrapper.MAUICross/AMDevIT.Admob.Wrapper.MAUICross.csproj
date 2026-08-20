@@ -12,7 +12,7 @@
 		<ValidateXcodeVersion>False</ValidateXcodeVersion>
 
 		<!--<VersionPrefix>0.1.14.1</VersionPrefix>-->
-		<PackageReleaseNotes>Fix for Windows target. Harden the iOS banner lifecycle against duplicate adaptive reloads, stale callbacks, and unsafe native view teardown.</PackageReleaseNotes>
+		<PackageReleaseNotes>Fix Android JNI proxy activation and prevent late banner and full-screen callbacks from reaching disposed managed loggers or listeners.</PackageReleaseNotes>
 
 		<!-- Enable XAML source generation for faster build times and improved performance.
 		     This generates C# code from XAML at compile time instead of runtime inflation.

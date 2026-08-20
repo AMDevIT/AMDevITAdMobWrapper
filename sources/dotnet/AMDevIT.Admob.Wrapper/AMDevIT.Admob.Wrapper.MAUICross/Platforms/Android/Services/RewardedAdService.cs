@@ -110,6 +110,8 @@ public partial class RewardedAdService
 
     protected override void DisposeObjects()
     {
+        this.wrapper?.Destroy();
+
         this.onAdRewardListener.RewardEarned -= OnAdRewardListener_RewardEarned;
 
         this.onAdLoadedListener.AdLoaded -= OnAdLoadedListener_AdLoaded;
@@ -122,6 +124,9 @@ public partial class RewardedAdService
         this.onAdEventListener.AdFailedToShow -= OnAdEventListener_AdFailedToShow;
         this.wrapper?.Dispose();
         this.wrapper = null;
+        this.onAdRewardListener.Dispose();
+        this.onAdLoadedListener.Dispose();
+        this.onAdEventListener.Dispose();
         this.loggerAdapter.Dispose();
     }
 

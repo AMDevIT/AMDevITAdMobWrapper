@@ -186,3 +186,34 @@
 - Open issues and recommended next step: authorize the Android release build
   and .NET restore/build/tests, replace and re-inspect the AAR, then perform
   physical TFAT Teen validation on Android and iOS before release.
+
+## 2026-08-20 — Android JNI logging and callback lifecycle hardening
+
+- Objective and status: fixed the MAUICross Android crash in which a late
+  banner refresh callback attempted to reactivate a disposed
+  `DroidLoggerAdapter`; native source, regenerated AAR, bindings, MAUICross,
+  tests, Release packaging, and minified APK verification are complete.
+- Decisions made: introduced synchronized callback generations in all four
+  Android ad wrappers; made destroy terminal and idempotent; detached native
+  callbacks and cleared managed logger/listener references; invoked managed
+  proxies under the lifecycle monitor; added safe empty and JNI-handle logger
+  constructors with `NullLogger`; retained other constructor-state Java proxies
+  through their terminal callbacks; destroyed full-screen wrappers before JNI
+  proxy disposal; added consumer R8 keep rules; selected `0.1.40-alpha2`.
+- Affected files: all four Kotlin ad wrappers, new lifecycle gate/tests,
+  consumer rules, regenerated AAR/binding metadata, shared Android callback
+  helpers, MAUICross Android logger/banner/full-screen services, version/release
+  metadata, README, `.agents/2026-08-20-android-jni-logging-lifecycle.md`, and
+  this file.
+- Checks performed and results: six lifecycle tests plus the existing Kotlin
+  test passed; Gradle Release AAR assembly passed; required restore passed;
+  targeted Android builds passed; all 10 .NET tests passed; aggregate .NET build
+  passed with zero warnings/errors; trimmed/R8 MAUI Android Release build passed
+  with only six known sample duplicate-native-library warnings; signed APK DEX
+  inspection preserved wrapper/logger JNI classes; `0.1.40-alpha2` pack passed;
+  whitespace validation passed apart from line-ending notices.
+- Open issues and recommended next step: validate `0.1.40-alpha2` on a physical
+  device with refresh/disconnect/GC races and all full-screen formats before
+  publishing. The initial SSH fetch failed because the configured GitHub key
+  was rejected; HTTPS inspection showed no pull was needed from the starting
+  remote branch.

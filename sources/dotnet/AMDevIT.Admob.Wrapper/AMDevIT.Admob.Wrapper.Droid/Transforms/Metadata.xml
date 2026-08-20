@@ -7,6 +7,7 @@
 	<remove-node path="/api/package[@name='it.amdev.admob.wrapper.ads']/class[@name='BannerAdWrapper.Companion']" />
 	<remove-node path="/api/package[@name='it.amdev.admob.wrapper.ads']/class[@name='BannerAdWrapper']/field[@name='Companion']" />
 	<remove-node path="/api/package[@name='it.amdev.admob.wrapper.ads']/class[@name='BannerAdWrapper.WhenMappings']" />
+	<remove-node path="/api/package[@name='it.amdev.admob.wrapper.ads']/class[@name='CallbackLifecycle']" />
 	<remove-node path="/api/package[@name='it.amdev.admob.wrapper.ads']/class[@name='InterstitialAdWrapper.Companion']" />
 	<remove-node path="/api/package[@name='it.amdev.admob.wrapper.ads']/class[@name='InterstitialAdWrapper']/field[@name='Companion']" />
 	<remove-node path="/api/package[@name='it.amdev.admob.wrapper.ads']/class[@name='RewardedAdWrapper.Companion']" />
