@@ -1,7 +1,9 @@
 ﻿#if ANDROID
 
 using AMDevIT.Admob.Wrapper.Ads;
+using AMDevIT.Admob.Wrapper.Interop.Droid;
 using AMDevIT.Admob.Wrapper.Listeners;
+using Android.Runtime;
 using Android.Views;
 
 namespace AMDevIT.Admob.Wrapper.Extensions.Droid;
@@ -28,16 +30,61 @@ public static class BannerAdWrapperExtensions
 
     #region Nested listener classes
 
-    private class LoadListener(Action onLoaded, Action<int, string> onFailed) 
-        : Java.Lang.Object, IOnAdLoadedListener
+    private class LoadListener : RetainedJavaCallback, IOnAdLoadedListener
     {
-        private readonly Action onLoaded = onLoaded;
-        private readonly Action<int, string> onFailed = onFailed;
+        #region Fields
 
-        public void OnAdLoaded() => this.onLoaded();
+        private readonly Action? onLoaded;
+        private readonly Action<int, string>? onFailed;
 
-        public void OnAdFailedToLoad(int errorCode, string errorMessage) =>
-            this.onFailed(errorCode, errorMessage);
+        #endregion
+
+        #region .ctor
+
+        public LoadListener()
+        {
+        }
+
+        public LoadListener(Action onLoaded, Action<int, string> onFailed)
+        {
+            this.onLoaded = onLoaded;
+            this.onFailed = onFailed;
+        }
+
+        protected LoadListener(IntPtr handle, JniHandleOwnership ownership)
+            : base(handle, ownership)
+        {
+        }
+
+        #endregion
+
+        #region Methods
+
+        public void OnAdLoaded()
+        {
+            try
+            {
+                this.onLoaded?.Invoke();
+            }
+            finally
+            {
+                this.Release();
+            }
+        }
+
+        public void OnAdFailedToLoad(int errorCode, string errorMessage)
+        {
+            try
+            {
+                this.onFailed?.Invoke(errorCode, errorMessage);
+            }
+            finally
+            {
+                this.Release();
+            }
+        }
+
+        #endregion
     }
 
     #endregion

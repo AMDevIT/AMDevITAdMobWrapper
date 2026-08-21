@@ -13,7 +13,7 @@
 
   <PropertyGroup Condition="'$(IsAMDevITAdMobPackage)' == 'true'">
     <VersionPrefix>0.1.40</VersionPrefix>
-    <VersionSuffix></VersionSuffix>
+    <VersionSuffix>alpha2</VersionSuffix>
     <Authors>Alessandro Morvillo</Authors>
     <Company>AMDev.IT di Alessandro Morvillo</Company>
     <Copyright>Alessandro Morvillo, 2026</Copyright>
@@ -23,7 +23,7 @@
     <RepositoryType>git</RepositoryType>
     <PackageIcon>admob_maui_icon_v4_wallet_block.png</PackageIcon>
     <PackageReadmeFile>README.md</PackageReadmeFile>
-    <PackageReleaseNotes>Fix Android JNI proxy activation and prevent late banner and full-screen callbacks from reaching disposed managed loggers or listeners. Added support for teens in cookie consent.</PackageReleaseNotes>
+    <PackageReleaseNotes>Fix Android JNI proxy activation and prevent late banner and full-screen callbacks from reaching disposed managed loggers or listeners.</PackageReleaseNotes>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <IsPackable>true</IsPackable>
     <IncludeSymbols>true</IncludeSymbols>

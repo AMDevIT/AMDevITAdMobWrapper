@@ -19,6 +19,11 @@ namespace AMDevIT.Admob.Wrapper.iOSNative
         void InitializeWithViewController(UIViewController viewController,
                                           IOnInitializedListener listener);
 
+        [Export("initializeWithViewController:ageTreatment:listener:")]
+        void InitializeWithViewController(UIViewController viewController,
+                                          AdMobAgeTreatment ageTreatment,
+                                          IOnInitializedListener listener);
+
         [Export("isInitialized")]
         bool IsInitialized { get; }
 

@@ -142,6 +142,16 @@ extension AdMobWrapper.RewardedAdWrapper : GoogleMobileAds.FullScreenContentDele
 @objc public protocol OnRewardEarnedListener {
   @objc func onRewardEarned(type: Swift.String, amount: Swift.Int)
 }
+@objc public enum AdMobAgeTreatment : Swift.Int {
+  case unspecified = 0
+  case child = 1
+  case teen = 2
+  public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+}
 @_inheritsConvenienceInitializers @objc public class ConsentInformationRequestDebugParameters : ObjectiveC.NSObject {
   @objc final public let debugGeography: Foundation.NSNumber?
   @objc final public let testDeviceHashedId: Swift.String?
@@ -166,6 +176,7 @@ extension AdMobWrapper.RewardedAdWrapper : GoogleMobileAds.FullScreenContentDele
   @objc public static let instance: AdMobWrapper.AdMobManager
   @objc convenience public init(logger: (any AdMobWrapper.IAppleLogger)?)
   @objc public func initialize(viewController: UIKit.UIViewController, listener: any AdMobWrapper.OnInitializedListener)
+  @objc public func initialize(viewController: UIKit.UIViewController, ageTreatment: AdMobWrapper.AdMobAgeTreatment, listener: any AdMobWrapper.OnInitializedListener)
   @objc public func isInitialized() -> Swift.Bool
   @objc public func updateCurrentConsentInformation(viewController: UIKit.UIViewController, tagForUnderAgeOfConsent: Swift.Bool, listener: any AdMobWrapper.OnConsentInformationRequestListener)
   @objc public func updateCurrentConsentInformation(viewController: UIKit.UIViewController, tagForUnderAgeOfConsent: Swift.Bool, listener: any AdMobWrapper.OnConsentInformationRequestListener, requestDebugParameters: AdMobWrapper.ConsentInformationRequestDebugParameters?)
@@ -184,3 +195,6 @@ extension AdMobWrapper.BannerAdViewSize : Swift.RawRepresentable {}
 extension AdMobWrapper.LogLevel : Swift.Equatable {}
 extension AdMobWrapper.LogLevel : Swift.Hashable {}
 extension AdMobWrapper.LogLevel : Swift.RawRepresentable {}
+extension AdMobWrapper.AdMobAgeTreatment : Swift.Equatable {}
+extension AdMobWrapper.AdMobAgeTreatment : Swift.Hashable {}
+extension AdMobWrapper.AdMobAgeTreatment : Swift.RawRepresentable {}

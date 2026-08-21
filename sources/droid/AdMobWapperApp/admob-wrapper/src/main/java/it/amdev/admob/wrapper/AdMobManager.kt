@@ -3,6 +3,8 @@ package it.amdev.admob.wrapper
 import android.app.Activity
 import android.content.Context
 import com.google.android.libraries.ads.mobile.sdk.MobileAds
+import com.google.android.libraries.ads.mobile.sdk.common.AgeRestrictedTreatment
+import com.google.android.libraries.ads.mobile.sdk.common.RequestConfiguration
 import com.google.android.libraries.ads.mobile.sdk.initialization.InitializationConfig
 import com.google.android.ump.ConsentDebugSettings
 import com.google.android.ump.ConsentInformation
@@ -13,6 +15,7 @@ import it.amdev.admob.wrapper.listeners.OnConsentFormEventListener
 import it.amdev.admob.wrapper.listeners.OnConsentGatheringListener
 import it.amdev.admob.wrapper.listeners.OnConsentInformationRequestListener
 import it.amdev.admob.wrapper.listeners.OnInitializedListener
+import it.amdev.admob.wrapper.privacy.AdMobAgeTreatment
 import it.amdev.admob.wrapper.privacy.ConsentInformationRequestDebugParameters
 import it.amdev.admob.wrapper.privacy.ConsentStatusData
 import java.time.Instant
@@ -36,22 +39,32 @@ class AdMobManager(private val logger: IDroidLogger? = null) {
     fun initialize(context: Context,
                    applicationId: String,
                    listener: OnInitializedListener) {
-        if (initialized) {
-            listener.onInitialized()
-            return
-        }
-        Thread {
-            try {
-                val initializationConfig = InitializationConfig.Builder(applicationId = applicationId)
-                                                               .build()
-                MobileAds.initialize(context, initializationConfig) {
-                    initialized = true
-                    listener.onInitialized()
-                }
-            } catch (e: Exception) {
-                listener.onInitializationFailed(e.message ?: "Unknown error")
-            }
-        }.start()
+        val initializationConfig = InitializationConfig.Builder(applicationId = applicationId)
+                                                       .build()
+        initialize(context = context,
+                   initializationConfig = initializationConfig,
+                   listener = listener)
+    }
+
+    fun initialize(context: Context,
+                   applicationId: String,
+                   ageTreatment: AdMobAgeTreatment,
+                   listener: OnInitializedListener) {
+        val requestConfiguration = RequestConfiguration.Builder()
+                                                       .setAgeRestrictedTreatment(
+                                                           ageTreatment.toNativeAgeRestrictedTreatment()
+                                                       )
+                                                       .build()
+        val initializationConfig = InitializationConfig.Builder(applicationId = applicationId)
+                                                       .setRequestConfiguration(requestConfiguration)
+                                                       .build()
+
+        if (initialized)
+            MobileAds.setRequestConfiguration(requestConfiguration)
+
+        initialize(context = context,
+                   initializationConfig = initializationConfig,
+                   listener = listener)
     }
 
     fun isInitialized(): Boolean = initialized
@@ -229,4 +242,30 @@ class AdMobManager(private val logger: IDroidLogger? = null) {
         consentInformation?.reset()
         lastConsentRefreshTimestampMilliseconds = null
     }
+
+    private fun initialize(context: Context,
+                           initializationConfig: InitializationConfig,
+                           listener: OnInitializedListener) {
+        if (initialized) {
+            listener.onInitialized()
+            return
+        }
+        Thread {
+            try {
+                MobileAds.initialize(context, initializationConfig) {
+                    initialized = true
+                    listener.onInitialized()
+                }
+            } catch (e: Exception) {
+                listener.onInitializationFailed(e.message ?: "Unknown error")
+            }
+        }.start()
+    }
+
+    private fun AdMobAgeTreatment.toNativeAgeRestrictedTreatment(): AgeRestrictedTreatment =
+        when (this) {
+            AdMobAgeTreatment.Unspecified -> AgeRestrictedTreatment.UNSPECIFIED
+            AdMobAgeTreatment.Child -> AgeRestrictedTreatment.CHILD
+            AdMobAgeTreatment.Teen -> AgeRestrictedTreatment.TEEN
+        }
 }

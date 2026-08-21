@@ -95,6 +95,8 @@ public partial class AppOpenAdService
 
     protected override void DisposeObjects()
     {
+        this.wrapper?.Destroy();
+
         this.onAdLoadedListener.AdLoaded -= OnAdLoadedListener_AdLoaded;
         this.onAdLoadedListener.AdFailedToLoad -= OnAdLoadedListener_AdFailedToLoad;
 
@@ -105,6 +107,8 @@ public partial class AppOpenAdService
         this.onAdEventListener.AdFailedToShow -= OnAdEventListener_AdFailedToShow;
         this.wrapper?.Dispose();
         this.wrapper = null;
+        this.onAdLoadedListener.Dispose();
+        this.onAdEventListener.Dispose();
         this.loggerAdapter.Dispose();
     }
 
