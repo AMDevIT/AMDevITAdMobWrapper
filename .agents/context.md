@@ -138,3 +138,82 @@
   then rebuild the native XCFramework and dSYM on macOS before packing 0.1.11;
   physically stress banner refresh, resize, unload, consent changes, and late
   callbacks on iOS 16 and iOS 26.
+
+## 2026-08-18 — Cross-platform TFAT age treatment
+
+- Objective and status: added source-level TFAT support for unspecified,
+  child, and teen treatment across Android, iOS, shared .NET, MAUICross,
+  samples, README, and the separately hosted GitHub wiki; source and static
+  documentation work is complete, while native binary regeneration and builds
+  remain pending authorization.
+- Decisions made: kept UMP's under-age consent flag independent from TFAT;
+  preserved existing initialization signatures; added explicit age-treatment
+  overloads; configured Android Next-Gen through `InitializationConfig` and iOS
+  through the global request configuration before SDK startup; documented one
+  initialization before any ad load rather than initialization per ad.
+- Affected files: native managers and new native enums, Android binding
+  metadata, iOS binding definitions, shared enum/extensions, MAUICross consent
+  services/tests, all mobile samples, `README.md`, six wiki pages,
+  `.agents/2026-08-18-tfat-age-treatment.md`, and this file.
+- Checks performed and results: official SDK APIs and TFAT values were
+  verified; native/managed mappings and backward-compatible overloads were
+  reviewed; main and wiki `diff --check` passed with only Windows line-ending
+  notices. No build or test was run without the required authorization.
+- Open issues and recommended next step: authorize Gradle and .NET checks,
+  replace the Android AAR, regenerate the iOS XCFramework on macOS, then verify
+  TFAT Teen on physical devices before release. The wiki remains a separate
+  uncommitted repository and no push was performed.
+
+## 2026-08-19 — TFAT native binding review
+
+- Objective and status: compared the newly regenerated XCFramework and Sharpie
+  output with the curated .NET iOS binding and audited TFAT Teen across native,
+  shared, and MAUICross layers. The iOS artifact and binding passed; Android is
+  not yet complete because the checked-in AAR predates the Kotlin TFAT changes.
+- Decisions made: retained the curated iOS binding because every functional
+  selector matches; kept the intentional omission of the two NSObject
+  `description` properties; considered the raw Sharpie protocol-to-`I...`
+  binding spelling difference correct; required binary verification rather
+  than treating Android source support alone as complete.
+- Affected files: `.agents/2026-08-19-tfat-native-binding-review.md` and this
+  context file. No product or generated binding source required correction.
+- Checks performed and results: TFAT enum values and initialization overload
+  are present in Sharpie output, both XCFramework headers, all three public
+  Swift interfaces, and the curated .NET binding; all managed and MAUICross
+  paths reference the shared age treatment; nested AAR inspection found no
+  `AdMobAgeTreatment` class. No build, restore, or tests were run without the
+  required authorization.
+- Open issues and recommended next step: authorize the Android release build
+  and .NET restore/build/tests, replace and re-inspect the AAR, then perform
+  physical TFAT Teen validation on Android and iOS before release.
+
+## 2026-08-20 — Android JNI logging and callback lifecycle hardening
+
+- Objective and status: fixed the MAUICross Android crash in which a late
+  banner refresh callback attempted to reactivate a disposed
+  `DroidLoggerAdapter`; native source, regenerated AAR, bindings, MAUICross,
+  tests, Release packaging, and minified APK verification are complete.
+- Decisions made: introduced synchronized callback generations in all four
+  Android ad wrappers; made destroy terminal and idempotent; detached native
+  callbacks and cleared managed logger/listener references; invoked managed
+  proxies under the lifecycle monitor; added safe empty and JNI-handle logger
+  constructors with `NullLogger`; retained other constructor-state Java proxies
+  through their terminal callbacks; destroyed full-screen wrappers before JNI
+  proxy disposal; added consumer R8 keep rules; selected `0.1.40-alpha2`.
+- Affected files: all four Kotlin ad wrappers, new lifecycle gate/tests,
+  consumer rules, regenerated AAR/binding metadata, shared Android callback
+  helpers, MAUICross Android logger/banner/full-screen services, version/release
+  metadata, README, `.agents/2026-08-20-android-jni-logging-lifecycle.md`, and
+  this file.
+- Checks performed and results: six lifecycle tests plus the existing Kotlin
+  test passed; Gradle Release AAR assembly passed; required restore passed;
+  targeted Android builds passed; all 10 .NET tests passed; aggregate .NET build
+  passed with zero warnings/errors; trimmed/R8 MAUI Android Release build passed
+  with only six known sample duplicate-native-library warnings; signed APK DEX
+  inspection preserved wrapper/logger JNI classes; `0.1.40-alpha2` pack passed;
+  whitespace validation passed apart from line-ending notices.
+- Open issues and recommended next step: validate `0.1.40-alpha2` on a physical
+  device with refresh/disconnect/GC races and all full-screen formats before
+  publishing. The initial SSH fetch failed because the configured GitHub key
+  was rejected; HTTPS inspection showed no pull was needed from the starting
+  remote branch.

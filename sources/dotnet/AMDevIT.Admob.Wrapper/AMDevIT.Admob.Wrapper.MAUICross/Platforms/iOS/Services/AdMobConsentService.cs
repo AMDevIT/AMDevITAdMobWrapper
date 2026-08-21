@@ -5,6 +5,7 @@ using AMDevIT.Admob.Wrapper.iOSNative;
 using AMDevIT.Admob.Wrapper.MAUICross.Platforms.iOS.Diagnostics;
 using Microsoft.Extensions.Logging;
 using UIKit;
+using ManagedAdMobAgeTreatment = AMDevIT.Admob.Wrapper.AdMobAgeTreatment;
 
 namespace AMDevIT.Admob.Wrapper.MAUICross.Services;
 
@@ -50,6 +51,16 @@ public sealed class AdMobConsentService : IAdMobConsentService
     {
         _ = applicationId;
         return this.manager.InitializeAsync(this.GetViewController(), cancellationToken);
+    }
+
+    public Task InitializeAsync(string applicationId,
+                                ManagedAdMobAgeTreatment ageTreatment,
+                                CancellationToken cancellationToken = default)
+    {
+        _ = applicationId;
+        return this.manager.InitializeAsync(this.GetViewController(),
+                                            ageTreatment,
+                                            cancellationToken);
     }
 
     public Task<ConsentInformationSnapshot> UpdateCurrentConsentInformationAsync(

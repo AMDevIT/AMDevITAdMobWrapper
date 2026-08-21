@@ -84,25 +84,25 @@ transitively by that package; do not add a second UMP Swift package.
 ### Android project
 
 ```xml
-<PackageReference Include="AMDevIT.Admob.Wrapper.Droid" Version="0.1.11" />
+<PackageReference Include="AMDevIT.Admob.Wrapper.Droid" Version="0.1.40-alpha2" />
 ```
 
 ### iOS project
 
 ```xml
-<PackageReference Include="AMDevIT.Admob.Wrapper.iOSNative" Version="0.1.11" />
+<PackageReference Include="AMDevIT.Admob.Wrapper.iOSNative" Version="0.1.40-alpha2" />
 ```
 
 ### Android or iOS project with async/await support
 
 ```xml
-<PackageReference Include="AMDevIT.Admob.Wrapper" Version="0.1.11" />
+<PackageReference Include="AMDevIT.Admob.Wrapper" Version="0.1.40-alpha2" />
 ```
 
 ### MAUI project with async/await support and XAML controls
 
 ```xml
-<PackageReference Include="AMDevIT.Admob.Wrapper.MAUICross" Version="0.1.11" />
+<PackageReference Include="AMDevIT.Admob.Wrapper.MAUICross" Version="0.1.40-alpha2" />
 ```
 
 Add `AMDevIT.Admob.Wrapper` as well only when the application uses the
@@ -142,6 +142,10 @@ Add your AdMob App ID:
 | Rewarded | `RewardedAdWrapper` | `RewardedAdWrapper` |
 | App Open | `AppOpenAdWrapper` | `AppOpenAdWrapper` |
 
+> Initialize the Mobile Ads SDK once, after completing the applicable consent
+> flow and configuring TFAT, and before loading any banner or full-screen ad.
+> Do not initialize the SDK again for each individual ad.
+
 ---
 
 ## Usage — Android
@@ -166,7 +170,9 @@ catch (ConsentException exception) when (exception.CanRequestAds == true)
     // UMP failed, but a previous consent state still allows ad requests.
 }
 
-await manager.InitializeAsync(this.ApplicationContext!, appId);
+await manager.InitializeAsync(this.ApplicationContext!,
+                              appId,
+                              AdMobAgeTreatment.Teen);
 ```
 
 Use `ConsentRequestOptions` to set the under-age flag. Debug geography and test
@@ -182,6 +188,15 @@ var options = new ConsentRequestOptions(
 
 ConsentGatheringResult consent = await manager.GatherConsentAsync(this, options);
 ```
+
+`ConsentRequestOptions.TagForUnderAgeOfConsent` configures UMP consent
+collection only. Configure the independent AdMob Tag for age treatment (TFAT)
+when initializing the Mobile Ads SDK. `AdMobAgeTreatment.Teen` disables
+personalized ads and remarketing and enables Google's teen ad-serving
+protections. Use `Child` or `Unspecified` only when they correctly describe the
+user according to your legal and regulatory requirements. The overload without
+an age treatment remains available and leaves the SDK's age treatment
+unspecified. See Google's [Tag for age treatment guidance](https://support.google.com/admob/answer/6219315).
 
 Other UMP operations are exposed as
 `UpdateCurrentConsentInformationAsync`, `ShowPrivacyOptionsFormAsync`,
@@ -332,8 +347,13 @@ catch (ConsentException exception) when (exception.CanRequestAds == true)
     // UMP failed, but a previous consent state still allows ad requests.
 }
 
-await manager.InitializeAsync(this);
+await manager.InitializeAsync(this, AdMobAgeTreatment.Teen);
 ```
+
+The UMP under-age flag and TFAT are separate signals. Pass the appropriate
+`ConsentRequestOptions` to UMP, then select `AdMobAgeTreatment.Teen`, `Child`,
+or `Unspecified` during Mobile Ads initialization. Configure and initialize the
+SDK before loading any iOS ad.
 
 The iOS async API also exposes `UpdateCurrentConsentInformationAsync`,
 `ShowPrivacyOptionsFormAsync`, `LoadAndShowConsentFormIfRequiredAsync`, and
@@ -364,7 +384,7 @@ private class MyInitListener : NSObject, IOnInitializedListener
 #### Async style
 
 ```csharp
-await AdMobManager.Instance.InitializeAsync(this);
+await AdMobManager.Instance.InitializeAsync(this, AdMobAgeTreatment.Teen);
 ```
 
 ### Banner Ad
@@ -483,7 +503,9 @@ public sealed class AdMobStartup(IAdMobConsentService consentService)
         string applicationId = OperatingSystem.IsAndroid()
             ? "ca-app-pub-3940256099942544~3347511713"
             : string.Empty;
-        await consentService.InitializeAsync(applicationId, cancellationToken);
+        await consentService.InitializeAsync(applicationId,
+                                             AdMobAgeTreatment.Teen,
+                                             cancellationToken);
     }
 }
 ```
@@ -497,10 +519,12 @@ neutral not-required consent state without throwing. The application ID
 argument is required on Android; iOS ignores it and reads
 `GADApplicationIdentifier` from `Info.plist`.
 
-Run this workflow before making a banner visible or calling a full-screen load
-method. Request updated consent information on every app launch, initialize
-AdMob only when ads may be requested, and expose a persistent privacy-options
-entry point whenever `PrivacyOptionsRequirementStatus.Required` is reported.
+Run this workflow before making a banner visible or calling any full-screen
+load method. Request updated consent information on every app launch and
+initialize AdMob once, only when ads may be requested. Initialization must
+complete before any ad load begins, but it must not be repeated for each
+individual ad. Expose a persistent privacy-options entry point whenever
+`PrivacyOptionsRequirementStatus.Required` is reported.
 
 Call the privacy-options form from the app's privacy settings when required:
 
@@ -642,9 +666,9 @@ try
     if (!consent.CanRequestAds)
         return;
 
-    await AdMobManager.Instance.InitializeAsync(
-        this.ApplicationContext!,
-        "ca-app-pub-3940256099942544~3347511713");
+    await AdMobManager.Instance.InitializeAsync(this.ApplicationContext!,
+                                                "ca-app-pub-3940256099942544~3347511713",
+                                                AdMobAgeTreatment.Teen);
     var adView = await bannerWrapper.LoadAsync(adUnitId);
     bannerContainer.AddView(adView);
 }

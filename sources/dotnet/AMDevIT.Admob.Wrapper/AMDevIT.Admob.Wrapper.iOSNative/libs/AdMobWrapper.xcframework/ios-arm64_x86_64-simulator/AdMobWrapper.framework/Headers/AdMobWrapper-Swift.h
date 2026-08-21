@@ -371,6 +371,12 @@ extern "C" {
 
 #if defined(__OBJC__)
 
+typedef SWIFT_ENUM(NSInteger, AdMobAgeTreatment, open) {
+  AdMobAgeTreatmentUnspecified = 0,
+  AdMobAgeTreatmentChild = 1,
+  AdMobAgeTreatmentTeen = 2,
+};
+
 @protocol IAppleLogger;
 @class UIViewController;
 @protocol OnInitializedListener;
@@ -387,6 +393,7 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) AdMobManager
 + (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
 - (nonnull instancetype)initWithLogger:(id <IAppleLogger> _Nullable)logger;
 - (void)initializeWithViewController:(UIViewController * _Nonnull)viewController listener:(id <OnInitializedListener> _Nonnull)listener;
+- (void)initializeWithViewController:(UIViewController * _Nonnull)viewController ageTreatment:(enum AdMobAgeTreatment)ageTreatment listener:(id <OnInitializedListener> _Nonnull)listener;
 - (BOOL)isInitialized SWIFT_WARN_UNUSED_RESULT;
 - (void)updateCurrentConsentInformationWithViewController:(UIViewController * _Nonnull)viewController tagForUnderAgeOfConsent:(BOOL)tagForUnderAgeOfConsent listener:(id <OnConsentInformationRequestListener> _Nonnull)listener;
 - (void)updateCurrentConsentInformationWithViewController:(UIViewController * _Nonnull)viewController tagForUnderAgeOfConsent:(BOOL)tagForUnderAgeOfConsent listener:(id <OnConsentInformationRequestListener> _Nonnull)listener requestDebugParameters:(ConsentInformationRequestDebugParameters * _Nullable)requestDebugParameters;
@@ -956,6 +963,12 @@ extern "C" {
 
 #if defined(__OBJC__)
 
+typedef SWIFT_ENUM(NSInteger, AdMobAgeTreatment, open) {
+  AdMobAgeTreatmentUnspecified = 0,
+  AdMobAgeTreatmentChild = 1,
+  AdMobAgeTreatmentTeen = 2,
+};
+
 @protocol IAppleLogger;
 @class UIViewController;
 @protocol OnInitializedListener;
@@ -972,6 +985,7 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) AdMobManager
 + (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
 - (nonnull instancetype)initWithLogger:(id <IAppleLogger> _Nullable)logger;
 - (void)initializeWithViewController:(UIViewController * _Nonnull)viewController listener:(id <OnInitializedListener> _Nonnull)listener;
+- (void)initializeWithViewController:(UIViewController * _Nonnull)viewController ageTreatment:(enum AdMobAgeTreatment)ageTreatment listener:(id <OnInitializedListener> _Nonnull)listener;
 - (BOOL)isInitialized SWIFT_WARN_UNUSED_RESULT;
 - (void)updateCurrentConsentInformationWithViewController:(UIViewController * _Nonnull)viewController tagForUnderAgeOfConsent:(BOOL)tagForUnderAgeOfConsent listener:(id <OnConsentInformationRequestListener> _Nonnull)listener;
 - (void)updateCurrentConsentInformationWithViewController:(UIViewController * _Nonnull)viewController tagForUnderAgeOfConsent:(BOOL)tagForUnderAgeOfConsent listener:(id <OnConsentInformationRequestListener> _Nonnull)listener requestDebugParameters:(ConsentInformationRequestDebugParameters * _Nullable)requestDebugParameters;

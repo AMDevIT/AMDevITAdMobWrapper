@@ -33,20 +33,17 @@ import UserMessagingPlatform
 
     @objc public func initialize(viewController: UIViewController,
                                  listener: OnInitializedListener) {
-        self.executeOnMain { [weak self] in
-            guard let self = self else { return }
+        self.initializeInternal(viewController: viewController,
+                                ageTreatment: nil,
+                                listener: listener)
+    }
 
-            if self.initialized {
-                listener.onInitialized()
-                return
-            }
-
-            MobileAds.shared.start { [weak self] _ in
-                guard let self = self else { return }
-                self.initialized = true
-                listener.onInitialized()
-            }
-        }
+    @objc public func initialize(viewController: UIViewController,
+                                 ageTreatment: AdMobAgeTreatment,
+                                 listener: OnInitializedListener) {
+        self.initializeInternal(viewController: viewController,
+                                ageTreatment: ageTreatment,
+                                listener: listener)
     }
 
     @objc public func isInitialized() -> Bool {
@@ -266,6 +263,30 @@ import UserMessagingPlatform
         }
     }
 
+    private func initializeInternal(viewController: UIViewController,
+                                    ageTreatment: AdMobAgeTreatment?,
+                                    listener: OnInitializedListener) {
+        self.executeOnMain { [weak self] in
+            guard let self = self else { return }
+
+            if let ageTreatment = ageTreatment {
+                MobileAds.shared.requestConfiguration.ageRestrictedTreatment =
+                    ageTreatment.nativeAgeRestrictedTreatment
+            }
+
+            if self.initialized {
+                listener.onInitialized()
+                return
+            }
+
+            MobileAds.shared.start { [weak self] _ in
+                guard let self = self else { return }
+                self.initialized = true
+                listener.onInitialized()
+            }
+        }
+    }
+
     private func createConsentRequestParameters(
         tagForUnderAgeOfConsent: Bool,
         requestDebugParameters: ConsentInformationRequestDebugParameters?
@@ -314,6 +335,19 @@ import UserMessagingPlatform
         }
 
         return DispatchQueue.main.sync(execute: action)
+    }
+}
+
+private extension AdMobAgeTreatment {
+    var nativeAgeRestrictedTreatment: AgeRestrictedTreatment {
+        switch self {
+        case .unspecified:
+            return .unspecified
+        case .child:
+            return .child
+        case .teen:
+            return .teen
+        }
     }
 }
 

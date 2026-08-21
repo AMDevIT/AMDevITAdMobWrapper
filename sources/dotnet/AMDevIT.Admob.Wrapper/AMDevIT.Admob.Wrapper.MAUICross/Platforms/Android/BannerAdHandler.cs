@@ -4,6 +4,7 @@ using AMDevIT.Admob.Wrapper.Ads;
 using AMDevIT.Admob.Wrapper.Listeners;
 using AMDevIT.Admob.Wrapper.MAUICross.Platforms.Android.Diagnostics;
 using Android.Content;
+using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Microsoft.Extensions.DependencyInjection;
@@ -21,6 +22,8 @@ public partial class BannerAdHandler
 
     private BannerAdWrapper? bannerWrapper;
     private DroidLoggerAdapter? loggerAdapter;
+    private BannerLoadListener? loadListener;
+    private BannerEventListener? eventListener;
     private int lastAdaptiveWidth;
 
     #endregion
@@ -57,6 +60,7 @@ public partial class BannerAdHandler
     protected override void DisconnectHandler(AndroidView platformView)
     {
         this.bannerWrapper?.Destroy();
+        this.DeactivateAndDisposeListeners();
         this.bannerWrapper?.Dispose();
         this.bannerWrapper = null;
         this.loggerAdapter?.Dispose();
@@ -127,6 +131,10 @@ public partial class BannerAdHandler
                                                  eventListener);
         }
 
+        this.DeactivateAndDisposeListeners();
+        this.loadListener = loadListener;
+        this.eventListener = eventListener;
+
         container.RemoveAllViews();
         FrameLayout.LayoutParams layoutParameters = new(ViewGroup.LayoutParams.WrapContent,
                                                         ViewGroup.LayoutParams.WrapContent,
@@ -149,8 +157,18 @@ public partial class BannerAdHandler
         this.LoadBanner(container, availableWidth);
     }
 
+    private void DeactivateAndDisposeListeners()
+    {
+        this.loadListener?.Deactivate();
+        this.eventListener?.Deactivate();
+        this.loadListener?.Dispose();
+        this.eventListener?.Dispose();
+        this.loadListener = null;
+        this.eventListener = null;
+    }
+
     private BannerAdViewSize MapAdSizeToNative(BannerAdSize size) => size switch
-    {   
+    {
         BannerAdSize.Banner => BannerAdViewSize.Banner,
         BannerAdSize.LargeBanner => BannerAdViewSize.LargeBanner,
         BannerAdSize.MediumRectangle => BannerAdViewSize.MediumRectangle,
@@ -160,55 +178,144 @@ public partial class BannerAdHandler
         _ => BannerAdViewSize.Banner
     };
 
-    private class BannerLoadListener(BannerAd view)
-                : Java.Lang.Object, IOnAdLoadedListener
+    private class BannerLoadListener : Java.Lang.Object, IOnAdLoadedListener
     {
-        private readonly BannerAd view = view;
+        #region Fields
+
+        private BannerAd? view;
+
+        #endregion
+
+        #region .ctor
+
+        public BannerLoadListener()
+        {
+        }
+
+        public BannerLoadListener(BannerAd view)
+        {
+            this.view = view;
+        }
+
+        protected BannerLoadListener(IntPtr handle, JniHandleOwnership ownership)
+            : base(handle, ownership)
+        {
+        }
+
+        #endregion
+
+        #region Methods
+
+        public void Deactivate()
+        {
+            Interlocked.Exchange(ref this.view, null);
+        }
 
         public void OnAdLoaded()
         {
-            MainThread.BeginInvokeOnMainThread(() => this.view.RaiseAdLoaded());
+            BannerAd? target = Volatile.Read(ref this.view);
+            if (target == null)
+                return;
+
+            MainThread.BeginInvokeOnMainThread(() =>
+            {
+                if (ReferenceEquals(Volatile.Read(ref this.view), target))
+                    target.RaiseAdLoaded();
+            });
         }
 
         public void OnAdFailedToLoad(int errorCode, string errorMessage)
         {
-            MainThread.BeginInvokeOnMainThread(() => this.view.RaiseAdFailed(errorCode, errorMessage));
-        }
-    }
+            BannerAd? target = Volatile.Read(ref this.view);
+            if (target == null)
+                return;
 
-    private class BannerEventListener(BannerAd view)
-                : Java.Lang.Object, IOnAdEventListener
-    {
-        private readonly BannerAd view = view;
-
-        public void OnAdShown() 
-        {
             MainThread.BeginInvokeOnMainThread(() =>
             {
-                this.view.InvalidateMeasure();
-                this.view.RaiseAdLoaded();
-            });            
+                if (ReferenceEquals(Volatile.Read(ref this.view), target))
+                    target.RaiseAdFailed(errorCode, errorMessage);
+            });
         }
 
-        public void OnAdDismissed() 
-        {            
-            MainThread.BeginInvokeOnMainThread(() => this.view.RaiseAdDismissed());
+        #endregion
+    }
+
+    private class BannerEventListener : Java.Lang.Object, IOnAdEventListener
+    {
+        #region Fields
+
+        private BannerAd? view;
+
+        #endregion
+
+        #region .ctor
+
+        public BannerEventListener()
+        {
+        }
+
+        public BannerEventListener(BannerAd view)
+        {
+            this.view = view;
+        }
+
+        protected BannerEventListener(IntPtr handle, JniHandleOwnership ownership)
+            : base(handle, ownership)
+        {
+        }
+
+        #endregion
+
+        #region Methods
+
+        public void Deactivate()
+        {
+            Interlocked.Exchange(ref this.view, null);
+        }
+
+        public void OnAdShown()
+        {
+            this.InvokeOnMainThread(target =>
+            {
+                target.InvalidateMeasure();
+                target.RaiseAdLoaded();
+            });
+        }
+
+        public void OnAdDismissed()
+        {
+            this.InvokeOnMainThread(target => target.RaiseAdDismissed());
         }
 
         public void OnAdClicked()
         {
-            MainThread.BeginInvokeOnMainThread(() => this.view.RaiseAdClicked());
+            this.InvokeOnMainThread(target => target.RaiseAdClicked());
         }
 
         public void OnAdImpression()
         {
-            MainThread.BeginInvokeOnMainThread(() => this.view.RaiseAdImpression());
-        }                
-
-        public void OnAdFailedToShow(int errorCode, string errorMessage) 
-        {
-            MainThread.BeginInvokeOnMainThread(() => this.view.RaiseAdFailed(errorCode, errorMessage));
+            this.InvokeOnMainThread(target => target.RaiseAdImpression());
         }
+
+        public void OnAdFailedToShow(int errorCode, string errorMessage)
+        {
+            this.InvokeOnMainThread(target => target.RaiseAdFailed(errorCode, errorMessage));
+        }
+
+        private void InvokeOnMainThread(Action<BannerAd> callback)
+        {
+            BannerAd? target = Volatile.Read(ref this.view);
+            if (target == null)
+                return;
+
+            MainThread.BeginInvokeOnMainThread(() =>
+            {
+                if (ReferenceEquals(Volatile.Read(ref this.view), target))
+                    callback(target);
+            });
+        }
+
+        #endregion
     }
 
     private class BannerContainer(Context context, Action<int> widthChanged)

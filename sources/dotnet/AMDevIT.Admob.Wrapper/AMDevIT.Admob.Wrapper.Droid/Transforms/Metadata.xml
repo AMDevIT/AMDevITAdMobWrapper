@@ -7,6 +7,7 @@
 	<remove-node path="/api/package[@name='it.amdev.admob.wrapper.ads']/class[@name='BannerAdWrapper.Companion']" />
 	<remove-node path="/api/package[@name='it.amdev.admob.wrapper.ads']/class[@name='BannerAdWrapper']/field[@name='Companion']" />
 	<remove-node path="/api/package[@name='it.amdev.admob.wrapper.ads']/class[@name='BannerAdWrapper.WhenMappings']" />
+	<remove-node path="/api/package[@name='it.amdev.admob.wrapper.ads']/class[@name='CallbackLifecycle']" />
 	<remove-node path="/api/package[@name='it.amdev.admob.wrapper.ads']/class[@name='InterstitialAdWrapper.Companion']" />
 	<remove-node path="/api/package[@name='it.amdev.admob.wrapper.ads']/class[@name='InterstitialAdWrapper']/field[@name='Companion']" />
 	<remove-node path="/api/package[@name='it.amdev.admob.wrapper.ads']/class[@name='RewardedAdWrapper.Companion']" />
@@ -26,5 +27,12 @@
 	<attr path="/api/package[@name='it.amdev.admob.wrapper.ads']/class[@name='BannerAdViewSize']/field[@name='Leaderboard']"
 		  name="not-null">true</attr>
 	<attr path="/api/package[@name='it.amdev.admob.wrapper.ads']/class[@name='BannerAdViewSize']/field[@name='Adaptive']"
+		  name="not-null">true</attr>
+
+	<attr path="/api/package[@name='it.amdev.admob.wrapper.privacy']/class[@name='AdMobAgeTreatment']/field[@name='Unspecified']"
+		  name="not-null">true</attr>
+	<attr path="/api/package[@name='it.amdev.admob.wrapper.privacy']/class[@name='AdMobAgeTreatment']/field[@name='Child']"
+		  name="not-null">true</attr>
+	<attr path="/api/package[@name='it.amdev.admob.wrapper.privacy']/class[@name='AdMobAgeTreatment']/field[@name='Teen']"
 		  name="not-null">true</attr>
 </metadata>

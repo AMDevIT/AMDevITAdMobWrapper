@@ -82,7 +82,9 @@ public class MainActivity : Activity
 
         try
         {
-            await manager.InitializeAsync(this.ApplicationContext!, ApplicationId);
+            await manager.InitializeAsync(this.ApplicationContext!,
+                                          ApplicationId,
+                                          AdMobAgeTreatment.Teen);
             OnAdMobInitialized();
         }
         catch (Exception exception)

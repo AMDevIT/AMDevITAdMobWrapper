@@ -52,6 +52,17 @@ public sealed class AdMobConsentService : IAdMobConsentService
                                             cancellationToken);
     }
 
+    public Task InitializeAsync(string applicationId,
+                                AdMobAgeTreatment ageTreatment,
+                                CancellationToken cancellationToken = default)
+    {
+        Activity activity = this.GetActivity();
+        return this.manager.InitializeAsync(activity.ApplicationContext!,
+                                            applicationId,
+                                            ageTreatment,
+                                            cancellationToken);
+    }
+
     public Task<ConsentInformationSnapshot> UpdateCurrentConsentInformationAsync(
         ConsentRequestOptions? options = null,
         CancellationToken cancellationToken = default) =>

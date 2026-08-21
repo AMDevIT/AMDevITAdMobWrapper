@@ -16,7 +16,7 @@
     <IsTrimmable>true</IsTrimmable>
     <PackageIcon>admob_maui_icon_v4_wallet_block.png</PackageIcon>
     <PackageReadmeFile>README.md</PackageReadmeFile>
-	  <!--<VersionPrefix>0.1.10</VersionPrefix>-->
+	<!--<VersionPrefix>0.1.40</VersionPrefix>-->
 	  <!--<VersionSuffix></VersionSuffix>-->
   </PropertyGroup>
 
