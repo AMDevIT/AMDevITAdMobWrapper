@@ -1,32 +1,54 @@
 #if ANDROID
 
 using AMDevIT.Admob.Wrapper.Diagnostics;
+using Android.Runtime;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Abstractions;
 using NativeLogLevel = AMDevIT.Admob.Wrapper.Diagnostics.LogLevel;
 
 namespace AMDevIT.Admob.Wrapper.MAUICross.Platforms.Android.Diagnostics;
 
-internal sealed class DroidLoggerAdapter : Java.Lang.Object, IDroidLogger
+internal class DroidLoggerAdapter : Java.Lang.Object, IDroidLogger
 {
     #region Fields
 
-    private readonly ILogger logger;
+    private ILogger logger;
 
     #endregion
 
     #region .ctor
 
+    public DroidLoggerAdapter()
+    {
+        this.logger = NullLogger.Instance;
+    }
+
     public DroidLoggerAdapter(ILogger logger)
     {
-        this.logger = logger;
+        this.logger = logger ?? NullLogger.Instance;
+    }
+
+    protected DroidLoggerAdapter(IntPtr handle, JniHandleOwnership ownership)
+        : base(handle, ownership)
+    {
+        this.logger = NullLogger.Instance;
     }
 
     #endregion
 
     #region Methods
 
-    public bool IsEnabled(NativeLogLevel level) =>
-        this.logger.IsEnabled(MapLogLevel(level));
+    public bool IsEnabled(NativeLogLevel level)
+    {
+        try
+        {
+            return this.logger.IsEnabled(MapLogLevel(level));
+        }
+        catch
+        {
+            return false;
+        }
+    }
 
     public void LogTrace(string message, string? tag) =>
         this.Log(Microsoft.Extensions.Logging.LogLevel.Trace, message, tag);
@@ -45,6 +67,12 @@ internal sealed class DroidLoggerAdapter : Java.Lang.Object, IDroidLogger
 
     public void LogCritical(string message, string? tag) =>
         this.Log(Microsoft.Extensions.Logging.LogLevel.Critical, message, tag);
+
+    protected override void Dispose(bool disposing)
+    {
+        this.logger = NullLogger.Instance;
+        base.Dispose(disposing);
+    }
 
     private static Microsoft.Extensions.Logging.LogLevel MapLogLevel(NativeLogLevel level)
     {
@@ -68,13 +96,20 @@ internal sealed class DroidLoggerAdapter : Java.Lang.Object, IDroidLogger
                      string message,
                      string? tag)
     {
-        if (!this.logger.IsEnabled(level))
-            return;
+        try
+        {
+            if (!this.logger.IsEnabled(level))
+                return;
 
-        this.logger.Log(level,
-                        "{NativeTag}: {NativeMessage}",
-                        tag ?? "AdMobWrapper",
-                        message);
+            this.logger.Log(level,
+                            "{NativeTag}: {NativeMessage}",
+                            tag ?? "AdMobWrapper",
+                            message);
+        }
+        catch
+        {
+            // Diagnostics must never terminate a Java callback thread.
+        }
     }
 
     #endregion

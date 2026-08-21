@@ -1,8 +1,10 @@
 #if ANDROID
 
 using AMDevIT.Admob.Wrapper.Listeners;
+using AMDevIT.Admob.Wrapper.Interop.Droid;
 using Android.App;
 using Android.Content;
+using Android.Runtime;
 using ManagedAdMobAgeTreatment = AMDevIT.Admob.Wrapper.AdMobAgeTreatment;
 using NativeAdMobAgeTreatment = AMDevIT.Admob.Wrapper.Privacy.AdMobAgeTreatment;
 using NativeConsentDebugParameters = AMDevIT.Admob.Wrapper.Privacy.ConsentInformationRequestDebugParameters;
@@ -161,22 +163,31 @@ public static partial class AdMobManagerExtensions
 
     #endregion
 
-    private sealed class InitListener : Java.Lang.Object, IOnInitializedListener
+    private class InitListener : RetainedJavaCallback, IOnInitializedListener
     {
         #region Fields
 
-        private readonly TaskCompletionSource completionSource;
+        private readonly TaskCompletionSource? completionSource;
         private readonly CancellationTokenRegistration cancellationRegistration;
 
         #endregion
 
         #region .ctor
 
+        public InitListener()
+        {
+        }
+
         public InitListener(TaskCompletionSource completionSource, CancellationToken cancellationToken)
         {
             this.completionSource = completionSource;
             this.cancellationRegistration = cancellationToken.Register(() =>
-                this.completionSource.TrySetCanceled(cancellationToken));
+                this.completionSource?.TrySetCanceled(cancellationToken));
+        }
+
+        protected InitListener(IntPtr handle, JniHandleOwnership ownership)
+            : base(handle, ownership)
+        {
         }
 
         #endregion
@@ -185,31 +196,49 @@ public static partial class AdMobManagerExtensions
 
         public void OnInitialized()
         {
-            this.cancellationRegistration.Dispose();
-            this.completionSource.TrySetResult();
+            try
+            {
+                this.cancellationRegistration.Dispose();
+                this.completionSource?.TrySetResult();
+            }
+            finally
+            {
+                this.Release();
+            }
         }
 
         public void OnInitializationFailed(string error)
         {
-            this.cancellationRegistration.Dispose();
-            this.completionSource.TrySetException(new InvalidOperationException(error));
+            try
+            {
+                this.cancellationRegistration.Dispose();
+                this.completionSource?.TrySetException(new InvalidOperationException(error));
+            }
+            finally
+            {
+                this.Release();
+            }
         }
 
         #endregion
     }
 
-    private sealed class ConsentInformationRequestListener
-        : Java.Lang.Object, IOnConsentInformationRequestListener
+    private class ConsentInformationRequestListener
+        : RetainedJavaCallback, IOnConsentInformationRequestListener
     {
         #region Fields
 
-        private readonly AdMobManager manager;
-        private readonly TaskCompletionSource<ConsentInformationSnapshot> completionSource;
+        private readonly AdMobManager? manager;
+        private readonly TaskCompletionSource<ConsentInformationSnapshot>? completionSource;
         private readonly CancellationTokenRegistration cancellationRegistration;
 
         #endregion
 
         #region .ctor
+
+        public ConsentInformationRequestListener()
+        {
+        }
 
         public ConsentInformationRequestListener(
             AdMobManager manager,
@@ -219,7 +248,12 @@ public static partial class AdMobManagerExtensions
             this.manager = manager;
             this.completionSource = completionSource;
             this.cancellationRegistration = cancellationToken.Register(() =>
-                this.completionSource.TrySetCanceled(cancellationToken));
+                this.completionSource?.TrySetCanceled(cancellationToken));
+        }
+
+        protected ConsentInformationRequestListener(IntPtr handle, JniHandleOwnership ownership)
+            : base(handle, ownership)
+        {
         }
 
         #endregion
@@ -228,45 +262,71 @@ public static partial class AdMobManagerExtensions
 
         public void OnConsentInformationRequestSuccess()
         {
-            this.cancellationRegistration.Dispose();
-            ConsentInformationSnapshot? information = this.manager.GetCurrentConsentInformation();
-
-            if (information == null)
+            try
             {
-                this.completionSource.TrySetException(
-                    new InvalidOperationException("Consent information was not available after a successful update."));
-                return;
-            }
+                this.cancellationRegistration.Dispose();
+                if (this.manager == null || this.completionSource == null)
+                    return;
 
-            this.completionSource.TrySetResult(information);
+                ConsentInformationSnapshot? information = this.manager.GetCurrentConsentInformation();
+
+                if (information == null)
+                {
+                    this.completionSource.TrySetException(
+                        new InvalidOperationException("Consent information was not available after a successful update."));
+                    return;
+                }
+
+                this.completionSource.TrySetResult(information);
+            }
+            finally
+            {
+                this.Release();
+            }
         }
 
         public void OnConsentInformationRequestFailure(int errorCode, string errorMessage)
         {
-            this.cancellationRegistration.Dispose();
-            this.completionSource.TrySetException(new ConsentException(errorCode, errorMessage));
+            try
+            {
+                this.cancellationRegistration.Dispose();
+                this.completionSource?.TrySetException(new ConsentException(errorCode, errorMessage));
+            }
+            finally
+            {
+                this.Release();
+            }
         }
 
         #endregion
     }
 
-    private sealed class ConsentGatheringListener : Java.Lang.Object, IOnConsentGatheringListener
+    private class ConsentGatheringListener : RetainedJavaCallback, IOnConsentGatheringListener
     {
         #region Fields
 
-        private readonly TaskCompletionSource<ConsentGatheringResult> completionSource;
+        private readonly TaskCompletionSource<ConsentGatheringResult>? completionSource;
         private readonly CancellationTokenRegistration cancellationRegistration;
 
         #endregion
 
         #region .ctor
 
+        public ConsentGatheringListener()
+        {
+        }
+
         public ConsentGatheringListener(TaskCompletionSource<ConsentGatheringResult> completionSource,
                                         CancellationToken cancellationToken)
         {
             this.completionSource = completionSource;
             this.cancellationRegistration = cancellationToken.Register(() =>
-                this.completionSource.TrySetCanceled(cancellationToken));
+                this.completionSource?.TrySetCanceled(cancellationToken));
+        }
+
+        protected ConsentGatheringListener(IntPtr handle, JniHandleOwnership ownership)
+            : base(handle, ownership)
+        {
         }
 
         #endregion
@@ -275,9 +335,16 @@ public static partial class AdMobManagerExtensions
 
         public void OnCompleted(bool canRequestAds, bool privacyOptionsRequired)
         {
-            this.cancellationRegistration.Dispose();
-            this.completionSource.TrySetResult(
-                new ConsentGatheringResult(canRequestAds, privacyOptionsRequired));
+            try
+            {
+                this.cancellationRegistration.Dispose();
+                this.completionSource?.TrySetResult(
+                    new ConsentGatheringResult(canRequestAds, privacyOptionsRequired));
+            }
+            finally
+            {
+                this.Release();
+            }
         }
 
         public void OnCompletedWithError(int errorCode,
@@ -285,34 +352,50 @@ public static partial class AdMobManagerExtensions
                                          bool canRequestAds,
                                          bool privacyOptionsRequired)
         {
-            this.cancellationRegistration.Dispose();
-            this.completionSource.TrySetException(
-                new ConsentException(errorCode,
-                                     errorMessage,
-                                     canRequestAds,
-                                     privacyOptionsRequired));
+            try
+            {
+                this.cancellationRegistration.Dispose();
+                this.completionSource?.TrySetException(
+                    new ConsentException(errorCode,
+                                         errorMessage,
+                                         canRequestAds,
+                                         privacyOptionsRequired));
+            }
+            finally
+            {
+                this.Release();
+            }
         }
 
         #endregion
     }
 
-    private sealed class ConsentFormListener : Java.Lang.Object, IOnConsentFormEventListener
+    private class ConsentFormListener : RetainedJavaCallback, IOnConsentFormEventListener
     {
         #region Fields
 
-        private readonly TaskCompletionSource completionSource;
+        private readonly TaskCompletionSource? completionSource;
         private readonly CancellationTokenRegistration cancellationRegistration;
 
         #endregion
 
         #region .ctor
 
+        public ConsentFormListener()
+        {
+        }
+
         public ConsentFormListener(TaskCompletionSource completionSource,
                                    CancellationToken cancellationToken)
         {
             this.completionSource = completionSource;
             this.cancellationRegistration = cancellationToken.Register(() =>
-                this.completionSource.TrySetCanceled(cancellationToken));
+                this.completionSource?.TrySetCanceled(cancellationToken));
+        }
+
+        protected ConsentFormListener(IntPtr handle, JniHandleOwnership ownership)
+            : base(handle, ownership)
+        {
         }
 
         #endregion
@@ -321,14 +404,28 @@ public static partial class AdMobManagerExtensions
 
         public void OnDismissed()
         {
-            this.cancellationRegistration.Dispose();
-            this.completionSource.TrySetResult();
+            try
+            {
+                this.cancellationRegistration.Dispose();
+                this.completionSource?.TrySetResult();
+            }
+            finally
+            {
+                this.Release();
+            }
         }
 
         public void OnDismissedWithError(int errorCode, string? errorMessage)
         {
-            this.cancellationRegistration.Dispose();
-            this.completionSource.TrySetException(new ConsentException(errorCode, errorMessage));
+            try
+            {
+                this.cancellationRegistration.Dispose();
+                this.completionSource?.TrySetException(new ConsentException(errorCode, errorMessage));
+            }
+            finally
+            {
+                this.Release();
+            }
         }
 
         #endregion

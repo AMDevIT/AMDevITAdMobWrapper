@@ -21,9 +21,14 @@ import it.amdev.admob.wrapper.utils.ErrorsObjectsExtensions.Companion.toInt
 
 @Suppress("unused")
 class BannerAdWrapper(private val context: Context,
-                      private val logger: IDroidLogger? = null) {
+                      logger: IDroidLogger? = null) {
 
-    private var bannerView: View? = null
+    private val lifecycle = CallbackLifecycle()
+    private var bannerView: AdView? = null
+    private var bannerAd: BannerAd? = null
+    private var loadListener: OnAdLoadedListener? = null
+    private var eventListener: OnAdEventListener? = null
+    private var logger: IDroidLogger? = logger
 
     @RequiresPermission(Manifest.permission.INTERNET)
     @JvmOverloads
@@ -31,96 +36,27 @@ class BannerAdWrapper(private val context: Context,
              adSize: BannerAdViewSize = BannerAdViewSize.Banner,
              loadListener: OnAdLoadedListener,
              eventListener: OnAdEventListener? = null,
-             maxHeight:  Int? = null)
-        : View
-    {
-        if (this.bannerView is AdView) {
-            (this.bannerView as AdView).destroy()
-        }
-
-        val nativeAdSize = when(adSize) {
+             maxHeight: Int? = null): View {
+        val nativeAdSize = when (adSize) {
             BannerAdViewSize.Banner -> AdSize.BANNER
             BannerAdViewSize.LargeBanner -> AdSize.LARGE_BANNER
             BannerAdViewSize.MediumRectangle -> AdSize.MEDIUM_RECTANGLE
             BannerAdViewSize.FullBanner -> AdSize.FULL_BANNER
             BannerAdViewSize.Leaderboard -> AdSize.LEADERBOARD
             BannerAdViewSize.Adaptive -> {
-                val width = context.resources.configuration.screenWidthDp
+                val width = this.context.resources.configuration.screenWidthDp
 
                 if (maxHeight != null)
                     AdSize.getInlineAdaptiveBannerAdSize(width, maxHeight)
                 else
-                    AdSize.getLargeAnchoredAdaptiveBannerAdSize(context, width)
+                    AdSize.getLargeAnchoredAdaptiveBannerAdSize(this.context, width)
             }
         }
 
-        val adView = AdView(context).apply {
-            // Nothing to apply right now
-        }
-
-        val adRequest = BannerAdRequest.Builder(adUnitId = adUnitId,
-                                                adSize = nativeAdSize)
-                                       .build()
-        adView.loadAd(adRequest = adRequest,
-            object : AdLoadCallback<BannerAd> {
-                override fun onAdLoaded(ad: BannerAd) {
-                    loadListener.onAdLoaded()
-                    ad.adEventCallback = object : BannerAdEventCallback {
-                        override fun onAdClicked() {
-                            eventListener?.onAdClicked()
-                        }
-
-                        override fun onAdImpression() {
-                            eventListener?.onAdImpression()
-                        }
-
-                        override fun onAdDismissedFullScreenContent() {
-                            eventListener?.onAdDismissed()
-                        }
-
-                        override fun onAdPaid(value: AdValue) {
-                            super.onAdPaid(value)
-                            logger?.logDebug(tag = LOG_TAG,
-                                             message = "onAdPaid: value = ${value.valueMicros}, " +
-                                                       "currencyCode = ${value.currencyCode}, " +
-                                                       "precision = ${value.precisionType}")
-                        }
-
-                        override fun onAdShowedFullScreenContent() {
-                            eventListener?.onAdShown()
-                        }
-
-                        override fun onAdFailedToShowFullScreenContent(fullScreenContentError: FullScreenContentError) {
-                            val errorCode = fullScreenContentError.code.toInt()
-                            eventListener?.onAdFailedToShow(errorCode = errorCode, errorMessage = fullScreenContentError.message)
-                        }
-
-                        override fun onAppEvent(name: String, data: String?) {
-                            super.onAppEvent(name, data)
-                        }
-                    }
-
-                    ad.bannerAdRefreshCallback = object : BannerAdRefreshCallback {
-                        override fun onAdRefreshed() {
-                            super.onAdRefreshed()
-                            logger?.logDebug(tag = LOG_TAG, message = "Ad refreshed")
-                        }
-
-                        override fun onAdFailedToRefresh(adError: LoadAdError) {
-                            super.onAdFailedToRefresh(adError)
-                            logger?.logError(tag = LOG_TAG, message = "Ad failed to refresh: ${adError.message}")
-                        }
-                    }
-                }
-
-                override fun onAdFailedToLoad(adError: LoadAdError) {
-                    val errorCode = adError.code.toInt()
-                    loadListener.onAdFailedToLoad(errorCode = errorCode,
-                                                  errorMessage = adError.message)
-                }
-            })
-        bannerView = adView
-        return adView
+        return this.load(adUnitId,
+                         nativeAdSize,
+                         loadListener,
+                         eventListener)
     }
 
     @RequiresPermission(Manifest.permission.INTERNET)
@@ -129,129 +65,207 @@ class BannerAdWrapper(private val context: Context,
                      width: Int,
                      loadListener: OnAdLoadedListener,
                      eventListener: OnAdEventListener? = null,
-                     maxHeight: Int? = null)
-        : View
-    {
+                     maxHeight: Int? = null): View {
         require(width > 0) { "Adaptive banner width must be greater than zero" }
-
-        if (this.bannerView is AdView) {
-            (this.bannerView as AdView).destroy()
-        }
 
         val nativeAdSize = if (maxHeight != null)
             AdSize.getInlineAdaptiveBannerAdSize(width, maxHeight)
         else
-            AdSize.getLargeAnchoredAdaptiveBannerAdSize(context, width)
+            AdSize.getLargeAnchoredAdaptiveBannerAdSize(this.context, width)
 
-        val adView = AdView(context).apply {
-        }
-
-        val adRequest = BannerAdRequest.Builder(adUnitId = adUnitId,
-                                                adSize = nativeAdSize)
-                                       .build()
-        adView.loadAd(adRequest = adRequest,
-            object : AdLoadCallback<BannerAd> {
-                override fun onAdLoaded(ad: BannerAd) {
-                    loadListener.onAdLoaded()
-                    ad.adEventCallback = object : BannerAdEventCallback {
-                        override fun onAdClicked() {
-                            eventListener?.onAdClicked()
-                        }
-
-                        override fun onAdImpression() {
-                            eventListener?.onAdImpression()
-                        }
-
-                        override fun onAdDismissedFullScreenContent() {
-                            eventListener?.onAdDismissed()
-                        }
-
-                        override fun onAdPaid(value: AdValue) {
-                            super.onAdPaid(value)
-
-                            logger?.logDebug(tag = LOG_TAG,
-                                             message = "onAdPaid: value = ${value.valueMicros}, " +
-                                                       "currencyCode = ${value.currencyCode}, " +
-                                                       "precision = ${value.precisionType}")
-                        }
-
-                        override fun onAdShowedFullScreenContent() {
-                            eventListener?.onAdShown()
-                        }
-
-                        override fun onAdFailedToShowFullScreenContent(fullScreenContentError: FullScreenContentError) {
-                            val errorCode = fullScreenContentError.code.toInt()
-                            eventListener?.onAdFailedToShow(errorCode = errorCode, errorMessage = fullScreenContentError.message)
-                        }
-
-                        override fun onAppEvent(name: String, data: String?) {
-                            super.onAppEvent(name, data)
-
-                            logger?.logDebug(tag = LOG_TAG,
-                                             message = "onAppEvent: name = $name, data = $data")
-                        }
-                    }
-
-                    ad.bannerAdRefreshCallback = object : BannerAdRefreshCallback {
-                        override fun onAdRefreshed() {
-                            super.onAdRefreshed()
-                            logger?.logDebug(tag = LOG_TAG, message = "Ad refreshed")
-                        }
-
-                        override fun onAdFailedToRefresh(adError: LoadAdError) {
-                            super.onAdFailedToRefresh(adError)
-                            logger?.logError(tag = LOG_TAG, message = "Ad failed to refresh: ${adError.message}")
-                        }
-                    }
-                }
-
-                override fun onAdFailedToLoad(adError: LoadAdError) {
-                    val errorCode = adError.code.toInt()
-                    loadListener.onAdFailedToLoad(errorCode = errorCode,
-                        errorMessage = adError.message)
-                }
-            })
-        bannerView = adView
-        return adView
+        return this.load(adUnitId,
+                         nativeAdSize,
+                         loadListener,
+                         eventListener)
     }
 
     fun destroy() {
-        if (this.bannerView is AdView) {
-            (this.bannerView as AdView).destroy()
+        this.lifecycle.destroy {
+            this.loadListener = null
+            this.eventListener = null
+            this.logger = null
+            this.clearBannerLocked()
         }
-        bannerView = null
+    }
+
+    @RequiresPermission(Manifest.permission.INTERNET)
+    private fun load(adUnitId: String,
+                     adSize: AdSize,
+                     loadListener: OnAdLoadedListener,
+                     eventListener: OnAdEventListener?): View {
+        return this.lifecycle.begin { generation ->
+            this.clearBannerLocked()
+            this.loadListener = loadListener
+            this.eventListener = eventListener
+
+            val adView = AdView(this.context)
+            val adRequest = BannerAdRequest.Builder(adUnitId = adUnitId,
+                                                    adSize = adSize)
+                                           .build()
+
+            this.bannerView = adView
+            adView.loadAd(adRequest = adRequest,
+                          object : AdLoadCallback<BannerAd> {
+                              override fun onAdLoaded(ad: BannerAd) {
+                                  val accepted = lifecycle.access(generation) {
+                                      bannerAd = ad
+                                      ad.adEventCallback = createEventCallback(generation)
+                                      ad.bannerAdRefreshCallback = createRefreshCallback(generation)
+                                      true
+                                  } == true
+
+                                  if (!accepted) {
+                                      clearCallbacks(ad)
+                                      return
+                                  }
+
+                                  notifyLoaded(generation)
+                              }
+
+                              override fun onAdFailedToLoad(adError: LoadAdError) {
+                                  notifyLoadFailed(generation,
+                                                   adError.code.toInt(),
+                                                   adError.message)
+                              }
+                          })
+            adView
+        }
+    }
+
+    private fun createEventCallback(generation: Long): BannerAdEventCallback {
+        return object : BannerAdEventCallback {
+            override fun onAdClicked() {
+                this@BannerAdWrapper.notifyEvent(generation) { it.onAdClicked() }
+            }
+
+            override fun onAdImpression() {
+                this@BannerAdWrapper.notifyEvent(generation) { it.onAdImpression() }
+            }
+
+            override fun onAdDismissedFullScreenContent() {
+                this@BannerAdWrapper.notifyEvent(generation) { it.onAdDismissed() }
+            }
+
+            override fun onAdPaid(value: AdValue) {
+                super.onAdPaid(value)
+                this@BannerAdWrapper.logDebug(generation,
+                                              "onAdPaid: value = ${value.valueMicros}, " +
+                                                  "currencyCode = ${value.currencyCode}, " +
+                                                  "precision = ${value.precisionType}")
+            }
+
+            override fun onAdShowedFullScreenContent() {
+                this@BannerAdWrapper.notifyEvent(generation) { it.onAdShown() }
+            }
+
+            override fun onAdFailedToShowFullScreenContent(fullScreenContentError: FullScreenContentError) {
+                val errorCode = fullScreenContentError.code.toInt()
+                this@BannerAdWrapper.notifyEvent(generation) {
+                    it.onAdFailedToShow(errorCode = errorCode,
+                                        errorMessage = fullScreenContentError.message)
+                }
+            }
+
+            override fun onAppEvent(name: String, data: String?) {
+                super.onAppEvent(name, data)
+                this@BannerAdWrapper.logDebug(generation,
+                                              "onAppEvent: name = $name, data = $data")
+            }
+        }
+    }
+
+    private fun createRefreshCallback(generation: Long): BannerAdRefreshCallback {
+        return object : BannerAdRefreshCallback {
+            override fun onAdRefreshed() {
+                super.onAdRefreshed()
+                this@BannerAdWrapper.logDebug(generation, "Ad refreshed")
+            }
+
+            override fun onAdFailedToRefresh(adError: LoadAdError) {
+                super.onAdFailedToRefresh(adError)
+                this@BannerAdWrapper.logError(generation,
+                                              "Ad failed to refresh: ${adError.message}")
+            }
+        }
+    }
+
+    private fun clearBannerLocked() {
+        this.bannerAd?.let { this.clearCallbacks(it) }
+        this.bannerAd = null
+        val view = this.bannerView
+        this.bannerView = null
+
+        try {
+            view?.destroy()
+        } catch (_: Throwable) {
+            // Native view teardown must remain idempotent and non-fatal.
+        }
+    }
+
+    private fun clearCallbacks(ad: BannerAd) {
+        try {
+            ad.adEventCallback = NO_OP_EVENT_CALLBACK
+            ad.bannerAdRefreshCallback = NO_OP_REFRESH_CALLBACK
+        } catch (_: Throwable) {
+            // Native callback cleanup must never make teardown fail.
+        }
+    }
+
+    private fun notifyLoaded(generation: Long) {
+        this.lifecycle.access(generation) {
+            this.loadListener?.let { listener ->
+                this.invokeSafely { listener.onAdLoaded() }
+            }
+        }
+    }
+
+    private fun notifyLoadFailed(generation: Long, errorCode: Int, errorMessage: String) {
+        this.lifecycle.access(generation) {
+            this.loadListener?.let { listener ->
+                this.invokeSafely {
+                    listener.onAdFailedToLoad(errorCode = errorCode,
+                                              errorMessage = errorMessage)
+                }
+            }
+        }
+    }
+
+    private fun notifyEvent(generation: Long, callback: (OnAdEventListener) -> Unit) {
+        this.lifecycle.access(generation) {
+            this.eventListener?.let { listener ->
+                this.invokeSafely { callback(listener) }
+            }
+        }
+    }
+
+    private fun logDebug(generation: Long, message: String) {
+        this.lifecycle.access(generation) {
+            this.logger?.let { activeLogger ->
+                this.invokeSafely { activeLogger.logDebug(tag = LOG_TAG, message = message) }
+            }
+        }
+    }
+
+    private fun logError(generation: Long, message: String) {
+        this.lifecycle.access(generation) {
+            this.logger?.let { activeLogger ->
+                this.invokeSafely { activeLogger.logError(tag = LOG_TAG, message = message) }
+            }
+        }
+    }
+
+    private fun invokeSafely(callback: () -> Unit) {
+        try {
+            callback()
+        } catch (_: Throwable) {
+            // Managed diagnostics and listeners must never crash a native callback thread.
+        }
     }
 
     companion object {
         private const val LOG_TAG = "BannerAdWrapper"
-    }
 
-//    private fun createAdListener(loadListener: OnAdLoadedListener,
-//                                 eventListener: OnAdEventListener?): AdListener {
-//        return object : AdListener() {
-//            override fun onAdLoaded() {
-//                loadListener.onAdLoaded()
-//            }
-//
-//            override fun onAdFailedToLoad(error: LoadAdError) {
-//                loadListener.onAdFailedToLoad(error.code, error.message)
-//            }
-//
-//            override fun onAdOpened() {
-//                eventListener?.onAdShown()
-//            }
-//
-//            override fun onAdClosed() {
-//                eventListener?.onAdDismissed()
-//            }
-//
-//            override fun onAdClicked() {
-//                eventListener?.onAdClicked()
-//            }
-//
-//            override fun onAdImpression() {
-//                eventListener?.onAdImpression()
-//            }
-//        }
-//    }
+        private val NO_OP_EVENT_CALLBACK = object : BannerAdEventCallback {}
+        private val NO_OP_REFRESH_CALLBACK = object : BannerAdRefreshCallback {}
+    }
 }
