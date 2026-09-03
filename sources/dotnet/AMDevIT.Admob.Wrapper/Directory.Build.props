@@ -4,9 +4,9 @@
     </PropertyGroup>
 
   <PropertyGroup>
-    <!-- <ArtifactsPath>$(MSBuildThisFileDirectory)..\..\..\artifacts</ArtifactsPath> -->
-    <PackageOutputPath>$(MSBuildThisFileDirectory)../../../artifacts/packages</PackageOutputPath>
-    <PublishDir>$(MSBuildThisFileDirectory)../../../artifacts/publish/$(MSBuildProjectName)/$(TargetFramework)/$(RuntimeIdentifier)/</PublishDir>
+   <!-- <ArtifactsPath>$(MSBuildThisFileDirectory)..\..\..\artifacts</ArtifactsPath> -->
+    <PackageOutputPath>$(MSBuildThisFileDirectory)..\..\..\artifacts\packages</PackageOutputPath>
+    <PublishDir>$(MSBuildThisFileDirectory)..\..\..\artifacts\publish\$(MSBuildProjectName)\$(TargetFramework)\$(RuntimeIdentifier)\</PublishDir>
 
     <IsAMDevITAdMobPackage Condition="'$(MSBuildProjectName)' == 'AMDevIT.Admob.Wrapper.Droid' or
                                       '$(MSBuildProjectName)' == 'AMDevIT.Admob.Wrapper.iOSNative' or
