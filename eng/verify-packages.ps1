@@ -21,7 +21,7 @@ $expectedPackageIds = @(
 )
 $expectedDependencies = @{
     'AMDevIT.Admob.Wrapper.Droid' = @(
-        @{ Id = 'Xamarin.GooglePlayServices.Ads'; Version = '125.2.0' }
+        @{ Id = 'Xamarin.Google.Android.Libraries.Ads.Mobile.Sdk'; Version = '1.5.0' }
     )
     'AMDevIT.Admob.Wrapper.iOSNative' = @()
     'AMDevIT.Admob.Wrapper' = @(

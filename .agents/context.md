@@ -217,3 +217,11 @@
   publishing. The initial SSH fetch failed because the configured GitHub key
   was rejected; HTTPS inspection showed no pull was needed from the starting
   remote branch.
+
+## 2026-10-31 — AdMob SDK dependency update
+
+- Objective and status: Android and .NET aligned to Next-Gen 1.5.0; native iOS minimum raised to 13.11.0. iOS XCFramework regeneration remains pending on macOS.
+- Decisions made: selected latest common Maven/NuGet version; adopted the official SDK NuGet instead of a manual Maven dependency graph; aligned Fragment.Ktx/AppCompat; preserved wrapper package version 0.1.40.
+- Affected files: Android version catalog, regenerated AAR, Droid/MAUICross projects, iOS Xcode package requirement, README, package verifier, .agents/2026-10-31-admob-sdk-update.md, and this file.
+- Checks performed and results: HTTPS fetch found no divergence; 7 Kotlin tests and Release AAR build passed; restore and final aggregate .NET build passed; 10 .NET tests passed via VSTest; MAUI Android test-app APK build passed with zero warnings/errors. JDK 21 was selected explicitly. Existing synthetic-binding, Kotlin, MSTest, and PRI warnings are recorded in the detailed note. Scoped diff whitespace validation passed.
+- Open issues and recommended next step: rebuild/replace the iOS XCFramework on macOS with SDK 13.11.0, then perform physical Android/iOS ad and consent smoke tests. Existing global.json/test-runner mismatch is unrelated to this update.

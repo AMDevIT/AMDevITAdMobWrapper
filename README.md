@@ -69,13 +69,17 @@ privacy workflow, MAUI examples, logging, desktop fallbacks, and troubleshooting
 - iOS 15.0+
 - Mac Catalyst 15.0+ or Windows 10 version 1809+ for the MAUI fallback UI
 
-The Android binding embeds Google Mobile Ads SDK Next-Gen `1.3.1` and brings
-Google UMP `4.0.0` through the official .NET Android bindings. Do not add the
+The Android binding uses Google Mobile Ads SDK Next-Gen `1.5.0` through the
+official `Xamarin.Google.Android.Libraries.Ads.Mobile.Sdk` NuGet package, which
+also supplies Google UMP `4.0.0` through its `4.0.0.4` .NET binding. Do not add the
 legacy `Xamarin.GooglePlayServices.Ads` package.
 
-The iOS XCFramework is built from Google's official
-`swift-package-manager-google-mobile-ads` package (`13.7.0`). UMP is supplied
-transitively by that package; do not add a second UMP Swift package.
+The native iOS project references Google's official
+`swift-package-manager-google-mobile-ads` package with a minimum version of
+`13.11.0` (up to the next major version). UMP is supplied transitively by that
+package; do not add a second UMP Swift package. After updating the Swift package,
+rebuild the XCFramework on macOS and replace the binary in the .NET iOS binding;
+changing the package requirement does not update the checked-in XCFramework.
 
 ---
 
