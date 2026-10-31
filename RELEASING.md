@@ -1,6 +1,6 @@
 # Release process
 
-The release being prepared is **0.2.0**. Its changes are recorded in
+The release being prepared is **0.2.1**. Its changes are recorded in
 [CHANGELOG.md](CHANGELOG.md); publication is manual.
 
 ## Version and release metadata
@@ -11,16 +11,13 @@ The four public NuGet packages share `VersionPrefix`, `VersionSuffix`, and
 Keep the following aligned before preparing artifacts:
 
 - All four package versions, with no project-local release-note/version overrides.
-- Android native module `version` in `admob-wrapper/build.gradle.kts`.
-- iOS `MARKETING_VERSION` and an incremented `CURRENT_PROJECT_VERSION` in the
-  Xcode project. For 0.2.0 these are `0.2.0` and build `2`.
-- README package examples, SDK/dependency descriptions, and changelog entry.
+- Native metadata stays at 0.2.0 (iOS build 2): 0.2.1 changes only NuGet packaging
+  and reuses the unchanged native binaries from 0.2.0.
+- README package examples and changelog entry.
 
-A patch increments the last component (for example, 0.2.0 to 0.2.1). Use a minor
-increment for a broader SDK/dependency or capability update. Version 0.2.0 marks
-this SDK/dependency and release-tooling update from the 0.1.x line; it does not
-declare a 1.0 compatibility baseline. Keep the suffix empty for the stable
-candidate, or set a prerelease suffix explicitly and update examples accordingly.
+Version 0.2.1 is a packaging patch for the already published 0.2.0 release.
+Keep the suffix empty for the stable candidate. Native rebuilds are required
+when native source or dependencies change, not for this packaging-only repair.
 
 ## Native and macOS preparation
 
@@ -34,22 +31,31 @@ bash sources/tools/prepare-nuget.sh
 ```
 
 This rebuilds the native Android/iOS wrappers, replaces the binding binaries,
-runs Kotlin tests, restores/builds Release, and prepares four `.nupkg` and four
-`.snupkg` files under `artifacts/packages/0.2.0/`. It validates package metadata,
-dependencies, symbols, and platform assemblies. See the
-[tooling guide](sources/tools/README.md) for prerequisites and options.
+runs Kotlin tests, restores/builds Release, and prepares three base `.nupkg` and
+three `.snupkg` files under `artifacts/native-preparation/0.2.1/`.
+MAUICross is built but is never packed on macOS. These are intermediate outputs,
+not a complete release. See the [tooling guide](sources/tools/README.md).
 
-Rerun native preparation after changing the native version metadata. A successful
-0.1.40 build cannot be reused as proof that the embedded framework reports 0.2.0.
 Review and transfer the rebuilt AAR/XCFramework with the corresponding source
-changes before preparing the Windows-inclusive release artifact.
-
-On macOS the MAUI package contains Android, iOS, and Mac Catalyst. Its Windows
-target is conditional on the host. If publishing the package with Windows support,
-use the Windows-produced package as the final artifact. Do not publish both host
-variants under the same package ID/version.
+changes before producing all four release packages on Windows. MAUICross packing
+fails if its Windows target is absent. Never publish host-dependent variants
+under the same package ID/version. Version 0.2.0 is already published; the repair
+uses 0.2.1 and must not overwrite 0.2.0.
 
 ## Windows checks and packaging
+
+From the repository root, PowerShell 7 can run the complete local preparation:
+
+```powershell
+./sources/tools/prepare-nuget.ps1 -JavaSdkDirectory 'C:\Program Files\Java\jdk-21'
+```
+
+This rebuilds/tests Android, reuses the iOS XCFramework prepared on macOS,
+restores/builds Release, runs .NET tests, packs all four libraries and symbols,
+and validates the packages plus an Android/Windows consumer. Output is staged
+until validation succeeds at `artifacts/packages/<Version>/`. Existing version
+directories are refused; `-OutputDirectory` selects another root. See the
+[tooling guide](sources/tools/README.md) for SDK paths and prerequisites.
 
 The manual GitHub Actions workflow builds/checks the .NET libraries and prepares
 Windows-inclusive packages from the native binaries checked into that commit.
@@ -73,7 +79,7 @@ that runner mismatch. Windows tests are excluded from aggregate solution builds.
 
 Pack the Droid, iOSNative, shared wrapper, and MAUICross projects into one clean
 output directory using Release outputs from the same commit/version. Run
-`eng/verify-packages.ps1` with that directory and version `0.2.0`; it checks package
+`eng/verify-packages.ps1` with that directory and version `0.2.1`; it checks package
 metadata and builds an Android/Windows consumer. Do not mix earlier build artifacts
 with the candidate being validated.
 
@@ -89,10 +95,10 @@ with the candidate being validated.
    fallback, logging, all ad formats, rewards, repeated loads, refresh, resizing,
    and teardown on physical devices using Google's test ad IDs.
 4. Check package versions, release notes, README rendering, dependency groups,
-   native binaries, repository commit, license/icon, and symbols. Confirm whether
-   the final MAUI artifact includes the Windows target.
+   native binaries, repository commit, license/icon, and symbols. Require Android, iOS, Mac Catalyst, and Windows assemblies
+   in the final MAUI artifact.
 5. Publish only the reviewed packages and symbols manually. CI and the macOS
    preparation script hold no publishing API key and do not push packages.
-6. Tag the exact published source commit as `v0.2.0` and finalize its changelog
+6. Tag the exact published source commit as `v0.2.1` and finalize its changelog
    publication date. Never replace an already published package with new bytes
    under the same ID/version; select a new version instead.

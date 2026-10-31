@@ -10,7 +10,7 @@ SOLUTION_PATH="$SOLUTION_DIR/AMDevIT.Admob.Wrapper.slnx"
 WORKLOAD_PROJECT="$SOLUTION_DIR/AMDevIT.Admob.Wrapper.MAUICross/AMDevIT.Admob.Wrapper.MAUICross.csproj"
 ANDROID_DIR="$REPO_ROOT/sources/droid/AdMobWapperApp"
 IOS_DIR="$REPO_ROOT/sources/apple/ios"
-OUTPUT_ROOT="$REPO_ROOT/artifacts/packages"
+OUTPUT_ROOT="$REPO_ROOT/artifacts/native-preparation"
 STAGING_DIR=""
 
 fail() {
@@ -24,9 +24,9 @@ Usage: bash sources/tools/prepare-nuget.sh [--output DIRECTORY]
 
 Rebuilds the Android AAR and iOS XCFramework, replaces the binaries in the
 .NET binding projects, restores/builds Release, runs Kotlin tests, and creates
-four .nupkg files and their .snupkg symbol packages. Validates package metadata.
+three base .nupkg files and their .snupkg symbol packages. Validates metadata.
 
-Output: artifacts/packages/<Version>/ (or DIRECTORY/<Version>/).
+Output: artifacts/native-preparation/<Version>/ (or DIRECTORY/<Version>/).
 Version is read from the .NET projects. An existing version directory is refused.
 Relative output paths are resolved from the current working directory.
 
@@ -35,9 +35,9 @@ and xcpretty. Xcode availability is checked; its version is not checked.
 JAVA_HOME and ANDROID_HOME/ANDROID_SDK_ROOT may override the default SDK paths.
 .NET workload restore may install missing workloads and require permissions.
 
-The MAUI package includes Android, iOS and Mac Catalyst on macOS. Prepare the
-Windows-inclusive package on Windows. Existing .NET tests target Windows and
-must also run there. Nothing is published or pushed to NuGet or Git.
+MAUICross is built but never packed here. Prepare the complete four-platform
+MAUICross package on Windows using the rebuilt native binaries. Existing .NET
+tests target Windows and must also run there. Nothing is published or pushed to NuGet or Git.
 EOF
 }
 
@@ -164,14 +164,15 @@ dotnet build "$SOLUTION_PATH" --configuration Release --no-restore --no-incremen
 
 printf '\nPacking version %s...\n' "$VERSION"
 for project in "${PROJECTS[@]}"; do
+    [[ "$project" != AMDevIT.Admob.Wrapper.MAUICross ]] || continue
     dotnet pack "$project/$project.csproj" --configuration Release --no-build --no-restore --output "$STAGING_DIR" "${BUILD_ARGS[@]}"
 done
 
 printf '\nChecking packages...\n'
-python3 "$SCRIPT_DIR/verify-nuget.py" "$STAGING_DIR" "$VERSION" "$SOLUTION_DIR"
+python3 "$SCRIPT_DIR/verify-nuget.py" "$STAGING_DIR" "$VERSION" "$SOLUTION_DIR" --native-preparation
 [[ ! -e "$OUTPUT_DIR" ]] || fail "Output appeared during the build: $OUTPUT_DIR"
 mv "$STAGING_DIR" "$OUTPUT_DIR"
 STAGING_DIR=""
 printf '\nPackages prepared at: %s\n' "$OUTPUT_DIR"
-printf 'macOS targets only; Windows packaging/tests and physical device tests remain separate release checks.\n'
+printf 'Intermediate native preparation only. MAUICross must be packed and verified on Windows before publication.\n'
 printf 'Native binaries in the working tree were replaced. Review them before committing.\n'

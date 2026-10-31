@@ -3,7 +3,6 @@
 	<PropertyGroup>
 		<IsAMDevITAdMobPackage>true</IsAMDevITAdMobPackage>
 		<TargetFrameworks>net10.0-android;net10.0-ios;net10.0-maccatalyst</TargetFrameworks> 
-		<!-- <TargetFrameworks>net10.0-android;net10.0-ios;net10.0-maccatalyst;net10.0-windows10.0.26100.0</TargetFrameworks> -->
 
 		<UseMaui>true</UseMaui>
 		<SingleProject>true</SingleProject>
@@ -39,7 +38,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Microsoft.Maui.Controls" Version="10.0.90" />
+		<PackageReference Include="Microsoft.Maui.Controls" Version="10.0.120" />
 		<ProjectReference Include="..\AMDevIT.Admob.Wrapper\AMDevIT.Admob.Wrapper.csproj">
 			<PrivateAssets>none</PrivateAssets>
 		</ProjectReference>
@@ -78,4 +77,7 @@
 	    <PackagePath>\</PackagePath>
 	  </None>
 	</ItemGroup>
+    <Target Name="RequireCompleteMauiPackage" BeforeTargets="Pack;GenerateNuspec">
+        <Error Condition="!$([System.String]::Copy('$(TargetFrameworks)').Contains('net10.0-windows10.0.26100.0'))" Text="MAUICross release packages must include Windows. Pack this project on Windows after transferring the rebuilt native binaries from macOS." />
+    </Target>
 </Project>
