@@ -241,3 +241,11 @@
 - Affected files: sources/tools/prepare-nuget.sh, verify-nuget.py, README.md, .gitattributes, RELEASING.md, .agents/2026-10-31-macos-nuget-preparation.md, and this file.
 - Checks performed and results: Bash syntax/help/argument/host checks passed; package fixtures passed and invalid dependency/missing-symbol fixtures were rejected; isolated full-flow simulation passed with space-containing paths, native copies, eight archives, output collision refusal, and native failure propagation. No real builds or packing were run on this Windows host.
 - Open issues and recommended next step: run on macOS, inspect native binaries and packages, then complete consumer/device checks. macOS packages omit the host-conditional Windows target; prepare the Windows-inclusive artifact and run existing Windows tests on Windows.
+
+## 2026-10-31 — macOS workload restore path correction
+
+- Objective and status: corrected the no-project-found failure in the user's first macOS preparation run; local syntax and command regression checks passed, real macOS retry pending.
+- Decisions made: pass the MAUICross .csproj explicitly to workload restore, and the .slnx explicitly to restore/build; check these files early and split progress messages. Preserve availability-only Xcode checks and ValidateXcodeVersion=false.
+- Affected files: sources/tools/prepare-nuget.sh, sources/tools/README.md, .agents/2026-10-31-macos-workload-restore-fix.md, and this file. Pre-existing gitignore/context work was preserved.
+- Checks performed and results: HTTPS fetch found no branch divergence; bash syntax/help passed; isolated regression checked explicit file arguments, paths with spaces, and Xcode validation overrides; scoped whitespace checks passed. The user's macOS log confirms Android and native iOS builds/copies already succeeded with GoogleMobileAds 13.11.0.
+- Open issues and recommended next step: rerun the corrected script on macOS and verify .NET build/pack output; no real builds or workload installation were run locally for this tooling fix.

@@ -6,6 +6,8 @@ set -euo pipefail
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 REPO_ROOT="$(cd "$SCRIPT_DIR/../.." && pwd)"
 SOLUTION_DIR="$REPO_ROOT/sources/dotnet/AMDevIT.Admob.Wrapper"
+SOLUTION_PATH="$SOLUTION_DIR/AMDevIT.Admob.Wrapper.slnx"
+WORKLOAD_PROJECT="$SOLUTION_DIR/AMDevIT.Admob.Wrapper.MAUICross/AMDevIT.Admob.Wrapper.MAUICross.csproj"
 ANDROID_DIR="$REPO_ROOT/sources/droid/AdMobWapperApp"
 IOS_DIR="$REPO_ROOT/sources/apple/ios"
 OUTPUT_ROOT="$REPO_ROOT/artifacts/packages"
@@ -82,6 +84,8 @@ export JAVA_HOME ANDROID_HOME
 export PATH="$JAVA_HOME/bin:$PATH"
 
 cd "$SOLUTION_DIR"
+[[ -f "$SOLUTION_PATH" ]] || fail "Solution file not found: $SOLUTION_PATH"
+[[ -f "$WORKLOAD_PROJECT" ]] || fail "Workload project not found: $WORKLOAD_PROJECT"
 DOTNET_VERSION="$(dotnet --version)"
 [[ "$DOTNET_VERSION" == 10.* ]] || fail "The selected .NET SDK must be 10.x (found $DOTNET_VERSION)."
 PROJECTS=(
@@ -149,10 +153,14 @@ mkdir -p "$IOS_BINDING_LIBS"
 rm -rf "$IOS_BINDING_LIBS/AdMobWrapper.xcframework"
 ditto "$XCFRAMEWORK_PATH" "$IOS_BINDING_LIBS/AdMobWrapper.xcframework"
 
-printf '\nRestoring workloads, restoring packages, and building Release...\n'
-dotnet workload restore .
-dotnet restore . "${BUILD_ARGS[@]}"
-dotnet build . --configuration Release --no-restore --no-incremental -m:1 "${BUILD_ARGS[@]}"
+printf '\nRestoring workloads for the MAUI project...\n'
+# The MAUI project covers Android, iOS and Mac Catalyst, including its bindings.
+# Pass a project file: workload restore does not reliably discover .slnx from '.'.
+dotnet workload restore "$WORKLOAD_PROJECT"
+printf '\nRestoring solution packages...\n'
+dotnet restore "$SOLUTION_PATH" "${BUILD_ARGS[@]}"
+printf '\nBuilding solution in Release...\n'
+dotnet build "$SOLUTION_PATH" --configuration Release --no-restore --no-incremental -m:1 "${BUILD_ARGS[@]}"
 
 printf '\nPacking version %s...\n' "$VERSION"
 for project in "${PROJECTS[@]}"; do

@@ -11,6 +11,9 @@ the Swift packages, builds the iOS device/simulator XCFramework, and replaces bo
 native binaries in the .NET binding projects. It then restores workloads and
 packages, builds the .NET solution in Release, and packs the four public libraries.
 The curated C# binding definitions are retained; Objective Sharpie is not run.
+Workload restoration targets the MAUI `.csproj` explicitly, covering Android,
+iOS, Mac Catalyst and its referenced bindings. Package restore and build use the
+explicit `.slnx` path, rather than relying on current-directory discovery.
 
 The version comes from the .NET projects and must match across all four packages.
 The script creates four `.nupkg` and four `.snupkg` files under
