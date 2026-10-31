@@ -15,7 +15,7 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(IsAMDevITAdMobPackage)' == 'true'">
-    <VersionPrefix>0.1.40</VersionPrefix>
+    <VersionPrefix>0.2.0</VersionPrefix>
     <VersionSuffix></VersionSuffix>
     <Authors>Alessandro Morvillo</Authors>
     <Company>AMDev.IT di Alessandro Morvillo</Company>
@@ -26,7 +26,7 @@
     <RepositoryType>git</RepositoryType>
     <PackageIcon>admob_maui_icon_v4_wallet_block.png</PackageIcon>
     <PackageReadmeFile>README.md</PackageReadmeFile>
-    <PackageReleaseNotes>Fix Android JNI proxy activation and prevent late banner and full-screen callbacks from reaching disposed managed loggers or listeners.</PackageReleaseNotes>
+    <PackageReleaseNotes>Update Android to Google Mobile Ads Next-Gen 1.5.0 through the official .NET binding and iOS to Google Mobile Ads 13.11.0. Align AndroidX dependencies and UMP bindings. Add macOS native rebuild and validated NuGet preparation tooling.</PackageReleaseNotes>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <IsPackable>true</IsPackable>
     <IncludeSymbols>true</IncludeSymbols>

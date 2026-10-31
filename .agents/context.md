@@ -217,3 +217,43 @@
   publishing. The initial SSH fetch failed because the configured GitHub key
   was rejected; HTTPS inspection showed no pull was needed from the starting
   remote branch.
+
+## 2026-10-31 — AdMob SDK dependency update
+
+- Objective and status: Android and .NET aligned to Next-Gen 1.5.0; native iOS minimum raised to 13.11.0. iOS XCFramework regeneration remains pending on macOS.
+- Decisions made: selected latest common Maven/NuGet version; adopted the official SDK NuGet instead of a manual Maven dependency graph; aligned Fragment.Ktx/AppCompat; preserved wrapper package version 0.1.40.
+- Affected files: Android version catalog, regenerated AAR, Droid/MAUICross projects, iOS Xcode package requirement, README, package verifier, .agents/2026-10-31-admob-sdk-update.md, and this file.
+- Checks performed and results: HTTPS fetch found no divergence; 7 Kotlin tests and Release AAR build passed; restore and final aggregate .NET build passed; 10 .NET tests passed via VSTest; MAUI Android test-app APK build passed with zero warnings/errors. JDK 21 was selected explicitly. Existing synthetic-binding, Kotlin, MSTest, and PRI warnings are recorded in the detailed note. Scoped diff whitespace validation passed.
+- Open issues and recommended next step: rebuild/replace the iOS XCFramework on macOS with SDK 13.11.0, then perform physical Android/iOS ad and consent smoke tests. Existing global.json/test-runner mismatch is unrelated to this update.
+
+## 2026-10-31 — Gitignore review
+
+- Objective and status: Android/Kotlin, Swift/Xcode, and .NET exclusions reviewed and updated after user confirmation; completed.
+- Decisions made: added Kotlin and SwiftPM cache/user-state rules; allowed shared workspaces and Package.resolved; removed duplicate rules. Existing .NET and artifacts exclusions retained.
+- Affected files: .gitignore, .agents/2026-10-31-gitignore-review.md, and this file.
+- Checks performed and results: Git checks passed for 12 ignored paths and 10 versionable paths, including native bindings and Gradle wrapper; whitespace check passed. No build or restore run, as agreed.
+- Open issues and recommended next step: no open issue; review and commit. Shared workspace and resolution files may now appear as untracked.
+
+## 2026-10-31 — macOS NuGet preparation tools
+
+- Objective and status: added sources/tools/prepare-nuget.sh and its Python package validator; implementation and local fixture checks completed, real macOS execution pending.
+- Decisions made: rebuild/copy native Android and iOS binaries, run Kotlin tests, restore/build Release and pack four libraries; derive a common version from MSBuild; validate and stage eight archives; refuse existing output; never publish automatically. Check Xcode availability only, with no version query/comparison or .NET Xcode version validation.
+- Affected files: sources/tools/prepare-nuget.sh, verify-nuget.py, README.md, .gitattributes, RELEASING.md, .agents/2026-10-31-macos-nuget-preparation.md, and this file.
+- Checks performed and results: Bash syntax/help/argument/host checks passed; package fixtures passed and invalid dependency/missing-symbol fixtures were rejected; isolated full-flow simulation passed with space-containing paths, native copies, eight archives, output collision refusal, and native failure propagation. No real builds or packing were run on this Windows host.
+- Open issues and recommended next step: run on macOS, inspect native binaries and packages, then complete consumer/device checks. macOS packages omit the host-conditional Windows target; prepare the Windows-inclusive artifact and run existing Windows tests on Windows.
+
+## 2026-10-31 — macOS workload restore path correction
+
+- Objective and status: corrected the no-project-found failure in the user's first macOS preparation run; local syntax and command regression checks passed, real macOS retry pending.
+- Decisions made: pass the MAUICross .csproj explicitly to workload restore, and the .slnx explicitly to restore/build; check these files early and split progress messages. Preserve availability-only Xcode checks and ValidateXcodeVersion=false.
+- Affected files: sources/tools/prepare-nuget.sh, sources/tools/README.md, .agents/2026-10-31-macos-workload-restore-fix.md, and this file. Pre-existing gitignore/context work was preserved.
+- Checks performed and results: HTTPS fetch found no branch divergence; bash syntax/help passed; isolated regression checked explicit file arguments, paths with spaces, and Xcode validation overrides; scoped whitespace checks passed. The user's macOS log confirms Android and native iOS builds/copies already succeeded with GoogleMobileAds 13.11.0.
+- Open issues and recommended next step: rerun the corrected script on macOS and verify .NET build/pack output; no real builds or workload installation were run locally for this tooling fix.
+
+## 2026-10-31 — 0.2.0 release metadata alignment
+
+- Objective and status: aligned all four NuGet packages and native source metadata to minor release 0.2.0; source/docs/CI changes and local .NET validation completed. Native regeneration before final package production is pending on macOS.
+- Decisions made: centralized current release notes and removed overrides; set Android/iOS source version 0.2.0 and iOS build 2; added unreleased changelog; refreshed README/examples/maintenance instructions and release process; aligned CI with JDK 21, explicit paths, and VSTest. No warning suppression was added.
+- Affected files: shared package props, four package projects, native Android Gradle and iOS Xcode metadata, README.md, RELEASING.md, CHANGELOG.md, CI workflow, .agents/2026-10-31-release-0.2.0.md, and this file.
+- Checks performed and results: the user pulled remote native binaries before edits; restore and aggregate Release build passed; known BG8605/BG8606 warnings remain; all 10 VSTest tests passed; all four MSBuild version/release-note evaluations matched; assembly version is 0.2.0.0. XML, PowerShell, workflow command/indentation, Markdown/link/formatting, native source version, and whitespace checks passed. No final packages were generated or published.
+- Open issues and recommended next step: rerun macOS preparation so native binaries report 0.2.0/build 2 instead of the checked-in 0.1.40/build 1, then prepare the chosen host variant, run consumer/device checks, and publish/tag manually.

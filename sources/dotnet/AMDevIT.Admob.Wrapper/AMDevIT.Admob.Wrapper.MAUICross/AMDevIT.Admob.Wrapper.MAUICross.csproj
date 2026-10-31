@@ -11,8 +11,6 @@
 		<Nullable>enable</Nullable>
 		<ValidateXcodeVersion>False</ValidateXcodeVersion>
 
-		<!--<VersionPrefix>0.1.14.1</VersionPrefix>-->
-		<PackageReleaseNotes>Fix Android JNI proxy activation and prevent late banner and full-screen callbacks from reaching disposed managed loggers or listeners.</PackageReleaseNotes>
 
 		<!-- Enable XAML source generation for faster build times and improved performance.
 		     This generates C# code from XAML at compile time instead of runtime inflation.
@@ -31,8 +29,6 @@
 		<PackageTags>AdMob;Binding;MAUI;Google;Advertising;Monetization;Android;iOS</PackageTags>
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</SupportedOSPlatformVersion>
 		<TargetPlatformMinVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</TargetPlatformMinVersion>
-		<!--<VersionPrefix>0.1.10</VersionPrefix>
-		<VersionSuffix></VersionSuffix>-->
 	</PropertyGroup>
 
 	<PropertyGroup>
@@ -51,8 +47,9 @@
 
 	<ItemGroup Condition="'$(TargetFramework)' == 'net10.0-android'">
 		<PackageReference Include="Xamarin.AndroidX.Activity.Ktx" Version="1.13.0.1" />
+        <PackageReference Include="Xamarin.AndroidX.AppCompat" Version="1.8.0" />
 		<PackageReference Include="Xamarin.AndroidX.Collection.Ktx" Version="1.6.0.1" />
-		<PackageReference Include="Xamarin.AndroidX.Fragment.Ktx" Version="1.8.9.4" />
+		<PackageReference Include="Xamarin.AndroidX.Fragment.Ktx" Version="1.9.1" />
 		<PackageReference Include="Xamarin.AndroidX.Lifecycle.Process" Version="2.11.0.1" />
 		<PackageReference Include="Xamarin.AndroidX.Lifecycle.Runtime.Ktx" Version="2.11.0.1" />
 		<PackageReference Include="Xamarin.AndroidX.Lifecycle.Runtime.Ktx.Android" Version="2.11.0.1" />

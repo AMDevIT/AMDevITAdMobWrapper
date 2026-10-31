@@ -6,11 +6,11 @@
 	<dict>
 		<key>Headers/AdMobWrapper-Swift.h</key>
 		<data>
-		Zn252tCjemot4WdBoigAHrXLoQ4=
+		tFm6hQHRCYuZd7Vx1TemOodgnbY=
 		</data>
 		<key>Info.plist</key>
 		<data>
-		6U+B4WbdgH/UPPHBGoniVePZzis=
+		FJPzYgPHeDeGDYknCgk1IZ098n0=
 		</data>
 		<key>Modules/AdMobWrapper.swiftmodule/arm64-apple-ios-simulator.abi.json</key>
 		<data>
@@ -18,19 +18,19 @@
 		</data>
 		<key>Modules/AdMobWrapper.swiftmodule/arm64-apple-ios-simulator.private.swiftinterface</key>
 		<data>
-		bJ1F0CcjikJAtFgBQrvlalbzkXA=
+		rVkA6ZB/tZ3QAs+xep0v1/jH88g=
 		</data>
 		<key>Modules/AdMobWrapper.swiftmodule/arm64-apple-ios-simulator.swiftdoc</key>
 		<data>
-		evkd/xqUu8vueZH80VV7rdCwaDw=
+		qZuHPNG8rsrfjRhOpgMzV1C7jVE=
 		</data>
 		<key>Modules/AdMobWrapper.swiftmodule/arm64-apple-ios-simulator.swiftinterface</key>
 		<data>
-		bJ1F0CcjikJAtFgBQrvlalbzkXA=
+		rVkA6ZB/tZ3QAs+xep0v1/jH88g=
 		</data>
 		<key>Modules/AdMobWrapper.swiftmodule/arm64-apple-ios-simulator.swiftmodule</key>
 		<data>
-		72Aw3RMg1PMveXE3Ajvq5CO7ykQ=
+		X1T6lpXPfbExYL/VYu7kJCi68Y0=
 		</data>
 		<key>Modules/AdMobWrapper.swiftmodule/x86_64-apple-ios-simulator.abi.json</key>
 		<data>
@@ -38,19 +38,19 @@
 		</data>
 		<key>Modules/AdMobWrapper.swiftmodule/x86_64-apple-ios-simulator.private.swiftinterface</key>
 		<data>
-		Fqh/lqv5zA+8T9VtuUJb3VtrgzQ=
+		+MbohRP8ODQnW7z+B1bI+18cG+E=
 		</data>
 		<key>Modules/AdMobWrapper.swiftmodule/x86_64-apple-ios-simulator.swiftdoc</key>
 		<data>
-		06CwEMhnsBadGvVGkM3ig9U6vgU=
+		vbSTyWXrqb9tvFEMum9+sHcVfmI=
 		</data>
 		<key>Modules/AdMobWrapper.swiftmodule/x86_64-apple-ios-simulator.swiftinterface</key>
 		<data>
-		Fqh/lqv5zA+8T9VtuUJb3VtrgzQ=
+		+MbohRP8ODQnW7z+B1bI+18cG+E=
 		</data>
 		<key>Modules/AdMobWrapper.swiftmodule/x86_64-apple-ios-simulator.swiftmodule</key>
 		<data>
-		CdbQ54EafesHj8+gza5DsxINwrI=
+		i0L2QIE06foXGt+6RTDiNfEyNA4=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
@@ -63,7 +63,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			ilxgbSn51GuIMPh+QZOsZod5Fh/X9RJqw+ijYSIbi/s=
+			Xaac2hvCb0NF53X9hPesipeGxJ205N7/hGfYlQYp7uA=
 			</data>
 		</dict>
 		<key>Modules/AdMobWrapper.swiftmodule/arm64-apple-ios-simulator.abi.json</key>
@@ -77,28 +77,28 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			drRs9ZgahNWn8PfUmQGiL5GgIRf5mWFxd/NfwK/pWsY=
+			2LI3pZcy0BoO1eFJxzl1ilhHrFc1VNczkAZusvxufC0=
 			</data>
 		</dict>
 		<key>Modules/AdMobWrapper.swiftmodule/arm64-apple-ios-simulator.swiftdoc</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			Jcyhq3r2KzJbwz9yqGHEiqE+m3AC7rOFx3ldHnA722c=
+			MUIOm2MC9ob6kdjtOlSFysM4bCclbOUxrQY6dG+guVo=
 			</data>
 		</dict>
 		<key>Modules/AdMobWrapper.swiftmodule/arm64-apple-ios-simulator.swiftinterface</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			drRs9ZgahNWn8PfUmQGiL5GgIRf5mWFxd/NfwK/pWsY=
+			2LI3pZcy0BoO1eFJxzl1ilhHrFc1VNczkAZusvxufC0=
 			</data>
 		</dict>
 		<key>Modules/AdMobWrapper.swiftmodule/arm64-apple-ios-simulator.swiftmodule</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			1sBrzbEtSrBi9P/TrOsIeafZljU6goBqBP49hrAqYhw=
+			bWJmhFzO4/KkpjVnhFmtyH7YucN/SjP3ne97Z14D7dY=
 			</data>
 		</dict>
 		<key>Modules/AdMobWrapper.swiftmodule/x86_64-apple-ios-simulator.abi.json</key>
@@ -112,28 +112,28 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			9kiaeEfpQmHB3y1o5Mk1kFMMIJD0NDIWatRqzgX2Ffg=
+			fXbSINwFHh+FCH6ztfIKJ50w6RWEb8qinJ5hzgGGDNI=
 			</data>
 		</dict>
 		<key>Modules/AdMobWrapper.swiftmodule/x86_64-apple-ios-simulator.swiftdoc</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			pv5hSUk9qBKF4rBhYLcBv7DEwt+wUcrsON36oQs5GT8=
+			4BzqQHdNtDtzAfOzLB4BE2Qgyohg1ANDDg5VAX6XUEA=
 			</data>
 		</dict>
 		<key>Modules/AdMobWrapper.swiftmodule/x86_64-apple-ios-simulator.swiftinterface</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			9kiaeEfpQmHB3y1o5Mk1kFMMIJD0NDIWatRqzgX2Ffg=
+			fXbSINwFHh+FCH6ztfIKJ50w6RWEb8qinJ5hzgGGDNI=
 			</data>
 		</dict>
 		<key>Modules/AdMobWrapper.swiftmodule/x86_64-apple-ios-simulator.swiftmodule</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			5KgDertMAwAeluyL0vVOqz5phIkyuG8TqbP+q1pSJ9s=
+			twV1k1GTrxAbibFwJe/AXDt3WmjJI4yBn6En9IkD/Qc=
 			</data>
 		</dict>
 		<key>Modules/module.modulemap</key>

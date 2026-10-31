@@ -2,13 +2,11 @@
 
 # Gradle files
 .gradle/
+.kotlin/
 build/
 
 # Local configuration file (sdk path, etc)
 local.properties
-
-# Log/OS Files
-*.log
 
 # Android Studio generated files and folders
 captures/
@@ -41,7 +39,7 @@ google-services.json
 #
 # gitignore contributors: remember to update Global/Xcode.gitignore, Objective-C.gitignore & Swift.gitignore
 
-*.xcworkspace
+# Keep shared workspaces and dependency resolutions under version control.
 *.xcuserstate
 *.xccheckout
 *.moved-aside
@@ -62,27 +60,13 @@ xcuserdata/
 timeline.xctimeline
 playground.xcworkspace
 
-# Swift Package Manager
-#
-# Add this line if you want to avoid checking in source code from Swift Package Manager dependencies.
-# Packages/
-# Package.pins
-# Package.resolved
-# *.xcodeproj
-#
-# Xcode automatically generates this directory with a .xcworkspacedata file and xcuserdata
-# hence it is not needed unless you have added a package configuration file to your project
-# .swiftpm
-
+# Swift Package Manager build output and local workspace state
 .build/
+**/.swiftpm/xcode/xcuserdata/
+**/.swiftpm/cache/
 
 *.xcarchive
-# *.xcframework
-sources/apple/ios/build/*.xcframework
-
-# SPM
-.build/
-*.resolved
+# XCFrameworks used by the .NET binding remain versioned; build/ is ignored above.
 
 # CocoaPods
 #
