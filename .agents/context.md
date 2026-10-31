@@ -226,6 +226,14 @@
 - Checks performed and results: HTTPS fetch found no divergence; 7 Kotlin tests and Release AAR build passed; restore and final aggregate .NET build passed; 10 .NET tests passed via VSTest; MAUI Android test-app APK build passed with zero warnings/errors. JDK 21 was selected explicitly. Existing synthetic-binding, Kotlin, MSTest, and PRI warnings are recorded in the detailed note. Scoped diff whitespace validation passed.
 - Open issues and recommended next step: rebuild/replace the iOS XCFramework on macOS with SDK 13.11.0, then perform physical Android/iOS ad and consent smoke tests. Existing global.json/test-runner mismatch is unrelated to this update.
 
+## 2026-10-31 — Gitignore review
+
+- Objective and status: Android/Kotlin, Swift/Xcode, and .NET exclusions reviewed and updated after user confirmation; completed.
+- Decisions made: added Kotlin and SwiftPM cache/user-state rules; allowed shared workspaces and Package.resolved; removed duplicate rules. Existing .NET and artifacts exclusions retained.
+- Affected files: .gitignore, .agents/2026-10-31-gitignore-review.md, and this file.
+- Checks performed and results: Git checks passed for 12 ignored paths and 10 versionable paths, including native bindings and Gradle wrapper; whitespace check passed. No build or restore run, as agreed.
+- Open issues and recommended next step: no open issue; review and commit. Shared workspace and resolution files may now appear as untracked.
+
 ## 2026-10-31 — macOS NuGet preparation tools
 
 - Objective and status: added sources/tools/prepare-nuget.sh and its Python package validator; implementation and local fixture checks completed, real macOS execution pending.
