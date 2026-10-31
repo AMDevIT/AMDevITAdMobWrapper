@@ -3,6 +3,15 @@
 The four public packages share the version declared in
 `sources/dotnet/AMDevIT.Admob.Wrapper/Directory.Build.props`.
 
+## macOS preparation
+
+Run `bash sources/tools/prepare-nuget.sh` to rebuild the native Android/iOS
+wrappers, replace the binaries in the .NET bindings, build Release, and prepare
+the four NuGet packages and symbols in `artifacts/packages/<Version>/`.
+See [the macOS preparation guide](sources/tools/README.md) for prerequisites,
+validation coverage, and the Windows packaging/test limitation. Publication is
+manual; this command does not push packages or Git changes.
+
 ## Preview release gate
 
 Before publishing `0.1.0-preview.1`:

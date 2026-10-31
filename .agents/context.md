@@ -225,3 +225,11 @@
 - Affected files: Android version catalog, regenerated AAR, Droid/MAUICross projects, iOS Xcode package requirement, README, package verifier, .agents/2026-10-31-admob-sdk-update.md, and this file.
 - Checks performed and results: HTTPS fetch found no divergence; 7 Kotlin tests and Release AAR build passed; restore and final aggregate .NET build passed; 10 .NET tests passed via VSTest; MAUI Android test-app APK build passed with zero warnings/errors. JDK 21 was selected explicitly. Existing synthetic-binding, Kotlin, MSTest, and PRI warnings are recorded in the detailed note. Scoped diff whitespace validation passed.
 - Open issues and recommended next step: rebuild/replace the iOS XCFramework on macOS with SDK 13.11.0, then perform physical Android/iOS ad and consent smoke tests. Existing global.json/test-runner mismatch is unrelated to this update.
+
+## 2026-10-31 — macOS NuGet preparation tools
+
+- Objective and status: added sources/tools/prepare-nuget.sh and its Python package validator; implementation and local fixture checks completed, real macOS execution pending.
+- Decisions made: rebuild/copy native Android and iOS binaries, run Kotlin tests, restore/build Release and pack four libraries; derive a common version from MSBuild; validate and stage eight archives; refuse existing output; never publish automatically. Check Xcode availability only, with no version query/comparison or .NET Xcode version validation.
+- Affected files: sources/tools/prepare-nuget.sh, verify-nuget.py, README.md, .gitattributes, RELEASING.md, .agents/2026-10-31-macos-nuget-preparation.md, and this file.
+- Checks performed and results: Bash syntax/help/argument/host checks passed; package fixtures passed and invalid dependency/missing-symbol fixtures were rejected; isolated full-flow simulation passed with space-containing paths, native copies, eight archives, output collision refusal, and native failure propagation. No real builds or packing were run on this Windows host.
+- Open issues and recommended next step: run on macOS, inspect native binaries and packages, then complete consumer/device checks. macOS packages omit the host-conditional Windows target; prepare the Windows-inclusive artifact and run existing Windows tests on Windows.
