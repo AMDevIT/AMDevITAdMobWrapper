@@ -249,3 +249,11 @@
 - Affected files: sources/tools/prepare-nuget.sh, sources/tools/README.md, .agents/2026-10-31-macos-workload-restore-fix.md, and this file. Pre-existing gitignore/context work was preserved.
 - Checks performed and results: HTTPS fetch found no branch divergence; bash syntax/help passed; isolated regression checked explicit file arguments, paths with spaces, and Xcode validation overrides; scoped whitespace checks passed. The user's macOS log confirms Android and native iOS builds/copies already succeeded with GoogleMobileAds 13.11.0.
 - Open issues and recommended next step: rerun the corrected script on macOS and verify .NET build/pack output; no real builds or workload installation were run locally for this tooling fix.
+
+## 2026-10-31 — 0.2.0 release metadata alignment
+
+- Objective and status: aligned all four NuGet packages and native source metadata to minor release 0.2.0; source/docs/CI changes and local .NET validation completed. Native regeneration before final package production is pending on macOS.
+- Decisions made: centralized current release notes and removed overrides; set Android/iOS source version 0.2.0 and iOS build 2; added unreleased changelog; refreshed README/examples/maintenance instructions and release process; aligned CI with JDK 21, explicit paths, and VSTest. No warning suppression was added.
+- Affected files: shared package props, four package projects, native Android Gradle and iOS Xcode metadata, README.md, RELEASING.md, CHANGELOG.md, CI workflow, .agents/2026-10-31-release-0.2.0.md, and this file.
+- Checks performed and results: the user pulled remote native binaries before edits; restore and aggregate Release build passed; known BG8605/BG8606 warnings remain; all 10 VSTest tests passed; all four MSBuild version/release-note evaluations matched; assembly version is 0.2.0.0. XML, PowerShell, workflow command/indentation, Markdown/link/formatting, native source version, and whitespace checks passed. No final packages were generated or published.
+- Open issues and recommended next step: rerun macOS preparation so native binaries report 0.2.0/build 2 instead of the checked-in 0.1.40/build 1, then prepare the chosen host variant, run consumer/device checks, and publish/tag manually.

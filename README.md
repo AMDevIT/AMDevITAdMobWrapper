@@ -85,28 +85,32 @@ changing the package requirement does not update the checked-in XCFramework.
 
 ## Installation
 
+The current release being prepared is **0.2.0**. The examples below use that
+version; use the locally prepared packages until it is published to NuGet.
+See [the changelog](CHANGELOG.md) for release notes.
+
 ### Android project
 
 ```xml
-<PackageReference Include="AMDevIT.Admob.Wrapper.Droid" Version="0.1.40-alpha2" />
+<PackageReference Include="AMDevIT.Admob.Wrapper.Droid" Version="0.2.0" />
 ```
 
 ### iOS project
 
 ```xml
-<PackageReference Include="AMDevIT.Admob.Wrapper.iOSNative" Version="0.1.40-alpha2" />
+<PackageReference Include="AMDevIT.Admob.Wrapper.iOSNative" Version="0.2.0" />
 ```
 
 ### Android or iOS project with async/await support
 
 ```xml
-<PackageReference Include="AMDevIT.Admob.Wrapper" Version="0.1.40-alpha2" />
+<PackageReference Include="AMDevIT.Admob.Wrapper" Version="0.2.0" />
 ```
 
 ### MAUI project with async/await support and XAML controls
 
 ```xml
-<PackageReference Include="AMDevIT.Admob.Wrapper.MAUICross" Version="0.1.40-alpha2" />
+<PackageReference Include="AMDevIT.Admob.Wrapper.MAUICross" Version="0.2.0" />
 ```
 
 Add `AMDevIT.Admob.Wrapper` as well only when the application uses the
@@ -184,11 +188,9 @@ device IDs are also available through `ConsentDebugParameters`; never ship
 debug consent settings in production.
 
 ```csharp
-var options = new ConsentRequestOptions(
-    TagForUnderAgeOfConsent: false,
-    DebugParameters: new ConsentDebugParameters(
-        ConsentDebugGeography.Eea,
-        "TEST-DEVICE-HASH"));
+var options = new ConsentRequestOptions(TagForUnderAgeOfConsent: false,
+                                        DebugParameters: new ConsentDebugParameters(ConsentDebugGeography.Eea,
+                                                                                    "TEST-DEVICE-HASH"));
 
 ConsentGatheringResult consent = await manager.GatherConsentAsync(this, options);
 ```
@@ -210,10 +212,9 @@ Other UMP operations are exposed as
 #### Callback style
 
 ```csharp
-AdMobManager.Instance.Initialize(
-    this.ApplicationContext!,
-    "ca-app-pub-3940256099942544~3347511713",
-    new MyInitListener());
+AdMobManager.Instance.Initialize(this.ApplicationContext!,
+                                 "ca-app-pub-3940256099942544~3347511713",
+                                 new MyInitListener());
 
 private class MyInitListener : Java.Lang.Object, IOnInitializedListener
 {
@@ -235,10 +236,8 @@ private class MyInitListener : Java.Lang.Object, IOnInitializedListener
 
 ```csharp
 var bannerWrapper = new BannerAdWrapper(this, logger: null);
-var adView = bannerWrapper.Load(
-    adUnitId: "ca-app-pub-3940256099942544/6300978111",
-    loadListener: new MyBannerLoadListener()
-);
+var adView = bannerWrapper.Load(adUnitId: "ca-app-pub-3940256099942544/6300978111",
+                                loadListener: new MyBannerLoadListener());
 bannerContainer.AddView(adView);
 
 private class MyBannerLoadListener : Java.Lang.Object, IOnAdLoadedListener
@@ -263,11 +262,9 @@ bannerContainer.AddView(adView);
 
 ```csharp
 var interstitialWrapper = new InterstitialAdWrapper();
-interstitialWrapper.Load(
-    adUnitId: "ca-app-pub-3940256099942544/1033173712",
-    loadListener: new MyLoadListener(),
-    eventListener: new MyEventListener()
-);
+interstitialWrapper.Load(adUnitId: "ca-app-pub-3940256099942544/1033173712",
+                         loadListener: new MyLoadListener(),
+                         eventListener: new MyEventListener());
 
 if (interstitialWrapper.IsLoaded)
     interstitialWrapper.Show(this, loadListener: null);
@@ -298,10 +295,8 @@ private class MyEventListener : Java.Lang.Object, IOnAdEventListener
 
 ```csharp
 var rewardedWrapper = new RewardedAdWrapper();
-rewardedWrapper.Load(
-    adUnitId: "ca-app-pub-3940256099942544/5224354917",
-    loadListener: new MyLoadListener()
-);
+rewardedWrapper.Load(adUnitId: "ca-app-pub-3940256099942544/5224354917",
+                     loadListener: new MyLoadListener());
 
 if (rewardedWrapper.IsLoaded)
     rewardedWrapper.Show(this, new MyRewardListener());
@@ -319,11 +314,9 @@ private class MyRewardListener : Java.Lang.Object, IOnRewardEarnedListener
 
 ```csharp
 var appOpenWrapper = new AppOpenAdWrapper();
-appOpenWrapper.Load(
-    adUnitId: "ca-app-pub-3940256099942544/9257395921",
-    loadListener: new MyLoadListener(),
-    eventListener: new MyEventListener()
-);
+appOpenWrapper.Load(adUnitId: "ca-app-pub-3940256099942544/9257395921",
+                    loadListener: new MyLoadListener(),
+                    eventListener: new MyEventListener());
 
 if (appOpenWrapper.IsLoaded && !appOpenWrapper.IsShowing)
     appOpenWrapper.Show(this, loadListener: null);
@@ -397,12 +390,10 @@ await AdMobManager.Instance.InitializeAsync(this, AdMobAgeTreatment.Teen);
 
 ```csharp
 var bannerWrapper = new BannerAdWrapper();
-var adView = bannerWrapper.LoadWithAdUnitId(
-    adUnitId: "ca-app-pub-3940256099942544/6300978111",
-    viewController: this,
-    loadListener: new MyBannerLoadListener(),
-    eventListener: null
-);
+var adView = bannerWrapper.LoadWithAdUnitId(adUnitId: "ca-app-pub-3940256099942544/6300978111",
+                                            viewController: this,
+                                            loadListener: new MyBannerLoadListener(),
+                                            eventListener: null);
 bannerContainer.AddSubview(adView);
 
 private class MyBannerLoadListener : NSObject, IOnAdLoadedListener
@@ -422,11 +413,9 @@ the XAML banner events/commands and asynchronous full-screen services.
 
 ```csharp
 var interstitialWrapper = new InterstitialAdWrapper();
-interstitialWrapper.LoadWithAdUnitId(
-    adUnitId: "ca-app-pub-3940256099942544/1033173712",
-    loadListener: new MyLoadListener(),
-    eventListener: new MyEventListener()
-);
+interstitialWrapper.LoadWithAdUnitId(adUnitId: "ca-app-pub-3940256099942544/1033173712",
+                                     loadListener: new MyLoadListener(),
+                                     eventListener: new MyEventListener());
 
 if (interstitialWrapper.IsLoaded)
     interstitialWrapper.ShowWithViewController(this);
@@ -438,11 +427,9 @@ if (interstitialWrapper.IsLoaded)
 
 ```csharp
 var rewardedWrapper = new RewardedAdWrapper();
-rewardedWrapper.LoadWithAdUnitId(
-    adUnitId: "ca-app-pub-3940256099942544/5224354917",
-    loadListener: new MyLoadListener(),
-    eventListener: null
-);
+rewardedWrapper.LoadWithAdUnitId(adUnitId: "ca-app-pub-3940256099942544/5224354917",
+                                 loadListener: new MyLoadListener(),
+                                 eventListener: null);
 
 if (rewardedWrapper.IsLoaded)
     rewardedWrapper.ShowWithViewController(this, new MyRewardListener());
@@ -454,11 +441,9 @@ if (rewardedWrapper.IsLoaded)
 
 ```csharp
 var appOpenWrapper = new AppOpenAdWrapper();
-appOpenWrapper.LoadWithAdUnitId(
-    adUnitId: "ca-app-pub-3940256099942544/9257395921",
-    loadListener: new MyLoadListener(),
-    eventListener: null
-);
+appOpenWrapper.LoadWithAdUnitId(adUnitId: "ca-app-pub-3940256099942544/9257395921",
+                                loadListener: new MyLoadListener(),
+                                eventListener: null);
 
 if (appOpenWrapper.IsLoaded && !appOpenWrapper.IsShowing)
     appOpenWrapper.ShowWithViewController(this);
@@ -491,8 +476,7 @@ public sealed class AdMobStartup(IAdMobConsentService consentService)
 
         try
         {
-            ConsentGatheringResult consent = await consentService.GatherConsentAsync(
-                cancellationToken: cancellationToken);
+            ConsentGatheringResult consent = await consentService.GatherConsentAsync(cancellationToken: cancellationToken);
             canRequestAds = consent.CanRequestAds;
         }
         catch (ConsentException exception) when (exception.CanRequestAds == true)
@@ -595,24 +579,21 @@ Inject `IInterstitialAdService`, `IAppOpenAdService`, or
 `IShowableRewardedAdService`, then await loading before showing the ad:
 
 ```csharp
-public sealed class AdCoordinator(
-    IInterstitialAdService interstitialAdService,
-    IShowableRewardedAdService rewardedAdService)
+public sealed class AdCoordinator(IInterstitialAdService interstitialAdService,
+                                  IShowableRewardedAdService rewardedAdService)
 {
     public Task ShowInterstitialAsync(CancellationToken cancellationToken = default)
     {
-        return interstitialAdService.LoadAndShowAsync(
-            "ca-app-pub-3940256099942544/1033173712",
-            cancellationToken);
+        return interstitialAdService.LoadAndShowAsync("ca-app-pub-3940256099942544/1033173712",
+                                                      cancellationToken);
     }
 
     public async Task ShowRewardedAsync(CancellationToken cancellationToken = default)
     {
         rewardedAdService.AdRewardEarned += OnAdRewardEarned;
 
-        await rewardedAdService.LoadAndShowAsync(
-            "ca-app-pub-3940256099942544/5224354917",
-            cancellationToken);
+        await rewardedAdService.LoadAndShowAsync("ca-app-pub-3940256099942544/5224354917",
+                                                 cancellationToken);
     }
 
     private static void OnAdRewardEarned(object? sender, AdReward reward)
@@ -755,6 +736,19 @@ AMDevITAdMobWrapper/
 
 ## Notes about building
 
+On macOS, prepare all four NuGet packages and their symbols from the repository
+root with:
+
+```bash
+bash sources/tools/prepare-nuget.sh
+```
+
+This rebuilds and copies the native wrappers, builds the .NET libraries in
+Release, and validates packages under `artifacts/packages/0.2.0/`. Xcode is checked
+for availability only. See [the tooling guide](sources/tools/README.md) for
+prerequisites and [the release process](RELEASING.md) for Windows packaging and
+publishing checks. The script prepares packages without publishing them.
+
 ### Android
 
 The native Android SDK is built as an AAR using Gradle. When making changes to
@@ -780,20 +774,30 @@ Then replace
 Contributions are welcome. Please open an issue before submitting a pull request for significant changes.
 
 When updating the native Android SDK version:
-1. Update `adsMobileSdkVersion` in `libs.versions.toml`
-2. Recompile the AAR from Android Studio
-3. Replace the release AAR in `AMDevIT.Admob.Wrapper.Droid/Jars/`
-4. Update the `AndroidMavenLibrary` Next-Gen version and its explicit .NET
-   Android dependency bindings in `AMDevIT.Admob.Wrapper.Droid.csproj`
-5. Verify the generated NuGet embeds the expected Next-Gen AAR and does not
-   depend on the legacy `Xamarin.GooglePlayServices.Ads` package
-6. Bump the package version and publish
+
+1. Select the latest SDK version available on both Google Maven and the official
+   `Xamarin.Google.Android.Libraries.Ads.Mobile.Sdk` NuGet package.
+2. Update `gmaNextGen` in `sources/droid/AdMobWapperApp/gradle/libs.versions.toml`
+   and the official SDK PackageReference in `AMDevIT.Admob.Wrapper.Droid.csproj`.
+   NuGet manages the SDK's transitive dependencies.
+3. Resolve any AndroidX constraints in the MAUI project and rebuild the AAR.
+4. Replace the release AAR in `AMDevIT.Admob.Wrapper.Droid/Jars/`, or use the
+   macOS preparation script to rebuild and copy it automatically.
+5. Check that the generated NuGet depends on the intended Next-Gen binding and
+   that no legacy `Xamarin.GooglePlayServices.Ads` dependency is introduced.
 
 When updating the native iOS SDK version:
-1. Update the SPM dependency version in Xcode
-2. Run `./build_xcframework.sh` from `sources/apple/ios/`
-3. Replace the xcframework in `AMDevIT.Admob.Wrapper.iOSNative/libs/`
-4. Bump the package version and publish
+
+1. Update the Swift Package requirement in the Xcode project and resolve it.
+2. Rebuild the XCFramework on macOS for both device and simulator.
+3. Replace the complete XCFramework in `AMDevIT.Admob.Wrapper.iOSNative/libs/`,
+   or use the macOS preparation script to do so automatically.
+4. Review the native Objective-C API against the curated .NET binding if the
+   wrapper's public API changed.
+
+For either platform, update the coordinated package/native versions, centralized
+release notes, changelog, and README installation examples before rebuilding the
+release artifacts. Follow [RELEASING.md](RELEASING.md) before publication.
 
 ---
 

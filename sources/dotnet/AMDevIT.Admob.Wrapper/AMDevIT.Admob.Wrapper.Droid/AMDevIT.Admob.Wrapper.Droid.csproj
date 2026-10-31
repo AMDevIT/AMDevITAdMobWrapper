@@ -15,8 +15,6 @@
     <PackageTags>AdMob;Binding;MAUI;Google;Advertising;Monetization;Android</PackageTags>
     <PackageIcon>admob_maui_icon_v4_wallet_block.png</PackageIcon>
     <PackageReadmeFile>README.md</PackageReadmeFile>	
-	 <!--<VersionPrefix>0.1.10</VersionPrefix>
-	 <VersionSuffix></VersionSuffix>-->
 
   </PropertyGroup>
 

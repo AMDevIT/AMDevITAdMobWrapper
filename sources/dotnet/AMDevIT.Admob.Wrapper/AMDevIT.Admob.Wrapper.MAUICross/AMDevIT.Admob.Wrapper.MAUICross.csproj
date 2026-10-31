@@ -11,8 +11,6 @@
 		<Nullable>enable</Nullable>
 		<ValidateXcodeVersion>False</ValidateXcodeVersion>
 
-		<!--<VersionPrefix>0.1.14.1</VersionPrefix>-->
-		<PackageReleaseNotes>Fix Android JNI proxy activation and prevent late banner and full-screen callbacks from reaching disposed managed loggers or listeners.</PackageReleaseNotes>
 
 		<!-- Enable XAML source generation for faster build times and improved performance.
 		     This generates C# code from XAML at compile time instead of runtime inflation.
@@ -31,8 +29,6 @@
 		<PackageTags>AdMob;Binding;MAUI;Google;Advertising;Monetization;Android;iOS</PackageTags>
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</SupportedOSPlatformVersion>
 		<TargetPlatformMinVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</TargetPlatformMinVersion>
-		<!--<VersionPrefix>0.1.10</VersionPrefix>
-		<VersionSuffix></VersionSuffix>-->
 	</PropertyGroup>
 
 	<PropertyGroup>
