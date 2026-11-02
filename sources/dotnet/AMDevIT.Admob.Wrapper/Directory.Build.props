@@ -15,7 +15,7 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(IsAMDevITAdMobPackage)' == 'true'">
-    <VersionPrefix>0.2.0</VersionPrefix>
+    <VersionPrefix>0.2.1</VersionPrefix>
     <VersionSuffix></VersionSuffix>
     <Authors>Alessandro Morvillo</Authors>
     <Company>AMDev.IT di Alessandro Morvillo</Company>
@@ -26,7 +26,7 @@
     <RepositoryType>git</RepositoryType>
     <PackageIcon>admob_maui_icon_v4_wallet_block.png</PackageIcon>
     <PackageReadmeFile>README.md</PackageReadmeFile>
-    <PackageReleaseNotes>Update Android to Google Mobile Ads Next-Gen 1.5.0 through the official .NET binding and iOS to Google Mobile Ads 13.11.0. Align AndroidX dependencies and UMP bindings. Add macOS native rebuild and validated NuGet preparation tooling.</PackageReleaseNotes>
+    <PackageReleaseNotes>Fix Windows compatibility in MAUICross NuGet packaging. Require complete Android, iOS, Mac Catalyst and Windows release assemblies. Prevent macOS preparation from generating incomplete MAUICross packages. Native binaries and SDK dependencies are unchanged from 0.2.0.</PackageReleaseNotes>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <IsPackable>true</IsPackable>
     <IncludeSymbols>true</IncludeSymbols>

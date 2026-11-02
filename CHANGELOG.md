@@ -1,6 +1,12 @@
 # Changelog
 
-## 0.2.0 — Unreleased
+## 0.2.1 - Unreleased
+
+- Restore Windows compatibility through complete MAUICross release packages.
+- Block incomplete MAUICross packaging and require all four platform assemblies during package verification.
+- Reserve macOS output for native preparation; produce final packages on Windows.
+
+## 0.2.0 - Released
 
 ### SDK and dependency updates
 

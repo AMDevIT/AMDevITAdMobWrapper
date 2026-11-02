@@ -85,32 +85,32 @@ changing the package requirement does not update the checked-in XCFramework.
 
 ## Installation
 
-The current release being prepared is **0.2.0**. The examples below use that
+The current release being prepared is **0.2.1**. The examples below use that
 version; use the locally prepared packages until it is published to NuGet.
 See [the changelog](CHANGELOG.md) for release notes.
 
 ### Android project
 
 ```xml
-<PackageReference Include="AMDevIT.Admob.Wrapper.Droid" Version="0.2.0" />
+<PackageReference Include="AMDevIT.Admob.Wrapper.Droid" Version="0.2.1" />
 ```
 
 ### iOS project
 
 ```xml
-<PackageReference Include="AMDevIT.Admob.Wrapper.iOSNative" Version="0.2.0" />
+<PackageReference Include="AMDevIT.Admob.Wrapper.iOSNative" Version="0.2.1" />
 ```
 
 ### Android or iOS project with async/await support
 
 ```xml
-<PackageReference Include="AMDevIT.Admob.Wrapper" Version="0.2.0" />
+<PackageReference Include="AMDevIT.Admob.Wrapper" Version="0.2.1" />
 ```
 
 ### MAUI project with async/await support and XAML controls
 
 ```xml
-<PackageReference Include="AMDevIT.Admob.Wrapper.MAUICross" Version="0.2.0" />
+<PackageReference Include="AMDevIT.Admob.Wrapper.MAUICross" Version="0.2.1" />
 ```
 
 Add `AMDevIT.Admob.Wrapper` as well only when the application uses the
@@ -736,7 +736,18 @@ AMDevITAdMobWrapper/
 
 ## Notes about building
 
-On macOS, prepare all four NuGet packages and their symbols from the repository
+On Windows, prepare all four packages and their symbols with PowerShell 7:
+
+```powershell
+./sources/tools/prepare-nuget.ps1 -JavaSdkDirectory 'C:\Program Files\Java\jdk-21'
+```
+
+This rebuilds/tests Android, reuses the native iOS binaries prepared on macOS,
+builds Release, runs .NET tests, and validates the packages and an Android/Windows
+consumer before exposing `artifacts/packages/<Version>/`. Use `-OutputDirectory`
+to select another output root when the version directory already exists.
+
+On macOS, prepare native binaries and the three base NuGet packages from the repository
 root with:
 
 ```bash
@@ -744,10 +755,11 @@ bash sources/tools/prepare-nuget.sh
 ```
 
 This rebuilds and copies the native wrappers, builds the .NET libraries in
-Release, and validates packages under `artifacts/packages/0.2.0/`. Xcode is checked
+Release, and validates packages under `artifacts/native-preparation/0.2.1/`. Xcode is checked
 for availability only. See [the tooling guide](sources/tools/README.md) for
 prerequisites and [the release process](RELEASING.md) for Windows packaging and
-publishing checks. The script prepares packages without publishing them.
+publishing checks. MAUICross is packed on Windows and must include all four
+platforms. The script never publishes packages.
 
 ### Android
 

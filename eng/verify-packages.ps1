@@ -13,6 +13,13 @@ param(
 $ErrorActionPreference = 'Stop'
 
 $packageDirectoryPath = [System.IO.Path]::GetFullPath($PackageDirectory)
+$mauiProjectPath = Join-Path $PSScriptRoot '../sources/dotnet/AMDevIT.Admob.Wrapper/AMDevIT.Admob.Wrapper.MAUICross/AMDevIT.Admob.Wrapper.MAUICross.csproj'
+[xml]$mauiProject = Get-Content -LiteralPath $mauiProjectPath -Raw
+$mauiReference = $mauiProject.SelectSingleNode("/Project/ItemGroup/PackageReference[@Include='Microsoft.Maui.Controls']")
+if ($null -eq $mauiReference -or [string]::IsNullOrWhiteSpace($mauiReference.GetAttribute('Version'))) {
+    throw "Missing Microsoft.Maui.Controls version in $mauiProjectPath."
+}
+$mauiVersion = $mauiReference.GetAttribute('Version')
 $expectedPackageIds = @(
     'AMDevIT.Admob.Wrapper.Droid',
     'AMDevIT.Admob.Wrapper.iOSNative',
@@ -31,7 +38,7 @@ $expectedDependencies = @{
     'AMDevIT.Admob.Wrapper.MAUICross' = @(
         @{ Id = 'AMDevIT.Admob.Wrapper.Droid'; Version = $Version }
         @{ Id = 'AMDevIT.Admob.Wrapper.iOSNative'; Version = $Version }
-        @{ Id = 'Microsoft.Maui.Controls'; Version = '10.0.90' }
+        @{ Id = 'Microsoft.Maui.Controls'; Version = $mauiVersion }
     )
 }
 
@@ -55,6 +62,14 @@ foreach ($packageId in $expectedPackageIds) {
         foreach ($requiredEntry in @('README.md', 'admob_maui_icon_v4_wallet_block.png')) {
             if ($requiredEntry -notin $entryNames) {
                 throw "$packageId does not contain $requiredEntry."
+            }
+        }
+
+        if ($packageId -eq 'AMDevIT.Admob.Wrapper.MAUICross') {
+            foreach ($platform in @('android', 'ios', 'maccatalyst', 'windows')) {
+                if (-not ($entryNames -match "^lib/net10\.0-$platform[^/]*/AMDevIT\.Admob\.Wrapper\.MAUICross\.dll$")) {
+                    throw "MAUICross package is incomplete: missing $platform assembly."
+                }
             }
         }
 
@@ -92,7 +107,7 @@ foreach ($packageId in $expectedPackageIds) {
             throw "Missing repository metadata in $packagePath."
         }
 
-        $dependencies = @($metadata.dependencies.group.dependency)
+        $dependencies = @($metadata.SelectNodes("*[local-name()='dependencies']/*[local-name()='group']/*[local-name()='dependency']"))
 
         foreach ($expectedDependency in $expectedDependencies[$packageId]) {
             $matchingDependency = $dependencies | Where-Object {
@@ -110,11 +125,13 @@ foreach ($packageId in $expectedPackageIds) {
     }
 }
 
+$previousNugetPackages = $env:NUGET_PACKAGES
 $consumerRoot = Join-Path ([System.IO.Path]::GetTempPath()) "AMDevITAdMobPackageSmoke-$([guid]::NewGuid())"
 $resolvedConsumerRoot = [System.IO.Path]::GetFullPath($consumerRoot)
 
 try {
-    New-Item -ItemType Directory -Path $resolvedConsumerRoot | Out-Null
+    $consumerProjectRoot = Join-Path $resolvedConsumerRoot 'consumer'
+    New-Item -ItemType Directory -Path $consumerProjectRoot -Force | Out-Null
 
     $escapedPackageDirectory = [System.Security.SecurityElement]::Escape($packageDirectoryPath)
     $projectContent = @"
@@ -132,7 +149,7 @@ try {
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="AMDevIT.Admob.Wrapper.MAUICross" Version="$Version" />
-    <PackageReference Include="Microsoft.Maui.Controls" Version="10.0.90" />
+    <PackageReference Include="Microsoft.Maui.Controls" Version="$mauiVersion" />
   </ItemGroup>
 </Project>
 "@
@@ -162,10 +179,11 @@ public static class RegistrationSmokeTest
 }
 '@
 
-    Set-Content -LiteralPath (Join-Path $resolvedConsumerRoot 'PackageConsumerSmoke.csproj') -Value $projectContent
-    Set-Content -LiteralPath (Join-Path $resolvedConsumerRoot 'RegistrationSmokeTest.cs') -Value $sourceContent
+    Set-Content -LiteralPath (Join-Path $consumerProjectRoot 'PackageConsumerSmoke.csproj') -Value $projectContent
+    Set-Content -LiteralPath (Join-Path $consumerProjectRoot 'RegistrationSmokeTest.cs') -Value $sourceContent
 
-    dotnet restore (Join-Path $resolvedConsumerRoot 'PackageConsumerSmoke.csproj')
+    $env:NUGET_PACKAGES = Join-Path $resolvedConsumerRoot 'packages'
+    dotnet restore (Join-Path $consumerProjectRoot 'PackageConsumerSmoke.csproj')
 
     if ($LASTEXITCODE -ne 0) {
         throw 'Consumer package restore failed.'
@@ -173,7 +191,7 @@ public static class RegistrationSmokeTest
 
     $buildArguments = @(
         'build',
-        (Join-Path $resolvedConsumerRoot 'PackageConsumerSmoke.csproj'),
+        (Join-Path $consumerProjectRoot 'PackageConsumerSmoke.csproj'),
         '--configuration',
         'Release',
         '--no-restore',
@@ -195,6 +213,7 @@ public static class RegistrationSmokeTest
     }
 }
 finally {
+    $env:NUGET_PACKAGES = $previousNugetPackages
     $tempRoot = [System.IO.Path]::GetFullPath([System.IO.Path]::GetTempPath())
 
     if ($resolvedConsumerRoot.StartsWith($tempRoot, [System.StringComparison]::OrdinalIgnoreCase) -and

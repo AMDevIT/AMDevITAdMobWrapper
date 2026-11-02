@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Validate the four NuGet packages prepared by prepare-nuget.sh on macOS."""
+"""Validate complete release packages or the three macOS preparation packages."""
 
 from pathlib import Path
 import sys
@@ -12,7 +12,7 @@ def require(condition, message):
         raise ValueError(message)
 
 
-def verify(package_directory, version, solution_directory):
+def verify(package_directory, version, solution_directory, native_preparation=False):
     package_ids = (
         "AMDevIT.Admob.Wrapper.Droid",
         "AMDevIT.Admob.Wrapper.iOSNative",
@@ -20,6 +20,8 @@ def verify(package_directory, version, solution_directory):
         "AMDevIT.Admob.Wrapper.MAUICross",
     )
     for package_id in package_ids:
+        if native_preparation and package_id == "AMDevIT.Admob.Wrapper.MAUICross":
+            continue
         project = ET.parse(solution_directory / package_id / f"{package_id}.csproj").getroot()
         expected_references = {
             reference.attrib["Include"]: reference.attrib["Version"]
@@ -68,16 +70,16 @@ def verify(package_directory, version, solution_directory):
                 assemblies = [name for name in entries if name.startswith("lib/") and name.endswith(f"/{package_id}.dll")]
                 require(assemblies, f"Missing library assemblies in {package_path}")
                 if package_id == "AMDevIT.Admob.Wrapper.MAUICross":
-                    for platform in ("android", "ios", "maccatalyst"):
+                    for platform in ("android", "ios", "maccatalyst", "windows"):
                         require(any(platform in name.split("/")[1] for name in assemblies),
                                 f"Missing {platform} target in {package_path}")
             print(f"Verified: {package_path.name}")
 
 
 if __name__ == "__main__":
-    if len(sys.argv) != 4:
-        raise SystemExit("Usage: verify-nuget.py PACKAGE_DIRECTORY VERSION SOLUTION_DIRECTORY")
+    if len(sys.argv) not in (4, 5) or (len(sys.argv) == 5 and sys.argv[4] != "--native-preparation"):
+        raise SystemExit("Usage: verify-nuget.py PACKAGE_DIRECTORY VERSION SOLUTION_DIRECTORY [--native-preparation]")
     try:
-        verify(Path(sys.argv[1]), sys.argv[2], Path(sys.argv[3]))
+        verify(Path(sys.argv[1]), sys.argv[2], Path(sys.argv[3]), native_preparation=len(sys.argv) == 5)
     except (ValueError, OSError, ET.ParseError, BadZipFile) as error:
         raise SystemExit(f"Package verification failed: {error}") from error

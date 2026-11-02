@@ -257,3 +257,21 @@
 - Affected files: shared package props, four package projects, native Android Gradle and iOS Xcode metadata, README.md, RELEASING.md, CHANGELOG.md, CI workflow, .agents/2026-10-31-release-0.2.0.md, and this file.
 - Checks performed and results: the user pulled remote native binaries before edits; restore and aggregate Release build passed; known BG8605/BG8606 warnings remain; all 10 VSTest tests passed; all four MSBuild version/release-note evaluations matched; assembly version is 0.2.0.0. XML, PowerShell, workflow command/indentation, Markdown/link/formatting, native source version, and whitespace checks passed. No final packages were generated or published.
 - Open issues and recommended next step: rerun macOS preparation so native binaries report 0.2.0/build 2 instead of the checked-in 0.1.40/build 1, then prepare the chosen host variant, run consumer/device checks, and publish/tag manually.
+
+
+## 2026-10-31 - Windows NuGet packaging repair
+
+- Objective and status: repaired missing Windows target in MAUICross packaging; source, Release build, 10 tests, packages and isolated consumer verification passed.
+- Decisions: user confirmed 0.2.0 already published; use NuGet 0.2.1 with unchanged native 0.2.0/build 2 binaries. Block MAUICross packing without Windows; macOS produces only three intermediate base packages. Both release validators require all four platforms; consumer uses a fresh cache outside source globs.
+- Affected files: README, CHANGELOG, RELEASING, shared package props, MAUICross project, both package validators, macOS preparation script/tooling guide, .agents/2026-10-31-windows-package-repair.md and this file.
+- Checks: restore/Release build passed (existing BG warnings); 10 VSTest tests passed (existing MSTest/PRI warnings); four nupkg/snupkg pairs generated; metadata/symbol checks passed; missing-Windows regression rejected by both validators and MSBuild guard; Android/Windows package consumer passed with zero warnings/errors; Bash syntax/help and whitespace passed. JDK 21 selected explicitly; sandbox SDK/Bash restrictions resolved with authorized execution outside sandbox.
+- Open issues and next step: manually publish reviewed artifacts/packages/0.2.1 and update consumer. No publication or MyCurrencyConverter edits/build performed. Real macOS and physical-device verification remain separate checks.
+
+
+## 2026-10-31 - PowerShell NuGet preparation
+
+- Objective and status: added the Windows counterpart sources/tools/prepare-nuget.ps1; implementation and full execution completed.
+- Decisions: PowerShell 7; rebuild/test Android and reuse validated macOS iOS XCFramework; restore/build Release, run VSTest, pack all four libraries/symbols, run both validators and Android/Windows consumer. Default workload restore plus optional SkipWorkloadRestore for prepared hosts. Stage output, reject collisions, preserve caller environment/location, never publish. Read the MAUI dependency version from current source and support empty dependency groups under strict mode. Concurrent user project changes were preserved.
+- Affected files: new PowerShell script, tooling/root README, RELEASING, Python validator docstring, eng/verify-packages.ps1, detailed .agents/2026-10-31-powershell-nuget-preparation.md and this file. Original AAR restored after proving the rebuild changed only ProGuard line endings.
+- Checks: syntax/help, missing JDK, exit-code propagation, output collision and caller-state restoration passed. Default workload restore completed. Seven Kotlin tests, Release build, ten .NET tests, eight archive checks and isolated Android/Windows consumer passed. Final consumer had zero warnings/errors; existing BG and PRI warnings remain elsewhere. Final run used a different caller directory and a relative output path with spaces. Output: artifacts/PowerShell packages verified/0.2.1; log: artifacts/powershell-preparation-final.log. Whitespace passed.
+- Open issues and next step: no implementation issue; prepare native iOS changes on macOS and perform device/release review before manual publication. No commit/push/publication performed. Default artifacts/packages/0.2.1 remains untouched; use OutputDirectory for another run.
